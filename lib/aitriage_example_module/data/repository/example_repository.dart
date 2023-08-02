@@ -15,3 +15,4 @@ class ExampleRepositoryImpl implements ExampleRepository {
     return getConnectProvider.convertResponse(resp, (json) => ExampleResponse.fromJson(json));
   }
 }
+
