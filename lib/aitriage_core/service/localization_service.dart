@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 enum LanguageType { vietnamese, english }
 
-extension LanguageTypeEx on LanguageType {
+extension LanguageTypeX on LanguageType {
   Locale get locale {
     switch (this) {
       case LanguageType.vietnamese:
@@ -33,15 +33,15 @@ class LocalizationService extends Translations {
 
   static LanguageType get currentLanguage {
     final current = Get.locale?.languageCode ?? 'en';
-    return LanguageTypeEx.fromLanguage(current);
+    return LanguageTypeX.fromLanguage(current);
   }
 
   @override
   Map<String, Map<String, String>> get keys => _currentKeys;
 
   static Future<void> loadLanguage() async {
-    const viFilePath = 'packages/flutter_clean_example_core/lib/asset/lang/vi_VN.json';
-    const enFilePath = 'packages/flutter_clean_example_core/lib/asset/lang/en_US.json';
+    const viFilePath = 'packages/flutter_aitriage/lib/asset/language/vi_VN.json';
+    const enFilePath = 'packages/flutter_aitriage/lib/asset/language/en_US.json';
 
     _currentKeys['vi_VN'] = await _parseJsonFromAssets(viFilePath);
     _currentKeys['en_US'] = await _parseJsonFromAssets(enFilePath);
