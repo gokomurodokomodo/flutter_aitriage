@@ -27,7 +27,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - asset/lang/
-    - asset/image/
+    - lib/aitriage_core/asset/language/
+    - lib/aitriage_core/asset/image/
 
 
