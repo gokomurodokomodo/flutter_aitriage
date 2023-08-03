@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
-import 'package:flutter_aitriage/aitriage_core/util/svg_detector/svg_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/widget/svg_icon_widget.dart';
-
+import 'package:flutter_aitriage/aitriage_core/widget/alert_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../util/app_event_channel/custom_event/finish_init_event.dart';
 import 'device_detector.dart';
 
@@ -12,9 +11,11 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(
-        tablet: _SplashScreenTablet(),
-        phone: _SplashScreenPhone()
+    return const Scaffold(
+      body: DeviceDetector(
+          tablet: _SplashScreenTablet(),
+          phone: _SplashScreenPhone()
+      ),
     );
   }
 }
@@ -28,7 +29,7 @@ class _SplashScreenTablet extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppImage.tabletBackgroundSplashScreen),
+            image: AssetImage(AppImage.bgTabletBackgroundSplashScreen),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,7 +37,8 @@ class _SplashScreenTablet extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgIconWidget(icon: , name: '',),
+              Image.asset(AppImage.icTabletSplashScreen, width: 210.w, height: 220.h,),
+              Image.asset(AppImage.textTabletSplashScreen, height: 64.h,),
             ],
           ),
         )
@@ -50,6 +52,7 @@ class _SplashScreenPhone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return AlertScreen();
     final appEventChannel = AppEventChannel();
 
     appEventChannel.on<FinishInitEvent>().listen((event) {

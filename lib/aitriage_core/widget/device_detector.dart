@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_aitriage/aitriage_core/util/device_util.dart';
 
 class DeviceDetector extends StatelessWidget {
   final Widget tablet;
@@ -13,6 +13,6 @@ class DeviceDetector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizerUtil.deviceType == DeviceType.mobile ? phone : tablet;
+    return !DeviceUtil.isTablet ? phone : tablet;
   }
 }

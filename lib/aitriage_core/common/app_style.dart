@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_color.dart';
 
@@ -25,6 +25,9 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorAppPrimary,
   );
-  //icon size
-  static double appBarIconSize = 24.0.w;
+  static TextStyle styleTextAlertHeader = TextStyle(
+    fontSize: fontSizeXL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorAlertHeader,
+  );
 }
