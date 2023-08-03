@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/widget/app_dialog.dart';
-import 'package:flutter_aitriage/aitriage_core/widget/color_button.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/widget/device_detector.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -26,40 +25,62 @@ class _GettingStartedScreenTablet extends StatelessWidget {
   }
 }
 
-class _GettingStartedScreenPhone extends StatelessWidget {
+class _GettingStartedScreenPhone extends StatefulWidget {
   const _GettingStartedScreenPhone();
+
+  @override
+  State<_GettingStartedScreenPhone> createState() => _GettingStartedScreenPhoneState();
+}
+
+class _GettingStartedScreenPhoneState extends State<_GettingStartedScreenPhone> {
+  final rawPages = <Widget>[];
+  @override
+  void initState() {
+    super.initState();
+
+    for (int i = 1; i <= 4; i++) {
+      rawPages.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_$i.png', fit: BoxFit.fitWidth));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ColorButton(
-            title: 'Confirm',
-            onTap: () => Get.dialog(AppDialog(
-              primaryButtonTitle: 'Procceed',
-              secondaryButtonTitle: 'End Assessment',
-              title: 'Connecting Device',
-              content: Container(
-                height: 400,
-                child: ListView(
-                  children: [
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                    Text('123'),
-                  ],
-                ),
-              ),
-            )),
-        ).paddingSymmetric(horizontal: 20.w),
+      body: IntroductionScreen(
+        rawPages: rawPages,
+        showSkipButton: true,
+        showNextButton: false,
+        skip: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
+            decoration: BoxDecoration(
+              color:  AppColor.colorButtonBackgroundEnable,
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+            ),
+            child: Text("Skip", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
+        done: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
+            decoration: BoxDecoration(
+              color:  AppColor.colorButtonBackgroundEnable,
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+            ),
+            child: Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
+        onDone: () {
+          // On Done button pressed
+        },
+        onSkip: () {
+          // On Skip button pressed
+        },
+        dotsDecorator: DotsDecorator(
+          size: const Size.square(10.0),
+          activeSize: const Size(20.0, 10.0),
+          activeColor: Theme.of(context).colorScheme.secondary,
+          color: Colors.black26,
+          spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+          activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0)
+          ),
+        ),
       ),
     );
   }
