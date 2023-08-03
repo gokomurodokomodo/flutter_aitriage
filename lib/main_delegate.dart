@@ -53,7 +53,7 @@ class App extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               smartManagement: SmartManagement.full,
               //init page route
-              initialRoute: Routers.initialRoute,
+              initialRoute: AppRoute.initialRoute,
               getPages: pages,
               theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
               //init localize
