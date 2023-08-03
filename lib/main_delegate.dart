@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
+import 'package:flutter_aitriage/aitriage_core/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_example_module/config/example_module.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -77,3 +78,37 @@ class App extends StatelessWidget {
     );
   }
 }
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const DeviceDetector(
+        tablet: SplashScreenTablet(),
+        phone: SplashScreenPhone()
+    );
+  }
+}
+
+class SplashScreenTablet extends StatelessWidget {
+  const SplashScreenTablet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class SplashScreenPhone extends StatelessWidget {
+  const SplashScreenPhone({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+
+
+
