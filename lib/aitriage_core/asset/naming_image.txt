@@ -1,0 +1,3 @@
+AppImage.icSvgPlaceholder -> ic_svg_placeholder.svg -> svg image
+AppImage.icPlaceholder -> ic_placeholder.png/jpeg -> png and jpeg image
+AppImage.bgPlaceholder -> bg_placeholder.png/jpeg -> png and jpeg background
