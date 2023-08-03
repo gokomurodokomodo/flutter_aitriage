@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'aitriage_core/common/app_module.dart';
-import 'aitriage_core/route/routers.dart';
+import 'aitriage_core/route/app_router.dart';
 import 'aitriage_core/service/localization_service.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
@@ -38,14 +38,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (BuildContext context, Widget? child) {
+      builder: (_, __) {
         return Sizer(
-            builder: (context, orientation, deviceType) {
+            builder: (_, __, ___) {
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 smartManagement: SmartManagement.full,
                 //init page route
-                initialRoute: Routers.initialRoute,
+                initialRoute: AppRoute.initialRoute,
                 getPages: pages,
                 theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
                 //init localize
@@ -61,26 +61,24 @@ class App extends StatelessWidget {
 }
 
 List<GetPage> _initAppModule() {
-  final pages = Routers.getPages;
+  final pages = AppRoute.getPages;
   final module = <AppModule>[];
-
   module.add(ExampleModule());
 
   for(var item in module){
     pages.addAll(item.createRoutes());
   }
+
   return pages;
 }
 
 Future _initService() async {}
 
-Future<void> _initLocalStorage() async{
-  await GetStorage.init();
-}
+Future<void> _initLocalStorage() => GetStorage.init();
 
 Future _initFirebase() async {}
 
-Future<void> _initLocalization() async => LocalizationService.loadLanguage();
+Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
 
 
