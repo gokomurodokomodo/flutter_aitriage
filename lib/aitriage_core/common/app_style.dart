@@ -25,4 +25,6 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorAppPrimary,
   );
+  //icon size
+  static double appBarIconSize = 24.0.w;
 }

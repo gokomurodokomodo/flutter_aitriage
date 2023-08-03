@@ -37,10 +37,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      builder: (_, __) {
-        return Sizer(
-            builder: (_, __, ___) {
+    return Sizer(
+        builder: (context, orientation, deviceType) {
+        return ScreenUtilInit(
+            designSize: SizerUtil.deviceType == DeviceType.tablet ? const Size(1440, 1024) : const Size(375, 812),
+            builder: (BuildContext context, Widget? child) {
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 smartManagement: SmartManagement.full,
