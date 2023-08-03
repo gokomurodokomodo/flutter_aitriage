@@ -4,5 +4,5 @@ class AppImage {
   static const icPlaceholder =  'packages/flutter_aitriage/asset/image/ic_placeholder.png';
   static const icSvgPlaceholder = 'packages/flutter_aitriage/asset/image/ic_svg_placeholder.svg';
   // background
-  static const bgPlaceholder = 'packages/flutter_aitriage/asset/image/bg_placeholder.png';
+  static const bgSplashScreen = './lib/aitriage_core/asset/image/bg_splash_screen.png';
 }

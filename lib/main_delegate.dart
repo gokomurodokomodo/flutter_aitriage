@@ -26,7 +26,6 @@ List<GetPage> initAppModule() {
   final pages = Routers.getPages;
   final module = <AppModule>[];
 
-  //TODO: remove add example module
   module.add(ExampleModule());
 
   for(var item in module){
