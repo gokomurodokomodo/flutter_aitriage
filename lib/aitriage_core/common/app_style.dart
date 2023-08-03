@@ -20,10 +20,20 @@ class AppStyle {
   static const FontWeight fontWeight500 = FontWeight.w500;
   static const FontWeight fontWeightRegular = FontWeight.w400;
   // Text style
-  static TextStyle styleTextHeader = TextStyle(
-    fontSize: fontSize2XL,
+  static TextStyle styleTextColorButtonEnable = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorButtonTextEnable,
+  );
+  static TextStyle styleTextColorButtonDisable = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorButtonTextDisable,
+  );
+  static TextStyle styleTextDialogTitle = TextStyle(
+    fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
-    color: AppColor.colorAppPrimary,
+    color: AppColor.colorDialogTitleText,
   );
   static TextStyle styleTextAlertHeader = TextStyle(
     fontSize: fontSizeXL,

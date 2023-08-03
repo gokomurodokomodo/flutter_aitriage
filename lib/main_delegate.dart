@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'aitriage_core/common/app_module.dart';
-import 'aitriage_core/route/routers.dart';
+import 'aitriage_core/route/app_router.dart';
 import 'aitriage_core/service/localization_service.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
@@ -68,14 +68,14 @@ class App extends StatelessWidget {
 }
 
 List<GetPage> _initAppModule() {
-  final pages = Routers.getPages;
+  final pages = AppRoute.getPages;
   final module = <AppModule>[];
-
   module.add(ExampleModule());
 
   for(var item in module){
     pages.addAll(item.createRoutes());
   }
+
   return pages;
 }
 
@@ -87,7 +87,7 @@ Future<void> _initLocalStorage() async{
 
 Future _initFirebase() async {}
 
-Future<void> _initLocalization() => LocalizationService.loadLanguage();
+Future<void> _initLocalization() async => LocalizationService.loadLanguage();
 
 
 
