@@ -35,6 +35,9 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
-  //icon size
-  static double appBarIconSize = 24.0.w;
+  static TextStyle styleTextAlertHeader = TextStyle(
+    fontSize: fontSizeXL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorAlertHeader,
+  );
 }
