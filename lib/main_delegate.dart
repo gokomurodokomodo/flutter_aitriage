@@ -38,9 +38,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (BuildContext context, Widget? child) {
+      builder: (_, __) {
         return Sizer(
-            builder: (context, orientation, deviceType) {
+            builder: (_, __, ___) {
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 smartManagement: SmartManagement.full,
@@ -74,13 +74,11 @@ List<GetPage> _initAppModule() {
 
 Future _initService() async {}
 
-Future<void> _initLocalStorage() async{
-  await GetStorage.init();
-}
+Future<void> _initLocalStorage() => GetStorage.init();
 
 Future _initFirebase() async {}
 
-Future<void> _initLocalization() async => LocalizationService.loadLanguage();
+Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
 
 
