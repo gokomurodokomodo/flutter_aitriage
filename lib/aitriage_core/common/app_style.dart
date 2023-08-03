@@ -30,6 +30,11 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorButtonTextDisable,
   );
+  static TextStyle styleTextDialogTitle = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
   //icon size
   static double appBarIconSize = 24.0.w;
 }
