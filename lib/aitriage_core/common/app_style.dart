@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_color.dart';
 
 class AppStyle {
+  AppStyle._();
   // Font size
   static double fontSizeMin = 10.0.sp;
   static double fontSizeName = 22.0.sp;
@@ -24,6 +25,4 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorAppPrimary,
   );
-
-  AppStyle._();
 }

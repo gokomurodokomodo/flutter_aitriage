@@ -1,5 +1,5 @@
 class AppConstant {
-  static const String keyAccessToken = 'ACCESS_TOKEN';
-
   AppConstant._();
+  // constant
+  static const String keyAccessToken = 'ACCESS_TOKEN';
 }
