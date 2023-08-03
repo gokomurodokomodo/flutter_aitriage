@@ -40,8 +40,8 @@ class LocalizationService extends Translations {
   Map<String, Map<String, String>> get keys => _currentKeys;
 
   static Future<void> loadLanguage() async {
-    const viFilePath = 'packages/flutter_aitriage/lib/asset/language/vi_VN.json';
-    const enFilePath = 'packages/flutter_aitriage/lib/asset/language/en_US.json';
+    const viFilePath = 'packages/flutter_aitriage/lib/aitriage_core/asset/language/vi_VN.json';
+    const enFilePath = 'packages/flutter_aitriage/lib/aitriage_core/asset/language/en_US.json';
 
     _currentKeys['vi_VN'] = await _parseJsonFromAssets(viFilePath);
     _currentKeys['en_US'] = await _parseJsonFromAssets(enFilePath);
