@@ -74,11 +74,13 @@ List<GetPage> _initAppModule() {
 
 Future _initService() async {}
 
-Future<void> _initLocalStorage() => GetStorage.init();
+Future<void> _initLocalStorage() async{
+  await GetStorage.init();
+}
 
 Future _initFirebase() async {}
 
-Future<void> _initLocalization() => LocalizationService.loadLanguage();
+Future<void> _initLocalization() async => LocalizationService.loadLanguage();
 
 
 
