@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_color.dart';
 
@@ -20,10 +20,15 @@ class AppStyle {
   static const FontWeight fontWeight500 = FontWeight.w500;
   static const FontWeight fontWeightRegular = FontWeight.w400;
   // Text style
-  static TextStyle styleTextHeader = TextStyle(
-    fontSize: fontSize2XL,
-    fontWeight: fontWeightSemiBold,
-    color: AppColor.colorAppPrimary,
+  static TextStyle styleTextColorButtonEnable = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorButtonTextEnable,
+  );
+  static TextStyle styleTextColorButtonDisable = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorButtonTextDisable,
   );
   //icon size
   static double appBarIconSize = 24.0.w;
