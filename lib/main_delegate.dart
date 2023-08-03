@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
+import 'package:flutter_aitriage/aitriage_example_module/config/example_module.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
-import 'home_screen/page/home_screen_page.dart';
+import 'aitriage_core/common/app_module.dart';
+import 'aitriage_core/route/routers.dart';
+import 'aitriage_core/service/localization_service.dart';
+import 'package:get_storage/get_storage.dart';
 
 void mainDelegate(AppEnvironmentType appEnvironment) async {
   WidgetsFlutterBinding.ensureInitialized();
   final pages = initAppModule();
   AppEnvironment.setEnvironment(appEnvironment);
   _initService();
-  _initLocalStorage();
+  await _initLocalStorage();
   _initFirebase();
   // await _initLocalization();
 
@@ -17,14 +23,23 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
 }
 
 List<GetPage> initAppModule() {
-  final pages = <GetPage>[];
+  final pages = Routers.getPages;
+  final module = <AppModule>[];
 
+  //TODO: remove add example module
+  module.add(ExampleModule());
+
+  for(var item in module){
+    pages.addAll(item.createRoutes());
+  }
   return pages;
 }
 
 void _initService() async{}
 
-void _initLocalStorage() {}
+Future<void> _initLocalStorage() async{
+  await GetStorage.init();
+}
 
 void _initFirebase() {}
 
@@ -36,29 +51,25 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return ScreenUtilInit(
-    //   builder: (BuildContext context, Widget? child) {
-    //     return GetMaterialApp(
-    //       //init page route
-    //       // initialRoute: FirstModulePageRoute.firstPage,
-    //       getPages: pages,
-    //       //init localize
-    //       translations: LocalizationService(),
-    //       locale: LocalizationService.currentLocale,
-    //       fallbackLocale: LocalizationService.fallbackLocale,
-    //     );
-    //   },
-    // );
-    return Sizer(
-        builder: (context, orientation, deviceType) {
-          return const MaterialApp(
-            home: SafeArea(
-              child: Scaffold(
-                body: HomeScreenPage(),
-              ),
-            ),
-          );
-        }
+    return ScreenUtilInit(
+      builder: (BuildContext context, Widget? child) {
+        return Sizer(
+            builder: (context, orientation, deviceType) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                smartManagement: SmartManagement.full,
+                //init page route
+                initialRoute: Routers.initialRoute,
+                getPages: pages,
+                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+                //init localize
+                translations: LocalizationService(),
+                locale: LocalizationService.currentLocale,
+                fallbackLocale: LocalizationService.fallbackLocale,
+              );
+            }
+        );
+      }
     );
   }
 }
