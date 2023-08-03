@@ -17,7 +17,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
   _initService();
   await _initLocalStorage();
   _initFirebase();
-  // await _initLocalization();
+  await _initLocalization();
 
   runApp(App(pages: pages));
 }
@@ -43,11 +43,15 @@ Future<void> _initLocalStorage() async{
 
 void _initFirebase() {}
 
-// Future<void> _initLocalization() async => LocalizationService.loadLanguage();
+Future<void> _initLocalization() async => LocalizationService.loadLanguage();
 
 class App extends StatelessWidget {
-  const App({Key? key, required this.pages}) : super(key: key);
   final List<GetPage> pages;
+
+  const App({
+    super.key,
+    required this.pages
+  });
 
   @override
   Widget build(BuildContext context) {

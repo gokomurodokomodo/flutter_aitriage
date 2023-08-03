@@ -28,9 +28,7 @@ extension LanguageTypeX on LanguageType {
 class LocalizationService extends Translations {
   static final Map<String, Map<String, String>> _currentKeys = {};
   static const fallbackLocale = Locale('en', 'US');
-
   static Locale get currentLocale => const Locale('en', 'US');
-
   static LanguageType get currentLanguage {
     final current = Get.locale?.languageCode ?? 'en';
     return LanguageTypeX.fromLanguage(current);
@@ -40,9 +38,8 @@ class LocalizationService extends Translations {
   Map<String, Map<String, String>> get keys => _currentKeys;
 
   static Future<void> loadLanguage() async {
-    const viFilePath = 'packages/flutter_aitriage/lib/aitriage_core/asset/language/vi_VN.json';
-    const enFilePath = 'packages/flutter_aitriage/lib/aitriage_core/asset/language/en_US.json';
-
+    const viFilePath = './lib/aitriage_core/asset/language/vi_VN.json';
+    const enFilePath = './lib/aitriage_core/asset/language/en_US.json';
     _currentKeys['vi_VN'] = await _parseJsonFromAssets(viFilePath);
     _currentKeys['en_US'] = await _parseJsonFromAssets(enFilePath);
   }
@@ -53,6 +50,7 @@ class LocalizationService extends Translations {
     final String dataString = await rootBundle.loadString(assetsPath);
     final Map<String, dynamic> jsonResult = jsonDecode(dataString);
     final Map<String, String> data = jsonResult.map((key, value) => MapEntry(key, value.toString()));
+
     return data;
   }
 }

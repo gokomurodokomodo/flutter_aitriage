@@ -4,7 +4,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 
 class Routers {
   static const initialRoute = '/';
-  static const intro = 'intro';
+  static const intro = '/intro';
 
   static List<GetPage> getPages = [
     GetPage(
