@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_aitriage/home_screen/page/home_screen_page.dart';
+import 'package:flutter_aitriage/aitriage_core/widget/splash_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
 class Routers {
@@ -9,7 +9,7 @@ class Routers {
   static List<GetPage> getPages = [
     GetPage(
         name: initialRoute,
-        page: () => const HomeScreenPage()),
+        page: () => const SplashScreen()),
     GetPage(
         name: intro,
         page: () => const Placeholder()),
