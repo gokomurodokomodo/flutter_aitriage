@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_main/feature/main_screen/main_controller.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -13,7 +15,7 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class _MainScreenTablet extends StatelessWidget {
+class _MainScreenTablet extends GetView<MainController> {
   const _MainScreenTablet({super.key});
 
   @override
@@ -22,7 +24,7 @@ class _MainScreenTablet extends StatelessWidget {
   }
 }
 
-class _MainScreenPhone extends StatelessWidget {
+class _MainScreenPhone extends GetView<MainController> {
   const _MainScreenPhone({super.key});
 
   @override
