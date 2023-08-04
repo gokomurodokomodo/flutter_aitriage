@@ -1,6 +1,6 @@
-import 'package:flutter_aitriage/aitriage_intro/feature/intro/intro_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../feature/getting_started/getting_started_screen.dart';
+import '../feature/intro/intro_screen.dart';
 import '../feature/splash_screen/splash_screen.dart';
 
 class IntroPageRoute {

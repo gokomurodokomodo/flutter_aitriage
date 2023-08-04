@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
-import 'package:flutter_aitriage/aitriage_intro/config/intro_page_router.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/ui/widget/device_detector.dart';
 import 'package:get/get.dart';
+
+import '../../config/intro_page_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -3,8 +3,9 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
+import '../../config/intro_page_router.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -45,6 +46,7 @@ class _GettingStartedScreenPhone extends StatelessWidget {
                 Image.asset(AppImage.bgTextAitriage, width: 145, height: 64,),
                 ColorButton(
                   title: 'Get started',
+                  onTap: () => Get.toNamed(IntroPageRoute.intro),
                   shouldEnable: true,
                   width: 140.w,
                   decoration: BoxDecoration(
