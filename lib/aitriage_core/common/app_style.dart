@@ -40,4 +40,9 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorAlertHeader,
   );
+  static TextStyle styleTextColorGetStarted = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextGettingStarted,
+  );
 }
