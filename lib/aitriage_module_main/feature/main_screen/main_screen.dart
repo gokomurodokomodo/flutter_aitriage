@@ -7,14 +7,14 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: MainScreenTablet(),
-        phone: MainScreenPhone()
+        tablet: _MainScreenTablet(),
+        phone: _MainScreenPhone()
     );
   }
 }
 
-class MainScreenTablet extends StatelessWidget {
-  const MainScreenTablet({super.key});
+class _MainScreenTablet extends StatelessWidget {
+  const _MainScreenTablet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class MainScreenTablet extends StatelessWidget {
   }
 }
 
-class MainScreenPhone extends StatelessWidget {
-  const MainScreenPhone({super.key});
+class _MainScreenPhone extends StatelessWidget {
+  const _MainScreenPhone({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(),
+      body: Container(color: Colors.red),
     );
   }
 }
