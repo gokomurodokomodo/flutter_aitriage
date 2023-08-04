@@ -7,16 +7,29 @@ import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_e
 import '../../../aitriage_core/ui/widget/device_detector.dart';
 import 'package:get/get.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final appEventChannel = AppEventChannel();
+    appEventChannel
+        .on<FinishInitEvent>()
+        .listen((event) => Get.toNamed(IntroPageRoute.gettingStarted));
+  }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: DeviceDetector(
           tablet: _SplashScreenTablet(),
-          phone: _SplashScreenPhone()
-      ),
+          phone: _SplashScreenPhone()),
     );
   }
 }
@@ -48,23 +61,13 @@ class _SplashScreenTablet extends StatelessWidget {
   }
 }
 
-class _SplashScreenPhone extends StatefulWidget {
+class _SplashScreenPhone extends StatelessWidget {
   const _SplashScreenPhone();
 
   @override
-  State<_SplashScreenPhone> createState() => _SplashScreenPhoneState();
-}
-
-class _SplashScreenPhoneState extends State<_SplashScreenPhone> {
-  @override
-  void initState() {
-    super.initState();
-    final appEventChannel = AppEventChannel();
-    appEventChannel.on<FinishInitEvent>().listen((event) => Get.toNamed(IntroPageRoute.gettingStarted));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Image.asset(AppImage.bgSplashScreen);
+    return Scaffold(
+      body: Image.asset(AppImage.bgSplashScreen, fit: BoxFit.cover),
+    );
   }
 }

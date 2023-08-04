@@ -10,9 +10,9 @@ extension AlertExtension on AlertStatus {
   String get icon {
     switch (this) {
       case AlertStatus.success:
-        return AppImage.icSuccessAlertPage;
+        return AppImage.icSvgSuccessAlertPage;
       case AlertStatus.warning:
-        return AppImage.icWarningAlertPage;
+        return AppImage.icSvgWarningAlertPage;
       case AlertStatus.error:
         return 'Error';
     }
