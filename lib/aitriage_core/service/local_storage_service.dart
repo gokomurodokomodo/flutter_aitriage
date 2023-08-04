@@ -1,8 +1,7 @@
+import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../common/constant.dart';
 
 class LocalStorageService extends GetxService {
   LocalStorageService._();
@@ -39,4 +38,9 @@ class LocalStorageService extends GetxService {
   }
 
   T? cast<T>(dynamic value, {T? defaultValue}) => value is T ? value : defaultValue;
+
+  //
+  set updateFirstTimeOpening(bool value) => box.write(AppConstant.firstTimeOpening, value);
+
+  bool get firstTimeOpening => box.read(AppConstant.firstTimeOpening);
 }
