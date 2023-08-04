@@ -19,12 +19,53 @@ class GettingStartedScreen extends StatelessWidget {
   }
 }
 
+void _navigateToIntro(){
+  Get.offNamed(MainPageRoute.intro);
+}
+
 class _GettingStartedScreenTablet extends StatelessWidget {
   const _GettingStartedScreenTablet();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImage.bgTabletBackgroundSplashScreen),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImage.icAppLogo,
+                  width: 210.w,
+                  height: 220.h,
+                ),
+                Image.asset(
+                  AppImage.bgTextAitriage,
+                  height: 64.h,
+                ),
+                ColorButton(
+                    title: 'Get started',
+                    onTap: () => _navigateToIntro(),
+                    shouldEnable: true,
+                    width: 140.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColor.colorBorderDisable,
+                            width: 1.w,
+                            style: BorderStyle.solid),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(8.w)),
+                        gradient: AppColor.gradientGettingStartedButton))
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -46,7 +87,7 @@ class _GettingStartedScreenPhone extends StatelessWidget {
                 Image.asset(AppImage.bgTextAitriage, width: 145, height: 64,),
                 ColorButton(
                   title: 'Get started',
-                  onTap: () => Get.toNamed(MainPageRoute.intro),
+                  onTap: () => _navigateToIntro(),
                   shouldEnable: true,
                   width: 140.w,
                   decoration: BoxDecoration(
