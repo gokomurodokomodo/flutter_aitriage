@@ -3,8 +3,8 @@ import '../feature/getting_started/getting_started_screen.dart';
 import '../feature/intro/intro_screen.dart';
 import '../feature/splash_screen/splash_screen.dart';
 
-class IntroPageRoute {
-  IntroPageRoute._();
+class MainPageRoute {
+  MainPageRoute._();
 
   static const initialRoute = '/';
   static const gettingStarted = '/getting_started';
