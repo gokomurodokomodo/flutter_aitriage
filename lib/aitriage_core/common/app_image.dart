@@ -12,4 +12,10 @@ class AppImage {
   static const svgAppLogo = './lib/aitriage_core/asset/image/svg_app_logo.svg';
   static const svgSuccessAlert = './lib/aitriage_core/asset/image/svg_success_alert.svg';
   static const svgWarningAlert = './lib/aitriage_core/asset/image/svg_warning_alert.svg';
+  static const svgOverviewActive = './lib/aitriage_core/asset/image/svg_overview_active.svg';
+  static const svgOverviewInactive = './lib/aitriage_core/asset/image/svg_overview_inactive.svg';
+  static const svgAssessmentActive = './lib/aitriage_core/asset/image/svg_assessment_active.svg';
+  static const svgAssessmentInactive = './lib/aitriage_core/asset/image/svg_assessment_inactive.svg';
+  static const svgSettingActive = './lib/aitriage_core/asset/image/svg_setting_active.svg';
+  static const svgSettingInactive = './lib/aitriage_core/asset/image/svg_setting_inactive.svg';
 }
