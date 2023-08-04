@@ -51,8 +51,8 @@ class _SplashScreenTablet extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AppImage.icTabletSplashScreen, width: 210.w, height: 220.h,),
-              Image.asset(AppImage.textTabletSplashScreen, height: 64.h,),
+              Image.asset(AppImage.icAppLogo, width: 210.w, height: 220.h,),
+              Image.asset(AppImage.bgTextAitriage, height: 64.h,),
             ],
           ),
         )

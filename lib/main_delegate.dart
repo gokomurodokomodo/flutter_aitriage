@@ -49,19 +49,17 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
         designSize: DeviceUtil.isTablet ? const Size(1440, 1024) : const Size(375, 812),
         builder: (BuildContext context, Widget? child) {
-          return SafeArea(
-            child: GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              smartManagement: SmartManagement.full,
-              // Init page route
-              initialRoute: IntroPageRoute.initialRoute,
-              getPages: pages,
-              theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
-              // Init localize
-              translations: LocalizationService(),
-              locale: LocalizationService.currentLocale,
-              fallbackLocale: LocalizationService.fallbackLocale,
-            ),
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            smartManagement: SmartManagement.full,
+            // Init page route
+            initialRoute: IntroPageRoute.initialRoute,
+            getPages: pages,
+            theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+            // Init localize
+            translations: LocalizationService(),
+            locale: LocalizationService.currentLocale,
+            fallbackLocale: LocalizationService.fallbackLocale,
           );
         }
     );
