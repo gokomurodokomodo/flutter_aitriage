@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final appEventChannel = AppEventChannel();
     appEventChannel
         .on<FinishInitEvent>()
-        .listen((event) => Get.toNamed(MainPageRoute.gettingStarted));
+        .listen((event) => Get.offNamed(MainPageRoute.gettingStarted));
   }
 
   @override
