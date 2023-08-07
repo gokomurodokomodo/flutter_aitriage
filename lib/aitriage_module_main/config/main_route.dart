@@ -4,18 +4,18 @@ import 'package:flutter_aitriage/aitriage_module_main/feature/main_screen/main_s
 import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/home_overview_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/feature/home_setting/home_setting_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../feature/getting_started/getting_started_screen.dart';
 import '../feature/intro/intro_screen.dart';
 import '../feature/splash_screen/splash_screen.dart';
 
-class MainPageRoute {
-  MainPageRoute._();
+class MainRoute {
+  MainRoute._();
 
-  static const initialRoute = '/';
-  static const gettingStarted = '/getting_started';
-  static const intro = '/intro';
-  static const main = '/main';
+  static const _root = '/main';
+  static const initialRoute = '$_root/splash_screen';
+  static const gettingStarted = '$_root/getting_started';
+  static const intro = '$_root/intro';
+  static const main = '$_root/main_screen';
 
   static List<GetPage> createRoutes() => [
     GetPage(

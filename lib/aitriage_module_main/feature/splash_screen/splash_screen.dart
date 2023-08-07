@@ -6,7 +6,7 @@ import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_e
 import '../../../aitriage_core/ui/widget/device_detector.dart';
 import 'package:get/get.dart';
 
-import '../../config/main_page_router.dart';
+import '../../config/main_route.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final appEventChannel = AppEventChannel();
     appEventChannel
         .on<FinishInitEvent>()
-        .listen((event) => Get.offNamed(MainPageRoute.gettingStarted));
+        .listen((event) => Get.offNamed(MainRoute.gettingStarted));
   }
 
   @override

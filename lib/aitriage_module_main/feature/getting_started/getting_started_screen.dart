@@ -5,7 +5,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
-import '../../config/main_page_router.dart';
+import '../../config/main_route.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -20,7 +20,7 @@ class GettingStartedScreen extends StatelessWidget {
 }
 
 void _navigateToIntro(){
-  Get.offNamed(MainPageRoute.intro);
+  Get.offNamed(MainRoute.intro);
 }
 
 class _GettingStartedScreenTablet extends StatelessWidget {
