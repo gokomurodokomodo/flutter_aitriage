@@ -1,12 +1,12 @@
 import 'dart:async';
 
 // Collecting and cancel all stream
-mixin StreamCollector {
+mixin SubscriptionCollector {
   final _streamNeedToDispose = <StreamSubscription>[];
 
-  void _addToCollector(StreamSubscription stream) => _streamNeedToDispose.add(stream);
+  void addToCollector(StreamSubscription stream) => _streamNeedToDispose.add(stream);
 
-  void _disposeAllStreamInCollector() {
+  void disposeAllStreamInCollector() {
     for (var element in _streamNeedToDispose) {
       element.cancel();
     }

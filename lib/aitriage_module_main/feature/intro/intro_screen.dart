@@ -64,7 +64,7 @@ class _TabletState extends State<_Tablet> {
                   ),
                   child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
               onDone: () {
-                // On Done button pressed
+                Get.offNamed(MainRoute.main);
               },
               onSkip: () {
                 // On Skip button pressed
@@ -82,7 +82,7 @@ class _TabletState extends State<_Tablet> {
             ),
           ),
           const SizedBox(height: 20),
-          ColorButton(title: 'This is a title', shouldEnable: true, width: 180.w),
+          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 180.w),
           const SizedBox(height: 20),
           ColorButton(title: 'This is a title', shouldEnable: false, width: 180.w),
           const SizedBox(height: 20)
@@ -156,7 +156,7 @@ class _PhoneState extends State<_Phone> {
             ),
           ),
           const SizedBox(height: 20),
-          ColorButton(title: 'This is a title', shouldEnable: true, width: 180.w),
+          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 180.w),
           const SizedBox(height: 20),
           ColorButton(title: 'This is a title', shouldEnable: false, width: 180.w),
           const SizedBox(height: 200)

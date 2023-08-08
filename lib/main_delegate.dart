@@ -6,15 +6,13 @@ import 'package:flutter_aitriage/aitriage_core/util/device_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_module.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_module.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'aitriage_core/common/app_module.dart';
 import 'aitriage_core/service/localization_service.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import 'aitriage_module_main/config/main_module.dart';
-import 'aitriage_module_main/config/main_route.dart';
+import 'aitriage_module_main/feature/app/app.dart';
 
 void mainDelegate(AppEnvironmentType appEnvironment) async {
   // If you are using the async keyword in your main function,
@@ -27,52 +25,19 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
   AppEnvironment.setEnvironment(appEnvironment);
   await _setPreferOrientation();
   // Using Future.wait to avoid blocking UI before launch splash screen
-  // After all async func done, notify splash screen by AppEventChannel
   Future.wait([
     _initLocalization(),
     _initLocalStorage(),
     _initService(),
     _initFirebase()
-  ]).then((value) => appEventChannel.addEvent(FinishInitEvent('')));
+  ]).then((value) => appEventChannel.addEvent(FinishInitEvent('done')));
 
   runApp(App(pages: pages));
 }
 
-class App extends StatelessWidget {
-  final List<GetPage> pages;
-
-  const App({
-    super.key,
-    required this.pages
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: DeviceUtil.isTablet ? const Size(1440, 1024) : const Size(375, 812),
-        builder: (BuildContext context, Widget? child) {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            smartManagement: SmartManagement.full,
-            // Init page route
-            initialRoute: MainRoute.initialRoute,
-            getPages: pages,
-            theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
-            // Init localize
-            translations: LocalizationService(),
-            locale: LocalizationService.currentLocale,
-            fallbackLocale: LocalizationService.fallbackLocale,
-          );
-        }
-    );
-  }
-}
-
-Future<void> _setPreferOrientation() async{
-  DeviceUtil.isTablet
+Future<void> _setPreferOrientation() => DeviceUtil.isTablet
       ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       : SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-}
 
 List<GetPage> _initAppModule() {
   final pages = <GetPage<dynamic>>[];
@@ -89,15 +54,14 @@ List<GetPage> _initAppModule() {
   return pages;
 }
 
-Future _initService() async {}
+Future<void> _initLocalStorage() => GetStorage.init();
 
-Future<void> _initLocalStorage() async{
-  GetStorage.init();
-}
+Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
 Future _initFirebase() async {}
 
-Future<void> _initLocalization() async => LocalizationService.loadLanguage();
+Future _initService() async {}
+
 
 
 

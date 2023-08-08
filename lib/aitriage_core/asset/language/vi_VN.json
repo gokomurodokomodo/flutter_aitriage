@@ -1,4 +1,6 @@
 {
-  "app_name": "Tên app",
-  "hello": "Hello"
+  "app_name": "App name",
+  "sign_up_title": "Sign up fo a free trial",
+  "login_suggest": "Already have an account?",
+  "log_in": "Log in"
 }
