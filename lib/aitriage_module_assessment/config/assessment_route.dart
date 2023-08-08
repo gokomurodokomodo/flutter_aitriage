@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_note/add_new_note_screen.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/feature/connecting_device/connecting_device_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/note/note_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/record_vital_signs/record_vital_signs_screen.dart';
 import 'package:get/get.dart';
-
 import '../feature/assessment_result/assessment_result_screen.dart';
 
 class AssessmentRoute {
@@ -55,9 +53,5 @@ class AssessmentRoute {
   }
 
   static List<GetPage> createRoutes() => [
-    GetPage(
-        name: connectingDevice,
-        page: () => const ConnectingDeviceScreen()
-    )
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/home_overview_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +33,8 @@ class _Phone extends GetView<HomeOverviewController> {
 
   @override
   Widget build(BuildContext context) {
+    return const VitalSignChart(title: 'Test chart');
+
     return Scaffold(
       appBar: AppBar(
         title: const Row(
