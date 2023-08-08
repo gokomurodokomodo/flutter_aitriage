@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/search_bar_phone.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/search_textfield_phone.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +18,7 @@ class AllPatientsScreen extends StatelessWidget {
 }
 
 class _AllPatientsScreenTablet extends StatelessWidget {
-  const _AllPatientsScreenTablet({super.key});
+  const _AllPatientsScreenTablet();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _AllPatientsScreenTablet extends StatelessWidget {
 }
 
 class _AllPatientsScreenPhone extends StatelessWidget {
-  const _AllPatientsScreenPhone({super.key});
+  const _AllPatientsScreenPhone();
 
   @override
   Widget build(BuildContext context) {
