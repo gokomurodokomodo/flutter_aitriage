@@ -8,14 +8,14 @@ class SupportCenterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _SupportCenterTablet(), 
-        phone: _SupportCenterPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
 
-class _SupportCenterTablet extends StatelessWidget {
-  const _SupportCenterTablet();
+class _Tablet extends StatelessWidget {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class _SupportCenterTablet extends StatelessWidget {
   }
 }
 
-class _SupportCenterPhone extends StatelessWidget {
-  const _SupportCenterPhone();
+class _Phone extends StatelessWidget {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

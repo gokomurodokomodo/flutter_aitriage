@@ -13,20 +13,20 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _IntroScreenTablet(),
-        phone: _IntroScreenPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
 
-class _IntroScreenTablet extends StatefulWidget {
-  const _IntroScreenTablet();
+class _Tablet extends StatefulWidget {
+  const _Tablet();
 
   @override
-  State<_IntroScreenTablet> createState() => _IntroScreenTabletState();
+  State<_Tablet> createState() => _TabletState();
 }
 
-class _IntroScreenTabletState extends State<_IntroScreenTablet> {
+class _TabletState extends State<_Tablet> {
   final rawPages = <Widget>[];
 
   @override
@@ -93,14 +93,14 @@ class _IntroScreenTabletState extends State<_IntroScreenTablet> {
 }
 
 
-class _IntroScreenPhone extends StatefulWidget {
-  const _IntroScreenPhone();
+class _Phone extends StatefulWidget {
+  const _Phone();
 
   @override
-  State<_IntroScreenPhone> createState() => _IntroScreenPhoneState();
+  State<_Phone> createState() => _PhoneState();
 }
 
-class _IntroScreenPhoneState extends State<_IntroScreenPhone> {
+class _PhoneState extends State<_Phone> {
   final rawPages = <Widget>[];
 
   @override

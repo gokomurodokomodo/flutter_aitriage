@@ -7,14 +7,14 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _AboutUsScreenTablet(),
-        phone: _AboutUsScreenPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
 
-class _AboutUsScreenTablet extends StatelessWidget {
-  const _AboutUsScreenTablet();
+class _Tablet extends StatelessWidget {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,8 @@ class _AboutUsScreenTablet extends StatelessWidget {
   }
 }
 
-class _AboutUsScreenPhone extends StatelessWidget {
-  const _AboutUsScreenPhone();
+class _Phone extends StatelessWidget {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

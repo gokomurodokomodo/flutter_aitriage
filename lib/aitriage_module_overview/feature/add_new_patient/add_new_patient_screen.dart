@@ -12,14 +12,14 @@ class AddNewPatientScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _AddNewPatientScreenTablet(),
-        phone: _AddNewPatientScreenPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
 
-class _AddNewPatientScreenTablet extends StatelessWidget {
-  const _AddNewPatientScreenTablet();
+class _Tablet extends StatelessWidget {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class _AddNewPatientScreenTablet extends StatelessWidget {
   }
 }
 
-class _AddNewPatientScreenPhone extends StatelessWidget {
-  const _AddNewPatientScreenPhone();
+class _Phone extends StatelessWidget {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

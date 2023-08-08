@@ -12,14 +12,14 @@ class HomeOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _HomeOverviewScreenTablet(),
-        phone: _HomeOverviewScreenPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
 
-class _HomeOverviewScreenTablet extends GetView<HomeOverviewController> {
-  const _HomeOverviewScreenTablet({super.key});
+class _Tablet extends GetView<HomeOverviewController> {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class _HomeOverviewScreenTablet extends GetView<HomeOverviewController> {
   }
 }
 
-class _HomeOverviewScreenPhone extends GetView<HomeOverviewController> {
-  const _HomeOverviewScreenPhone({super.key});
+class _Phone extends GetView<HomeOverviewController> {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

@@ -29,14 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: DeviceDetector(
-          tablet: _SplashScreenTablet(),
-          phone: _SplashScreenPhone()),
+          tablet: _Tablet(),
+          phone: _Phone()),
     );
   }
 }
 
-class _SplashScreenTablet extends StatelessWidget {
-  const _SplashScreenTablet();
+class _Tablet extends StatelessWidget {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,8 @@ class _SplashScreenTablet extends StatelessWidget {
   }
 }
 
-class _SplashScreenPhone extends StatelessWidget {
-  const _SplashScreenPhone();
+class _Phone extends StatelessWidget {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

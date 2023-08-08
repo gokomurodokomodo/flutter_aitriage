@@ -38,11 +38,11 @@ class AlertScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _AlertScreenTablet(
+        tablet: _Tablet(
             title: title,
             alertStatus: alertStatus
         ),
-        phone: _AlertScreenPhone(
+        phone: _Phone(
             title: title,
             alertStatus: alertStatus,
             onTapSecondaryButton: onTapSecondaryButton,
@@ -52,11 +52,11 @@ class AlertScreen extends StatelessWidget {
   }
 }
 
-class _AlertScreenTablet extends StatelessWidget {
+class _Tablet extends StatelessWidget {
   final String? title;
   final AlertStatus alertStatus;
 
-  const _AlertScreenTablet({
+  const _Tablet({
     this.title,
     this.alertStatus = AlertStatus.success
   });
@@ -80,13 +80,13 @@ class _AlertScreenTablet extends StatelessWidget {
   }
 }
 
-class _AlertScreenPhone extends StatelessWidget {
+class _Phone extends StatelessWidget {
   final String? title;
   final AlertStatus alertStatus;
   final Function? onTapPrimaryButton;
   final Function? onTapSecondaryButton;
 
-  const _AlertScreenPhone({
+  const _Phone({
     this.title,
     this.alertStatus = AlertStatus.success,
     this.onTapSecondaryButton,

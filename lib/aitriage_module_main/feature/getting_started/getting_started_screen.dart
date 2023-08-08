@@ -13,8 +13,8 @@ class GettingStartedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _GettingStartedScreenTablet(),
-        phone: _GettingStartedScreenPhone()
+        tablet: _Tablet(),
+        phone: _Phone()
     );
   }
 }
@@ -23,8 +23,8 @@ void _navigateToIntro(){
   Get.offNamed(MainRoute.intro);
 }
 
-class _GettingStartedScreenTablet extends StatelessWidget {
-  const _GettingStartedScreenTablet();
+class _Tablet extends StatelessWidget {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +69,8 @@ class _GettingStartedScreenTablet extends StatelessWidget {
   }
 }
 
-class _GettingStartedScreenPhone extends StatelessWidget {
-  const _GettingStartedScreenPhone();
+class _Phone extends StatelessWidget {
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {
