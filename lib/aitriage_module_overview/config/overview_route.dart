@@ -17,9 +17,10 @@ class OverviewRoute {
   static const addNewPatients = '$_root/add_new_patient';
   // When navigate with id - nested navigation
   static Route? onGenerateRoute(RouteSettings settings) {
-    switch(settings.name) {
+    switch (settings.name) {
       case initialRoute:
         return GetPageRoute(
+            settings: settings,
             page: () => const HomeOverviewScreen(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => HomeOverviewController());
@@ -27,12 +28,14 @@ class OverviewRoute {
         );
       case allPatients:
         return GetPageRoute(
+            settings: settings,
             page: () => const AllPatientsScreen(),
             binding: BindingsBuilder(() {
             })
         );
       case addNewPatients:
         return GetPageRoute(
+            settings: settings,
             page: () => const AddNewPatientScreen(),
             binding: BindingsBuilder(() {
             }),

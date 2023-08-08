@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_setting/feature/home_setting/home_setting_screen.dart';
 import 'package:get/get.dart';
 
 class SettingRoute {
@@ -11,15 +12,18 @@ class SettingRoute {
   static const initialRoute = '$_root/home';
 
   static Route? onGenerateRoute(RouteSettings settings) {
-    if (settings.name == initialRoute) {
-      return GetPageRoute(
-          page: () => const Scaffold(),
-          binding: BindingsBuilder(() {
-          })
-      );
+    switch (settings.name) {
+      case initialRoute:
+        return GetPageRoute(
+            settings: settings,
+            page: () => const HomeSettingScreen(),
+            binding: BindingsBuilder(() {})
+        );
+      default:
+        return GetPageRoute(
+            settings: settings,
+            page: () => const Scaffold());
     }
-
-    return null;
   }
 
   static List<GetPage> createRoutes() => [

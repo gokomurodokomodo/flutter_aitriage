@@ -20,4 +20,6 @@ class AppColor {
   static const colorAlertHeader = Color(0xFF1B1B1B);
   static const colorTextGettingStarted = Color(0xffECECEC);
   static const colorSearchBar = Color(0xffa9a9a9);
+  static const colorSliderButtonEnable = Color(0xff129961);
+  static const colorSliderButtonDisable = Colors.red;
 }

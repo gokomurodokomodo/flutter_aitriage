@@ -5,7 +5,7 @@ import 'package:flutter_aitriage/aitriage_module_overview/config/overview_naviga
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_navigator.dart';
 import 'package:get/get.dart';
 
-class MainController extends GetxController {
+class HomeMainController extends GetxController {
   final modules = <Widget>[
     const KeepAliveWrapper(child: OverviewNavigator()),
     const KeepAliveWrapper(child: AssessmentNavigator()),

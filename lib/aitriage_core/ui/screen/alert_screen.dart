@@ -24,18 +24,30 @@ extension AlertExtension on AlertStatus {
 class AlertScreen extends StatelessWidget {
   final String? title;
   final AlertStatus alertStatus;
+  final Function? onTapPrimaryButton;
+  final Function? onTapSecondaryButton;
 
   const AlertScreen({
     super.key,
     this.title,
-    this.alertStatus = AlertStatus.success
+    this.alertStatus = AlertStatus.success,
+    this.onTapPrimaryButton,
+    this.onTapSecondaryButton
   });
 
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _AlertScreenTablet(title: title, alertStatus: alertStatus),
-        phone: _AlertScreenPhone(title: title, alertStatus: alertStatus)
+        tablet: _AlertScreenTablet(
+            title: title,
+            alertStatus: alertStatus
+        ),
+        phone: _AlertScreenPhone(
+            title: title,
+            alertStatus: alertStatus,
+            onTapSecondaryButton: onTapSecondaryButton,
+            onTapPrimaryButton: onTapPrimaryButton
+        )
     );
   }
 }
@@ -45,7 +57,6 @@ class _AlertScreenTablet extends StatelessWidget {
   final AlertStatus alertStatus;
 
   const _AlertScreenTablet({
-    super.key,
     this.title,
     this.alertStatus = AlertStatus.success
   });
@@ -72,11 +83,14 @@ class _AlertScreenTablet extends StatelessWidget {
 class _AlertScreenPhone extends StatelessWidget {
   final String? title;
   final AlertStatus alertStatus;
+  final Function? onTapPrimaryButton;
+  final Function? onTapSecondaryButton;
 
   const _AlertScreenPhone({
-    super.key,
     this.title,
-    this.alertStatus = AlertStatus.success
+    this.alertStatus = AlertStatus.success,
+    this.onTapSecondaryButton,
+    this.onTapPrimaryButton
   });
 
   @override
@@ -99,9 +113,9 @@ class _AlertScreenPhone extends StatelessWidget {
             SvgIconWidget(name: alertStatus.icon, size: 96,),
             const Text('Patient Added Successfully'),
             Spacer(),
-            ColorButton(title: 'Confirm', shouldEnable: true),
+            ColorButton(title: 'Confirm', shouldEnable: true, onTap: () => onTapPrimaryButton?.call()),
             SizedBox(height: 5),
-            ColorButton(title: 'Dismiss'),
+            ColorButton(title: 'Dismiss', onTap: () => onTapSecondaryButton?.call()),
             SizedBox(height: 10)
           ],
         ),

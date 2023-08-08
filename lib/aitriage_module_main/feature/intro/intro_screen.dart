@@ -20,7 +20,7 @@ class IntroScreen extends StatelessWidget {
 }
 
 class _IntroScreenTablet extends StatefulWidget {
-  const _IntroScreenTablet({super.key});
+  const _IntroScreenTablet();
 
   @override
   State<_IntroScreenTablet> createState() => _IntroScreenTabletState();
@@ -94,7 +94,7 @@ class _IntroScreenTabletState extends State<_IntroScreenTablet> {
 
 
 class _IntroScreenPhone extends StatefulWidget {
-  const _IntroScreenPhone({super.key});
+  const _IntroScreenPhone();
 
   @override
   State<_IntroScreenPhone> createState() => _IntroScreenPhoneState();
@@ -138,7 +138,7 @@ class _IntroScreenPhoneState extends State<_IntroScreenPhone> {
                   ),
                   child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
               onDone: () {
-                Get.toNamed(MainRoute.main);
+                Get.offNamed(MainRoute.main);
               },
               onSkip: () {
                 // On Skip button pressed

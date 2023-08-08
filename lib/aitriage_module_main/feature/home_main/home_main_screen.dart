@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
-import 'package:flutter_aitriage/aitriage_module_main/feature/main_screen/main_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class HomeMainScreen extends StatelessWidget {
+  const HomeMainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const DeviceDetector(
-        tablet: _MainScreenTablet(),
-        phone: _MainScreenPhone()
+        tablet: _HomeMainScreenTablet(),
+        phone: _HomeMainScreenPhone()
     );
   }
 }
 
-class _MainScreenTablet extends GetView<MainController> {
-  const _MainScreenTablet({super.key});
+class _HomeMainScreenTablet extends GetView<HomeMainController> {
+  const _HomeMainScreenTablet();
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +26,15 @@ class _MainScreenTablet extends GetView<MainController> {
   }
 }
 
-class _MainScreenPhone extends GetView<MainController> {
-  const _MainScreenPhone({super.key});
+class _HomeMainScreenPhone extends GetView<HomeMainController> {
+  const _HomeMainScreenPhone();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
         controller: controller.pageController,
+        physics: const NeverScrollableScrollPhysics(),
         children: controller.modules,
       ),
       bottomNavigationBar: Obx(() => BottomNavigationBar(

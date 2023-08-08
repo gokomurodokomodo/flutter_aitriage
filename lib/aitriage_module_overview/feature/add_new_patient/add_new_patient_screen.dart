@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_text_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:get/get.dart';
 
 class AddNewPatientScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class AddNewPatientScreen extends StatelessWidget {
 }
 
 class _AddNewPatientScreenTablet extends StatelessWidget {
-  const _AddNewPatientScreenTablet({super.key});
+  const _AddNewPatientScreenTablet();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _AddNewPatientScreenTablet extends StatelessWidget {
 }
 
 class _AddNewPatientScreenPhone extends StatelessWidget {
-  const _AddNewPatientScreenPhone({super.key});
+  const _AddNewPatientScreenPhone();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,15 @@ class _AddNewPatientScreenPhone extends StatelessWidget {
                 Expanded(child: ColorButton(
                   title: 'Confirm',
                   shouldEnable: true,
-                  onTap: () => Get.to(() => const AlertScreen()),))
+                  onTap: () {
+
+                    Get.to(() => AlertScreen(
+                        onTapPrimaryButton: () {
+                          Get.until((route) => route.isFirst);
+                          Get.until((route) => route.settings.name == OverviewRoute.initialRoute, id: OverviewRoute.nestedId);
+                          },
+                    ));
+                  }))
               ],
             ),
             const SizedBox(height: 20)
