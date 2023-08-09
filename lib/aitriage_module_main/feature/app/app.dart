@@ -6,7 +6,7 @@ import '../../../aitriage_core/service/localization_service.dart';
 import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/util/device_util.dart';
-import '../../../aitriage_core/util/subscription_collector/subcription_collector.dart';
+import '../../../aitriage_core/util/subscription_collector/subscription_collector.dart';
 import '../../config/main_route.dart';
 import '../splash_screen/splash_screen.dart';
 
@@ -46,6 +46,8 @@ class _AppState extends State<App> with SubscriptionCollector {
   void notifyFinishInit() {
     // Close appEventChannel
     disposeAllStreamInCollector();
+    // Future.delayed to avoid calling setState in build phase
+    // Do not remove
     Future.delayed(Duration.zero, () => setState(() => finishInit = true));
   }
 

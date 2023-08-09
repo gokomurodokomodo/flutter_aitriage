@@ -20,9 +20,9 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
   // before calling await any other methods.
   // This is because the await keyword will not work until the WidgetsBinding has been initialized.
   WidgetsFlutterBinding.ensureInitialized();
+  AppEnvironment.setEnvironment(appEnvironment);
   final appEventChannel = AppEventChannel();
   final pages = _initAppModule();
-  AppEnvironment.setEnvironment(appEnvironment);
   await _setPreferOrientation();
   // Using Future.wait to avoid blocking UI before launch splash screen
   Future.wait([
