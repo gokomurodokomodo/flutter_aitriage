@@ -71,7 +71,7 @@ class _SliderButtonState extends State<SliderButton> {
     );
   }
 
-  double get _height => widget.height ?? 24.w;
+  double get _height => widget.height ?? 24.h;
 
   double get _circleButtonSize => _height - padding;
 }

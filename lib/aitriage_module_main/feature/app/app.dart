@@ -64,22 +64,22 @@ class _AppState extends State<App> with SubscriptionCollector {
     return !finishInit
         ? const SplashScreen()
         : ScreenUtilInit(
-        designSize: DeviceUtil.isTablet
-            ? const Size(1440, 1024)
-            : const Size(375, 812),
-        builder: (BuildContext context, Widget? child) {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            smartManagement: SmartManagement.full,
-            // Init page route
-            initialRoute: initialRoute,
-            getPages: widget.pages,
-            theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
-            // Init localize
-            translations: LocalizationService(),
-            locale: LocalizationService.currentLocale,
-            fallbackLocale: LocalizationService.fallbackLocale,
-          );
-        });
+            designSize: DeviceUtil.isTablet
+                ? const Size(1440, 1024)
+                : const Size(375, 812),
+            builder: (BuildContext context, Widget? child) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                smartManagement: SmartManagement.full,
+                // Init page route
+                initialRoute: initialRoute,
+                getPages: widget.pages,
+                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+                // Init localize
+                translations: LocalizationService(),
+                locale: LocalizationService.currentLocale,
+                fallbackLocale: LocalizationService.fallbackLocale,
+              );
+            });
   }
 }

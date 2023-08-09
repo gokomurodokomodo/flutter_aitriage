@@ -15,7 +15,7 @@ class _SearchTextFieldPhoneState extends State<SearchTextFieldPhone> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.w,
+      height: 40.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(6.w)),
           border: Border.all(color: Colors.blueAccent),

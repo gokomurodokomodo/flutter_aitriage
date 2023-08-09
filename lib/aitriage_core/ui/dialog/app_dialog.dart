@@ -31,12 +31,12 @@ class AppDialog extends StatelessWidget {
       elevation: 0,
       insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.w),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 10.w),
+          SizedBox(height: 10.h),
           Row(
             children: [
               SizedBox(width: 48.w),
@@ -57,9 +57,9 @@ class AppDialog extends StatelessWidget {
           shouldShowSecondaryButton
               ? ColorButton(
                 title: secondaryButtonTitle!,
-                onTap: () => secondaryButtonCallback?.call()).paddingOnly(top: 8.w, left: 16.w, right: 16.w)
+                onTap: () => secondaryButtonCallback?.call()).paddingOnly(top: 8.h, left: 16.w, right: 16.w)
               : const SizedBox(),
-          SizedBox(height: 24.w)
+          SizedBox(height: 24.h)
         ],
       )
     );

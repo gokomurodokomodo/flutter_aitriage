@@ -14,6 +14,7 @@ import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart
 import 'aitriage_module_main/config/main_module.dart';
 import 'aitriage_module_main/feature/app/app.dart';
 
+// All logic init
 void mainDelegate(AppEnvironmentType appEnvironment) async {
   // If you are using the async keyword in your main function,
   // you will need to call WidgetsFlutterBinding.ensureInitialized()

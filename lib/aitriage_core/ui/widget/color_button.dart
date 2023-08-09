@@ -45,7 +45,7 @@ class ColorButton extends StatelessWidget {
 
   TextStyle get titleStyle => shouldEnable ? AppStyle.styleTextColorButtonEnable: AppStyle.styleTextColorButtonDisable;
 
-  double get _height => height != null ?  height! : 48.w;
+  double get _height => height != null ?  height! : 48.h;
 
   double get _width => width != null ? width! : double.infinity;
 

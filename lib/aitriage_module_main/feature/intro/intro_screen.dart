@@ -84,7 +84,12 @@ class _TabletState extends State<_Tablet> {
           const SizedBox(height: 20),
           ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 180.w),
           const SizedBox(height: 20),
-          ColorButton(title: 'This is a title', shouldEnable: false, width: 180.w),
+          Row(
+            children: [
+              Text('login_suggest'.tr),
+              Text('Log in'.tr)
+            ],
+          ),
           const SizedBox(height: 20)
         ],
       ),
