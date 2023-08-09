@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,15 +57,37 @@ class _AppState extends State<App> with SubscriptionCollector {
   }
   
   Future preloadImage() async {
-    final introBg = Image.asset(AppImage.bgTabletBackgroundSplashScreen);
-    await precacheImage(introBg.image, context);
+    if (shouldLaunchIntroScreen) {
+      switch (DeviceUtil.isTablet) {
+        case true:
+          cachedImage.add(Image.asset(AppImage.bgTabletBackgroundSplashScreen));
+
+          for (int i = 1; i <= 4; i++) {
+            cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_${i}_tablet.png', fit: BoxFit.fitWidth));
+          }
+
+          break;
+        case false:
+          cachedImage.add(Image.asset(AppImage.bgSplashScreen));
+
+          for (int i = 1; i <= 4; i++) {
+            cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_$i.png', fit: BoxFit.fitWidth));
+          }
+
+          break;
+      }
+
+      for (var item in cachedImage) {
+        await precacheImage(item.image, context);
+      }
+    }
   }
 
-  String get initialRoute {
-    // logic to get initialRoute
-    // initial rote can be getting started page, or home page
-    return MainRoute.gettingStarted;
-  }
+  bool get shouldLaunchIntroScreen => true;
+
+  String get initialRoute => shouldLaunchIntroScreen
+      ? MainRoute.gettingStarted
+      : MainRoute.main;
 
   @override
   Widget build(BuildContext context) {
