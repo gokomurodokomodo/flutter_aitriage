@@ -47,7 +47,13 @@ class _AppState extends State<App> with SubscriptionCollector {
     super.dispose();
   }
 
-  void notifyFinishInit() => setState(() {finishInit = true;});
+  void notifyFinishInit() => setState(() => finishInit = true);
+
+  String get initialRoute {
+    // logic to get initialRoute
+    // initial rote can be getting started page, or home page
+    return MainRoute.gettingStarted;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +70,7 @@ class _AppState extends State<App> with SubscriptionCollector {
             debugShowCheckedModeBanner: false,
             smartManagement: SmartManagement.full,
             // Init page route
-            initialRoute: MainRoute.gettingStarted,
+            initialRoute: initialRoute,
             getPages: widget.pages,
             theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
             // Init localize
