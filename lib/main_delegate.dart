@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_aitriage/aitriage_core/util/device_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module.dart';

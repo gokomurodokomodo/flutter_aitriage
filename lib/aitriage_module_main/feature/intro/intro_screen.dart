@@ -43,6 +43,7 @@ class _TabletState extends State<_Tablet> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: IntroductionScreen(
@@ -82,9 +83,10 @@ class _TabletState extends State<_Tablet> {
             ),
           ),
           const SizedBox(height: 20),
-          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 180.w),
+          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 332.w, height: 44.h),
           const SizedBox(height: 20),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text('login_suggest'.tr),
               Text('Log in'.tr)

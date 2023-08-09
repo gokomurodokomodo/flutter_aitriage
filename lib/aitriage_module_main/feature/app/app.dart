@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/service/localization_service.dart';
 import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
@@ -43,12 +44,20 @@ class _AppState extends State<App> with SubscriptionCollector {
     }
   }
 
-  void notifyFinishInit() {
+  void notifyFinishInit() async {
     // Close appEventChannel
     disposeAllStreamInCollector();
+    // Preload image asset
+    await preloadImage();
     // Future.delayed to avoid calling setState in build phase
     // Do not remove
-    Future.delayed(Duration.zero, () => setState(() => finishInit = true));
+    await Future.delayed(Duration.zero);
+    setState(() => finishInit = true);
+  }
+  
+  Future preloadImage() async {
+    final introBg = Image.asset(AppImage.bgTabletBackgroundSplashScreen);
+    await precacheImage(introBg.image, context);
   }
 
   String get initialRoute {
