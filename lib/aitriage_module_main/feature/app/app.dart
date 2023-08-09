@@ -30,24 +30,24 @@ class _AppState extends State<App> with SubscriptionCollector {
     super.initState();
     final appEventChannel = AppEventChannel();
     final lastEvent = appEventChannel.getLastEvent<FinishInitEvent>();
-
+    // Sometime init in MainDelegate finish before runApp()
+    // So the stream listen after the event being fired
+    // We must check the last event before listen
     if (lastEvent == null) {
-      final stream = appEventChannel
+      final subscription = appEventChannel
           .on<FinishInitEvent>()
           .listen((event) => notifyFinishInit());
-      addToCollector(stream);
+      addToCollector(subscription);
     } else {
-      Future.delayed(Duration.zero, () => notifyFinishInit());
+      notifyFinishInit();
     }
   }
 
-  @override
-  void dispose() {
+  void notifyFinishInit() {
+    // Close appEventChannel
     disposeAllStreamInCollector();
-    super.dispose();
+    Future.delayed(Duration.zero, () => setState(() => finishInit = true));
   }
-
-  void notifyFinishInit() => setState(() => finishInit = true);
 
   String get initialRoute {
     // logic to get initialRoute
