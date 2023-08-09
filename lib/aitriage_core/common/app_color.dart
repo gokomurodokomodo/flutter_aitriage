@@ -22,4 +22,5 @@ class AppColor {
   static const colorSearchBar = Color(0xffa9a9a9);
   static const colorSliderButtonEnable = Color(0xff129961);
   static const colorSliderButtonDisable = Colors.red;
+  static const colorRailHover = Color(0xffE6EFFE);
 }

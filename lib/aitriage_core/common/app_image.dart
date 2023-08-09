@@ -18,4 +18,8 @@ class AppImage {
   static const svgAssessmentInactive = './lib/aitriage_core/asset/image/svg_assessment_inactive.svg';
   static const svgSettingActive = './lib/aitriage_core/asset/image/svg_setting_active.svg';
   static const svgSettingInactive = './lib/aitriage_core/asset/image/svg_setting_inactive.svg';
+  static const svgHelpInactive = './lib/aitriage_core/asset/image/svg_ic_help_inactive.svg';
+  static const svgHelpActive = './lib/aitriage_core/asset/image/svg_ic_help_active.svg';
+  static const svgInfoInactive = './lib/aitriage_core/asset/image/svg_ic_info_inactive.svg';
+  static const svgInfoActive = './lib/aitriage_core/asset/image/svg_ic_info_active.svg';
 }

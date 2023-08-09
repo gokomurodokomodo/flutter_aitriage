@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class HomeMainScreen extends StatelessWidget {
@@ -22,7 +24,33 @@ class _Tablet extends GetView<HomeMainController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Row(
+        children: [
+          SizedBox(
+            width: 100.w,
+            child: CustomNavigationRail(
+              leading: CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 30,),
+              itemList: [
+                CustomNavigationRailItem(inactiveIcon: AppImage.svgOverviewInactive, activeIcon: AppImage.svgOverviewActive,),
+                CustomNavigationRailItem(inactiveIcon: AppImage.svgAssessmentInactive, activeIcon: AppImage.svgAssessmentActive,),
+                CustomNavigationRailItem(inactiveIcon:  AppImage.svgHelpInactive, activeIcon: AppImage.svgHelpActive,),
+                CustomNavigationRailItem(inactiveIcon:  AppImage.svgInfoInactive, activeIcon: AppImage.svgInfoActive,),
+                CustomNavigationRailItem(inactiveIcon:  AppImage.svgSettingInactive, activeIcon: AppImage.svgSettingActive,),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: Get.width - 100.w,
+            child: PageView(
+              controller: controller.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: controller.modules,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
