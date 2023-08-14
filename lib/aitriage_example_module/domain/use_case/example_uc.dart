@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter_aitriage/aitriage_example_module/data/api/request/example_request.dart';
 import 'package:flutter_aitriage/aitriage_example_module/data/api/response/example_response.dart';
 import 'package:flutter_aitriage/aitriage_example_module/domain/repository/example_repository.dart';

@@ -18,7 +18,7 @@ class _Tablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(AppImage.bgTabletBackgroundSplashScreen, fit: BoxFit.cover);
+    return Image.asset(AppImage.bgSplashScreenTablet, fit: BoxFit.cover,);
   }
 }
 

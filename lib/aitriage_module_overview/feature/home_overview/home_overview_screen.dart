@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
-import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/home_overview_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/widget/dashboard_patient_viewer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -28,11 +29,69 @@ class _Tablet extends GetView<HomeOverviewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.colorButtonTextEnable,
-        title: Text('Dashboard', style: AppStyle.styleTextDialogTitle,),
+      appBar: const CustomAppBar(
+        title: 'Dashboard',
+        searchBar: SearchAppBar(
+          placeholder: 'search type or keyword',
+        ),
+        trailing: Icon(Icons.notifications),
       ),
-      body: const Placeholder(),
+      body: Padding(
+        padding: EdgeInsets.all(24.w),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: Get.width,
+                    height: 150.h,
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: DashboardPatientViewer(
+                            label: 'Patient',
+                            amount: 10000,
+                            percent: 0.05,
+                            isGrowing: true,
+                          ),
+                        ),
+                        SizedBox(width: 24.w,),
+                        const Expanded(
+                          child: DashboardPatientViewer(
+                            label: 'Patient',
+                            amount: 10000,
+                            percent: 0.05,
+                            isGrowing: true,
+                          ),
+                        ),
+                        SizedBox(width: 24.w,),
+                        const Expanded(
+                          child: DashboardPatientViewer(
+                            label: 'Patient',
+                            amount: 10000,
+                            percent: 0.05,
+                            isGrowing: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24.h,),
+                  Expanded(
+                      child: Container(
+                          color: AppColor.colorButtonTextEnable)),
+                ],
+              ),
+            ),
+            SizedBox(width: 24.w,),
+            Container(
+              width: Get.width / 3 * 1,
+              color: AppColor.colorButtonTextEnable,
+            )
+          ],
+        ),
+      )
     );
   }
 }

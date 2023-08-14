@@ -11,6 +11,7 @@ class MainRoute {
   static const gettingStarted = '$_root/getting_started';
   static const intro = '$_root/intro';
   static const main = '$_root/home';
+  static const signIn = '$_root/sign_in';
 
   static List<GetPage> createRoutes() => [
     GetPage(

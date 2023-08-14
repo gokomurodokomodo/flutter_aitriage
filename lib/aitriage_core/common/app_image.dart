@@ -1,6 +1,7 @@
 class AppImage {
   AppImage._();
   // Background
+  static const bgSplashScreenTablet = './lib/aitriage_core/asset/image/bg_splash_screen_tablet.png';
   static const bgSplashScreen = './lib/aitriage_core/asset/image/bg_splash_screen.png';
   static const bgTabletBackgroundSplashScreen = './lib/aitriage_core/asset/image/bg_tablet_splash_screen_image.png';
   static const bgTextAitriage = './lib/aitriage_core/asset/image/bg_text_aitriage.png';
@@ -22,4 +23,5 @@ class AppImage {
   static const svgHelpActive = './lib/aitriage_core/asset/image/svg_ic_help_active.svg';
   static const svgInfoInactive = './lib/aitriage_core/asset/image/svg_ic_info_inactive.svg';
   static const svgInfoActive = './lib/aitriage_core/asset/image/svg_ic_info_active.svg';
+  static const svgSignInSignUpBackground = './lib/aitriage_core/asset/image/svg_sign_in_sign_up_background.svg';
 }

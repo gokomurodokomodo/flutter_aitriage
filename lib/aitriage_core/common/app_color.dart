@@ -23,4 +23,7 @@ class AppColor {
   static const colorSliderButtonEnable = Color(0xff129961);
   static const colorSliderButtonDisable = Colors.red;
   static const colorRailHover = Color(0xffE6EFFE);
+  static const colorBackgroundSearch = Color(0xffF8F8F8);
+  static const colorTextFieldPlaceHoler = Color(0xFFD0D0D0);
+  static const colorRememberMeText = Color(0xFF676767);
 }

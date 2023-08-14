@@ -14,6 +14,7 @@ class AppStyle {
   static double fontSizeXL = 20.0.sp;
   static double fontSize2XL = 24.0.sp;
   static double fontSize3XL = 30.0.sp;
+  static double fontSize35XL = 32.0.sp;
   static double fontSize4XL = 36.0.sp;
   // Font weight
   static const FontWeight fontWeightSemiBold = FontWeight.w600;
@@ -35,6 +36,11 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
+  static TextStyle styleTextDashboardTitle = TextStyle(
+    fontSize: fontSize2XL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
   static TextStyle styleTextAlertHeader = TextStyle(
     fontSize: fontSizeXL,
     fontWeight: fontWeightSemiBold,
@@ -44,5 +50,30 @@ class AppStyle {
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextGettingStarted,
+  );
+  static TextStyle styleDashboardPatientViewer = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorCloseButton,
+  );
+  static TextStyle styleLoginHeader = TextStyle(
+    fontSize: fontSize35XL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
+  static TextStyle styleCustomTextFieldLabel = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorAlertHeader,
+  );
+  static TextStyle styleCustomTextFieldHintText = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextFieldPlaceHoler,
+  );
+  static TextStyle styleRememberMeText = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorRememberMeText,
   );
 }

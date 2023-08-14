@@ -8,10 +8,11 @@ class CustomNavigationRail extends StatefulWidget {
   final double? width;
   final EdgeInsetsGeometry? leadingPadding;
   final int currentItem;
-  final List<CustomNavigationRailItem>? itemList;
+  final List<CustomNavigationRailItem> itemList;
   final double? itemPadding;
   final BoxDecoration? currentItemDecoration;
   final Color backgroundColorSelectedItem;
+  final Function(int)? onNavigationItemClick;
 
   const CustomNavigationRail(
       {super.key,
@@ -20,40 +21,43 @@ class CustomNavigationRail extends StatefulWidget {
       this.width,
       this.leadingPadding,
       this.currentItem = 0,
-      this.itemList,
+      required this.itemList,
       this.itemPadding,
       this.currentItemDecoration,
+      this.onNavigationItemClick,
       this.backgroundColorSelectedItem = AppColor.colorRailHover});
 
   @override
   State<StatefulWidget> createState() => _CustomNavigationRailState();
 }
 
-class _CustomNavigationRailState extends State<CustomNavigationRail> {
+class _CustomNavigationRailState extends State<CustomNavigationRail>
+    with SingleTickerProviderStateMixin {
   late int currentIndex;
   late List<CustomNavigationRailItem> itemList;
+
   @override
   void initState() {
-    currentIndex = widget.currentItem;
-    itemList = widget.itemList ?? List<CustomNavigationRailItem>.empty();
-      if(itemList.isEmpty){
-      } else {
-        itemList.elementAt(currentIndex).isActive = true;
-      }
     super.initState();
+    currentIndex = widget.currentItem;
+    itemList = widget.itemList;
+    if (itemList.isEmpty) {
+    } else {
+      itemList.elementAt(currentIndex).isActive = true;
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
+      color: AppColor.colorButtonTextEnable,
       child: Column(
         children: [
           Visibility(
             visible: widget.leading != null,
             child: Padding(
               padding: widget.leadingPadding ??
-                  const EdgeInsets.only(top: 30, bottom: 30),
+                  const EdgeInsets.only(top: 24, bottom: 24),
               child: widget.leading,
             ),
           ),
@@ -64,34 +68,41 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
                 child: ListView.builder(
                   itemCount: itemList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    if(index == currentIndex) {
-                      return Column(
-                        children: [
-                          Container(
-                              decoration: widget.currentItemDecoration ?? BoxDecoration(
-                                color: widget.backgroundColorSelectedItem,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: itemList.elementAt(index))),
-                          SizedBox(height: widget.itemPadding ?? 30,)
-                        ],
+                    if (index == currentIndex) {
+                      return Container(
+                        height: 70,
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                decoration: widget.currentItemDecoration ??
+                                    BoxDecoration(
+                                      color: widget.backgroundColorSelectedItem,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: itemList.elementAt(index))),
+                          ],
+                        ),
                       );
                     } else {
-                      return Column(
-                        children: [
-                          GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  itemList.elementAt(currentIndex).isActive = false;
-                                  currentIndex = index;
-                                  itemList.elementAt(currentIndex).isActive = true;
-                                });
-                              },
-                              child: itemList.elementAt(index)),
-                          SizedBox(height: widget.itemPadding ?? 30,)
-                        ],
+                      return SizedBox(
+                        height: 70,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  _onItemTapped(index);
+                                },
+                                child:
+                                    Center(child: itemList.elementAt(index))),
+                          ],
+                        ),
                       );
                     }
                   },
@@ -100,8 +111,8 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
           Visibility(
             visible: widget.trailing != null,
             child: Padding(
-              padding: widget.leadingPadding ??
-                  const EdgeInsets.only(bottom: 30),
+              padding:
+                  widget.leadingPadding ?? const EdgeInsets.only(bottom: 30),
               child: widget.trailing,
             ),
           ),
@@ -109,8 +120,21 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
       ),
     );
   }
+  Future<void> _onItemTapped(int index) async {
+    if (index == currentIndex) {
+      return;
+    }
+
+    setState(() {
+      itemList.elementAt(currentIndex).isActive = false;
+      currentIndex = index;
+      itemList.elementAt(currentIndex).isActive = true;
+      widget.onNavigationItemClick?.call(currentIndex);
+    });
+  }
 }
 
+//ignore: must_be_immutable
 class CustomNavigationRailItem extends StatelessWidget {
   final String inactiveIcon;
   final String? activeIcon;
@@ -130,25 +154,35 @@ class CustomNavigationRailItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget icActiveIcon;
     final Widget icInactiveIcon;
-    if(inactiveIcon.contains('svg')){
-      icInactiveIcon = SvgIconWidget(name: inactiveIcon,size: iconSize,);
-    } else{
-      icInactiveIcon = Image.asset(inactiveIcon, width: iconSize,);
+    if (inactiveIcon.contains('svg')) {
+      icInactiveIcon = SvgIconWidget(
+        name: inactiveIcon,
+        size: iconSize,
+      );
+    } else {
+      icInactiveIcon = Image.asset(
+        inactiveIcon,
+        width: iconSize,
+      );
     }
-    if(activeIcon != null){
-      if(activeIcon!.contains('svg')){
-        icActiveIcon = SvgIconWidget(name: activeIcon!,size: iconSize,);
-      } else{
-        icActiveIcon = Image.asset(activeIcon!, width: iconSize,);
+    if (activeIcon != null) {
+      if (activeIcon!.contains('svg')) {
+        icActiveIcon = SvgIconWidget(
+          name: activeIcon!,
+          size: iconSize,
+        );
+      } else {
+        icActiveIcon = Image.asset(
+          activeIcon!,
+          width: iconSize,
+        );
       }
-    } else{
+    } else {
       icActiveIcon = icInactiveIcon;
     }
 
     return Column(
-      children: [
-        isActive ? icActiveIcon : icInactiveIcon
-      ],
+      children: [isActive ? icActiveIcon : icInactiveIcon],
     );
   }
 }

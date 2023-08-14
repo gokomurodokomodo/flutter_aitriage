@@ -25,30 +25,34 @@ class _Tablet extends GetView<HomeMainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          SizedBox(
-            width: 100.w,
-            child: CustomNavigationRail(
-              leading: CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 30,),
-              itemList: [
-                CustomNavigationRailItem(inactiveIcon: AppImage.svgOverviewInactive, activeIcon: AppImage.svgOverviewActive,),
-                CustomNavigationRailItem(inactiveIcon: AppImage.svgAssessmentInactive, activeIcon: AppImage.svgAssessmentActive,),
-                CustomNavigationRailItem(inactiveIcon:  AppImage.svgHelpInactive, activeIcon: AppImage.svgHelpActive,),
-                CustomNavigationRailItem(inactiveIcon:  AppImage.svgInfoInactive, activeIcon: AppImage.svgInfoActive,),
-                CustomNavigationRailItem(inactiveIcon:  AppImage.svgSettingInactive, activeIcon: AppImage.svgSettingActive,),
-              ],
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 100.w,
+              child: CustomNavigationRail(
+                leading: const CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 25,),
+                itemList: [
+                  CustomNavigationRailItem(inactiveIcon: AppImage.svgOverviewInactive, activeIcon: AppImage.svgOverviewActive,),
+                  CustomNavigationRailItem(inactiveIcon: AppImage.svgAssessmentInactive, activeIcon: AppImage.svgAssessmentActive,),
+                  CustomNavigationRailItem(inactiveIcon:  AppImage.svgHelpInactive, activeIcon: AppImage.svgHelpActive,),
+                  CustomNavigationRailItem(inactiveIcon:  AppImage.svgInfoInactive, activeIcon: AppImage.svgInfoActive,),
+                  CustomNavigationRailItem(inactiveIcon:  AppImage.svgSettingInactive, activeIcon: AppImage.svgSettingActive,),
+                ],
+                onNavigationItemClick: (index) => controller.updateTabBarViewIndex(index),
+              ),
             ),
-          ),
-          SizedBox(
-            width: Get.width - 100.w,
-            child: PageView(
-              controller: controller.pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: controller.modules,
+            SizedBox(
+              width: Get.width - 100.w,
+              child: PageView(
+                controller: controller.pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: controller.modules,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
