@@ -5,8 +5,8 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SuccessResetPasswordPage extends StatelessWidget{
-  const SuccessResetPasswordPage({super.key});
+class SuccessResetPasswordScreen extends StatelessWidget{
+  const SuccessResetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

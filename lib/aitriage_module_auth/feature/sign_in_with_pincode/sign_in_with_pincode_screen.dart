@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/config/authen_route.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
+import '../../config/auth_route.dart';
 
-class SignInPageWithPinCode extends GetView<SignInWithPinCodeController>{
-  const SignInPageWithPinCode({super.key});
+class SignInWithPinCodeScreen extends GetView<SignInWithPinCodeController>{
+  const SignInWithPinCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _Tablet extends StatelessWidget{
               ),
             SizedBox(height: 32.h,),
             TextButton(onPressed: (){
-              Get.offNamed(AuthenRoute.signIn);
+              Get.offNamed(AuthRoute.signIn);
             }, child: Text('use_another_account'.tr))
           ],
         ),

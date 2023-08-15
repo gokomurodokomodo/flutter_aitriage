@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/config/authen_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import 'package:get/get.dart';
+
+import '../../../aitriage_module_auth/config/auth_route.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -79,10 +80,10 @@ class _TabletState extends State<_Tablet> {
                   ),
                   child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
               onDone: () {
-                Get.offNamed(AuthenRoute.signInWithCode);
+                Get.offNamed(AuthRoute.signInWithCode);
               },
               onSkip: () {
-                Get.offNamed(AuthenRoute.successResetPassword);
+                Get.offNamed(AuthRoute.successResetPassword);
                 // On Skip button pressed
               },
               dotsDecorator: DotsDecorator(

@@ -2,16 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/config/authen_route.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/forgot_password/forgot_password_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
+import '../../config/auth_route.dart';
+import 'forgot_password_controller.dart';
 
-class ForgotPasswordPage extends GetView<ForgotPasswordController>{
-  const ForgotPasswordPage({super.key});
+class ForgotPasswordScreen extends GetView<ForgotPasswordController>{
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _Tablet extends StatelessWidget{
               SizedBox(
                 width: 450.w,
                 child: ColorButton(
-                  onTap: () => Get.toNamed(AuthenRoute.checkYourEmail),
+                  onTap: () => Get.toNamed(AuthRoute.checkYourEmail),
                   title: 'reset_password'.tr,
                   shouldEnable: true,
                 ),

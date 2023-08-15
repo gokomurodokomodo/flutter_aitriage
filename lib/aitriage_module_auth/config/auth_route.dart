@@ -1,17 +1,16 @@
-import 'package:flutter_aitriage/aitriage_module_authen/feature/check_your_email/check_your_email_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/check_your_email/check_your_email_page.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/forgot_password/forgot_password_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/sign_in_with_pincode/sign_in_page.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/feature/widget/success_reset_password_page.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
 import 'package:get/get.dart';
-
-import '../feature/forgot_password/forgot_password_page.dart';
+import '../feature/check_your_email/check_your_email_controller.dart';
+import '../feature/forgot_password/forgot_password_controller.dart';
+import '../feature/forgot_password/forgot_password_screen.dart';
 import '../feature/sign_in/sign_in_controller.dart';
-import '../feature/sign_in/sign_in_page.dart';
+import '../feature/sign_in/sign_in_screen.dart';
+import '../feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
+import '../feature/success_reset_password/success_reset_password_screen.dart';
 
-class AuthenRoute {
-  AuthenRoute._();
+class AuthRoute {
+  AuthRoute._();
 
   static const _root = '/main';
   static const signIn = '$_root/login';
@@ -23,34 +22,34 @@ class AuthenRoute {
   static List<GetPage> createRoutes() => [
     GetPage(
         name: signIn,
-        page: () => const SignInPage(),
+        page: () => const SignInScreen(),
         binding: BindingsBuilder((){
           Get.lazyPut(() => SignInController());
         })
     ),
     GetPage(
         name: signInWithCode,
-        page: () => const SignInPageWithPinCode(),
+        page: () => const SignInWithPinCodeScreen(),
         binding: BindingsBuilder((){
           Get.lazyPut(() => SignInWithPinCodeController());
         })),
     GetPage(
         name: forgotPassword,
-        page: () => const ForgotPasswordPage(),
+        page: () => const ForgotPasswordScreen(),
         binding: BindingsBuilder((){
           Get.lazyPut(() => ForgotPasswordController());
         })
     ),
     GetPage(
         name: checkYourEmail,
-        page: () => const CheckYourEmailPage(),
+        page: () => const CheckYourEmailScreen(),
         binding: BindingsBuilder((){
           Get.lazyPut(() => CheckYourEmailController());
         })
     ),
     GetPage(
         name: successResetPassword,
-        page: () => const SuccessResetPasswordPage()
+        page: () => const SuccessResetPasswordScreen()
     )
   ];
 }

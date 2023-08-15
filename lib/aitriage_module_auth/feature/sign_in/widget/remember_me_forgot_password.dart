@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_module_authen/config/authen_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../aitriage_core/common/app_style.dart';
+import '../../../config/auth_route.dart';
 
 class RememberAndForgotPassword extends StatelessWidget {
   final bool isChecked;
@@ -43,7 +43,7 @@ class RememberAndForgotPassword extends StatelessWidget {
             const Spacer(),
             TextButton(
               onPressed: () {
-                Get.toNamed(AuthenRoute.forgotPassword);
+                Get.toNamed(AuthRoute.forgotPassword);
               },
               style: TextButton.styleFrom(
                   padding: EdgeInsets.zero
