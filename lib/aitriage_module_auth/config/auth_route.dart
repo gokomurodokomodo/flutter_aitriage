@@ -12,7 +12,7 @@ import '../feature/success_reset_password/success_reset_password_screen.dart';
 class AuthRoute {
   AuthRoute._();
 
-  static const _root = '/main';
+  static const _root = '/auth';
   static const signIn = '$_root/login';
   static const signInWithCode = '$_root/login_with_code';
   static const forgotPassword = '$_root/forgot_password';
