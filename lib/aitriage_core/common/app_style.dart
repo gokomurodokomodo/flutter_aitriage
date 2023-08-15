@@ -63,7 +63,7 @@ class AppStyle {
   );
   static TextStyle styleCustomTextFieldLabel = TextStyle(
     fontSize: fontSizeSM,
-    fontWeight: fontWeightRegular,
+    fontWeight: fontWeight500,
     color: AppColor.colorAlertHeader,
   );
   static TextStyle styleCustomTextFieldHintText = TextStyle(
@@ -76,4 +76,20 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorRememberMeText,
   );
+  static TextStyle styleCheckYourEmailNotification = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorRememberMeText,
+  );
+  static TextStyle styleTextButtonBackToLogin = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorRememberMeText,
+  );
+  static TextStyle styleCheckYourEmail = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorRememberMeText,
+  );
+
 }

@@ -11,7 +11,7 @@ import 'aitriage_core/common/app_module.dart';
 import 'aitriage_core/service/localization_service.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
-import 'aitriage_module_authen/config/main_module.dart';
+import 'aitriage_module_authen/config/authen_module.dart';
 import 'aitriage_module_main/config/main_module.dart';
 import 'aitriage_module_main/feature/app/app.dart';
 

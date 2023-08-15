@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/app_color.dart';
 import '../../common/app_style.dart';
@@ -14,9 +15,10 @@ class CustomLoginField extends StatelessWidget {
   final double? textFieldHeight;
   final Function(String)? onTextChange;
   final bool? isValidated;
+  final TextInputType? type;
+  final bool shouldSecured;
 
-  final FocusNode _focusNode = FocusNode();
-  CustomLoginField({
+  const CustomLoginField({
     super.key,
     this.label,
     this.hintText,
@@ -26,7 +28,9 @@ class CustomLoginField extends StatelessWidget {
     this.textFieldWidth,
     this.textFieldHeight,
     this.onTextChange,
-    this.isValidated
+    this.isValidated,
+    this.type,
+    this.shouldSecured = false
   });
 
   @override
@@ -47,11 +51,14 @@ class CustomLoginField extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 10.w),
             child: TextField(
+              obscureText: shouldSecured ? true : false,
+              enableSuggestions: shouldSecured ? false : true,
+              autocorrect: shouldSecured ? false : true,
+              keyboardType: type ?? TextInputType.text,
               onChanged: (_) {
                 onTextChange?.call(_);
               },
-              focusNode: _focusNode,
-              onTapOutside: (_) => _focusNode.unfocus(),
+              onTapOutside: (_) => Get.focusScope?.unfocus(),
               decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: AppStyle.styleCustomTextFieldHintText,

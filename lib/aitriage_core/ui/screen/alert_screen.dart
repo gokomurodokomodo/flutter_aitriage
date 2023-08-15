@@ -105,18 +105,18 @@ class _Phone extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 136),
+            const SizedBox(height: 136),
             SvgIconWidget(name: alertStatus.icon, size: 96,),
             const Text('Patient Added Successfully'),
-            Spacer(),
+            const Spacer(),
             ColorButton(title: 'Confirm', shouldEnable: true, onTap: () => onTapPrimaryButton?.call()),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             ColorButton(title: 'Dismiss', onTap: () => onTapSecondaryButton?.call()),
-            SizedBox(height: 10)
+            const SizedBox(height: 10)
           ],
         ),
       ),

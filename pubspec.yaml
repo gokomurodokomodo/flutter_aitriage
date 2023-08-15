@@ -23,6 +23,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   tutorial_coach_mark: ^1.2.9
   syncfusion_flutter_charts: ^22.2.8
+  sprintf: ^7.0.0
 
 dev_dependencies:
   flutter_test:

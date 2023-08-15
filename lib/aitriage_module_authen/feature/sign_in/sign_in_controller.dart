@@ -1,26 +1,33 @@
 import 'package:get/get.dart';
 
 class SignInController extends GetxController{
-  var isValidEmail = true.obs;
-  var isValidPassword = true.obs;
+  var isValidEmail = false.obs;
+  var isValidPassword = false.obs;
   var isValidated = false.obs;
   var isCheck = false.obs;
 
 
   void onTextEmailChange(String email){
     isValidEmail.value = _validateEmail(email);
-    if(isValidEmail.value && isValidPassword.value) isValidated.value = true;
+    _validate();
   }
 
   void onTextPasswordChange(String password){
     isValidPassword.value = _validatePassword(password);
-    if(isValidEmail.value && isValidPassword.value) isValidated.value = true;
-    print(isValidated.value);
+    _validate();
   }
 
   void onCheckBoxTap(bool value){
-    print(value);
     isCheck.value = value;
+    _validate();
+  }
+
+  void _validate(){
+    if(isValidEmail.value && isValidPassword.value && isCheck.value) {
+      isValidated.value = true;
+    } else {
+      isValidated.value = false;
+    }
   }
 
   bool _validateEmail(String email) {

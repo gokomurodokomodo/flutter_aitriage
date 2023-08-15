@@ -9,9 +9,9 @@ class CustomExpansionTilePhone extends StatelessWidget {
     return ExpansionTile(
       title: Row(
         children: [
-          Icon(Icons.supervised_user_circle),
+          const Icon(Icons.supervised_user_circle),
           SizedBox(width: 5.w),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Patient001'),
@@ -20,7 +20,7 @@ class CustomExpansionTilePhone extends StatelessWidget {
           )
         ],
       ),
-      children: [
+      children: const [
         Row(
           children: [
             Text('Gender'),
