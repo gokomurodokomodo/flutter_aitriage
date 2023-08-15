@@ -10,23 +10,21 @@ import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 import '../../config/auth_route.dart';
 
-class SignInWithPinCodeScreen extends GetView<SignInWithPinCodeController>{
+class SignInWithPinCodeScreen extends StatelessWidget {
   const SignInWithPinCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _Tablet(controller: controller,), 
+        tablet: const _Tablet(),
         phone: _Phone()
     );
 
   }
 }
 
-class _Tablet extends StatelessWidget{
-  final SignInWithPinCodeController controller;
-  
-  const _Tablet({required this.controller});
+class _Tablet extends GetView<SignInWithPinCodeController> {
+  const _Tablet();
   
   @override
   Widget build(BuildContext context) {

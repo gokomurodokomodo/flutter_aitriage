@@ -10,21 +10,19 @@ import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 import '../../config/auth_route.dart';
 import 'forgot_password_controller.dart';
 
-class ForgotPasswordScreen extends GetView<ForgotPasswordController>{
+class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _Tablet(controller: controller,),
+        tablet: const _Tablet(),
         phone: _Phone());
   }
 }
 
-class _Tablet extends StatelessWidget{
-  final ForgotPasswordController controller;
-
-  const _Tablet({required this.controller});
+class _Tablet extends GetView<ForgotPasswordController> {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {

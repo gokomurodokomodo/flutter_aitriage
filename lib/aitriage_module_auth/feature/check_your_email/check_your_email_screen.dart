@@ -8,21 +8,19 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import 'check_your_email_controller.dart';
 
-class CheckYourEmailScreen extends GetView<CheckYourEmailController>{
+class CheckYourEmailScreen extends StatelessWidget {
   const CheckYourEmailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _Tablet(controller: controller),
+        tablet: const _Tablet(),
         phone: _Phone());
   }
 }
 
-class _Tablet extends StatelessWidget{
-  final CheckYourEmailController controller;
-
-  const _Tablet({required this.controller});
+class _Tablet extends GetView<CheckYourEmailController> {
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {

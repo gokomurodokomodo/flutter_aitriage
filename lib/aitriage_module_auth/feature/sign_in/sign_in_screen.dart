@@ -10,30 +10,20 @@ import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 
-class SignInScreen extends GetView<SignInController> {
+class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DeviceDetector(
-        tablet: _Tablet(controller: controller,),
+        tablet: const _Tablet(),
         phone: _Phone());
   }
 }
 
-class _Tablet extends StatefulWidget {
-  final SignInController controller;
+class _Tablet extends GetView<SignInController> {
+  const _Tablet();
 
-  const _Tablet({
-    required this.controller
-  });
-
-  @override
-  State<StatefulWidget> createState() => _TabletState();
-
-}
-
-class _TabletState extends State<_Tablet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +40,7 @@ class _TabletState extends State<_Tablet> {
             ),
               SizedBox(
                 child: CustomLoginField(
-                  onTextChange: (_) => widget.controller.onTextEmailChange(_),
+                  onTextChange: (_) => controller.onTextEmailChange(_),
                   // isValidated: widget.controller.isValidEmail.value,
                   label: 'email_label'.tr,
                   hintText: 'email_hint'.tr,
@@ -60,7 +50,7 @@ class _TabletState extends State<_Tablet> {
               CustomLoginField(
                 shouldSecured: true,
                 onTextChange: (_) =>
-                    widget.controller.onTextPasswordChange(_),
+                    controller.onTextPasswordChange(_),
                 // isValidated: widget.controller.isValidPassword.value,
                 label: 'password_label'.tr,
                 hintText: 'password_hint'.tr,
@@ -69,8 +59,8 @@ class _TabletState extends State<_Tablet> {
               return SizedBox(
                 width: 450.w,
                 child: RememberAndForgotPassword(
-                  isChecked: widget.controller.isCheck.value,
-                  onTapCheck: widget.controller.onCheckBoxTap,
+                  isChecked: controller.isCheck.value,
+                  onTapCheck: controller.onCheckBoxTap,
                 ),
               );
             }),
@@ -79,7 +69,7 @@ class _TabletState extends State<_Tablet> {
                 width: 450.w,
                 child: ColorButton(
                   title: 'sign_in'.tr,
-                  shouldEnable: widget.controller.isValidated.value,
+                  shouldEnable: controller.isValidated.value,
                 ),
               );
             }),
@@ -102,8 +92,6 @@ class _TabletState extends State<_Tablet> {
     );
   }
 }
-
-
 
 class _Phone extends StatefulWidget {
   @override
