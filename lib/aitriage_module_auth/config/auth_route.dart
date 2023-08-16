@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
 import 'package:get/get.dart';
 import '../feature/check_your_email/check_your_email_controller.dart';
@@ -18,6 +19,7 @@ class AuthRoute {
   static const forgotPassword = '$_root/forgot_password';
   static const checkYourEmail = '$_root/check_your_email';
   static const successResetPassword = '$_root/success';
+  static const setNewPassword = '$_root/set_new_password';
 
   static List<GetPage> createRoutes() => [
     GetPage(
@@ -50,6 +52,10 @@ class AuthRoute {
     GetPage(
         name: successResetPassword,
         page: () => const SuccessResetPasswordScreen()
+    ),
+    GetPage(
+        name: setNewPassword,
+        page: () => const SetNewPasswordScreen()
     )
   ];
 }

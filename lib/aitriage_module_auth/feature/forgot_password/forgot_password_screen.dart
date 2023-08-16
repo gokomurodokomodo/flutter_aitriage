@@ -31,16 +31,18 @@ class _Tablet extends GetView<ForgotPasswordController> {
         reverse: true,
         child: Column(
           children: [
+            SizedBox(height: 160.h),
             AuthenticationHeader(
               headerText: 'forgot_password'.tr,
               contentText: 'forgot_password_label'.tr,
             ),
+            SizedBox(height: 32.h),
             SizedBox(
               child: CustomLoginField(
                 onTextChange: (_) => controller.onTextEmailChange(_),
                 // isValidated: widget.controller.isValidEmail.value,
                 label: 'email_label'.tr,
-                hintText: 'email_hint'.tr,
+                hintText: 'forget_password_email_hint'.tr,
               ),
             ),
               SizedBox(height: 24.h,),

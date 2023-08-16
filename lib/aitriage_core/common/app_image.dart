@@ -23,5 +23,7 @@ class AppImage {
   static const svgHelpActive = './lib/aitriage_core/asset/image/svg_ic_help_active.svg';
   static const svgInfoInactive = './lib/aitriage_core/asset/image/svg_ic_info_inactive.svg';
   static const svgInfoActive = './lib/aitriage_core/asset/image/svg_ic_info_active.svg';
-  static const svgSignInSignUpBackground = './lib/aitriage_core/asset/image/svg_sign_in_sign_up_background.svg';
+  static const svgEmail = './lib/aitriage_core/asset/image/svg_email.svg';
+  static const svgCheckEnabled = './lib/aitriage_core/asset/image/svg_check_enabled.svg';
+  static const svgCheckDisabled = './lib/aitriage_core/asset/image/svg_check_disabled.svg';
 }

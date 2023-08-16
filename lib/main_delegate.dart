@@ -46,7 +46,6 @@ Future<void> _setImmersiveModeOnTablet() async{
   if(DeviceUtil.isTablet) SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
 }
 
-
 List<GetPage> _initAppModule() {
   final pages = <GetPage<dynamic>>[];
   final module = <AppModule>[];

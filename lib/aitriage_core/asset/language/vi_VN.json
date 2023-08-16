@@ -17,7 +17,7 @@
   "pin_code_label" : "PIN code",
   "pin_code_hint" : "Enter your pincode",
   "use_another_account" : "Use another account",
-  "back_to_login" : "Back to log in",
+  "back_to_login" : "Back to sign in",
   "reset_password" : "Reset password",
   "check_your_email" : "Check your email",
   "we_sent_password" : "We sent a password reset link to",
@@ -25,5 +25,10 @@
   "didnt_receive_email" : "Didn’t receive the email?",
   "click_to_resend" : "Click to resend",
   "password_reset" : "Password reset",
-  "password_reset_success" : "Your password has been successfully reset."
+  "password_reset_success" : "Your password has been successfully reset.",
+  "forget_password_email_hint": "Enter the email you used o register with",
+  "set_new_password_title": "Set new password",
+  "enter_new_password_hint": "Enter your new password",
+  "confirm_pass_word_title": "Confirm password",
+  "confirm_password_hint": "Confirm your password"
 }
