@@ -28,4 +28,6 @@ class AppImage {
   static const svgEmail = './lib/aitriage_core/asset/image/svg_email.svg';
   static const svgCheckEnabled = './lib/aitriage_core/asset/image/svg_check_enabled.svg';
   static const svgCheckDisabled = './lib/aitriage_core/asset/image/svg_check_disabled.svg';
+  static const svgLock = './lib/aitriage_core/asset/image/svg_lock.svg';
+  static const svgSuccess = './lib/aitriage_core/asset/image/svg_success.svg';
 }

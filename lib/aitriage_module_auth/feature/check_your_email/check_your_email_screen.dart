@@ -6,6 +6,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import 'check_your_email_controller.dart';
 
@@ -26,45 +27,48 @@ class _Tablet extends GetView<CheckYourEmailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 160.h),
-          AuthenticationHeader(
-            headerText: 'check_your_email'.tr,
-            contentText: 'we_sent_password'.tr,
-            styleContentText: AppStyle.styleCheckYourEmailNotification,
-            thirdText: controller.userEmail,
-            styleThirdText: AppStyle.styleCheckYourEmail,
-          ),
-          SizedBox(height: 32.h,),
-          SizedBox(
-            width: 450.w,
-            child: ColorButton(
-              shouldEnable: true,
-              title: 'open_email_app'.tr,
-              onTap: (){
-                controller.openEmailApp();
-              },
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 160.h),
+            AuthenticationHeader(
+              iconWithBorder: AppImage.svgLock,
+              headerText: 'check_your_email'.tr,
+              contentText: 'we_sent_password'.tr,
+              styleContentText: AppStyle.styleCheckYourEmailNotification,
+              thirdText: controller.userEmail,
+              styleThirdText: AppStyle.styleCheckYourEmail,
             ),
-          ),
-          SizedBox(height: 32.h,),
-          Container(
-            alignment: Alignment.center,
-            width: 450.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('didnt_receive_email'.tr),
-                SizedBox(height: 4.w,),
-                TextButton(
-                    onPressed: () => Get.toNamed(AuthRoute.setNewPassword),
-                    child: Text('click_to_resend'.tr))
-              ],
-            )
-          ),
-          SizedBox(height: 32.h,),
-          const BackToLoginTextButton(),
-        ],
+            SizedBox(height: 32.h,),
+            SizedBox(
+              width: 450.w,
+              child: ColorButton(
+                shouldEnable: true,
+                title: 'open_email_app'.tr,
+                onTap: (){
+                  controller.openEmailApp();
+                },
+              ),
+            ),
+            SizedBox(height: 32.h,),
+            Container(
+              alignment: Alignment.center,
+              width: 450.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('didnt_receive_email'.tr),
+                  SizedBox(height: 4.w,),
+                  TextButton(
+                      onPressed: () => Get.toNamed(AuthRoute.setNewPassword),
+                      child: Text('click_to_resend'.tr))
+                ],
+              )
+            ),
+            SizedBox(height: 32.h,),
+            const BackToLoginTextButton(),
+          ],
+        ),
       ),
     );
   }

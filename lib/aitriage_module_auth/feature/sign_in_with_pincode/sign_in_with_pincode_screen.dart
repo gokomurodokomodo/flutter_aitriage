@@ -37,82 +37,84 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
         backgroundColor: AppColor.colorButtonTextEnable,
         body: SingleChildScrollView(
           reverse: true,
-          child: Column(
-            children: [
-              AuthenticationHeader(
-                iconName: AppImage.svgAppLogo,
-                headerText: 'welcome_back'.tr,
-              ),
-              SizedBox(height: 20.h,),
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(120),
-                      border: Border.all(color: AppColor.colorAppPrimary, width: 3)
-                    ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.red,radius: 50.w,
-                    ),
-                  ),
-                  SvgIconWidget(name: AppImage.svgChangeCurrentUserAvatar, size: 30.w,),
-                ],
-              ),
-              SizedBox(height: 12.h,),
-              Text('lorem.ipsum@gmail.com', style: AppStyle.styleTextEmailPlaceholder,),
-              SizedBox(height: 24.h,),
-              SizedBox(
-                width: 340.w,
-                height: 80.w,
-                child: InputPinCode(
-                  shouldHideCode: false,
-                  borderRadius: BorderRadius.circular(12),
-                  fieldWidth: 70.w,
-                  fieldHeight: 70.w,
-                  lengthCode: 4,
-                  appContext: context,
-                  backgroundColor: Colors.white,
-                )
-              ),
-              SizedBox(height: 24.h,),
-              SizedBox(
-                  width: 340.w,
-                  height: 40.w,
-                  child: ColorButton(
-                    title: 'sign_in'.tr,
-                    shouldEnable: true,
-                  ),
+          child: Center(
+            child: Column(
+              children: [
+                AuthenticationHeader(
+                  iconName: AppImage.svgAppLogo,
+                  headerText: 'welcome_back'.tr,
                 ),
-              SizedBox(height: 20.h,),
-              const SignInDivider(),
-              SizedBox(
-                height: 20.h,
-              ),
-              SizedBox(
-                width: 340.w,
-                child: ColorButton(
-                  title: 'sign_in_with_email'.tr,
-                  textStyle: const TextStyle(color: AppColor.colorRememberMeText),
-                  shouldEnable: true,
-                  colorActive: AppColor.colorButtonTextEnable,
-                  onTap: () => Get.offNamed(AuthRoute.signIn),
-                ),
-              ),
-              SizedBox(
-                width: 450.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                SizedBox(height: 20.h,),
+                Stack(
+                  alignment: Alignment.topRight,
                   children: [
-                    Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
-                    TextButton(
-                        onPressed: (){},
-                        child: Text('sign_up'.tr)),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(120),
+                        border: Border.all(color: AppColor.colorAppPrimary, width: 3)
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,radius: 50.w,
+                      ),
+                    ),
+                    SvgIconWidget(name: AppImage.svgChangeCurrentUserAvatar, size: 30.w,),
                   ],
                 ),
-              )
-            ],
+                SizedBox(height: 12.h,),
+                Text('lorem.ipsum@gmail.com', style: AppStyle.styleTextEmailPlaceholder,),
+                SizedBox(height: 24.h,),
+                SizedBox(
+                  width: 340.w,
+                  height: 80.w,
+                  child: InputPinCode(
+                    shouldHideCode: false,
+                    borderRadius: BorderRadius.circular(12),
+                    fieldWidth: 70.w,
+                    fieldHeight: 70.w,
+                    lengthCode: 4,
+                    appContext: context,
+                    backgroundColor: Colors.white,
+                  )
+                ),
+                SizedBox(height: 24.h,),
+                SizedBox(
+                    width: 340.w,
+                    height: 40.w,
+                    child: ColorButton(
+                      title: 'sign_in'.tr,
+                      shouldEnable: true,
+                    ),
+                  ),
+                SizedBox(height: 20.h,),
+                const SignInDivider(),
+                SizedBox(
+                  height: 20.h,
+                ),
+                SizedBox(
+                  width: 340.w,
+                  child: ColorButton(
+                    title: 'sign_in_with_email'.tr,
+                    textStyle: const TextStyle(color: AppColor.colorRememberMeText),
+                    shouldEnable: true,
+                    colorActive: AppColor.colorButtonTextEnable,
+                    onTap: () => Get.offNamed(AuthRoute.signIn),
+                  ),
+                ),
+                SizedBox(
+                  width: 450.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
+                      TextButton(
+                          onPressed: (){},
+                          child: Text('sign_up'.tr)),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/widget/check_box_with_text
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 
@@ -33,7 +34,9 @@ class _Tablet extends StatelessWidget {
             children: [
               SizedBox(height: 160.h),
               AuthenticationHeader(
-                headerText: 'set_new_password_title'.tr),
+                headerText: 'set_new_password_title'.tr,
+                iconWithBorder: AppImage.svgEmail,
+              ),
               SizedBox(height: 32.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
