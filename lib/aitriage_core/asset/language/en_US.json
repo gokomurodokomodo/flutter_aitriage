@@ -30,7 +30,7 @@
   "set_new_password_title": "Set new password",
   "enter_new_password_hint": "Enter your new password",
   "confirm_pass_word_title": "Confirm password",
-  "confirm_password_hint": "Confirm your password"
+  "confirm_password_hint": "Confirm your password",
   "password_reset_success" : "Your password has been successfully reset.",
   "sign_up" : "Sign up",
   "sign_in_with_email": "Sign in with Email",

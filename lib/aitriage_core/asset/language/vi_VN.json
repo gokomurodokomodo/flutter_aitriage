@@ -28,7 +28,7 @@
   "password_reset_success" : "Your password has been successfully reset.",
   "sign_up" : "Sign up",
   "sign_in_with_email": "Sign in with Email",
-  "sign_in_with_pin_code" : "Sign in with PIN code"
+  "sign_in_with_pin_code" : "Sign in with PIN code",
   "password_reset_success" : "Your password has been successfully reset.",
   "forget_password_email_hint": "Enter the email you used o register with",
   "set_new_password_title": "Set new password",

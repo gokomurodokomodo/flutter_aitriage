@@ -73,7 +73,6 @@ class _Tablet extends GetView<SignInController> {
                   title: 'sign_in'.tr,
                   shouldEnable: controller.isValidated.value,
                   // shouldEnable: widget.controller.isValidated.value,
-                  shouldEnable: true,
                 ),
               ),
             SizedBox(height: 20.h,),
