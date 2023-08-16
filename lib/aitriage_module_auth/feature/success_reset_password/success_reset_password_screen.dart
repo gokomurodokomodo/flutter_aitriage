@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';

@@ -55,7 +55,8 @@ class _Tablet extends StatelessWidget{
                 ),
               ),
             SizedBox(height: 32.h,),
-            const BackToLoginTextButton(),
+            const BackToLoginTextButton(
+            ),
           ],
         ),
       ),

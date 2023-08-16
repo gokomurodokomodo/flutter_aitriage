@@ -24,4 +24,5 @@ class AppImage {
   static const svgInfoInactive = './lib/aitriage_core/asset/image/svg_ic_info_inactive.svg';
   static const svgInfoActive = './lib/aitriage_core/asset/image/svg_ic_info_active.svg';
   static const svgSignInSignUpBackground = './lib/aitriage_core/asset/image/svg_sign_in_sign_up_background.svg';
+  static const svgChangeCurrentUserAvatar = './lib/aitriage_core/asset/image/svg_ic_change_current_avatar.svg';
 }
