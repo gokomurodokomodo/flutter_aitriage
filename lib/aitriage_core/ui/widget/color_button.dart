@@ -11,6 +11,7 @@ class ColorButton extends StatelessWidget {
   final Decoration? decoration;
   final Function? onTap;
   final TextStyle? textStyle;
+  final Color? colorActive;
 
   const ColorButton({
     super.key,
@@ -20,6 +21,7 @@ class ColorButton extends StatelessWidget {
     this.onTap,
     this.decoration,
     this.textStyle,
+    this.colorActive,
     required this.title
   });
 
@@ -39,7 +41,7 @@ class ColorButton extends StatelessWidget {
     );
   }
 
-  BoxBorder? get _border => !shouldEnable ? Border.all(color: AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid) : null;
+  BoxBorder? get _border => !shouldEnable ? Border.all(color: AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid) : Border.all(color: colorActive == null ? Colors.transparent : AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid);
 
   Color get _borderColor => shouldEnable ? AppColor.colorButtonBackgroundEnable : AppColor.colorButtonTextEnable;
 
@@ -54,7 +56,7 @@ class ColorButton extends StatelessWidget {
       : BoxDecoration(
           border: _border,
           borderRadius: BorderRadius.all(Radius.circular(8.w)),
-          color: _borderColor);
+          color: colorActive ?? _borderColor);
 
   TextStyle get _textStyle => textStyle != null ? textStyle! : titleStyle;
 }

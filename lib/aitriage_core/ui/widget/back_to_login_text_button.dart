@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_module_auth/config/auth_route.dart';
 import '../../common/app_color.dart';
 import '../../common/app_style.dart';
 class BackToLoginTextButton extends StatelessWidget {
+  final Function? onBackButtonPressed;
+
   const BackToLoginTextButton({
     super.key,
+    this.onBackButtonPressed,
   });
 
   @override
@@ -16,7 +18,7 @@ class BackToLoginTextButton extends StatelessWidget {
       width: 450.w,
       child: TextButton(
         onPressed: () {
-          Get.offNamed(AuthRoute.signIn);
+          onBackButtonPressed?.call();
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

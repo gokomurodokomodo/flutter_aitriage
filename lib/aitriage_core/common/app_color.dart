@@ -26,4 +26,6 @@ class AppColor {
   static const colorBackgroundSearch = Color(0xffF8F8F8);
   static const colorTextFieldPlaceHoler = Color(0xFFD0D0D0);
   static const colorRememberMeText = Color(0xFF676767);
+  static const colorInactiveFillColor = Color(0xFFE8E8E8);
+  static const colorTextPinCode = Color(0xFF027BFE);
 }

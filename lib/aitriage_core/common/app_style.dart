@@ -14,8 +14,9 @@ class AppStyle {
   static double fontSizeXL = 20.0.sp;
   static double fontSize2XL = 24.0.sp;
   static double fontSize3XL = 30.0.sp;
-  static double fontSize35XL = 32.0.sp;
+  static double fontSize32XL = 32.0.sp;
   static double fontSize4XL = 36.0.sp;
+  static double fontSize5XL = 48.0.sp;
   // Font weight
   static const FontWeight fontWeightSemiBold = FontWeight.w600;
   static const FontWeight fontWeight500 = FontWeight.w500;
@@ -57,7 +58,7 @@ class AppStyle {
     color: AppColor.colorCloseButton,
   );
   static TextStyle styleLoginHeader = TextStyle(
-    fontSize: fontSize35XL,
+    fontSize: fontSize32XL,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
@@ -90,6 +91,11 @@ class AppStyle {
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorRememberMeText,
+  );
+  static TextStyle styleTextEmailPlaceholder = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorDialogTitleText,
   );
 
 }

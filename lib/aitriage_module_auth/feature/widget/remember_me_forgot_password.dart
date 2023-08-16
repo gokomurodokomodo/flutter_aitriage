@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../aitriage_core/common/app_style.dart';
-import '../../../config/auth_route.dart';
+import '../../config/auth_route.dart';
 
 class RememberAndForgotPassword extends StatelessWidget {
   final bool isChecked;
