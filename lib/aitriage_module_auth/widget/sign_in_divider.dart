@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_color.dart';
 
 class SignInDivider extends StatelessWidget {
   final double? width;

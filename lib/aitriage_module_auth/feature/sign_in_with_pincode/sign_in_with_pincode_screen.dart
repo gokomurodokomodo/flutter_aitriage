@@ -4,14 +4,14 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.d
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/widget/input_pin_code.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/widget/input_pin_code.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../config/auth_route.dart';
-import '../widget/sign_in_divider.dart';
+import '../../widget/sign_in_divider.dart';
 
 class SignInWithPinCodeScreen extends StatelessWidget {
   const SignInWithPinCodeScreen({super.key});

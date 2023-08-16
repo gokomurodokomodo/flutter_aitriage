@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_color.dart';
 
 class InputPinCode extends StatelessWidget{
   final int? lengthCode;
