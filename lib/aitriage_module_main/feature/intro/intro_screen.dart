@@ -80,10 +80,10 @@ class _TabletState extends State<_Tablet> {
                   ),
                   child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
               onDone: () {
-                Get.offNamed(AuthRoute.signInWithCode);
+                Get.offNamed(AuthRoute.signIn);
               },
               onSkip: () {
-                Get.offNamed(AuthRoute.successResetPassword);
+                Get.offNamed(AuthRoute.signIn);
                 // On Skip button pressed
               },
               dotsDecorator: DotsDecorator(
@@ -105,7 +105,10 @@ class _TabletState extends State<_Tablet> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text('login_suggest'.tr),
-              Text('Log in'.tr)
+              TextButton(onPressed: () {
+                Get.offNamed(AuthRoute.signIn);
+                },
+              child: Text('Log in'.tr))
             ],
           ),
           const SizedBox(height: 20)
