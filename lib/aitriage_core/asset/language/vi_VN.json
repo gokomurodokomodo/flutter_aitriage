@@ -26,13 +26,17 @@
   "click_to_resend" : "Click to resend",
   "password_reset" : "Password reset",
   "password_reset_success" : "Your password has been successfully reset.",
-  "sign_up" : "Sign up",
-  "sign_in_with_email": "Sign in with Email",
-  "sign_in_with_pin_code" : "Sign in with PIN code",
-  "password_reset_success" : "Your password has been successfully reset.",
   "forget_password_email_hint": "Enter the email you used o register with",
   "set_new_password_title": "Set new password",
   "enter_new_password_hint": "Enter your new password",
   "confirm_pass_word_title": "Confirm password",
-  "confirm_password_hint": "Confirm your password"
+  "confirm_password_hint": "Confirm your password",
+  "sign_up" : "Sign up",
+  "sign_in_with_email": "Sign in with Email",
+  "sign_in_with_pin_code" : "Sign in with PIN code",
+  "minimum_character": "Minimum 8 characters",
+  "at_least_lowercase_letter": "At least 1 lowercase letter",
+  "at_least_uppercase_letter": "At least 1 UPPERCASE letter",
+  "at_least_number": "At least 1 number",
+  "at_least_special_character": "At least 1 special character"
 }

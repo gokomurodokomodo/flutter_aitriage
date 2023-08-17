@@ -15,7 +15,7 @@ class BackToLoginTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 450.w,
+      width: 360.w,
       child: TextButton(
         onPressed: () {
           onBackButtonPressed?.call();

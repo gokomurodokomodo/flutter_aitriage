@@ -41,8 +41,8 @@ class CustomLoginField extends StatelessWidget {
         label == null ? const SizedBox() : Text(label!, style: AppStyle.styleCustomTextFieldLabel,),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),
         Container(
-          height: textFieldHeight ?? 60.h,
-          width: textFieldWidth ?? 450.w,
+          height: textFieldHeight ?? 44.h,
+          width: textFieldWidth ?? 360.w,
           decoration: BoxDecoration(
               color: AppColor.colorBackgroundSearch,
               border: Border.all(color: AppColor.colorTextFieldPlaceHoler),

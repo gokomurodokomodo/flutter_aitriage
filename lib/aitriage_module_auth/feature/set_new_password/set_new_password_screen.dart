@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/check_box_with_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
+import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 
 class SetNewPasswordScreen extends StatelessWidget {
@@ -35,7 +37,7 @@ class _Tablet extends StatelessWidget {
               SizedBox(height: 160.h),
               AuthenticationHeader(
                 headerText: 'set_new_password_title'.tr,
-                iconWithBorder: AppImage.svgEmail,
+                iconWithBorder: AppImage.svgLock,
               ),
               SizedBox(height: 32.h),
               Column(
@@ -53,15 +55,19 @@ class _Tablet extends StatelessWidget {
                     hintText: 'confirm_password_hint'.tr,
                   ),
                   SizedBox(height: 20.h),
-                  CheckBoxWithText(text: 'Minimum 8 characters', isCheck: true),
+                  CheckBoxWithText(text: 'minimum_character'.tr, isCheck: true),
                   SizedBox(height: 12.h),
-                  CheckBoxWithText(text: 'At least 1 lowercase letter', isCheck: true),
+                  CheckBoxWithText(text: 'at_least_lowercase_letter'.tr, isCheck: true),
                   SizedBox(height: 12.h),
-                  CheckBoxWithText(text: 'At least 1 UPPERCASE letter', isCheck: true),
+                  CheckBoxWithText(text: 'at_least_uppercase_letter'.tr, isCheck: true),
                   SizedBox(height: 12.h),
-                  CheckBoxWithText(text: 'At least 1 number', isCheck: true),
+                  CheckBoxWithText(text: 'at_least_number'.tr, isCheck: true),
                   SizedBox(height: 12.h),
-                  CheckBoxWithText(text: 'At least 1 special character', isCheck: true),
+                  CheckBoxWithText(text: 'at_least_special_character'.tr, isCheck: true),
+                  SizedBox(height: 24.h),
+                  ColorButton(title: 'reset_password'.tr, width: 360.w, shouldEnable: true),
+                  SizedBox(height: 32.h),
+                  const BackToLoginTextButton()
                 ],
               )
             ],

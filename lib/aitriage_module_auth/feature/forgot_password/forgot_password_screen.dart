@@ -37,7 +37,7 @@ class _Tablet extends GetView<ForgotPasswordController> {
               AuthenticationHeader(
                 headerText: 'forgot_password'.tr,
                 contentText: 'forgot_password_label'.tr,
-                iconName: AppImage.svgEmail,
+                iconWithBorder: AppImage.svgKey,
               ),
               SizedBox(height: 32.h),
               SizedBox(
@@ -49,13 +49,11 @@ class _Tablet extends GetView<ForgotPasswordController> {
                 ),
               ),
                 SizedBox(height: 24.h,),
-                SizedBox(
-                  width: 450.w,
-                  child: ColorButton(
-                    onTap: () => Get.toNamed(AuthRoute.checkYourEmail),
-                    title: 'reset_password'.tr,
-                    shouldEnable: true,
-                  ),
+                ColorButton(
+                  onTap: () => Get.toNamed(AuthRoute.checkYourEmail),
+                  title: 'reset_password'.tr,
+                  shouldEnable: true,
+                  width: 360.w,
                 ),
               SizedBox(height: 32.h,),
               const BackToLoginTextButton(
