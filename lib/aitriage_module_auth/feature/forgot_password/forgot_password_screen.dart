@@ -37,7 +37,7 @@ class _Tablet extends GetView<ForgotPasswordController> {
               AuthenticationHeader(
                 headerText: 'forgot_password'.tr,
                 contentText: 'forgot_password_label'.tr,
-                iconWithBorder: AppImage.svgKey,
+                svgIconNameWithBorder: AppImage.svgKey,
               ),
               SizedBox(height: 32.h),
               SizedBox(

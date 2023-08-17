@@ -41,7 +41,7 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
             child: Column(
               children: [
                 AuthenticationHeader(
-                  iconName: AppImage.svgAppLogo,
+                  svgIconName: AppImage.svgAppLogo,
                   headerText: 'welcome_back'.tr,
                 ),
                 SizedBox(height: 20.h,),

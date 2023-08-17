@@ -39,7 +39,7 @@ class _Tablet extends GetView<SignInController> {
             children: [
               SizedBox(height: 160.h),
               AuthenticationHeader(
-                iconName: AppImage.svgAppLogo,
+                svgIconName: AppImage.svgAppLogo,
                 headerText: 'welcome_back'.tr,
               ),
               SizedBox(height: 14.h),

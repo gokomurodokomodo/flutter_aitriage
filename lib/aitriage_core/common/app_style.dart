@@ -113,4 +113,9 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextPinCode,
   );
+  static final styleGettingStartedItemTitle = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextPinCode,
+  );
 }

@@ -16,7 +16,7 @@ class SuccessResetPasswordScreen extends StatelessWidget{
         child: Column(
           children: [
             AuthenticationHeader(
-              iconWithBorder: AppImage.svgSuccess,
+              svgIconNameWithBorder: AppImage.svgSuccess,
               headerText: 'password_reset'.tr,
               contentText: 'password_reset_success'.tr,
             ),

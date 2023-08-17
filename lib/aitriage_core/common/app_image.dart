@@ -31,4 +31,5 @@ class AppImage {
   static const svgLock = './lib/aitriage_core/asset/image/svg_lock.svg';
   static const svgSuccess = './lib/aitriage_core/asset/image/svg_success.svg';
   static const svgKey = './lib/aitriage_core/asset/image/svg_key.svg';
+  static const svgInformation = './lib/aitriage_core/asset/image/svg_information.svg';
 }

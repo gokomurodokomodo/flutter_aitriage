@@ -89,6 +89,8 @@ class _AppState extends State<App> with SubscriptionCollector {
       ? MainRoute.gettingStarted
       : MainRoute.main;
 
+  // String get initialRoute => MainRoute.gettingStartedMain;
+
   @override
   Widget build(BuildContext context) {
     // Display SplashScreen first

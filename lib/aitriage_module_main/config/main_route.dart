@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_module_main/feature/getting_started/getting_started_main_screen.dart';
 import 'package:get/get.dart';
 import '../feature/getting_started/getting_started_screen.dart';
 import '../feature/home_main/home_main_controller.dart';
@@ -12,6 +13,7 @@ class MainRoute {
   static const intro = '$_root/intro';
   static const main = '$_root/home';
   static const signIn = '$_root/sign_in';
+  static const gettingStartedMain = '$_root/getting_started_main';
 
   static List<GetPage> createRoutes() => [
     GetPage(
@@ -26,5 +28,8 @@ class MainRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => HomeMainController());
         })),
+    GetPage(
+        name: gettingStartedMain,
+        page: () => const GettingStartedMainScreen()),
   ];
 }

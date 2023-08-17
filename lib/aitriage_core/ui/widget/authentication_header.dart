@@ -8,25 +8,25 @@ import 'package:flutter_svg/svg.dart';
 import '../../common/app_image.dart';
 
 class AuthenticationHeader extends StatelessWidget {
-  final String? iconName;
+  final String? svgIconName;
   final String? headerText;
   final TextStyle? styleHeaderText;
   final String? contentText;
   final TextStyle? styleContentText;
   final String? thirdText;
   final TextStyle? styleThirdText;
-  final String? iconWithBorder;
+  final String? svgIconNameWithBorder;
 
   const AuthenticationHeader(
       {super.key,
-      this.iconName,
+      this.svgIconName,
       this.headerText,
       this.contentText,
       this.thirdText,
       this.styleHeaderText,
       this.styleContentText,
       this.styleThirdText,
-      this.iconWithBorder
+      this.svgIconNameWithBorder
       });
 
   @override
@@ -34,21 +34,21 @@ class AuthenticationHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (iconWithBorder != null) Container(
+        if (svgIconNameWithBorder != null) Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
                 border: Border.all(color: AppColor.colorRememberMeText.withOpacity(0.25), width: 1.w),
                 borderRadius: BorderRadius.all(Radius.circular(12.w))),
-            child: SvgPicture.asset(iconWithBorder!, width: 24.w, height: 24.w)),
-        (iconName == null && headerText == null && contentText == null)
+            child: SvgPicture.asset(svgIconNameWithBorder!, width: 24.w, height: 24.w)),
+        (svgIconName == null && headerText == null && contentText == null)
             ? const SizedBox()
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  iconName == null
+                  svgIconName == null
                       ? const SizedBox()
                       : SvgIconWidget(
-                          name: iconName!,
+                          name: svgIconName!,
                           size: 100.h),
                   SizedBox(height: 24.h),
                   headerText == null

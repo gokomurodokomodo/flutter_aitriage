@@ -32,7 +32,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
           children: [
             SizedBox(height: 160.h),
             AuthenticationHeader(
-              iconWithBorder: AppImage.svgEmail,
+              svgIconNameWithBorder: AppImage.svgEmail,
               headerText: 'check_your_email'.tr,
               contentText: 'we_sent_password'.tr,
               styleContentText: AppStyle.styleCheckYourEmailNotification,

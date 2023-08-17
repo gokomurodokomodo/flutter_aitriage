@@ -37,7 +37,7 @@ class _Tablet extends StatelessWidget {
               SizedBox(height: 160.h),
               AuthenticationHeader(
                 headerText: 'set_new_password_title'.tr,
-                iconWithBorder: AppImage.svgLock,
+                svgIconNameWithBorder: AppImage.svgLock,
               ),
               SizedBox(height: 32.h),
               Column(
