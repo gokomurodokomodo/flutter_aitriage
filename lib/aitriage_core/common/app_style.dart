@@ -5,97 +5,112 @@ import 'app_color.dart';
 class AppStyle {
   AppStyle._();
   // Font size
-  static double fontSizeMin = 10.0.sp;
-  static double fontSizeName = 22.0.sp;
-  static double fontSizeXS = 12.0.sp;
-  static double fontSizeSM = 14.0.sp;
-  static double fontSizeBase = 16.0.sp;
-  static double fontSizeL = 18.0.sp;
-  static double fontSizeXL = 20.0.sp;
-  static double fontSize2XL = 24.0.sp;
-  static double fontSize3XL = 30.0.sp;
-  static double fontSize32XL = 32.0.sp;
-  static double fontSize4XL = 36.0.sp;
-  static double fontSize5XL = 48.0.sp;
+  static final fontSizeMin = 10.0.sp;
+  static final fontSizeName = 22.0.sp;
+  static final fontSizeXS = 12.0.sp;
+  static final fontSizeSM = 14.0.sp;
+  static final fontSizeBase = 16.0.sp;
+  static final fontSizeL = 18.0.sp;
+  static final fontSizeXL = 20.0.sp;
+  static final fontSize2XL = 24.0.sp;
+  static final fontSize3XL = 26.0.sp;
+  static final fontSize4XL = 30.0.sp;
+  static final fontSize5XL = 32.0.sp;
+  static final fontSize6XL = 36.0.sp;
+  static final fontSize7XL = 48.0.sp;
   // Font weight
-  static const FontWeight fontWeightSemiBold = FontWeight.w600;
-  static const FontWeight fontWeight500 = FontWeight.w500;
-  static const FontWeight fontWeightRegular = FontWeight.w400;
+  static const fontWeightSemiBold = FontWeight.w600;
+  static const fontWeight500 = FontWeight.w500;
+  static const fontWeightRegular = FontWeight.w400;
   // Text style
-  static TextStyle styleTextColorButtonEnable = TextStyle(
+  static final styleTextColorButtonEnable = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorButtonTextEnable,
   );
-  static TextStyle styleTextColorButtonDisable = TextStyle(
+  static final styleTextColorButtonDisable = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorButtonTextDisable,
   );
-  static TextStyle styleTextDialogTitle = TextStyle(
+  static final styleTextDialogTitle = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
-  static TextStyle styleTextDashboardTitle = TextStyle(
+  static final styleTextDashboardTitle = TextStyle(
     fontSize: fontSize2XL,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
-  static TextStyle styleTextAlertHeader = TextStyle(
+  static final styleTextAlertHeader = TextStyle(
     fontSize: fontSizeXL,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorAlertHeader,
   );
-  static TextStyle styleTextColorGetStarted = TextStyle(
+  static final styleTextColorGetStarted = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextGettingStarted,
   );
-  static TextStyle styleDashboardPatientViewer = TextStyle(
+  static final styleDashboardPatientViewer = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
     color: AppColor.colorCloseButton,
   );
-  static TextStyle styleLoginHeader = TextStyle(
-    fontSize: fontSize32XL,
+  static final styleLoginHeader = TextStyle(
+    fontSize: fontSize5XL,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
-  static TextStyle styleCustomTextFieldLabel = TextStyle(
+  static final styleCustomTextFieldLabel = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeight500,
     color: AppColor.colorAlertHeader,
   );
-  static TextStyle styleCustomTextFieldHintText = TextStyle(
+  static final styleCustomTextFieldHintText = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextFieldPlaceHoler,
   );
-  static TextStyle styleRememberMeText = TextStyle(
+  static final styleRememberMeText = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
     color: AppColor.colorRememberMeText,
   );
-  static TextStyle styleCheckYourEmailNotification = TextStyle(
+  static final styleCheckYourEmailNotification = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorRememberMeText,
   );
-  static TextStyle styleTextButtonBackToLogin = TextStyle(
+  static final styleTextButtonBackToLogin = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeight500,
     color: AppColor.colorRememberMeText,
   );
-  static TextStyle styleCheckYourEmail = TextStyle(
+  static final styleCheckYourEmail = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorRememberMeText,
   );
-  static TextStyle styleTextEmailPlaceholder = TextStyle(
+  static final styleTextEmailPlaceholder = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorDialogTitleText,
   );
-
+  static final styleTextLabelIntro = TextStyle(
+    fontSize: fontSize3XL,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorRememberMeText,
+  );
+  static final styleIntroSuggest = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorRememberMeText,
+  );
+  static final styleIntroSuggest2 = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextPinCode,
+  );
 }

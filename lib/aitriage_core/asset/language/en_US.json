@@ -38,5 +38,11 @@
   "at_least_lowercase_letter": "At least 1 lowercase letter",
   "at_least_uppercase_letter": "At least 1 UPPERCASE letter",
   "at_least_number": "At least 1 number",
-  "at_least_special_character": "At least 1 special character"
+  "at_least_special_character": "At least 1 special character",
+  "intro_title_1": "Welcome to aiTriage",
+  "intro_title_2": "Bringing AI to Triage",
+  "intro_label_1": "Patient management software, support on any device",
+  "intro_label_2": "Intelligent disease prediction and risk stratification",
+  "intro_label_3": "Accurate and Reliable",
+  "intro_label_4": "Facility Management"
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
-import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
+import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-import '../../../aitriage_core/common/app_color.dart';
 import 'package:get/get.dart';
 
-import '../../../aitriage_module_auth/config/auth_route.dart';
+import '../../../aitriage_core/util/global_function.dart';
+import '../../widget/circle_indicator.dart';
+import '../../widget/intro_page_view_item_tablet.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -42,15 +42,11 @@ class _Tablet extends StatefulWidget {
 }
 
 class _TabletState extends State<_Tablet> {
-  final rawPages = <Widget>[];
+  var index = 0;
 
   @override
   void initState() {
     super.initState();
-
-    for (int i = 1; i < cachedImage.length; i++) {
-      rawPages.add(cachedImage[i]);
-    }
   }
 
   @override
@@ -58,62 +54,53 @@ class _TabletState extends State<_Tablet> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: IntroductionScreen(
-              rawPages: rawPages,
-              showSkipButton: true,
-              showNextButton: false,
-              skip: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
-                  decoration: BoxDecoration(
-                    color: AppColor.colorButtonBackgroundEnable,
-                    borderRadius: BorderRadius.all(Radius.circular(25.w)),
-                  ),
-                  child: const Text("Skip", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
-              done: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
-                  decoration: BoxDecoration(
-                    color:  AppColor.colorButtonBackgroundEnable,
-                    borderRadius: BorderRadius.all(Radius.circular(25.w)),
-                  ),
-                  child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
-              onDone: () {
-                Get.offNamed(AuthRoute.signIn);
-              },
-              onSkip: () {
-                Get.offNamed(AuthRoute.signIn);
-                // On Skip button pressed
-              },
-              dotsDecorator: DotsDecorator(
-                size: const Size.square(10.0),
-                activeSize: const Size(20.0, 10.0),
-                activeColor: Theme.of(context).colorScheme.secondary,
-                color: Colors.black26,
-                spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-                activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0)
+          SizedBox(
+            height: 790.h,
+            child: PageView(
+              onPageChanged: (value) => setState(() {
+                index = value;
+              }),
+              // controller: controller,
+              children: [
+                IntroPageViewItemTablet(
+                  title: 'intro_title_1'.tr,
+                  label: 'intro_label_1'.tr,
+                  intro: cachedImage[1],
                 ),
-              ),
+                IntroPageViewItemTablet(
+                  title: 'intro_title_2'.tr,
+                  label: 'intro_label_2'.tr,
+                  intro: cachedImage[2],
+                ),
+                IntroPageViewItemTablet(
+                  title: 'intro_title_2'.tr,
+                  label: 'intro_label_3'.tr,
+                  intro: cachedImage[3],
+                ),
+                IntroPageViewItemTablet(
+                  title: 'intro_title_2'.tr,
+                  label: 'intro_label_4'.tr,
+                  intro: cachedImage[4],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 20),
-          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 332.w, height: 44.h),
-          const SizedBox(height: 20),
+          SizedBox(height: 12.h),
+          CircleIndicator(index: index, length: 4),
+          SizedBox(height: 50.h),
+          ColorButton(title: 'sign_up_title'.tr, width: 360.w, shouldEnable: true),
+          SizedBox(height: 34.h),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('login_suggest'.tr),
-              TextButton(onPressed: () {
-                Get.offNamed(AuthRoute.signIn);
-                },
-              child: Text('Log in'.tr))
+              Text('login_suggest'.tr, style: AppStyle.styleIntroSuggest),
+              const Text(' '),
+              Text('sign_in'.tr, style: AppStyle.styleIntroSuggest2)
             ],
-          ),
-          const SizedBox(height: 20)
+          )
         ],
-      ),
+      )
     );
   }
 }
@@ -127,67 +114,15 @@ class _Phone extends StatefulWidget {
 }
 
 class _PhoneState extends State<_Phone> {
-  final rawPages = <Widget>[];
-
   @override
   void initState() {
     super.initState();
-
-    for (int i = 1; i < cachedImage.length; i++) {
-      rawPages.add(cachedImage[i]);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: IntroductionScreen(
-              rawPages: rawPages,
-              showSkipButton: true,
-              showNextButton: false,
-              skip: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
-                  decoration: BoxDecoration(
-                    color: AppColor.colorButtonBackgroundEnable,
-                    borderRadius: BorderRadius.all(Radius.circular(25.w)),
-                  ),
-                  child: const Text("Skip", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
-              done: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
-                  decoration: BoxDecoration(
-                    color:  AppColor.colorButtonBackgroundEnable,
-                    borderRadius: BorderRadius.all(Radius.circular(25.w)),
-                  ),
-                  child: const Text("Done", style: TextStyle(fontWeight: FontWeight.w700, color: AppColor.colorButtonTextEnable))),
-              onDone: () {
-                Get.offNamed(MainRoute.main);
-              },
-              onSkip: () {
-                // On Skip button pressed
-              },
-              dotsDecorator: DotsDecorator(
-                size: const Size.square(10.0),
-                activeSize: const Size(20.0, 10.0),
-                activeColor: Theme.of(context).colorScheme.secondary,
-                color: Colors.black26,
-                spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-                activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0)
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          ColorButton(title: 'sign_up_title'.tr, shouldEnable: true, width: 180.w),
-          const SizedBox(height: 20),
-          ColorButton(title: 'This is a title', shouldEnable: false, width: 180.w),
-          const SizedBox(height: 200)
-        ],
-      ),
     );
   }
 }

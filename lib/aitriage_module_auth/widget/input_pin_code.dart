@@ -44,7 +44,7 @@ class InputPinCode extends StatelessWidget{
   Widget build(BuildContext context) {
     return PinCodeTextField(
       keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-      textStyle: TextStyle(color: AppColor.colorTextPinCode, fontSize: AppStyle.fontSize5XL),
+      textStyle: TextStyle(color: AppColor.colorTextPinCode, fontSize: AppStyle.fontSize7XL),
       length: lengthCode ?? 6,
       obscureText: shouldHideCode ?? false,
       animationType: animationType ?? AnimationType.fade,
