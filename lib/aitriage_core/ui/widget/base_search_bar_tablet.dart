@@ -39,21 +39,24 @@ class _SearchState extends State<BaseSearchBarTablet>{
           borderRadius: BorderRadius.circular(12.r)
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: TextField(
-              onChanged: widget.onTextChange,
-              decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  border: InputBorder.none,
-                  isDense: true,
-                  isCollapsed: true,
-                  hintStyle: AppStyle.styleHintTextSearchBar
-              ),
-            ).paddingOnly(left: 16),
+            child: SizedBox(
+              height: widget.height ?? 40.h,
+              child: TextField(
+                onChanged: widget.onTextChange,
+                decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    contentPadding: EdgeInsets.only(top: 2.h),
+                    border: InputBorder.none,
+                    isDense: true,
+                    isCollapsed: true,
+                    hintStyle: AppStyle.styleHintTextSearchBar,
+                ),
+              ).paddingOnly(left: 16),
+            ),
           ),
-          widget.shouldShowSearchIcon ? SvgIconWidget(name: AppImage.svgSearch).paddingOnly(right: 16) : const SizedBox(),
+          widget.shouldShowSearchIcon ? SvgIconWidget(name: AppImage.svgSearch, size: 16.h,).paddingOnly(right: 16) : const SizedBox(),
         ],
       ),
     );
