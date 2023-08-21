@@ -40,4 +40,7 @@ class AppImage {
   static const svgGift = './lib/aitriage_core/asset/image/svg_gift.svg';
   static const svgShare = './lib/aitriage_core/asset/image/svg_share.svg';
   static const svgSearch = './lib/aitriage_core/asset/image/svg_search.svg';
+  static const svgFilter = './lib/aitriage_core/asset/image/svg_filter.svg';
+  static const svgAddPatient = './lib/aitriage_core/asset/image/svg_add_patient.svg';
+  static const svgAddAssessment = './lib/aitriage_core/asset/image/svg_add_assessment.svg';
 }

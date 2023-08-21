@@ -125,8 +125,12 @@ class _Tablet extends GetView<HomeOverviewController> {
                                   const Spacer(),
                                   BaseSearchBarTablet(
                                     width: 320.w,
-                                    hintText: 'Search type or keyword',),
-                                  SizedBox(width: 16.w)
+                                    hintText: 'Search type or keyword'),
+                                  SizedBox(width: 16.w),
+                                  const CustomTrailingWidget(svgIconName: AppImage.svgFilter),
+                                  SizedBox(width: 16.w),
+                                  const CustomTrailingWidget(svgIconName: AppImage.svgAddPatient),
+                                  // SizedBox(width: 16.w)
                                 ],
                               ),
                               SizedBox(height: 20.h),
@@ -150,7 +154,13 @@ class _Tablet extends GetView<HomeOverviewController> {
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Column(
                     children: [
-                      Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
+                      Row(
+                        children: [
+                          Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
+                          const Spacer(),
+                          const CustomTrailingWidget(svgIconName: AppImage.svgAddAssessment),
+                        ],
+                      ),
                       SizedBox(height: 20.h),
                       Expanded(
                         child: ListView.separated(
