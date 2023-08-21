@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomNavigationRail extends StatefulWidget {
   final Widget? leading;
@@ -80,7 +81,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail>
                                 decoration: widget.currentItemDecoration ??
                                     BoxDecoration(
                                       color: widget.backgroundColorSelectedItem,
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(12.r),
                                     ),
                                 child: Padding(
                                     padding: const EdgeInsets.all(10),

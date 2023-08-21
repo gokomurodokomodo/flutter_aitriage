@@ -52,7 +52,7 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(120),
+                        borderRadius: BorderRadius.circular(120.r),
                         border: Border.all(color: AppColor.colorAppPrimary, width: 3)
                       ),
                       child: CircleAvatar(
@@ -70,7 +70,7 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
                   height: 80.w,
                   child: InputPinCode(
                     shouldHideCode: false,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     fieldWidth: 70.w,
                     fieldHeight: 70.w,
                     lengthCode: 4,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../common/app_color.dart';
@@ -44,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
                 decoration: BoxDecoration(
                   color: AppColor.colorBackgroundSearch,
                   border: Border.all(color: AppColor.colorBackgroundSearch),
-                  borderRadius: BorderRadius.circular(12)
+                  borderRadius: BorderRadius.circular(12.r)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -83,7 +84,7 @@ class _SearchState extends State<SearchAppBar>{
       decoration: BoxDecoration(
         color: AppColor.colorBackgroundSearch,
         border: Border.all(color: AppColor.colorBackgroundSearch),
-        borderRadius: BorderRadius.circular(12)
+        borderRadius: BorderRadius.circular(12.r)
       ),
       child: Stack(
         alignment: Alignment.centerRight,
@@ -94,6 +95,7 @@ class _SearchState extends State<SearchAppBar>{
               hintText: widget.placeholder,
               border: InputBorder.none
             ),
+
           ).paddingOnly(left: 16),
           widget.shouldShowSearchIcon ? const Icon(Icons.search).paddingOnly(right: 16) : const SizedBox(),
         ],

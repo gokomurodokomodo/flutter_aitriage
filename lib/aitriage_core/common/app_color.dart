@@ -29,4 +29,7 @@ class AppColor {
   static const colorInactiveFillColor = Color(0xFFE8E8E8);
   static const colorTextPinCode = Color(0xFF027BFE);
   static const colorAssessmentItem = Color(0xfff3f9ff);
+  static const colorUserProfileBackground = Color(0xffFFF5E5);
+  static const colorFemaleProfileBackground = Color(0xffFFE5F8);
+  static const colorTextRaisedPercent = Color(0xff00a811);
 }

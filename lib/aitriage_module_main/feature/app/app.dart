@@ -84,13 +84,11 @@ class _AppState extends State<App> with SubscriptionCollector {
     }
   }
 
-  bool get shouldLaunchIntroScreen => true;
+  bool get shouldLaunchIntroScreen => false;
 
   String get initialRoute => shouldLaunchIntroScreen
       ? MainRoute.intro
       : MainRoute.main;
-
-  // String get initialRoute => MainRoute.main;
 
   @override
   Widget build(BuildContext context) {

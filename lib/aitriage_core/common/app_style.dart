@@ -133,4 +133,9 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorTextPinCode,
   );
+  static final styleTextTextRaisedPercent = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorTextRaisedPercent,
+  );
 }

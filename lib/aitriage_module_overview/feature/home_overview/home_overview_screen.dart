@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
@@ -38,56 +39,86 @@ class _Tablet extends GetView<HomeOverviewController> {
         ),
         trailing: Icon(Icons.notifications),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(24.w),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 6,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 150.h,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (_, __) => const DashboardPatientViewer(
-                        label: 'Patient',
-                        amount: 10000,
-                        percent: 0.05,
-                        isGrowing: true,
-                      ),
-                      separatorBuilder: (_, __) => SizedBox(width: 24.w),
-                      itemCount: 6,
-                    ),
-                  ),
-                  SizedBox(height: 24.h,),
-                  Expanded(child: Container(color: AppColor.colorAppBackground)),
-                ],
-              ),
-            ),
-            SizedBox(width: 24.w,),
-            Expanded(
-              flex: 3,
-              child: Container(
-                color: AppColor.colorAppBackground,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      body: Container(
+        color: AppColor.colorBackgroundSearch,
+        child: Padding(
+          padding: EdgeInsets.all(24.w),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 6,
                 child: Column(
                   children: [
-                    Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
-                    SizedBox(height: 20.h),
-                    Expanded(
-                      child: ListView.separated(
-                          itemBuilder: (_, __) => const RecentAssessmentsItem(),
-                          separatorBuilder: (_, __) => SizedBox(height: 20.h),
-                          itemCount: 20
-                      ),
-                    )
+                    SizedBox(
+                      width: double.infinity,
+                      height: 150.h,
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          final itemWidth = (constraints.maxWidth - 48.w) / 3;
+                          return Row(
+                            children: [
+                              DashboardPatientViewer(
+                                svgIconName: AppImage.svgProfileUser,
+                                iconBackgroundColor: AppColor.colorUserProfileBackground,
+                                width: itemWidth,
+                                label: 'Patient',
+                                amount: '10,000',
+                                percent: '0.05',
+                                isGrowing: true,
+                              ),
+                              SizedBox(width: 24.w),
+                              DashboardPatientViewer(
+                                svgIconName: AppImage.svgProfileMale,
+                                iconBackgroundColor: AppColor.colorRailHover,
+                                width: itemWidth,
+                                label: 'Male',
+                                amount: '5,600',
+                                percent: '0.05',
+                                isGrowing: true,
+                              ),
+                              SizedBox(width: 24.w),
+                              DashboardPatientViewer(
+                                svgIconName: AppImage.svgProfileFemale,
+                                iconBackgroundColor: AppColor.colorFemaleProfileBackground,
+                                width: itemWidth,
+                                label: 'Female',
+                                amount: '4,400',
+                                percent: '0.05',
+                                isGrowing: false,
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    ),
+                    SizedBox(height: 24.h,),
+                    Expanded(child: Container(color: AppColor.colorAppBackground)),
                   ],
                 ),
               ),
-            )
-          ],
+              SizedBox(width: 24.w,),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: AppColor.colorAppBackground,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  child: Column(
+                    children: [
+                      Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
+                      SizedBox(height: 20.h),
+                      Expanded(
+                        child: ListView.separated(
+                            itemBuilder: (_, __) => const RecentAssessmentsItem(),
+                            separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                            itemCount: 20
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       )
     );

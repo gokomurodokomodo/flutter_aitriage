@@ -33,4 +33,7 @@ class AppImage {
   static const svgKey = './lib/aitriage_core/asset/image/svg_key.svg';
   static const svgInformation = './lib/aitriage_core/asset/image/svg_information.svg';
   static const svgAssessment = './lib/aitriage_core/asset/image/svg_assessment.svg';
+  static const svgProfileUser = './lib/aitriage_core/asset/image/svg_profile_user.svg';
+  static const svgProfileMale = './lib/aitriage_core/asset/image/svg_profile_male.svg';
+  static const svgProfileFemale = './lib/aitriage_core/asset/image/svg_profile_female.svg';
 }

@@ -35,7 +35,7 @@ class RememberAndForgotPassword extends StatelessWidget {
                     value: isChecked,
                     onChanged: (_) => onTapCheck.call(_!),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),),
+                        borderRadius: BorderRadius.circular(4.r))),
                 ),
                 SizedBox(width: 8.w,),
                 Text('remember_me'.tr, style: AppStyle.styleRememberMeText,)

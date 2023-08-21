@@ -15,7 +15,7 @@ class RecentAssessmentsItem extends StatelessWidget {
       children: [
         Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.h),
+              borderRadius: BorderRadius.circular(12.r),
               color: AppColor.colorAssessmentItem
             ),
             padding: EdgeInsets.all(8.h),
@@ -35,7 +35,7 @@ class RecentAssessmentsItem extends StatelessWidget {
           width: 72.w,
           height: 28.h,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.h),
+              borderRadius: BorderRadius.circular(4.r),
               color: AppColor.colorAssessmentItem
           ),
           child: Center(child: Text('Low risk', style: AppStyle.styleAssessmentSummaryText)),
