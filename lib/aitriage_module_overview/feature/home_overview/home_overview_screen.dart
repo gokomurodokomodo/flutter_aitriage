@@ -13,6 +13,7 @@ import 'package:flutter_aitriage/aitriage_module_overview/widget/dashboard_patie
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
+import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../widget/recent_assessments_item.dart';
 
 class HomeOverviewScreen extends StatelessWidget {
@@ -42,11 +43,11 @@ class _Tablet extends GetView<HomeOverviewController> {
         ),
         trailing: Row(
           children: [
-            const CustomTrailingItem(svgIconName: AppImage.svgNotification),
+            const CustomTrailingWidget(svgIconName: AppImage.svgNotification),
             SizedBox(width: 20.w),
-            const CustomTrailingItem(svgIconName: AppImage.svgGift),
+            const CustomTrailingWidget(svgIconName: AppImage.svgGift),
             SizedBox(width: 20.w),
-            const CustomTrailingItem(svgIconName: AppImage.svgShare),
+            const CustomTrailingWidget(svgIconName: AppImage.svgShare),
           ],
         ),
       ),

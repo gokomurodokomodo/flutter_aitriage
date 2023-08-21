@@ -48,27 +48,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   Size get preferredSize => Size(double.infinity, height);
 }
 
-class CustomTrailingItem extends StatelessWidget {
-  final String svgIconName;
-
-  const CustomTrailingItem({
-    super.key,
-    required this.svgIconName
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 40.h,
-        width: 40.h,
-        padding: EdgeInsets.all(8.h),
-        decoration: BoxDecoration(
-            color: AppColor.colorBackgroundSearch,
-            border: Border.all(color: AppColor.colorBackgroundSearch),
-            borderRadius: BorderRadius.circular(12.r)
-        ),
-        child: SvgIconWidget(name: svgIconName));
-  }
-}
-
 
