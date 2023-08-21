@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/home_overview_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/widget/dashboard_patient_viewer.dart';
+import 'package:flutter_aitriage/aitriage_module_overview/widget/dashboard_patient_viewer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../aitriage_core/common/app_color.dart';
+import '../../widget/recent_assessments_item.dart';
 
 class HomeOverviewScreen extends StatelessWidget {
   const HomeOverviewScreen({super.key});
@@ -29,6 +30,7 @@ class _Tablet extends GetView<HomeOverviewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       appBar: const CustomAppBar(
         title: 'Dashboard',
         searchBar: SearchAppBar(
@@ -41,53 +43,49 @@ class _Tablet extends GetView<HomeOverviewController> {
         child: Row(
           children: [
             Expanded(
+              flex: 6,
               child: Column(
                 children: [
                   SizedBox(
-                    width: Get.width,
+                    width: double.infinity,
                     height: 150.h,
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          child: DashboardPatientViewer(
-                            label: 'Patient',
-                            amount: 10000,
-                            percent: 0.05,
-                            isGrowing: true,
-                          ),
-                        ),
-                        SizedBox(width: 24.w,),
-                        const Expanded(
-                          child: DashboardPatientViewer(
-                            label: 'Patient',
-                            amount: 10000,
-                            percent: 0.05,
-                            isGrowing: true,
-                          ),
-                        ),
-                        SizedBox(width: 24.w,),
-                        const Expanded(
-                          child: DashboardPatientViewer(
-                            label: 'Patient',
-                            amount: 10000,
-                            percent: 0.05,
-                            isGrowing: true,
-                          ),
-                        ),
-                      ],
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (_, __) => const DashboardPatientViewer(
+                        label: 'Patient',
+                        amount: 10000,
+                        percent: 0.05,
+                        isGrowing: true,
+                      ),
+                      separatorBuilder: (_, __) => SizedBox(width: 24.w),
+                      itemCount: 6,
                     ),
                   ),
                   SizedBox(height: 24.h,),
-                  Expanded(
-                      child: Container(
-                          color: AppColor.colorButtonTextEnable)),
+                  Expanded(child: Container(color: AppColor.colorAppBackground)),
                 ],
               ),
             ),
             SizedBox(width: 24.w,),
-            Container(
-              width: Get.width / 3 * 1,
-              color: AppColor.colorButtonTextEnable,
+            Expanded(
+              flex: 3,
+              child: Container(
+                color: AppColor.colorAppBackground,
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                child: Column(
+                  children: [
+                    Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
+                    SizedBox(height: 20.h),
+                    Expanded(
+                      child: ListView.separated(
+                          itemBuilder: (_, __) => const RecentAssessmentsItem(),
+                          separatorBuilder: (_, __) => SizedBox(height: 20.h),
+                          itemCount: 20
+                      ),
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ),

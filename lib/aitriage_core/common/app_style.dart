@@ -26,7 +26,7 @@ class AppStyle {
   static final styleTextColorButtonEnable = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
-    color: AppColor.colorButtonTextEnable,
+    color: AppColor.colorAppBackground,
   );
   static final styleTextColorButtonDisable = TextStyle(
     fontSize: fontSizeBase,
@@ -116,6 +116,21 @@ class AppStyle {
   static final styleGettingStartedItemTitle = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
+    color: AppColor.colorTextPinCode,
+  );
+  static final styleAssessmentItemTitle = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
+  static final styleAssessmentItemLabel = TextStyle(
+    fontSize: fontSizeXS,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorRememberMeText,
+  );
+  static final styleAssessmentSummaryText = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
     color: AppColor.colorTextPinCode,
   );
 }

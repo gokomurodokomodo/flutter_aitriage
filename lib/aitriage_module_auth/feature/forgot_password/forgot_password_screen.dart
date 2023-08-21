@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.d
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
@@ -28,6 +29,7 @@ class _Tablet extends GetView<ForgotPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: SingleChildScrollView(
         reverse: true,
         child: Center(

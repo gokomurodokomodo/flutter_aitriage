@@ -25,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.colorButtonTextEnable,
+      color: AppColor.colorAppBackground,
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),

@@ -7,12 +7,14 @@ import '../config/auth_route.dart';
 class RememberAndForgotPassword extends StatelessWidget {
   final bool isChecked;
   final Function(bool) onTapCheck;
+  final Function()? onTapForgotPassword;
 
 
   const RememberAndForgotPassword({
     super.key,
     required this.isChecked,
     required this.onTapCheck,
+    this.onTapForgotPassword
   });
 
 
@@ -41,9 +43,7 @@ class RememberAndForgotPassword extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () {
-                Get.toNamed(AuthRoute.forgotPassword);
-              },
+              onPressed: () => onTapForgotPassword?.call(),
               style: TextButton.styleFrom(
                   padding: EdgeInsets.zero
               ),

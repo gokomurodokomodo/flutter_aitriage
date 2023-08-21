@@ -1,11 +1,8 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../aitriage_core/common/app_color.dart';
-import '../../../../aitriage_core/common/app_style.dart';
+import '../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_style.dart';
 
 class DashboardPatientViewer extends StatelessWidget {
   final String? label;
@@ -24,7 +21,9 @@ class DashboardPatientViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.colorButtonTextEnable,
+      color: AppColor.colorAppBackground,
+      width: 300.w,
+      height: 150.h,
       child: Padding(
         padding: EdgeInsets.all(20.h),
         child: Column(

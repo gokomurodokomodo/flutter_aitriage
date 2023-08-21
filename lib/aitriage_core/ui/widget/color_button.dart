@@ -43,7 +43,7 @@ class ColorButton extends StatelessWidget {
 
   BoxBorder? get _border => !shouldEnable ? Border.all(color: AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid) : Border.all(color: colorActive == null ? Colors.transparent : AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid);
 
-  Color get _borderColor => shouldEnable ? AppColor.colorButtonBackgroundEnable : AppColor.colorButtonTextEnable;
+  Color get _borderColor => shouldEnable ? AppColor.colorButtonBackgroundEnable : AppColor.colorAppBackground;
 
   TextStyle get titleStyle => shouldEnable ? AppStyle.styleTextColorButtonEnable: AppStyle.styleTextColorButtonDisable;
 

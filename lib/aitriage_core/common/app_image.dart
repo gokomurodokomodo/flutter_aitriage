@@ -32,4 +32,5 @@ class AppImage {
   static const svgSuccess = './lib/aitriage_core/asset/image/svg_success.svg';
   static const svgKey = './lib/aitriage_core/asset/image/svg_key.svg';
   static const svgInformation = './lib/aitriage_core/asset/image/svg_information.svg';
+  static const svgAssessment = './lib/aitriage_core/asset/image/svg_assessment.svg';
 }

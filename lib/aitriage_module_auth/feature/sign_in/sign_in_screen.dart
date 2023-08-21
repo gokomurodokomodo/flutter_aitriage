@@ -30,6 +30,7 @@ class _Tablet extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         reverse: true,
@@ -62,35 +63,39 @@ class _Tablet extends GetView<SignInController> {
                 ),
               Obx(() {
                 return SizedBox(
-                  width: 450.w,
+                  width: 360.w,
                   child: RememberAndForgotPassword(
                     isChecked: controller.isCheck.value,
-                    onTapCheck: controller.onCheckBoxTap,
+                    onTapCheck: (value) {
+                      controller.onCheckBoxTap(value);
+                    },
+                    onTapForgotPassword: () => Get.toNamed(AuthRoute.forgotPassword),
                   ),
                 );
               }),
               SizedBox(
-                  width: 450.w,
+                  width: 360.w,
                   child: ColorButton(
                     title: 'sign_in'.tr,
                     shouldEnable: controller.isValidated.value,
+                    onTap: () => Get.toNamed(AuthRoute.signInWithCode),
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
                 ),
               SizedBox(height: 20.h,),
               SignInDivider(
-                width: 450.w,
+                width: 360.w,
               ),
               SizedBox(
                 height: 20.h,
               ),
               SizedBox(
-                width: 450.w,
+                width: 360.w,
                 child: ColorButton(
                   title: 'sign_in_with_pin_code'.tr,
                   textStyle: const TextStyle(color: AppColor.colorRememberMeText),
                   shouldEnable: true,
-                  colorActive: AppColor.colorButtonTextEnable,
+                  colorActive: AppColor.colorAppBackground,
                   onTap: () => Get.offNamed(AuthRoute.signInWithCode),
                 ),
               ),

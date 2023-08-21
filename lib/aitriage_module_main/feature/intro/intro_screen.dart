@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/util/global_function.dart';
 import '../../widget/circle_indicator.dart';
 import '../../widget/intro_page_view_item_tablet.dart';
@@ -52,7 +54,7 @@ class _TabletState extends State<_Tablet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.colorAppBackground,
       body: Column(
         children: [
           SizedBox(
@@ -89,15 +91,22 @@ class _TabletState extends State<_Tablet> {
           SizedBox(height: 12.h),
           CircleIndicator(index: index, length: 4),
           SizedBox(height: 50.h),
-          ColorButton(title: 'sign_up_title'.tr, width: 360.w, shouldEnable: true),
+          ColorButton(
+              title: 'sign_up_title'.tr, 
+              width: 360.w, 
+              shouldEnable: true,
+          ),
           SizedBox(height: 34.h),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('login_suggest'.tr, style: AppStyle.styleIntroSuggest),
-              const Text(' '),
-              Text('sign_in'.tr, style: AppStyle.styleIntroSuggest2)
-            ],
+          GestureDetector(
+            onTap: () => Get.toNamed(AuthRoute.signIn),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('login_suggest'.tr, style: AppStyle.styleIntroSuggest),
+                const Text(' '),
+                Text('sign_in'.tr, style: AppStyle.styleIntroSuggest2)
+              ],
+            ),
           )
         ],
       )
@@ -122,7 +131,7 @@ class _PhoneState extends State<_Phone> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.colorAppBackground,
     );
   }
 }

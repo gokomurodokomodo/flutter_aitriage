@@ -29,6 +29,7 @@ class _Tablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -75,6 +76,7 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: Stack(
         children: [
           Image.asset(AppImage.bgNonIconSplashScreen),

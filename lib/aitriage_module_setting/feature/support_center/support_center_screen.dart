@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/search_textfield_phone.dart';
 
 class SupportCenterScreen extends StatelessWidget {
@@ -29,6 +30,7 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       appBar: AppBar(
         title: const Row(
           children: [

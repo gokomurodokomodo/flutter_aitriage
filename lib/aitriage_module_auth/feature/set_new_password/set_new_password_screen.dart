@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/check_box_with_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
@@ -28,6 +30,7 @@ class _Tablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -65,7 +68,12 @@ class _Tablet extends StatelessWidget {
                   SizedBox(height: 12.h),
                   CheckBoxWithText(text: 'at_least_special_character'.tr, isCheck: true),
                   SizedBox(height: 24.h),
-                  ColorButton(title: 'reset_password'.tr, width: 360.w, shouldEnable: true),
+                  ColorButton(
+                      title: 'reset_password'.tr, 
+                      width: 360.w, 
+                      shouldEnable: true,
+                      onTap: () => Get.toNamed(AuthRoute.successResetPassword),
+                  ),
                   SizedBox(height: 32.h),
                   const BackToLoginTextButton()
                 ],

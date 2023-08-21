@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 
+import '../../../aitriage_core/common/app_color.dart';
+
 class HomeAssessmentScreen extends StatelessWidget {
   const HomeAssessmentScreen({super.key});
 
@@ -29,6 +31,7 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       appBar: AppBar(
 
       ),

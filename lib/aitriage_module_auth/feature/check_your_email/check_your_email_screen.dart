@@ -6,6 +6,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import 'check_your_email_controller.dart';
@@ -27,6 +28,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: Center(
         child: Column(
           children: [
@@ -46,6 +48,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
               title: 'open_email_app'.tr,
               onTap: (){
                 controller.openEmailApp();
+                Get.toNamed(AuthRoute.setNewPassword);
               },
             ),
             SizedBox(height: 32.h,),

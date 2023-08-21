@@ -7,6 +7,8 @@ import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_mai
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/common/app_color.dart';
+
 class HomeMainScreen extends StatelessWidget {
   const HomeMainScreen({super.key});
 
@@ -25,6 +27,7 @@ class _Tablet extends GetView<HomeMainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Row(
@@ -64,6 +67,7 @@ class _Phone extends GetView<HomeMainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: PageView(
         controller: controller.pageController,
         physics: const NeverScrollableScrollPhysics(),

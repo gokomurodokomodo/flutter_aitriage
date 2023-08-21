@@ -34,12 +34,14 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
     return GestureDetector(
       onTap: () => Get.focusScope?.unfocus(),
       child: Scaffold(
-        backgroundColor: AppColor.colorButtonTextEnable,
+        backgroundColor: AppColor.colorAppBackground,
         body: SingleChildScrollView(
           reverse: true,
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(height: 160.h),
                 AuthenticationHeader(
                   svgIconName: AppImage.svgAppLogo,
                   headerText: 'welcome_back'.tr,
@@ -96,7 +98,7 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
                     title: 'sign_in_with_email'.tr,
                     textStyle: const TextStyle(color: AppColor.colorRememberMeText),
                     shouldEnable: true,
-                    colorActive: AppColor.colorButtonTextEnable,
+                    colorActive: AppColor.colorAppBackground,
                     onTap: () => Get.offNamed(AuthRoute.signIn),
                   ),
                 ),

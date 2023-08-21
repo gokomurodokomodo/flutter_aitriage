@@ -12,7 +12,7 @@ class AppColor {
   // Color
   static const colorAppPrimary = Color(0xFF0151FC);
   static const colorButtonBackgroundEnable = Color(0xff2F9DFE);
-  static const colorButtonTextEnable = Color(0xffFFFFFF);
+  static const colorAppBackground = Color(0xffFFFFFF);
   static const colorButtonTextDisable = Color(0xff5B616E);
   static const colorBorderDisable = Color(0xffDBDBDB);
   static const colorDialogTitleText = Color(0xff1C1C1C);
@@ -28,4 +28,5 @@ class AppColor {
   static const colorRememberMeText = Color(0xFF676767);
   static const colorInactiveFillColor = Color(0xFFE8E8E8);
   static const colorTextPinCode = Color(0xFF027BFE);
+  static const colorAssessmentItem = Color(0xfff3f9ff);
 }

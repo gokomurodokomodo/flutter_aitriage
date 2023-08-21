@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../common/app_color.dart';
 import '../../common/app_style.dart';
 
 enum AlertStatus { success, warning, error }
@@ -96,6 +97,7 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Center(

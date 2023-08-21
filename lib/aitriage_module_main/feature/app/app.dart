@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,10 +87,10 @@ class _AppState extends State<App> with SubscriptionCollector {
   bool get shouldLaunchIntroScreen => true;
 
   String get initialRoute => shouldLaunchIntroScreen
-      ? MainRoute.gettingStarted
+      ? MainRoute.intro
       : MainRoute.main;
 
-  // String get initialRoute => MainRoute.gettingStartedMain;
+  // String get initialRoute => MainRoute.main;
 
   @override
   Widget build(BuildContext context) {

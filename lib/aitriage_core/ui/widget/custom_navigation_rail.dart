@@ -50,7 +50,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.colorButtonTextEnable,
+      color: AppColor.colorAppBackground,
       child: Column(
         children: [
           Visibility(

@@ -5,6 +5,8 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/search_textfield_phone.
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/common/app_color.dart';
+
 class AllPatientsScreen extends StatelessWidget {
   const AllPatientsScreen({super.key});
 
@@ -32,6 +34,7 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       appBar: AppBar(
         title: Row(
           children: [

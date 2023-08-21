@@ -27,6 +27,7 @@ class _Tablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.colorAppBackground,
       body: Center(
         child: Column(
           children: [
