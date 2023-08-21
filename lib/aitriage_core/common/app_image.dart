@@ -36,4 +36,8 @@ class AppImage {
   static const svgProfileUser = './lib/aitriage_core/asset/image/svg_profile_user.svg';
   static const svgProfileMale = './lib/aitriage_core/asset/image/svg_profile_male.svg';
   static const svgProfileFemale = './lib/aitriage_core/asset/image/svg_profile_female.svg';
+  static const svgNotification = './lib/aitriage_core/asset/image/svg_notification.svg';
+  static const svgGift = './lib/aitriage_core/asset/image/svg_gift.svg';
+  static const svgShare = './lib/aitriage_core/asset/image/svg_share.svg';
+  static const svgSearch = './lib/aitriage_core/asset/image/svg_search.svg';
 }

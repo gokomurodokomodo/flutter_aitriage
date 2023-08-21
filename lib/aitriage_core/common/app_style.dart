@@ -152,4 +152,9 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorDialogTitleText,
   );
+  static final styleHintTextSearchBar = TextStyle(
+    fontSize: fontSizeXS,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextFieldPlaceHolder,
+  );
 }

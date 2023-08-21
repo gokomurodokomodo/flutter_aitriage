@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
 import '../../common/app_color.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
@@ -33,21 +32,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             leading ?? const SizedBox(),
-            (leading == null) ? const SizedBox() : const SizedBox(width: 12,),
-            (title == null) ? const SizedBox() : Text(title!, style: AppStyle.styleTextDashboardTitle,),
+            if (leading != null) const SizedBox(width: 12),
+            if (title != null) Text(title!, style: AppStyle.styleTextDashboardTitle,),
             const Spacer(),
-            (searchBar != null) ? searchBar! : const SizedBox(),
+            if (searchBar != null) searchBar!,
             const SizedBox(width: 20,),
-            (trailing == null) ? const SizedBox() : Container(
-              height: 40.h,
-              width: 40.h,
-                padding: EdgeInsets.all(5.h),
-                decoration: BoxDecoration(
-                  color: AppColor.colorBackgroundSearch,
-                  border: Border.all(color: AppColor.colorBackgroundSearch),
-                  borderRadius: BorderRadius.circular(12.r)
-                ),
-                child: trailing!),
+            if (trailing != null) trailing!,
           ],
         ),
       ),
@@ -57,4 +47,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Size get preferredSize => Size(double.infinity, height);
 }
+
+class CustomTrailingItem extends StatelessWidget {
+  final String svgIconName;
+
+  const CustomTrailingItem({
+    super.key,
+    required this.svgIconName
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 40.h,
+        width: 40.h,
+        padding: EdgeInsets.all(8.h),
+        decoration: BoxDecoration(
+            color: AppColor.colorBackgroundSearch,
+            border: Border.all(color: AppColor.colorBackgroundSearch),
+            borderRadius: BorderRadius.circular(12.r)
+        ),
+        child: SvgIconWidget(name: svgIconName));
+  }
+}
+
 

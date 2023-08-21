@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../common/app_color.dart';
+import '../../common/app_style.dart';
 
 class BaseSearchBarTablet extends StatefulWidget{
   final String? hintText;
@@ -46,10 +49,11 @@ class _SearchState extends State<BaseSearchBarTablet>{
                   border: InputBorder.none,
                   isDense: true,
                   isCollapsed: true,
+                  hintStyle: AppStyle.styleHintTextSearchBar
               ),
             ).paddingOnly(left: 16),
           ),
-          widget.shouldShowSearchIcon ? const Icon(Icons.search).paddingOnly(right: 16) : const SizedBox(),
+          widget.shouldShowSearchIcon ? SvgIconWidget(name: AppImage.svgSearch).paddingOnly(right: 16) : const SizedBox(),
         ],
       ),
     );

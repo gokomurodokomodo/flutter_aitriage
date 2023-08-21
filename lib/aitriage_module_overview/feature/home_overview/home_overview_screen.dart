@@ -40,7 +40,15 @@ class _Tablet extends GetView<HomeOverviewController> {
           hintText: 'Search type or keyword',
           width: 350.w,
         ),
-        trailing: const Icon(Icons.notifications),
+        trailing: Row(
+          children: [
+            const CustomTrailingItem(svgIconName: AppImage.svgNotification),
+            SizedBox(width: 20.w),
+            const CustomTrailingItem(svgIconName: AppImage.svgGift),
+            SizedBox(width: 20.w),
+            const CustomTrailingItem(svgIconName: AppImage.svgShare),
+          ],
+        ),
       ),
       body: Container(
         color: AppColor.colorBackgroundSearch,
