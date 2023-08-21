@@ -24,7 +24,7 @@ class AppColor {
   static const colorSliderButtonDisable = Colors.red;
   static const colorRailHover = Color(0xffE6EFFE);
   static const colorBackgroundSearch = Color(0xffF8F8F8);
-  static const colorTextFieldPlaceHoler = Color(0xFFD0D0D0);
+  static const colorTextFieldPlaceHolder = Color(0xFFD0D0D0);
   static const colorRememberMeText = Color(0xFF676767);
   static const colorInactiveFillColor = Color(0xFFE8E8E8);
   static const colorTextPinCode = Color(0xFF027BFE);
@@ -32,4 +32,5 @@ class AppColor {
   static const colorUserProfileBackground = Color(0xffFFF5E5);
   static const colorFemaleProfileBackground = Color(0xffFFE5F8);
   static const colorTextRaisedPercent = Color(0xff00a811);
+  static const colorLineSeparated = Color.fromRGBO(232, 232, 232, 0.30);
 }

@@ -71,7 +71,7 @@ class AppStyle {
   static final styleCustomTextFieldHintText = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
-    color: AppColor.colorTextFieldPlaceHoler,
+    color: AppColor.colorTextFieldPlaceHolder,
   );
   static final styleRememberMeText = TextStyle(
     fontSize: fontSizeSM,
@@ -137,5 +137,19 @@ class AppStyle {
     fontSize: fontSizeSM,
     fontWeight: fontWeight500,
     color: AppColor.colorTextRaisedPercent,
+  );
+  static final styleTextAllPatientsHeader = TextStyle(
+    fontSize: fontSizeXL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
+  static final styleTextAllPatientCategory = TextStyle(
+      fontSize: fontSizeSM,
+      fontWeight: fontWeight500,
+      color: AppColor.colorCloseButton);
+  static final stylePatientItemLabel = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorDialogTitleText,
   );
 }

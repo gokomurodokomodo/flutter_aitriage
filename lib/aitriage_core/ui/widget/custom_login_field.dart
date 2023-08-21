@@ -45,7 +45,7 @@ class CustomLoginField extends StatelessWidget {
           width: textFieldWidth ?? 360.w,
           decoration: BoxDecoration(
               color: AppColor.colorBackgroundSearch,
-              border: Border.all(color: AppColor.colorTextFieldPlaceHoler),
+              border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
               borderRadius: BorderRadius.circular(textFieldRadius ?? 8)
           ),
           child: Padding(

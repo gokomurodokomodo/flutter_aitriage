@@ -10,7 +10,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   final Widget? leading;
   final String? title;
   final Widget? searchBar;
-  final double? searchBarWidth;
   final Widget? trailing;
 
   const CustomAppBar({
@@ -20,7 +19,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
     this.title,
     this.trailing,
     this.searchBar,
-    this.searchBarWidth = 300
   });
 
   @override
@@ -38,19 +36,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
             (leading == null) ? const SizedBox() : const SizedBox(width: 12,),
             (title == null) ? const SizedBox() : Text(title!, style: AppStyle.styleTextDashboardTitle,),
             const Spacer(),
-            SizedBox(width: searchBarWidth,child: (searchBar != null) ? searchBar! : const SizedBox()),
+            (searchBar != null) ? searchBar! : const SizedBox(),
             const SizedBox(width: 20,),
             (trailing == null) ? const SizedBox() : Container(
-              height: 50,
+              height: 40.h,
+              width: 40.h,
+                padding: EdgeInsets.all(5.h),
                 decoration: BoxDecoration(
                   color: AppColor.colorBackgroundSearch,
                   border: Border.all(color: AppColor.colorBackgroundSearch),
                   borderRadius: BorderRadius.circular(12.r)
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: trailing!,
-                )),
+                child: trailing!),
           ],
         ),
       ),
@@ -61,45 +58,3 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   Size get preferredSize => Size(double.infinity, height);
 }
 
-class SearchAppBar extends StatefulWidget{
-  final String? placeholder;
-  final Function(String)? onTextChange;
-  final bool shouldShowSearchIcon;
-  const SearchAppBar({
-    super.key,
-    this.placeholder,
-    this.onTextChange,
-    this.shouldShowSearchIcon = true
-  });
-
-  @override
-  State<StatefulWidget> createState() => _SearchState();
-}
-
-class _SearchState extends State<SearchAppBar>{
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        color: AppColor.colorBackgroundSearch,
-        border: Border.all(color: AppColor.colorBackgroundSearch),
-        borderRadius: BorderRadius.circular(12.r)
-      ),
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TextField(
-            onChanged: widget.onTextChange,
-            decoration: InputDecoration(
-              hintText: widget.placeholder,
-              border: InputBorder.none
-            ),
-
-          ).paddingOnly(left: 16),
-          widget.shouldShowSearchIcon ? const Icon(Icons.search).paddingOnly(right: 16) : const SizedBox(),
-        ],
-      ),
-    );
-  }
-}

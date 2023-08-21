@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/patient_summary_listview.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:flutter_aitriage/aitriage_module_overview/feature/home_overview/home_overview_controller.dart';
@@ -32,12 +34,13 @@ class _Tablet extends GetView<HomeOverviewController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: 'Dashboard',
-        searchBar: SearchAppBar(
-          placeholder: 'search type or keyword',
+        searchBar: BaseSearchBarTablet(
+          hintText: 'Search type or keyword',
+          width: 350.w,
         ),
-        trailing: Icon(Icons.notifications),
+        trailing: const Icon(Icons.notifications),
       ),
       body: Container(
         color: AppColor.colorBackgroundSearch,
@@ -92,7 +95,38 @@ class _Tablet extends GetView<HomeOverviewController> {
                       )
                     ),
                     SizedBox(height: 24.h,),
-                    Expanded(child: Container(color: AppColor.colorAppBackground)),
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(20.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.r),
+                            color: AppColor.colorAppBackground,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('All Patients', style: AppStyle.styleTextAllPatientsHeader),
+                                      Text('Patients enrolled: 12', style: AppStyle.styleRememberMeText)
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  BaseSearchBarTablet(
+                                    width: 320.w,
+                                    hintText: 'Search type or keyword',),
+                                  SizedBox(width: 16.w)
+                                ],
+                              ),
+                              SizedBox(height: 20.h),
+                              const Expanded(
+                                  child: PatientSummaryListView()
+                              )
+                            ],
+                          ),
+                        )),
                   ],
                 ),
               ),
@@ -100,7 +134,10 @@ class _Tablet extends GetView<HomeOverviewController> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  color: AppColor.colorAppBackground,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: AppColor.colorAppBackground,
+                  ),
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Column(
                     children: [
