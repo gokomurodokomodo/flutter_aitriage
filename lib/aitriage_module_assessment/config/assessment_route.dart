@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/work_flow/workflow_screen.dart';
 import 'package:get/get.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
@@ -15,7 +16,7 @@ class AssessmentRoute {
   static const nestedId = 1000;
   static final nestedKey = Get.nestedKey(nestedId);
   // Route name
-  static const _root = '/overview';
+  static const _root = '/assessment';
   static const initialRoute = '$_root/home';
   static const allPatients = '$_root/all_patients';
   static const addNewPatients = '$_root/add_new_patient';
@@ -24,6 +25,7 @@ class AssessmentRoute {
   static const note = '$_root/note';
   static const addNewNote = '$_root/add_new_note';
   static const connectingDevice = '$_root/connecting_device';
+  static const workflow = '$_root/workflow';
   // When navigate with id - nested navigation
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -70,6 +72,11 @@ class AssessmentRoute {
         return GetPageRoute(
             settings: settings,
             page: () => const AddNewNoteScreen()
+        );
+      case workflow:
+        return GetPageRoute(
+            settings: settings,
+            page: () => const WorkflowScreen()
         );
       default:
         return null;

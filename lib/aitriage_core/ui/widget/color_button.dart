@@ -12,6 +12,7 @@ class ColorButton extends StatelessWidget {
   final Function? onTap;
   final TextStyle? textStyle;
   final Color? colorActive;
+  final Widget? leftIcon;
 
   const ColorButton({
     super.key,
@@ -22,7 +23,8 @@ class ColorButton extends StatelessWidget {
     this.decoration,
     this.textStyle,
     this.colorActive,
-    required this.title
+    required this.title,
+    this.leftIcon
   });
 
   @override
@@ -35,7 +37,13 @@ class ColorButton extends StatelessWidget {
         width: _width,
         decoration: _decoration,
         child: Center(
-          child: Text(title, style: _textStyle),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (leftIcon != null) leftIcon!,
+              Text(title, style: _textStyle)
+            ],
+          ),
         ),
       ),
     );

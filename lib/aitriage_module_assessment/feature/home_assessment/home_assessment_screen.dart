@@ -6,9 +6,11 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/patient_summary_listview.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
@@ -43,11 +45,11 @@ class _Tablet extends GetView<HomeAssessmentController> {
         ),
         trailing: Row(
           children: [
-            const CustomTrailingWidget(svgIconName: AppImage.svgNotification),
+            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification)),
             SizedBox(width: 20.w),
-            const CustomTrailingWidget(svgIconName: AppImage.svgGift),
+            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift)),
             SizedBox(width: 20.w),
-            const CustomTrailingWidget(svgIconName: AppImage.svgShare),
+            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
           ],
         ),
       ),
@@ -127,9 +129,11 @@ class _Tablet extends GetView<HomeAssessmentController> {
                                     width: 320.w,
                                     hintText: 'Search type or keyword'),
                                   SizedBox(width: 16.w),
-                                  const CustomTrailingWidget(svgIconName: AppImage.svgFilter),
+                                  CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter)),
                                   SizedBox(width: 16.w),
-                                  const CustomTrailingWidget(svgIconName: AppImage.svgAddPatient),
+                                  GestureDetector(
+                                      onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
+                                      child: CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgAddPatient))),
                                   // SizedBox(width: 16.w)
                                 ],
                               ),
@@ -158,7 +162,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                         children: [
                           Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
                           const Spacer(),
-                          const CustomTrailingWidget(svgIconName: AppImage.svgAddAssessment),
+                          CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgAddAssessment)),
                         ],
                       ),
                       SizedBox(height: 20.h),

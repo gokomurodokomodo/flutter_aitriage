@@ -19,7 +19,7 @@ class _SearchTextFieldPhoneState extends State<SearchTextFieldPhone> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(6.w)),
           border: Border.all(color: Colors.blueAccent),
-          color: AppColor.colorSearchBar
+          color: AppColor.colorCloseButton
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,

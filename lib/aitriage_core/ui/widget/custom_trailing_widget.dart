@@ -4,24 +4,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../common/app_color.dart';
 
 class CustomTrailingWidget extends StatelessWidget {
-  final String svgIconName;
+  final Color? backgroundColor;
+  final double? width;
+  final double? height;
+  final Widget? child;
 
   const CustomTrailingWidget({
     super.key,
-    required this.svgIconName
+    this.backgroundColor,
+    this.width,
+    this.height,
+    required this.child
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 40.h,
-        width: 40.h,
+        height: height ?? 40.h,
+        width: width ?? 40.h,
         padding: EdgeInsets.all(8.h),
         decoration: BoxDecoration(
-            color: AppColor.colorBackgroundSearch,
-            border: Border.all(color: AppColor.colorBackgroundSearch),
+            color: backgroundColor ?? AppColor.colorBackgroundSearch,
+            border: Border.all(color: backgroundColor ?? AppColor.colorBackgroundSearch),
             borderRadius: BorderRadius.circular(12.r)
         ),
-        child: SvgIconWidget(name: svgIconName));
+        child: child);
   }
 }

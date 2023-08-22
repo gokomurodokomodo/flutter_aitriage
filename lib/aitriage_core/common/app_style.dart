@@ -157,4 +157,19 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextFieldPlaceHolder,
   );
+  static final styleRecordVitalSignsActive = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorTextPinCode,
+  );
+  static final styleRecordVitalSignsInactive = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorCloseButton,
+  );
+  static final styleCancelAssessment = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextCancelAssessment,
+  );
 }

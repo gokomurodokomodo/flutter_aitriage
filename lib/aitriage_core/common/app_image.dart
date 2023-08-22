@@ -43,4 +43,9 @@ class AppImage {
   static const svgFilter = './lib/aitriage_core/asset/image/svg_filter.svg';
   static const svgAddPatient = './lib/aitriage_core/asset/image/svg_add_patient.svg';
   static const svgAddAssessment = './lib/aitriage_core/asset/image/svg_add_assessment.svg';
+  static const svgMaleWhiteBg = './lib/aitriage_core/asset/image/svg_male_white_bg.svg';
+  static const svgPlus = './lib/aitriage_core/asset/image/svg_plus.svg';
+  static const svgRecordVitalSigns = './lib/aitriage_core/asset/image/svg_record_vital_signs.svg';
+  static const svgHearScore = './lib/aitriage_core/asset/image/svg_hear_score.svg';
+  static const svgAssessmentResult = './lib/aitriage_core/asset/image/svg_assessment_result.svg';
 }

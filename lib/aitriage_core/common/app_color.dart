@@ -19,7 +19,6 @@ class AppColor {
   static const colorCloseButton = Color(0xFFA9A9A9);
   static const colorAlertHeader = Color(0xFF1B1B1B);
   static const colorTextGettingStarted = Color(0xffECECEC);
-  static const colorSearchBar = Color(0xffa9a9a9);
   static const colorSliderButtonEnable = Color(0xff129961);
   static const colorSliderButtonDisable = Colors.red;
   static const colorRailHover = Color(0xffE6EFFE);
@@ -33,4 +32,5 @@ class AppColor {
   static const colorFemaleProfileBackground = Color(0xffFFE5F8);
   static const colorTextRaisedPercent = Color(0xff00a811);
   static const colorLineSeparated = Color.fromRGBO(232, 232, 232, 0.30);
+  static const colorTextCancelAssessment = Color(0xffFD2E58);
 }
