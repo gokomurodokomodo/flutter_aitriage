@@ -23,29 +23,44 @@ class _VitalSignChartState extends State<VitalSignChart> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
         child: Scaffold(
             body: SfCartesianChart(
-                series: <LineSeries<LiveData, double>>[
-                  LineSeries<LiveData, double>(
+                series: <ChartSeries>[
+                  AreaSeries<LiveData, double>(
                     // animationDuration: 2000,
                     onRendererCreated: (ChartSeriesController controller) {
                       _chartSeriesController = controller;
                     },
                     dataSource: chartData,
-                    color: const Color.fromRGBO(192, 108, 132, 1),
                     xValueMapper: (LiveData sales, _) => sales.time,
                     yValueMapper: (LiveData sales, _) => sales.speed,
+                    color: Colors.deepOrange[300],
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xfffd2e55),
+                        Color(0x00fd2e55),
+                      ],
+                      begin: Alignment(0.5, -1.14),
+                      end: Alignment(0.5, 1),
+                    ),
+                    borderWidth: 1,
+                    borderColor: const Color(0xFFFD2E58)
                   )
                 ],
                 primaryXAxis: NumericAxis(
                     majorGridLines: const MajorGridLines(width: 0),
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
-                    interval: 3,
+                    interval: 1,
                     title: AxisTitle(text: 'Time (seconds)')),
                 primaryYAxis: NumericAxis(
+                    minimum: 0.86,
+                    maximum: 1.14,
                     axisLine: const AxisLine(width: 0),
                     majorTickLines: const MajorTickLines(size: 0),
                     title: AxisTitle(text: 'Internet speed (Mbps)')))));
@@ -53,8 +68,9 @@ class _VitalSignChartState extends State<VitalSignChart> {
 
   var time = 1.0;
   void updateDataSource(Timer timer) {
-    time = time + 0.3;
-    chartData.add(LiveData(time, (math.Random().nextInt(60) + 30)));
+    time = time + 0.004;
+    // chartData.add(LiveData(time, ( 1 + math.Random().nextDouble()*0.1 * (math.Random().nextBool() ? -1 : 1))));
+    chartData.add(LiveData(time, (1 + math.Random().nextDouble()*0.1 * (math.Random().nextBool() ? -1 : 1))));
     chartData.removeAt(0);
     _chartSeriesController.updateDataSource(
         addedDataIndex: chartData.length - 1, removedDataIndex: 0);
