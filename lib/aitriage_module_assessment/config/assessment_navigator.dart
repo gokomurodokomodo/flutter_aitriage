@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_route.dart';
+
+import 'assessment_route.dart';
 
 class AssessmentNavigator extends StatelessWidget {
   const AssessmentNavigator({super.key});

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class SettingRoute {
   SettingRoute._();
 
-  static const nestedId = 3000;
+  static const nestedId = 2000;
   static final nestedKey = Get.nestedKey(nestedId);
   static const _root = '/setting';
   static const initialRoute = '$_root/home';

@@ -3,10 +3,10 @@ import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_text_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_overview/config/overview_route.dart';
 import 'package:get/get.dart';
 
 import '../../../aitriage_core/common/app_color.dart';
+import '../../config/assessment_route.dart';
 
 class AddNewPatientScreen extends StatelessWidget {
   const AddNewPatientScreen({super.key});
@@ -78,7 +78,7 @@ class _Phone extends StatelessWidget {
                     Get.to(() => AlertScreen(
                         onTapPrimaryButton: () {
                           Get.until((route) => route.isFirst);
-                          Get.until((route) => route.settings.name == OverviewRoute.initialRoute, id: OverviewRoute.nestedId);
+                          Get.until((route) => route.settings.name == AssessmentRoute.initialRoute, id: AssessmentRoute.nestedId);
                           },
                     ));
                   }))
