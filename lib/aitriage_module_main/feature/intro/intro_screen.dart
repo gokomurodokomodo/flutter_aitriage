@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,14 @@ class _TabletState extends State<_Tablet> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
+      floatingActionButton: GestureDetector(
+        onTap: () => Get.toNamed(MainRoute.main),
+        child: Container(
+          width: 40.r, 
+          height: 40.r,
+          color: Colors.red,
+        ),
+      ),
       body: Column(
         children: [
           SizedBox(

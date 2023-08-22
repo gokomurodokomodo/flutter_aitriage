@@ -33,4 +33,8 @@ class AppColor {
   static const colorTextRaisedPercent = Color(0xff00a811);
   static const colorLineSeparated = Color.fromRGBO(232, 232, 232, 0.30);
   static const colorTextCancelAssessment = Color(0xffFD2E58);
+  static const colorVitalSignSpo2Bg = Color.fromRGBO(47, 157, 254, 0.10);
+  static const colorVitalSignHeartRateBg = Color.fromRGBO(255, 115, 115, 0.10);
+  static const colorVitalSignRespRateBg = Color.fromRGBO(255, 158, 12, 0.10);
+  static const colorVitalSignNibpBg = Color.fromRGBO(0, 168, 17, 0.10);
 }

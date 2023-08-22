@@ -84,7 +84,7 @@ class _AppState extends State<App> with SubscriptionCollector {
     }
   }
 
-  bool get shouldLaunchIntroScreen => false;
+  bool get shouldLaunchIntroScreen => true;
 
   String get initialRoute => shouldLaunchIntroScreen
       ? MainRoute.intro

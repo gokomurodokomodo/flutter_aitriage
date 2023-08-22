@@ -10,6 +10,7 @@ import '../../../aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import '../../../aitriage_core/ui/widget/custom_app_bar.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
+import '../../widget/vital_sign_item.dart';
 
 class WorkflowScreen extends StatelessWidget {
   const WorkflowScreen({super.key});
@@ -117,7 +118,7 @@ class _Tablet extends StatelessWidget {
                   ColorButton(
                       title: 'Add note',
                       shouldEnable: true,
-                      width: 118.w,
+                      width: 130.w,
                       leftIcon: SvgIconWidget(
                           name: AppImage.svgPlus,
                           size: 20.r,
@@ -196,6 +197,72 @@ class _Tablet extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       color: AppColor.colorAppBackground,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(20.r),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Vital Signs'),
+                          SizedBox(height: 20.h),
+                          Expanded(
+                            child: LayoutBuilder(
+                              builder: (BuildContext context, BoxConstraints constraints) {
+                                final width = (constraints.maxWidth - 20.w * 3) / 4;
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VitalSignItem(
+                                        iconName: AppImage.svgSpO2,
+                                        trailColor: AppColor.colorVitalSignSpo2Bg,
+                                        title: 'SPO2',
+                                        value: '--%',
+                                        width: width,
+                                        height: 176.h
+                                    ),
+                                    VitalSignItem(
+                                        iconName: AppImage.svgHeartRate,
+                                        trailColor: AppColor.colorVitalSignHeartRateBg,
+                                        title: 'Heart Rate',
+                                        value: '--bpm',
+                                        width: width,
+                                        height: 176.h
+                                    ),
+                                    VitalSignItem(
+                                        iconName: AppImage.svgRespRate,
+                                        trailColor: AppColor.colorVitalSignRespRateBg,
+                                        title: 'Resp. Rate',
+                                        value: '--bpm',
+                                        width: width,
+                                        height: 176.h
+                                    ),
+                                    VitalSignItem(
+                                        iconName: AppImage.svgNibp,
+                                        trailColor: AppColor.colorVitalSignNibpBg,
+                                        title: 'NIBP',
+                                        value: 'SYS--',
+                                        width: width,
+                                        height: 176.h
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text('Status: Patient monitor not connected'),
+                              Spacer(),
+                              ColorButton(title: ''
+                                  'Connect Device',
+                                  shouldEnable: true,
+                                  width: 160.w,
+                                  height: 48.h,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

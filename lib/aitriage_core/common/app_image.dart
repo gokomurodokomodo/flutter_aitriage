@@ -48,4 +48,8 @@ class AppImage {
   static const svgRecordVitalSigns = './lib/aitriage_core/asset/image/svg_record_vital_signs.svg';
   static const svgHearScore = './lib/aitriage_core/asset/image/svg_hear_score.svg';
   static const svgAssessmentResult = './lib/aitriage_core/asset/image/svg_assessment_result.svg';
+  static const svgSpO2 = './lib/aitriage_core/asset/image/svg_spo2.svg';
+  static const svgHeartRate = './lib/aitriage_core/asset/image/svg_heart_rate.svg';
+  static const svgRespRate = './lib/aitriage_core/asset/image/svg_resp_rate.svg';
+  static const svgNibp = './lib/aitriage_core/asset/image/svg_nibp.svg';
 }
