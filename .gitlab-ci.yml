@@ -4,14 +4,15 @@ variables:
   GIT_STRATEGY: clone
   GIT_DEPTH: 10
 
-stages:
-  - flutter_aitriage_develop
+stages:          # List of stages for jobs, and their order of executionn
+  - aitriage_upload_ios_android_develop
 
-flutter_aitriage:android:develop:
-  stage: flutter_aitriage_develop
+aitriage:android:develop:
+  stage: aitriage_upload_ios_android_develop
   before_script:
-    - cd flutter_aitriage/android
+    - cd android
     - bundle install
+
   script:
     - fastlane develop
   tags:
@@ -19,10 +20,17 @@ flutter_aitriage:android:develop:
   only:
     - dev
 
-
-
-
-
-
+muratiai:ios:develop:
+  stage: aitriage_upload_ios_android_develop
+  before_script:
+    - flutter pub get
+    - cd ios
+    - bundle install
+  script:
+    - fastlane develop
+  tags:
+    - ci-machine
+  only:
+    - dev
 
 
