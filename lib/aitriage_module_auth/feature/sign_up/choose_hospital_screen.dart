@@ -4,8 +4,10 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../widget/auth_back_button.dart';
 import '../../widget/sign_up_icon_wrapper.dart';
 import '../../widget/step_count_widget.dart';
@@ -35,11 +37,12 @@ class _Tablet extends StatelessWidget{
                 alignment: Alignment.topLeft,
                 child: AuthBackButton(onTap: () => Get.back())),
             SizedBox(height: 60.h),
-            SvgIconWidget(name: AppImage.svgAppLogo, size: 56.r),
-            SizedBox(height: 24.h),
-            Text('Start your 14-day free trial', style: AppStyle.styleLoginHeader),
-            SizedBox(height: 16.h),
-            Text('100% free. No credit card needed.', style: AppStyle.styleCheckYourEmailNotification),
+            AuthenticationHeader(
+              svgIconName: AppImage.svgAppLogo,
+              headerText: 'Start your 14-day free trial',
+              contentText: '100% free. No credit card needed',
+              styleContentText: AppStyle.styleCheckYourEmailNotification,
+            ),
             SizedBox(height: 24.h),
             SizedBox(
                 width: (240.h * 3) + (24.w * 2),
@@ -51,18 +54,21 @@ class _Tablet extends StatelessWidget{
               mainAxisSize: MainAxisSize.min,
               children: [
                 SignUpIconWrapper(
+                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
                     title: 'Hospital',
                     isSelected: true,
                     child: Image.asset(AppImage.icHospital,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
+                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
                     title: 'Clinics',
                     isSelected: false,
                     child: Image.asset(AppImage.icClinic,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
+                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
                     title: '3rd Party / Developer',
                     isSelected: false,
                     child: Image.asset(AppImage.icDeveloper,

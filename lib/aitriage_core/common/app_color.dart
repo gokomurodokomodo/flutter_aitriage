@@ -39,5 +39,5 @@ class AppColor {
   static const colorVitalSignNibpBg = Color.fromRGBO(0, 168, 17, 0.10);
   static const colorStepItemDone = Color(0xfff4f4f4);
   static const colorSignUpIconWrapperBorder = Color(0xffEAECF0);
-
+  static const colorAsterisk = Color(0xffFF4A4A);
 }

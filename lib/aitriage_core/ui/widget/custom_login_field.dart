@@ -17,6 +17,7 @@ class CustomLoginField extends StatelessWidget {
   final bool? isValidated;
   final TextInputType? type;
   final bool shouldSecured;
+  final bool? shouldIncludeAsterisk;
 
   const CustomLoginField({
     super.key,
@@ -30,7 +31,8 @@ class CustomLoginField extends StatelessWidget {
     this.onTextChange,
     this.isValidated,
     this.type,
-    this.shouldSecured = false
+    this.shouldSecured = false,
+    this.shouldIncludeAsterisk = false
   });
 
   @override
@@ -38,13 +40,19 @@ class CustomLoginField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label == null ? const SizedBox() : Text(label!, style: AppStyle.styleCustomTextFieldLabel,),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            label == null ? const SizedBox() : Text(label!, style: AppStyle.styleCustomTextFieldLabel,),
+            if (shouldIncludeAsterisk!) Text('*', style: AppStyle.styleCustomTextFieldLabel.copyWith(color: AppColor.colorAsterisk))
+          ],
+        ),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),
         Container(
           height: textFieldHeight ?? 44.h,
           width: textFieldWidth ?? 360.w,
           decoration: BoxDecoration(
-              color: AppColor.colorBackgroundSearch,
+              color: AppColor.colorAppBackground,
               border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
               borderRadius: BorderRadius.circular(textFieldRadius ?? 8)
           ),
