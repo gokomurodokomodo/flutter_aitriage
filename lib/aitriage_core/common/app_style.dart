@@ -172,4 +172,14 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextCancelAssessment,
   );
+  static final styleStepItemProcessing = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorAppBackground,
+  );
+  static final styleStepItemPending = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorTextFieldPlaceHolder,
+  );
 }

@@ -9,6 +9,9 @@ class AppImage {
   // Icon png/jpeg
   static const icCloseDialog = './lib/aitriage_core/asset/image/ic_close_dialog.png';
   static const icAppLogo = './lib/aitriage_core/asset/image/ic_app_logo.png';
+  static const icHospital = './lib/aitriage_core/asset/image/ic_hospital.png';
+  static const icClinic = './lib/aitriage_core/asset/image/ic_clinic.png';
+  static const icDeveloper = './lib/aitriage_core/asset/image/ic_developer.png';
   // Svg
   static const svgAppLogo = './lib/aitriage_core/asset/image/svg_app_logo.svg';
   static const svgSuccessAlert = './lib/aitriage_core/asset/image/svg_success_alert.svg';
