@@ -52,4 +52,5 @@ class AppImage {
   static const svgHeartRate = './lib/aitriage_core/asset/image/svg_heart_rate.svg';
   static const svgRespRate = './lib/aitriage_core/asset/image/svg_resp_rate.svg';
   static const svgNibp = './lib/aitriage_core/asset/image/svg_nibp.svg';
+  static const svgAuthArrowLeft = './lib/aitriage_core/asset/image/svg_auth_arrow_left.svg';
 }

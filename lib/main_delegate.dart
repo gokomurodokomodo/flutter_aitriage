@@ -37,7 +37,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
   runApp(App(pages: pages));
 }
 
-Future<void> _setPreferOrientation() async=> DeviceUtil.isTablet
+Future<void> _setPreferOrientation() async => DeviceUtil.isTablet
       ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       : SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

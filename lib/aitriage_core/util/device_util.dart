@@ -6,5 +6,6 @@ class DeviceUtil{
     static final _devicePhysicalWidth = Get.window.physicalSize.width;
     static final _devicePhysicalHeight = Get.window.physicalSize.height;
 
-    static final isTablet = (_devicePhysicalWidth > 1440) || (_devicePhysicalHeight > 3088);
+    // static final isTablet = (_devicePhysicalWidth > 1440) || (_devicePhysicalHeight > 3088);
+    static final isTablet = true;
 }

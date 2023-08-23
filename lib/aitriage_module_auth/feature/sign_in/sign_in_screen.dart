@@ -107,7 +107,7 @@ class _Tablet extends GetView<SignInController> {
                   children: [
                     Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
                     TextButton(
-                        onPressed: (){},
+                        onPressed: () => Get.toNamed(AuthRoute.chooseHospital),
                         child: const Text('Sign up')),
                   ],
                 ),
