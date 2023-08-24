@@ -22,12 +22,12 @@ class CustomTrailingWidget extends StatelessWidget {
     return Container(
         height: height ?? 40.h,
         width: width ?? 40.h,
-        padding: EdgeInsets.all(8.h),
+        // padding: EdgeInsets.all(8.h),
         decoration: BoxDecoration(
             color: backgroundColor ?? AppColor.colorBackgroundSearch,
             border: Border.all(color: backgroundColor ?? AppColor.colorBackgroundSearch),
             borderRadius: BorderRadius.circular(12.r)
         ),
-        child: child);
+        child: Center(child: child));
   }
 }

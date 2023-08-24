@@ -177,4 +177,9 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorDialogTitleText,
   );
+  static final styleTextPageNavigatorItemEnable = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorRailHover,
+  );
 }

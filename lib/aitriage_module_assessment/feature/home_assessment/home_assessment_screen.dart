@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
-import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_search_bar_tablet.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/line_separated.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/patient_summary_listview.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../config/assessment_route.dart';
 import '../../widget/dashboard_patient_viewer.dart';
-import '../../widget/recent_assessments_item.dart';
+import '../../widget/gender_with_symbol.dart';
+import '../../widget/list_view_page_navigator.dart';
 
 class HomeAssessmentScreen extends StatelessWidget {
   const HomeAssessmentScreen({super.key});
@@ -38,18 +39,26 @@ class _Tablet extends GetView<HomeAssessmentController> {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       appBar: CustomAppBar(
-        title: 'Dashboard',
+        title: 'PATIENT',
         searchBar: BaseSearchBarTablet(
           hintText: 'Search type or keyword',
           width: 350.w,
         ),
         trailing: Row(
           children: [
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification)),
+            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification, size: 24.r)),
             SizedBox(width: 20.w),
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift)),
+            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
             SizedBox(width: 20.w),
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
+            // CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
+            Container(
+              height: 40.r,
+              width: 40.r,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue,
+              ),
+            ),
           ],
         ),
       ),
@@ -57,128 +66,84 @@ class _Tablet extends GetView<HomeAssessmentController> {
         color: AppColor.colorBackgroundSearch,
         child: Padding(
           padding: EdgeInsets.all(24.w),
-          child: Row(
+          child: Column(
             children: [
-              Expanded(
-                flex: 6,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 150.h,
-                      child: LayoutBuilder(
-                        builder: (_, constraints) {
-                          final itemWidth = (constraints.maxWidth - 48.w) / 3;
-                          return Row(
-                            children: [
-                              DashboardPatientViewer(
-                                svgIconName: AppImage.svgProfileUser,
-                                iconBackgroundColor: AppColor.colorUserProfileBackground,
-                                width: itemWidth,
-                                label: 'Patient',
-                                amount: '10,000',
-                                percent: '0.05',
-                                isGrowing: true,
-                              ),
-                              SizedBox(width: 24.w),
-                              DashboardPatientViewer(
-                                svgIconName: AppImage.svgProfileMale,
-                                iconBackgroundColor: AppColor.colorRailHover,
-                                width: itemWidth,
-                                label: 'Male',
-                                amount: '5,600',
-                                percent: '0.05',
-                                isGrowing: true,
-                              ),
-                              SizedBox(width: 24.w),
-                              DashboardPatientViewer(
-                                svgIconName: AppImage.svgProfileFemale,
-                                iconBackgroundColor: AppColor.colorFemaleProfileBackground,
-                                width: itemWidth,
-                                label: 'Female',
-                                amount: '4,400',
-                                percent: '0.05',
-                                isGrowing: false,
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    ),
-                    SizedBox(height: 24.h,),
-                    Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(20.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.r),
-                            color: AppColor.colorAppBackground,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('All Patients', style: AppStyle.styleTextAllPatientsHeader),
-                                      Text('Patients enrolled: 12', style: AppStyle.styleRememberMeText)
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  BaseSearchBarTablet(
-                                    width: 320.w,
-                                    hintText: 'Search type or keyword'),
-                                  SizedBox(width: 16.w),
-                                  CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter)),
-                                  SizedBox(width: 16.w),
-                                  GestureDetector(
-                                      onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
-                                      child: CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgAddPatient))),
-                                  // SizedBox(width: 16.w)
-                                ],
-                              ),
-                              SizedBox(height: 20.h),
-                              const Expanded(
-                                  child: PatientSummaryListView()
-                              )
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              SizedBox(width: 24.w,),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    color: AppColor.colorAppBackground,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                  child: Column(
-                    children: [
-                      Row(
+              SizedBox(
+                  width: double.infinity,
+                  height: 150.h,
+                  child: LayoutBuilder(
+                    builder: (_, constraints) {
+                      final itemWidth = (constraints.maxWidth - 48.w) / 3;
+                      return Row(
                         children: [
-                          Text('Recent Assessments', style: AppStyle.styleTextDialogTitle),
-                          const Spacer(),
-                          CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgAddAssessment)),
+                          DashboardPatientViewer(
+                            gender: Gender.patients,
+                            width: itemWidth,
+                            label: 'Patient',
+                            amount: '10,000',
+                            percent: '0.05',
+                            isGrowing: true,
+                          ),
+                          SizedBox(width: 24.w),
+                          DashboardPatientViewer(
+                            gender: Gender.male,
+                            width: itemWidth,
+                            label: 'Male',
+                            amount: '5,600',
+                            percent: '0.05',
+                            isGrowing: true,
+                          ),
+                          SizedBox(width: 24.w),
+                          DashboardPatientViewer(
+                            gender: Gender.female,
+                            width: itemWidth,
+                            label: 'Female',
+                            amount: '4,400',
+                            percent: '0.05',
+                            isGrowing: false,
+                          ),
                         ],
-                      ),
-                      SizedBox(height: 20.h),
-                      Expanded(
-                        child: ListView.separated(
-                            itemBuilder: (_, __) => const RecentAssessmentsItem(),
-                            separatorBuilder: (_, __) => SizedBox(height: 20.h),
-                            itemCount: 20
+                      );
+                    },
+                  )
+              ),
+              SizedBox(height: 24.h,),
+              Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(20.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.r),
+                      color: AppColor.colorAppBackground,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            BaseSearchBarTablet(
+                                width: 320.w,
+                                hintText: 'Search type or keyword'),
+                            SizedBox(width: 16.w),
+                            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
+                            const Spacer(),
+                            ColorButton(
+                              title: 'Add new',
+                              shouldEnable: true,
+                              onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
+                              width: 102.w,
+                            ) // SizedBox(width: 16.w)
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              )
+                        SizedBox(height: 20.h),
+                        const Expanded(
+                            child: PatientSummaryListView()
+                        ),
+                        LineSeparated(margin: 16.h),
+                        const ListViewPageNavigator()
+                      ],
+                    ),
+                  )),
             ],
-          ),
+          )
         ),
       )
     );
