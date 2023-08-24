@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pinco
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/choose_hospital_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/organization_info_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_screen.dart';
 import 'package:get/get.dart';
 import '../feature/check_your_email/check_your_email_controller.dart';
 import '../feature/forgot_password/forgot_password_controller.dart';
@@ -26,6 +27,7 @@ class AuthRoute {
   static const chooseHospital = '$_root/choose_hospital';
   static const organizationInfo = '$_root/organization_info';
   static const submitInfo = '$_root/submit_info';
+  static const verifyEmail = '$_root/verify_email';
 
   static List<GetPage> createRoutes() => [
     GetPage(
@@ -66,6 +68,9 @@ class AuthRoute {
         page: () => const OrganizationInfoScreen()),
     GetPage(
         name: submitInfo,
-        page: () => const SubmitInfoScreen())
+        page: () => const SubmitInfoScreen()),
+    GetPage(
+        name: verifyEmail,
+        page: () => const VerifyEmailScreen())
   ];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class _Tablet extends StatelessWidget {
               SizedBox(height: 20.h),
               AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
               SizedBox(height: 32.h),
-              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w)
+              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w, onTap: () => Get.toNamed(AuthRoute.verifyEmail))
             ],
           ),
         ),
