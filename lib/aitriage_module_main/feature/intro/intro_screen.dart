@@ -111,7 +111,7 @@ class _TabletState extends State<_Tablet> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('login_suggest'.tr, style: AppStyle.styleIntroSuggest),
+                Text('login_suggest'.tr, style: AppStyle.styleRememberMeText),
                 const Text(' '),
                 Text('sign_in'.tr, style: AppStyle.styleIntroSuggest2)
               ],

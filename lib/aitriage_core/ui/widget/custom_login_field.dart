@@ -43,8 +43,8 @@ class CustomLoginField extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            label == null ? const SizedBox() : Text(label!, style: AppStyle.styleCustomTextFieldLabel,),
-            if (shouldIncludeAsterisk!) Text('*', style: AppStyle.styleCustomTextFieldLabel.copyWith(color: AppColor.colorAsterisk))
+            label == null ? const SizedBox() : Text(label!, style: AppStyle.styleTextButtonBackToLogin,),
+            if (shouldIncludeAsterisk!) Text('*', style: AppStyle.styleTextButtonBackToLogin.copyWith(color: AppColor.colorAsterisk))
           ],
         ),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),
@@ -54,7 +54,7 @@ class CustomLoginField extends StatelessWidget {
           decoration: BoxDecoration(
               color: AppColor.colorAppBackground,
               border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
-              borderRadius: BorderRadius.circular(textFieldRadius ?? 8)
+              borderRadius: BorderRadius.circular(textFieldRadius ?? 8.r)
           ),
           child: Padding(
             padding: EdgeInsets.only(left: 10.w),

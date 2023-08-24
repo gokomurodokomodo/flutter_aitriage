@@ -15,6 +15,7 @@ class AppImage {
   static const icOngoing = './lib/aitriage_core/asset/image/ic_ongoing.png';
   static const icOpeningSoon = './lib/aitriage_core/asset/image/ic_opening_soon.png';
   static const icJustLearnAboutThis = './lib/aitriage_core/asset/image/ic_just_learn_about_this.png';
+  static const icRoundVietNam = './lib/aitriage_core/asset/image/ic_round_viet_nam.png';
   // Svg
   static const svgAppLogo = './lib/aitriage_core/asset/image/svg_app_logo.svg';
   static const svgSuccessAlert = './lib/aitriage_core/asset/image/svg_success_alert.svg';
@@ -60,4 +61,5 @@ class AppImage {
   static const svgRespRate = './lib/aitriage_core/asset/image/svg_resp_rate.svg';
   static const svgNibp = './lib/aitriage_core/asset/image/svg_nibp.svg';
   static const svgAuthArrowLeft = './lib/aitriage_core/asset/image/svg_auth_arrow_left.svg';
+  static const svgDropDownArrow = './lib/aitriage_core/asset/image/svg_drop_down_arrow.svg';
 }

@@ -63,11 +63,6 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
-  static final styleCustomTextFieldLabel = TextStyle(
-    fontSize: fontSizeSM,
-    fontWeight: fontWeight500,
-    color: AppColor.colorAlertHeader,
-  );
   static final styleCustomTextFieldHintText = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
@@ -100,11 +95,6 @@ class AppStyle {
   );
   static final styleTextLabelIntro = TextStyle(
     fontSize: fontSize3XL,
-    fontWeight: fontWeightRegular,
-    color: AppColor.colorRememberMeText,
-  );
-  static final styleIntroSuggest = TextStyle(
-    fontSize: fontSizeSM,
     fontWeight: fontWeightRegular,
     color: AppColor.colorRememberMeText,
   );
@@ -181,5 +171,10 @@ class AppStyle {
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorTextFieldPlaceHolder,
+  );
+  static final styleTextDropDownButton = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorDialogTitleText,
   );
 }
