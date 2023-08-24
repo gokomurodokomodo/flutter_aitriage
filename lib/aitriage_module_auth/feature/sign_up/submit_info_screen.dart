@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
@@ -8,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_style.dart';
+import '../../widget/agree_term_and_privacy_policy_checkbox.dart';
 import '../../widget/auth_back_button.dart';
 import '../../widget/step_count_widget.dart';
 
@@ -101,6 +103,9 @@ class _Tablet extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
+              AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
+              SizedBox(height: 32.h),
+              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w)
             ],
           ),
         ),
