@@ -34,8 +34,8 @@ end
 
 private_lane :build do |options|
     app_id = FIREBASE_APP_IDS[options[:type].to_sym]
-     BUILD_NUMBER = 1
-  #  BUILD_NUMBER = ENV["CI_PIPELINE_ID"]
+#      BUILD_NUMBER = 1
+   BUILD_NUMBER = ENV["CI_PIPELINE_ID"]
 
     CHANGELOG = changelog_from_git_commits(
                   commits_count: 20,
