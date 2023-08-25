@@ -47,7 +47,7 @@ class RememberAndForgotPassword extends StatelessWidget {
               style: TextButton.styleFrom(
                   padding: EdgeInsets.zero
               ),
-              child: Text('forgot_password'.tr),
+              child: Text('forgot_password'.tr, style: AppStyle.styleForgotPassword,),
 
             ),
           ],

@@ -182,4 +182,9 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorRailHover,
   );
+  static final styleForgotPassword = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorForgotPassword
+  );
 }
