@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -50,14 +51,9 @@ class CustomLoginField extends StatelessWidget {
           ],
         ),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),
-        Container(
+        BaseBorderWrapper(
           height: textFieldHeight ?? 44.h,
           width: textFieldWidth ?? 360.w,
-          decoration: BoxDecoration(
-              color: AppColor.colorAppBackground,
-              border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
-              borderRadius: BorderRadius.circular(textFieldRadius ?? 8.r)
-          ),
           child: Padding(
             padding: EdgeInsets.only(left: 10.w),
             child: TextField(

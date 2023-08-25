@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_text_field.dart';
@@ -59,43 +60,75 @@ class _Tablet extends StatelessWidget {
               LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.infinity)),
+                  Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'Nationality*', dropDownWidth: double.infinity)),
+                  Expanded(child: DropDownButton(contentText: 'Nationality*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
                 ],
               ),
               SizedBox(height: 24.h),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.infinity)),
+                  Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'State*', dropDownWidth: double.infinity)),
+                  Expanded(child: DropDownButton(contentText: 'State*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
                 ],
               ),
               SizedBox(height: 24.h),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.infinity)),
+                  Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'City*', dropDownWidth: double.infinity)),
+                  Expanded(child: DropDownButton(contentText: 'City*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
                 ],
               ),
               SizedBox(height: 24.h),
               Row(
                 children: [
-                  Expanded(child: Row(
-                    children: [
-                      Expanded(child: DropDownButton(contentText: 'Gender*', dropDownWidth: double.infinity)),
-                      SizedBox(width: 24.w),
-                      Expanded(child: DropDownButton(contentText: 'Race*', dropDownWidth: double.infinity)),
-                    ],
-                  )),
+                  Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(child: DropDownButton(contentText: 'Gender*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
+                          SizedBox(width: 24.w),
+                          Expanded(child: DropDownButton(contentText: 'Race*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
+                        ],
+                      )),
                   SizedBox(width: 24.w),
-                  Expanded(child: CustomLoginField(hintText: 'Address', textFieldWidth: double.infinity)),
+                  Expanded(child: CustomLoginField(hintText: 'Address', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
                 ],
               ),
               SizedBox(height: 24.h),
-
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          CustomLoginField(hintText: 'Phone number', textFieldWidth: double.infinity, textFieldHeight: 56.h),
+                          const Spacer(),
+                          CustomLoginField(hintText: 'Email', textFieldWidth: double.infinity, textFieldHeight: 56.h),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 24.w),
+                    Expanded(
+                        child: LayoutBuilder(
+                          builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
+                            textFieldWidth: double.infinity,
+                            textFieldHeight: constraints.maxHeight,
+                            hintText: 'Description',
+                          )))
+                  ],
+                ),
+              ),
+              LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
+              Row(
+                children: [
+                  const Spacer(),
+                  ColorButton(title: 'Cancel', width: 212.w, height: 48.h),
+                  SizedBox(width: 20.w),
+                  ColorButton(title: 'Save', shouldEnable: true, width: 212.w, height: 48.h)
+                ],
+              )
             ],
           ),
         ),

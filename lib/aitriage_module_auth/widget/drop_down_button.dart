@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
@@ -39,25 +40,22 @@ class DropDownButton extends StatelessWidget {
           ],
         ),
         if (title != null) SizedBox(height: 14.h),
-        Container(
+        BaseBorderWrapper(
           width: dropDownWidth ?? 360.w,
           height: dropDownHeight ?? 44.h,
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-          decoration: BoxDecoration(
-              color: AppColor.colorAppBackground,
-              border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
-              borderRadius: BorderRadius.circular(8.r)
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (_isSvg == true) SvgIconWidget(name: leftIconName!, size: 24.r),
-              if (_isSvg == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
-              if (leftIconName != null) SizedBox(width: 8.w),
-              Text(contentText ?? '', style: contentTextStyle ?? AppStyle.styleTextDropDownButton),
-              const Spacer(),
-              SvgIconWidget(name: AppImage.svgDropDownArrow, size: 16.r)
-            ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (_isSvg == true) SvgIconWidget(name: leftIconName!, size: 24.r),
+                if (_isSvg == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
+                if (leftIconName != null) SizedBox(width: 8.w),
+                Text(contentText ?? '', style: contentTextStyle ?? AppStyle.styleTextDropDownButton),
+                const Spacer(),
+                SvgIconWidget(name: AppImage.svgDropDownArrow, size: 16.r)
+              ],
+            ),
           ),
         )
       ],
