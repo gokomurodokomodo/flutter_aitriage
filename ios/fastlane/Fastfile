@@ -93,11 +93,11 @@ platform :ios do
               merge_commit_filtering: "exclude_merges",
               quiet: true)
 
-    slack(message: "[*iOS AITriage #{options[:type]}]* Build started..."\
-                   "\n\n*Changelogs*: \n#{CHANGELOG}",
-          default_payloads: [],
-          slack_url: "https://hooks.slack.com/services/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",
-          fail_on_error: false)
+#     slack(message: "[*iOS AITriage #{options[:type]}]* Build started..."\
+#                    "\n\n*Changelogs*: \n#{CHANGELOG}",
+#           default_payloads: [],
+#           slack_url: "https://hooks.slack.com/services/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",
+#           fail_on_error: false)
 
     scheme = options[:scheme]
     extension_app_id = EXTENSION_APP_IDS[scheme.to_sym]
@@ -206,12 +206,12 @@ xnR1xEiA",
 
     build_duration_minutes, build_duration_seconds = build_duration.divmod(60)
 
-    slack(message: "*[iOS AITriage #{options[:type]} v#{VERSION} - build #{BUILD_NUMBER}]* "\
-                   "<!channel> New build successfully uploaded to #{DESTINATION}!"\
-                   "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
-                   "\n\n*Changelogs*: \n#{CHANGELOG}",
-      	          slack_url: "https://hooks.slack.com/services/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",
-        fail_on_error: false)
+#     slack(message: "*[iOS AITriage #{options[:type]} v#{VERSION} - build #{BUILD_NUMBER}]* "\
+#                    "<!channel> New build successfully uploaded to #{DESTINATION}!"\
+#                    "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
+#                    "\n\n*Changelogs*: \n#{CHANGELOG}",
+#       	          slack_url: "https://hooks.slack.com/services/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",
+#         fail_on_error: false)
 
   end
 
@@ -226,11 +226,11 @@ xnR1xEiA",
   		MR_URL = "#{PROJECT_URL}/merge_requests/#{MR_IID}"
   		MR_TITLE = ENV["CI_MERGE_REQUEST_TITLE"]
 
-		slack(message: "!!! iOS linting FAILED, please check! \n\n"\
-	                   "*Merge request*: #{MR_TITLE}\n"\
-	                   "*URL*: #{MR_URL}\n",
-	          success: false,
-	          fail_on_error: false)
+# 		slack(message: "!!! iOS linting FAILED, please check! \n\n"\
+# 	                   "*Merge request*: #{MR_TITLE}\n"\
+# 	                   "*URL*: #{MR_URL}\n",
+# 	          success: false,
+# 	          fail_on_error: false)
   	else
 
   		CHANGELOG = changelog_from_git_commits(
@@ -240,11 +240,11 @@ xnR1xEiA",
                 merge_commit_filtering: "exclude_merges",
                 quiet: true)
 
-	    slack(message: "<!channel> iOS AITriage FAILED! \n\n"\
-	                   "*Changelogs*: \n #{CHANGELOG}",
-	          success: false,
-	          slack_url: "https://hooks.slack.com/services/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",
-	          fail_on_error: false)
+# 	    slack(message: "<!channel> iOS AITriage FAILED! \n\n"\
+# 	                   "*Changelogs*: \n #{CHANGELOG}",
+# 	          success: false,
+# 	          slack_url: "https://hooks.slack.com/services/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",
+# 	          fail_on_error: false)
   	end
   end
 end
