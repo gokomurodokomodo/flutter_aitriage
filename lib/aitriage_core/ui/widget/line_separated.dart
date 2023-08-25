@@ -5,8 +5,9 @@ import '../../common/app_color.dart';
 
 class LineSeparated extends StatelessWidget {
   final double? margin;
+  final Color? color;
 
-  const LineSeparated({super.key, this.margin});
+  const LineSeparated({super.key, this.margin, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class LineSeparated extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: margin ?? 12.h),
       width: double.infinity,
       height: 1.h,
-      color: AppColor.colorLineSeparated,
+      color: color ?? AppColor.colorLineSeparated,
     );
   }
 }

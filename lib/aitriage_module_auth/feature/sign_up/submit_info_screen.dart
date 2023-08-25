@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
@@ -51,7 +52,7 @@ class _Tablet extends StatelessWidget {
               const Center(
                 child: CustomLoginField(
                   label: 'Organization name',
-                  shouldIncludeAsterisk: true,
+                  enableLabelAsterisk: true,
                   hintText: 'Organization name',
                 ),
               ),
@@ -59,6 +60,8 @@ class _Tablet extends StatelessWidget {
               const DropDownButton(
                 title: 'Country',
                 shouldIncludeAsterisk: true,
+                leftIconName: AppImage.icRoundVietNam,
+                contentText: 'Viet Nam',
               ),
               SizedBox(height: 20.h),
               Row(
@@ -66,14 +69,14 @@ class _Tablet extends StatelessWidget {
                 children: [
                   CustomLoginField(
                     label: 'First name',
-                    shouldIncludeAsterisk: true,
+                    enableLabelAsterisk: true,
                     hintText: 'First name',
                     textFieldWidth: 170.w,
                   ),
                   SizedBox(width: 20.w),
                   CustomLoginField(
                     label: 'Last name',
-                    shouldIncludeAsterisk: true,
+                    enableLabelAsterisk: true,
                     hintText: 'Last name',
                     textFieldWidth: 170.w,
                   ),
@@ -83,7 +86,7 @@ class _Tablet extends StatelessWidget {
               const Center(
                 child: CustomLoginField(
                   label: 'Email',
-                  shouldIncludeAsterisk: true,
+                  enableLabelAsterisk: true,
                   hintText: 'Enter your email',
                 ),
               ),
@@ -91,7 +94,7 @@ class _Tablet extends StatelessWidget {
               const Center(
                 child: CustomLoginField(
                   label: 'Phone number',
-                  shouldIncludeAsterisk: true,
+                  enableLabelAsterisk: true,
                   hintText: 'Enter your phone number',
                 ),
               ),
@@ -99,7 +102,7 @@ class _Tablet extends StatelessWidget {
               const Center(
                 child: CustomLoginField(
                   label: 'Password',
-                  shouldIncludeAsterisk: true,
+                  enableLabelAsterisk: true,
                   hintText: 'Choose a password',
                 ),
               ),

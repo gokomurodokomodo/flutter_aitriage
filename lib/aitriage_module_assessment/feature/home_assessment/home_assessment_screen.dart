@@ -128,7 +128,8 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             ColorButton(
                               title: 'Add new',
                               shouldEnable: true,
-                              onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
+                              // onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
+                              onTap: () => Get.toNamed(AssessmentRoute.addNewPatients),
                               width: 102.w,
                             ) // SizedBox(width: 16.w)
                           ],

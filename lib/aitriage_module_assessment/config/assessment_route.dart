@@ -91,6 +91,7 @@ class AssessmentRoute {
         // opaque = false and change screen background color to transparent
         // to make screen look like a dialog - for tablet dialog
         opaque: false,
+        transition: Transition.fadeIn,
         fullscreenDialog: true
     )
   ];

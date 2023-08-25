@@ -17,7 +17,8 @@ class CustomLoginField extends StatelessWidget {
   final bool? isValidated;
   final TextInputType? type;
   final bool shouldSecured;
-  final bool? shouldIncludeAsterisk;
+  final bool? enableLabelAsterisk;
+  final bool? enableHintTextAsterisk;
 
   const CustomLoginField({
     super.key,
@@ -32,7 +33,8 @@ class CustomLoginField extends StatelessWidget {
     this.isValidated,
     this.type,
     this.shouldSecured = false,
-    this.shouldIncludeAsterisk = false
+    this.enableLabelAsterisk = false,
+    this.enableHintTextAsterisk
   });
 
   @override
@@ -44,7 +46,7 @@ class CustomLoginField extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             label == null ? const SizedBox() : Text(label!, style: AppStyle.styleTextButtonBackToLogin,),
-            if (shouldIncludeAsterisk!) Text('*', style: AppStyle.styleTextButtonBackToLogin.copyWith(color: AppColor.colorAsterisk))
+            if (enableLabelAsterisk!) Text('*', style: AppStyle.styleTextButtonBackToLogin.copyWith(color: AppColor.colorAsterisk))
           ],
         ),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),

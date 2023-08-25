@@ -10,6 +10,7 @@ class AppColor {
         Color.fromRGBO(255, 255, 255, 0.10),
         Color.fromRGBO(255, 255, 255, 0.08)]);
   // Color
+  static const dialogBackground = Color(0xff000000);
   static const colorAppPrimary = Color(0xFF0151FC);
   static const colorButtonBackgroundEnable = Color(0xff2F9DFE);
   static const colorAppBackground = Color(0xffFFFFFF);

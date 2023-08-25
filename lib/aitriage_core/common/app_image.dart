@@ -64,4 +64,5 @@ class AppImage {
   static const svgDropDownArrow = './lib/aitriage_core/asset/image/svg_drop_down_arrow.svg';
   static const svgArrowRight = './lib/aitriage_core/asset/image/svg_arrow_right.svg';
   static const svgArrowLeft = './lib/aitriage_core/asset/image/svg_arrow_left.svg';
+  static const svgDialogClose = './lib/aitriage_core/asset/image/svg_dialog_close.svg';
 }

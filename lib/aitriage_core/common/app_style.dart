@@ -182,4 +182,9 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorRailHover,
   );
+  static final styleTextDialogHeaderTitle = TextStyle(
+    fontSize: fontSizeL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
 }
