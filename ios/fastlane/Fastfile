@@ -1,0 +1,281 @@
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# Avoid sending sensitive data
+opt_out_usage
+
+default_platform(:ios)
+
+platform :ios do
+
+  FIREBASE_APP_IDS = {
+    "dev": "1:350310247193:ios:c42fad20c7e502b5eb3388",
+    'staging': "1:156031586891:ios:fc393438d6312fd91f33ce",
+    "pro": "1:903998936175:ios:dd0c20ced670213ed0e99a"
+  }.freeze
+
+  EXTENSION_APP_IDS = {
+    "dev": "bundle-ext-id"
+  }.freeze
+
+  APP_IDS = {
+    "dev": "com.beedu.aitriage",
+    'staging': "com.lynkey.staging",
+    "pro": "app.muratiex.wallet"
+  }.freeze
+
+  APP_CONFIGURATION = {
+    "dev": "dev",
+    "staging": "Release-staging",
+    "pro": "Release-pro"
+  }.freeze
+
+  desc "Build develop and upload to Firebase Distribution"
+
+  FASTLANE_USER="hieunp1901@gmail.com"
+  FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD="xjfl-hulr-qywf-npha"
+
+  lane :develop do
+    build(adhoc: true,
+          type: "Develop",
+          scheme: "dev",
+          beta: false)
+  end
+
+  desc "Build staging and upload to Firebase Distribution"
+  lane :staging do
+    build(adhoc: true,
+          type: "Staging",
+          scheme: "staging",
+          beta: false)
+  end
+
+  desc "Build pre-release and upload to Firebase Distribution"
+  lane :pre_release do
+    build(adhoc: true,
+          type: "Pre-Release",
+          scheme: "pro",
+          beta: false)
+  end
+
+  desc "Build release and upload to App Store Connect"
+  lane :release do
+    build(adhoc: false,
+          type: "Release",
+          scheme: "pro",
+          beta: false)
+  end
+
+  desc "Linting using SwiftLint"
+  lane :lint do
+    swiftlint(
+      mode: :lint,                            # SwiftLint mode: :lint (default) or :autocorrect
+      executable: "scripts/swiftlint",        # Path to the swiftlint executable on your machine
+      output_file: "swiftlint.result.xml",    # The path of the output file (optional)
+      config_file: ".swiftlint.yml",
+      reporter: "junit",                      # The custom reporter to use (optional)
+      ignore_exit_status: false,              # Allow fastlane to continue even if SwiftLint returns a non-zero exit status (Default: false)
+      raise_if_swiftlint_error: true,         # Allow fastlane to raise an error if swiftlint fails
+      quiet: true,                            # Don't print status logs like 'Linting ' & 'Done linting' (Default: false)
+      strict: true                            # Fail on warnings? (Default: false)
+    )
+  end
+
+  private_lane :build do |options|
+    CONFIGURATION = APP_CONFIGURATION[options[:scheme].to_sym]
+
+    VERSION = get_version_number(target: "Runner")
+
+    CHANGELOG = changelog_from_git_commits(
+              commits_count: 20,
+              pretty: "- (%ae) %s",
+              date_format: "short",
+              merge_commit_filtering: "exclude_merges",
+              quiet: true)
+
+    slack(message: "[*iOS AITriage #{options[:type]}]* Build started..."\
+                   "\n\n*Changelogs*: \n#{CHANGELOG}",
+          default_payloads: [],
+          slack_url: "https://hooks.slack.com/services/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",
+          fail_on_error: false)
+
+    scheme = options[:scheme]
+    extension_app_id = EXTENSION_APP_IDS[scheme.to_sym]
+    app_id = APP_IDS[options[:scheme].to_sym]
+
+    increment_build_number(build_number: ENV["CI_PIPELINE_ID"],
+                           xcodeproj: "Runner.xcodeproj")
+
+    BUILD_NUMBER = get_build_number
+
+    app_store_connect_api_key(
+#     Get these key_id from https://appstoreconnect.apple.com/access/api, add app store connect API -> download file AuthKey.p8
+# key_content: convert file AuthKey.p8 to file pem, open with textedit -> copy content -> convert to base64 string (convert online)
+      key_id: "U6ND32M2RB",
+      issuer_id: "d22aa624-930e-48a7-a351-3ceea5e48020",
+      key_content: "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgF2rgOChj/9qp1+Bj
+Mma4UWP8MlfLQnnyjtZ83saiHkCgCgYIKoZIzj0DAQehRANCAASsHFAV6RwNuNR1
+Nd9CEkwPY1eJgXZa0sb3p0xSD+BpDWaAeiAc/lwMwvVBuLe+iRlXOF18Pm/uk2e2
+xnR1xEiA",
+#       key_id: ENV["ASC_API_KEY_ID"],
+#       issuer_id: ENV["ASC_API_ISS_ID"],
+#       key_content: ENV["ASC_API_KEY"],
+      is_key_content_base64: true,
+      in_house: false
+    )
+
+    # resolving pods
+    cocoapods(
+      clean_install: true,
+      use_bundle_exec: true
+    )
+
+    # recreating provisioning and certificate
+    # make sure xcode has automatic code signing with apple id
+    # or specify provisioning profile with certificate manually
+    cert
+    sigh(force: true, adhoc: options[:adhoc], app_identifier: app_id)
+    # sigh(force: true, adhoc: options[:adhoc], app_identifier: extension_app_id)
+
+    build_duration = 0
+
+    if options[:adhoc]
+
+      DESTINATION = "Firebase"
+
+      start = Time.now
+      build_app(scheme: options[:scheme],
+                include_bitcode: false,
+                export_method: "ad-hoc",
+                export_options: {
+                  uploadBitcode: false,
+                  compileBitcode: false,
+                  iCloudContainerEnvironment: 'Development'
+                },
+                xcargs: "-disableAutomaticPackageResolution",
+                cloned_source_packages_path: "SourcePackages",
+                # silent: true,
+                # suppress_xcode_output: true,
+                configuration: CONFIGURATION)
+      # sh("flutter build ios --release --flavor dev --build-number #{BUILD_NUMBER}")
+
+      build_duration = Time.now - start
+
+      puts "[Measure] Build and archive app: #{build_duration}s".green
+
+      firebase_app_id = FIREBASE_APP_IDS[scheme.to_sym]
+
+      start = Time.now
+
+      firebase_app_distribution(
+        app: firebase_app_id,
+#         firebase_cli_token: ENV["FIREBASE_REFRESH_TOKEN"],
+        firebase_cli_token: "1//0eqRt7Tsgy6s_CgYIARAAGA4SNwF-L9IrTPyuYt-xZ2b7vLMm2uNrnI5rj4XL_weZrVNXvZ5EcnkxUPkYBNkKQldato_-ZzNMFOc",
+        groups: "beedu_tester",
+        release_notes: CHANGELOG
+      )
+
+      puts "[Measure] Upload build: #{Time.now - start}s".green
+    else
+
+      DESTINATION = "AppStore Connect"
+
+      start = Time.now
+
+      build_app(scheme: options[:scheme],
+                include_bitcode: false,
+                export_method: "app-store",
+                export_options: {
+                  uploadBitcode: false,
+                  compileBitcode: false
+                },
+                xcargs: "-disableAutomaticPackageResolution",
+                clean: true,
+                cloned_source_packages_path: "SourcePackages")
+
+      build_duration = Time.now - start
+
+      puts "[Measure] Build and archive app: #{build_duration}s".green
+
+      start = Time.now
+
+      upload_to_app_store(precheck_include_in_app_purchases: false, force: true)
+
+      puts "[Measure] Upload build: #{Time.now - start}s".green
+    end
+
+    build_duration_minutes, build_duration_seconds = build_duration.divmod(60)
+
+    slack(message: "*[iOS AITriage #{options[:type]} v#{VERSION} - build #{BUILD_NUMBER}]* "\
+                   "<!channel> New build successfully uploaded to #{DESTINATION}!"\
+                   "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
+                   "\n\n*Changelogs*: \n#{CHANGELOG}",
+      	          slack_url: "https://hooks.slack.com/services/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",
+        fail_on_error: false)
+
+  end
+
+  error do
+
+    LANENAME = lane_context[SharedValues::LANE_NAME]
+
+  	if LANENAME == "ios lint"
+
+  		PROJECT_URL = ENV["CI_MERGE_REQUEST_PROJECT_URL"]
+  		MR_IID = ENV["CI_MERGE_REQUEST_IID"]
+  		MR_URL = "#{PROJECT_URL}/merge_requests/#{MR_IID}"
+  		MR_TITLE = ENV["CI_MERGE_REQUEST_TITLE"]
+
+		slack(message: "!!! iOS linting FAILED, please check! \n\n"\
+	                   "*Merge request*: #{MR_TITLE}\n"\
+	                   "*URL*: #{MR_URL}\n",
+	          success: false,
+	          fail_on_error: false)
+  	else
+
+  		CHANGELOG = changelog_from_git_commits(
+					      commits_count: 20,
+					      pretty: "- (%ae) %s",
+					      date_format: "short",
+                merge_commit_filtering: "exclude_merges",
+                quiet: true)
+
+	    slack(message: "<!channel> iOS AITriage FAILED! \n\n"\
+	                   "*Changelogs*: \n #{CHANGELOG}",
+	          success: false,
+	          slack_url: "https://hooks.slack.com/services/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",
+	          fail_on_error: false)
+  	end
+  end
+end
+
+class String
+  # colorization
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
+  end
+
+  def yellow
+    colorize(33)
+  end
+
+  def blue
+    colorize(34)
+  end
+
+  def pink
+    colorize(35)
+  end
+
+  def light_blue
+    colorize(36)
+  end
+end

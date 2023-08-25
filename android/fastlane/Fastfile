@@ -1,0 +1,188 @@
+# Update fastlane automatically
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  FIREBASE_APP_IDS = {
+    "Develop": "1:350310247193:android:beabd8c221222b10eb3388",
+    'Staging': "1:156031586891:android:a08b4866c7046ef01f33ce",
+    "Pre-Release": "1:903998936175:android:fee624737e02afcdd0e99a"
+  }.freeze
+
+  desc "Build and upload aab to Firebase Distribution"
+  lane :develop do |options|
+    build(firebase: true, type: "Develop")
+  end
+
+  desc "Build and upload aab to Firebase Distribution Staging"
+  lane :staging do |options|
+     build(firebase: true, type: "Staging")
+  end
+
+  desc "Build and upload aab to Firebase Distribution Production"
+  lane :pre_release do |options|
+     build(firebase: true, type: "Pre-Release")
+  end
+
+  desc "Build and upload aab to Google Play Store"
+  lane :release do |options|
+     build(firebase: false, type: "Release")
+  end
+
+end
+
+private_lane :build do |options|
+    app_id = FIREBASE_APP_IDS[options[:type].to_sym]
+#      BUILD_NUMBER = 1
+   BUILD_NUMBER = ENV["CI_PIPELINE_ID"]
+
+    CHANGELOG = changelog_from_git_commits(
+                  commits_count: 20,
+                  pretty: "- (%ae) %s",
+                  date_format: "short",
+                  merge_commit_filtering: "exclude_merges",
+                  quiet: true)
+
+# Slack url: https://hooks.slack.com/services/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
+
+    slack(message: "[*Android AITriage #{options[:type]}]* Build started..."\
+                   "\n\n*Changelogs*: \n#{CHANGELOG}",
+          default_payloads: [],
+               	          slack_url: "https://hooks.slack.com/services/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",
+         fail_on_error: false)
+
+    build_duration = 0
+
+    if options[:firebase]
+      DESTINATION = "Firebase"
+      #BUILD_DESTINATION_PATH = ""
+      #ANDROID_ARTIFACT_TYPE = ""
+
+      # sh("flutter", "clean")
+      # sh("flutter", "packages", "get")
+
+      start = Time.now
+
+      if options[:type] == "Pre-Release"
+        sh("flutter build apk --flavor pro --target=lib/main_pro.dart --build-number #{BUILD_NUMBER}")
+#         BUILD_DESTINATION_PATH = "../build/app/outputs/bundle/proRelease/app-pro-release.aab"
+        BUILD_DESTINATION_PATH = "../build/app/outputs/apk/pro/release/app-pro-release.apk"
+        ANDROID_ARTIFACT_TYPE = "APK"
+      elsif options[:type] == "Staging"
+        sh("flutter build apk --flavor staging --target=lib/main_staging.dart --build-number #{BUILD_NUMBER}")
+        BUILD_DESTINATION_PATH = "../build/app/outputs/flutter-apk/app-staging-release.apk"
+        ANDROID_ARTIFACT_TYPE = "APK"
+      else
+        sh("flutter build apk --target=lib/main_dev.dart --build-number #{BUILD_NUMBER}")
+        BUILD_DESTINATION_PATH = "../build/app/outputs/apk/release/app-release.apk"
+        ANDROID_ARTIFACT_TYPE = "APK"
+      end
+
+      build_duration = Time.now - start
+      puts "[Measure] Build and package app: #{build_duration}s".green
+
+      start = Time.now
+      firebase_app_distribution(
+          app: app_id,
+          groups: "beedu_tester",
+#         sign in account firebase with terminal: firebase login:ci
+# to get the ci firebase_cli_token
+          firebase_cli_token: "1//0eqRt7Tsgy6s_CgYIARAAGA4SNwF-L9IrTPyuYt-xZ2b7vLMm2uNrnI5rj4XL_weZrVNXvZ5EcnkxUPkYBNkKQldato_-ZzNMFOc",
+#           firebase_cli_token: ENV["FIREBASE_REFRESH_TOKEN"],
+          release_notes: CHANGELOG,
+          android_artifact_type: ANDROID_ARTIFACT_TYPE,
+          android_artifact_path: BUILD_DESTINATION_PATH)
+
+      puts "[Measure] Upload build: #{Time.now - start}s".green
+    else
+        DESTINATION = "Google Play Store"
+
+        start = Time.now
+
+        sh("flutter build appbundle --flavor pro --target=lib/main_pro.dart --build-number 2090339589")
+
+        build_duration = Time.now - start
+
+        puts "[Measure] Build and package app: #{build_duration}s".green
+
+        start = Time.now
+
+        upload_to_play_store(aab: "../build/app/outputs/bundle/proRelease/app-pro-release.aab", version_code: "#{BUILD_NUMBER}")
+
+        puts "[Measure] Upload build: #{Time.now - start}s".green
+    end
+
+    build_duration_minutes, build_duration_seconds = build_duration.divmod(60)
+
+    slack(message: "*[Android AITriage #{options[:type]}]* - build #{BUILD_NUMBER}"\
+                   "<!channel> New build successfully uploaded to #{DESTINATION}!"\
+                   "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
+                   "\n\n*Changelogs*: \n#{CHANGELOG}",
+             	   slack_url: "https://hooks.slack.com/services/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",
+                   fail_on_error: false)
+
+    error do
+
+    LANENAME = lane_context[SharedValues::LANE_NAME]
+
+  	if LANENAME == "ios lint"
+
+  		PROJECT_URL = ENV["CI_MERGE_REQUEST_PROJECT_URL"]
+  		MR_IID = ENV["CI_MERGE_REQUEST_IID"]
+  		MR_URL = "#{PROJECT_URL}/merge_requests/#{MR_IID}"
+  		MR_TITLE = ENV["CI_MERGE_REQUEST_TITLE"]
+
+# 		slack(message: "!!! iOS linting FAILED, please check! \n\n"\
+# 	                   "*Merge request*: #{MR_TITLE}\n"\
+# 	                   "*URL*: #{MR_URL}\n",
+# 	          success: false,
+# 	          fail_on_error: false)
+  	else
+
+  		CHANGELOG = changelog_from_git_commits(
+					      commits_count: 20,
+					      pretty: "- (%ae) %s",
+					      date_format: "short",
+                merge_commit_filtering: "exclude_merges",
+                quiet: true)
+
+	    slack(message: "<!channel> Android AITriage Build FAILED! \n\n"\
+	                   "*Changelogs*: \n #{CHANGELOG}",
+	          success: false,
+	          slack_url: "https://hooks.slack.com/services/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",
+              fail_on_error: false)
+  	end
+  end
+end
+
+class String
+# colorization
+def colorize(color_code)
+  "\e[#{color_code}m#{self}\e[0m"
+end
+
+def red
+  colorize(31)
+end
+
+def green
+  colorize(32)
+end
+
+def yellow
+  colorize(33)
+end
+
+def blue
+  colorize(34)
+end
+
+def pink
+  colorize(35)
+end
+
+def light_blue
+  colorize(36)
+end
+end
