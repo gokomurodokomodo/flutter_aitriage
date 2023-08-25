@@ -10,6 +10,7 @@ import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 import '../../config/auth_route.dart';
+import '../../widget/drop_down_button.dart';
 import '../../widget/remember_me_forgot_password.dart';
 import '../../widget/sign_in_divider.dart';
 
@@ -77,28 +78,11 @@ class _Tablet extends GetView<SignInController> {
                   width: 360.w,
                   child: ColorButton(
                     title: 'sign_in'.tr,
-                    shouldEnable: controller.isValidated.value,
+                    shouldEnable: true,
                     onTap: () => Get.toNamed(AuthRoute.signInWithCode),
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
                 ),
-              SizedBox(height: 20.h,),
-              SignInDivider(
-                width: 360.w,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              SizedBox(
-                width: 360.w,
-                child: ColorButton(
-                  title: 'sign_in_with_pin_code'.tr,
-                  textStyle: const TextStyle(color: AppColor.colorRememberMeText),
-                  shouldEnable: true,
-                  colorActive: AppColor.colorAppBackground,
-                  onTap: () => Get.offNamed(AuthRoute.signInWithCode),
-                ),
-              ),
               SizedBox(
                 width: 450.w,
                 child: Row(
@@ -108,10 +92,18 @@ class _Tablet extends GetView<SignInController> {
                     Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
                     TextButton(
                         onPressed: () => Get.toNamed(AuthRoute.chooseHospital),
-                        child: const Text('Sign up')),
+                        child: Text('Sign up', style: AppStyle.styleForgotPassword,)),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 80.h,
+              ),
+              DropDownButton(
+                dropDownWidth: 200.w,
+                title: '',
+                shouldIncludeAsterisk: false,
+              ),
             ],
           ),
         ),

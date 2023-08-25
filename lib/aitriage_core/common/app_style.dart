@@ -187,4 +187,9 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorDialogTitleText,
   );
+  static final styleForgotPassword = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorForgotPassword
+  );
 }
