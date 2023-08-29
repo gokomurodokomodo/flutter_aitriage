@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_core/util/debounce/debounce_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
@@ -25,8 +24,17 @@ class OrganizationInfoScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends StatefulWidget {
   const _Tablet({super.key});
+
+  @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  var operatingStatusIndex = -1;
+  var businessOwnerIndex = -1;
+  final debounce = DebounceUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -52,19 +60,22 @@ class _Tablet extends StatelessWidget {
               children: [
                 SignUpIconWrapper(
                     title: 'Ongoing',
-                    isSelected: true,
+                    isSelected: operatingStatusIndex == 0,
+                    onTap: () => _onTapOperatingStatus(0),
                     child: Image.asset(AppImage.icOngoing,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
                     title: 'Opening Soon',
-                    isSelected: false,
+                    isSelected: operatingStatusIndex == 1,
+                    onTap: () => _onTapOperatingStatus(1),
                     child: Image.asset(AppImage.icClinic,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
                     title: 'I just learned about this app',
-                    isSelected: false,
+                    onTap: () => _onTapOperatingStatus(2),
+                    isSelected: operatingStatusIndex == 2,
                     child: Image.asset(AppImage.icDeveloper,
                         width: 160.h, height: 160.h))
               ],
@@ -77,16 +88,16 @@ class _Tablet extends StatelessWidget {
               children: [
                 SignUpIconWrapper(
                     title: 'Yes',
-                    isSelected: true,
-                    onTap: () => Get.toNamed(AuthModulePageRoute.submitInfo),
+                    isSelected: businessOwnerIndex == 0,
+                    onTap: () => _onTapBusinessOwnerStatus(0),
                     child: SvgIconWidget(
                         name: AppImage.svgSuccessAlert,
                         size: 80.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
                     title: 'No',
-                    isSelected: false,
-                    onTap: () => Get.toNamed(AuthModulePageRoute.submitInfo),
+                    isSelected: businessOwnerIndex == 1,
+                    onTap: () => _onTapBusinessOwnerStatus(1),
                     child: SvgIconWidget(
                         name: AppImage.svgFailedAlert,
                         size: 80.h,)),
@@ -97,6 +108,51 @@ class _Tablet extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onTapOperatingStatus(int newIndex) {
+    setState(() => operatingStatusIndex = newIndex);
+    _checkALlOptionsSelected();
+  }
+
+  void _onTapBusinessOwnerStatus(int newIndex) {
+    setState(() => businessOwnerIndex = newIndex);
+    _checkALlOptionsSelected();
+  }
+
+  void _checkALlOptionsSelected() async {
+    var operatingStatus = '';
+    // YES = 1, NO = 0
+    final businessOwner = 1 - businessOwnerIndex;
+
+    switch (operatingStatusIndex) {
+      case 0:
+        operatingStatus = 'ONGOING';
+        break;
+      case 1:
+        operatingStatus = 'OPENING SOON';
+        break;
+      case 2:
+        operatingStatus = '';
+    }
+
+    if (operatingStatusIndex != -1 && businessOwnerIndex != -1) {
+      debounce.run(() async {
+        final accountType = Get.arguments?['accountType'];
+        await Get.toNamed(
+            AuthModulePageRoute.submitInfo,
+            arguments: {
+              'accountType': accountType,
+              'operatingStatus': operatingStatus,
+              'businessOwner': businessOwner
+            }
+        );
+        setState(() {
+          operatingStatusIndex = -1;
+          businessOwnerIndex = -1;
+        });
+      });
+    }
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_core/util/debounce/debounce_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,15 @@ class ChooseHospitalScreen extends StatelessWidget{
   }
 }
 
-class _Tablet extends StatelessWidget{
+class _Tablet extends StatefulWidget{
+  @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  var index = -1;
+  final debounce = DebounceUtil();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,23 +62,23 @@ class _Tablet extends StatelessWidget{
               mainAxisSize: MainAxisSize.min,
               children: [
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
+                    onTap: () => _onTapButton(0),
                     title: 'Hospital',
-                    isSelected: true,
+                    isSelected: index == 0,
                     child: Image.asset(AppImage.icHospital,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
+                    onTap: () => _onTapButton(1),
                     title: 'Clinics',
-                    isSelected: false,
+                    isSelected: index == 1,
                     child: Image.asset(AppImage.icClinic,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
+                    onTap: () => _onTapButton(3),
                     title: '3rd Party / Developer',
-                    isSelected: false,
+                    isSelected: index == 2,
                     child: Image.asset(AppImage.icDeveloper,
                         width: 160.h, height: 160.h))
               ],
@@ -79,6 +87,29 @@ class _Tablet extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  void _onTapButton(int newIndex) {
+    var argument = '';
+    setState(() => index = newIndex);
+
+    switch (index) {
+      case 0:
+        argument = 'HOSPITAL';
+        break;
+      case 1:
+        argument = 'CLINICS';
+        break;
+      case 2:
+        argument = '3RD Party/ Developer';
+        break;
+    }
+
+    debounce.run(() async {
+      await Get.toNamed(AuthModulePageRoute.organizationInfo, arguments: {'accountType': argument});
+      // reset selected button after back from next screen
+      setState(() => index = -1);
+    });
   }
 }
 
