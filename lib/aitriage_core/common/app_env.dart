@@ -14,14 +14,16 @@ class AppEnvironment {
         _config = {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
-          'apiPrefix': ''
+          'apiPrefix': '',
+          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem'
         };
         break;
       case AppEnvironmentType.pro:
         _config = {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
-          'apiPrefix': ''
+          'apiPrefix': '',
+          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem'
         };
         break;
     }
@@ -32,5 +34,6 @@ class AppEnvironment {
   static String get baseUrl => _config['baseUrl'];
   static String get apiVersion => _config['apiVersion'];
   static String get apiPrefix => _config['apiPrefix'];
+  static String get publicPem => config['publicPem'];
 
 }

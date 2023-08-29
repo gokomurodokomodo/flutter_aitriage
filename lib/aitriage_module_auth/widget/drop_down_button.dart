@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
@@ -14,6 +15,7 @@ class DropDownButton extends StatelessWidget {
   final String? leftIconName;
   final String? contentText;
   final TextStyle? contentTextStyle;
+  final bool? isNetworkIcon;
 
   const DropDownButton({
     super.key,
@@ -23,7 +25,8 @@ class DropDownButton extends StatelessWidget {
     this.shouldIncludeAsterisk,
     this.leftIconName,
     this.contentText,
-    this.contentTextStyle
+    this.contentTextStyle,
+    this.isNetworkIcon = false
   });
 
   @override
@@ -48,8 +51,9 @@ class DropDownButton extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (_isSvg == true) SvgIconWidget(name: leftIconName!, size: 24.r),
-                if (_isSvg == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
+                if (isNetworkIcon == true) CachedNetworkImage(imageUrl: leftIconName!),
+                if (_isSvg == true && isNetworkIcon == false) SvgIconWidget(name: leftIconName!, size: 24.r),
+                if (_isSvg == false && isNetworkIcon == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
                 if (leftIconName != null) SizedBox(width: 8.w),
                 Text(contentText ?? '', style: contentTextStyle ?? AppStyle.styleTextDropDownButton),
                 const Spacer(),
