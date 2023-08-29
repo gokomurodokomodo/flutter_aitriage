@@ -3,7 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.d
 import 'package:flutter_aitriage/aitriage_core/ui/widget/back_to_login_text_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
@@ -48,7 +48,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
               title: 'open_email_app'.tr,
               onTap: (){
                 controller.openEmailApp();
-                Get.toNamed(AuthRoute.setNewPassword);
+                Get.toNamed(AuthModulePageRoute.setNewPassword);
               },
             ),
             SizedBox(height: 32.h,),
@@ -58,7 +58,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 Text('didnt_receive_email'.tr),
                 SizedBox(height: 4.w,),
                 TextButton(
-                    onPressed: () => Get.toNamed(AuthRoute.setNewPassword),
+                    onPressed: () => Get.toNamed(AuthModulePageRoute.setNewPassword),
                     child: Text('click_to_resend'.tr))
               ],
             ),

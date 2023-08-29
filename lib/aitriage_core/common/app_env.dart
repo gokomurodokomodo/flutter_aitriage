@@ -12,15 +12,15 @@ class AppEnvironment {
     switch (env) {
       case AppEnvironmentType.dev:
         _config = {
-          'baseUrl': 'https://dummyjson.com',
-          'apiVersion': '',
+          'baseUrl': 'https://test-aitriage-api.beedu.vn',
+          'apiVersion': '/v1',
           'apiPrefix': ''
         };
         break;
       case AppEnvironmentType.pro:
         _config = {
-          'baseUrl': 'https://dummyjson.com',
-          'apiVersion': '',
+          'baseUrl': 'https://test-aitriage-api.beedu.vn',
+          'apiVersion': '/v1',
           'apiPrefix': ''
         };
         break;

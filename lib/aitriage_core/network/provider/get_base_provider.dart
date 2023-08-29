@@ -15,7 +15,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
   }) {
     timeout = const Duration(seconds: 15);
     allowAutoSignedCert = true;
-    httpClient.baseUrl = '$url$apiVersion$apiPrefix';
+    httpClient.baseUrl = '$url$apiPrefix$apiVersion';
     httpClient.errorSafety = true;
 
     // thứ tự các callback
@@ -35,11 +35,10 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
   }
 
   T convertResponse<T extends BaseResponse>(Response response, T Function(dynamic) converter) {
+    showResponse(response.body);
+
     if (response.isOk) {
-      showResponse(response.body);
-      return converter.call(response.body)
-        ..statusCode = response.statusCode
-        ..message = response.statusText;
+      return converter.call(response.body);
     } else {
       throw AppError(
         errorType: AppErrorType.networkError,

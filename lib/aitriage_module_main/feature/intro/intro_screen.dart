@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,7 +107,7 @@ class _TabletState extends State<_Tablet> {
           ),
           SizedBox(height: 34.h),
           GestureDetector(
-            onTap: () => Get.toNamed(AuthRoute.signIn),
+            onTap: () => Get.toNamed(AuthModulePageRoute.signIn),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

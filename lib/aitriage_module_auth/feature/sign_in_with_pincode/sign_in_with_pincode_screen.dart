@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
-import '../../config/auth_route.dart';
+import '../../config/auth_module_page_route.dart';
 import '../../widget/sign_in_divider.dart';
 
 class SignInWithPinCodeScreen extends StatelessWidget {

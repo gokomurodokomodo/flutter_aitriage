@@ -1,8 +1,11 @@
+import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/choose_hospital_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/organization_info_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_screen.dart';
 import 'package:get/get.dart';
@@ -14,8 +17,8 @@ import '../feature/sign_in/sign_in_screen.dart';
 import '../feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
 import '../feature/success_reset_password/success_reset_password_screen.dart';
 
-class AuthRoute {
-  AuthRoute._();
+class AuthModulePageRoute {
+  AuthModulePageRoute._();
 
   static const _root = '/auth';
   static const signIn = '$_root/login';
@@ -68,7 +71,13 @@ class AuthRoute {
         page: () => const OrganizationInfoScreen()),
     GetPage(
         name: submitInfo,
-        page: () => const SubmitInfoScreen()),
+        page: () => const SubmitInfoScreen(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SignUpRepositoryImpl());
+          Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+          Get.lazyPut(() => SubmitInfoController(Get.find<RegisterUseCaseImpl>()));
+        })
+    ),
     GetPage(
         name: verifyEmail,
         page: () => const VerifyEmailScreen())

@@ -5,4 +5,8 @@ import 'example_module_page_route.dart';
 class ExampleModule extends AppModule {
   @override
   List<GetPage> createRoutes() => ExampleModulePageRoute.createRoutes();
+
+  @override
+  // TODO: implement apiPrefix
+  String get apiPrefix => throw UnimplementedError();
 }

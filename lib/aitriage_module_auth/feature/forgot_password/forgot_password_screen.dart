@@ -9,7 +9,7 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
-import '../../config/auth_route.dart';
+import '../../config/auth_module_page_route.dart';
 import 'forgot_password_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -52,7 +52,7 @@ class _Tablet extends GetView<ForgotPasswordController> {
               ),
                 SizedBox(height: 24.h,),
                 ColorButton(
-                  onTap: () => Get.toNamed(AuthRoute.checkYourEmail),
+                  onTap: () => Get.toNamed(AuthModulePageRoute.checkYourEmail),
                   title: 'reset_password'.tr,
                   shouldEnable: true,
                   width: 360.w,

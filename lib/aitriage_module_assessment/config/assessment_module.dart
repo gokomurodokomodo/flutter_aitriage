@@ -5,4 +5,8 @@ import 'assessment_route.dart';
 class AssessmentModule extends AppModule {
   @override
   List<GetPage> createRoutes() => AssessmentRoute.createRoutes();
+
+  @override
+  // TODO: implement apiPrefix
+  String get apiPrefix => throw UnimplementedError();
 }

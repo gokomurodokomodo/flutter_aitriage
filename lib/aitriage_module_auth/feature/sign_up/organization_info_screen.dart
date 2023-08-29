@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -78,7 +78,7 @@ class _Tablet extends StatelessWidget {
                 SignUpIconWrapper(
                     title: 'Yes',
                     isSelected: true,
-                    onTap: () => Get.toNamed(AuthRoute.submitInfo),
+                    onTap: () => Get.toNamed(AuthModulePageRoute.submitInfo),
                     child: SvgIconWidget(
                         name: AppImage.svgSuccessAlert,
                         size: 80.h)),
@@ -86,7 +86,7 @@ class _Tablet extends StatelessWidget {
                 SignUpIconWrapper(
                     title: 'No',
                     isSelected: false,
-                    onTap: () => Get.toNamed(AuthRoute.submitInfo),
+                    onTap: () => Get.toNamed(AuthModulePageRoute.submitInfo),
                     child: SvgIconWidget(
                         name: AppImage.svgFailedAlert,
                         size: 80.h,)),

@@ -5,4 +5,8 @@ import 'main_route.dart';
 class MainModule extends AppModule {
   @override
   List<GetPage> createRoutes() => MainRoute.createRoutes();
+
+  @override
+  // TODO: implement apiPrefix
+  String get apiPrefix => throw UnimplementedError();
 }

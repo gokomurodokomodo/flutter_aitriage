@@ -3,7 +3,8 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class SubmitInfoScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends GetView<SubmitInfoController> {
   const _Tablet({super.key});
 
   @override
@@ -109,7 +110,10 @@ class _Tablet extends StatelessWidget {
               SizedBox(height: 20.h),
               AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
               SizedBox(height: 32.h),
-              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w, onTap: () => Get.toNamed(AuthRoute.verifyEmail))
+              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w, onTap: () {
+                controller.submit();
+                // Get.toNamed(AuthModulePageRoute.verifyEmail)
+              })
             ],
           ),
         ),

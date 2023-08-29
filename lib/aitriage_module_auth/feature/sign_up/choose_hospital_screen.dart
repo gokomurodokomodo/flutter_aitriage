@@ -4,7 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
@@ -54,21 +54,21 @@ class _Tablet extends StatelessWidget{
               mainAxisSize: MainAxisSize.min,
               children: [
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
+                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
                     title: 'Hospital',
                     isSelected: true,
                     child: Image.asset(AppImage.icHospital,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
+                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
                     title: 'Clinics',
                     isSelected: false,
                     child: Image.asset(AppImage.icClinic,
                         width: 160.h, height: 160.h)),
                 SizedBox(width: 24.w),
                 SignUpIconWrapper(
-                    onTap: () => Get.toNamed(AuthRoute.organizationInfo),
+                    onTap: () => Get.toNamed(AuthModulePageRoute.organizationInfo),
                     title: '3rd Party / Developer',
                     isSelected: false,
                     child: Image.asset(AppImage.icDeveloper,

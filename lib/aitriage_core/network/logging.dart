@@ -17,6 +17,13 @@ mixin ShowLog {
     ''');
   }
 
+  void showStatus(dynamic json) {
+    log('''
+    ----------RESPONSE STATUS----------
+    ${jsonToPrettyString(json)}
+    ''');
+  }
+
   String jsonToPrettyString(dynamic json) {
     const encoder = JsonEncoder.withIndent('  ');
     const fromStr = '\n';
