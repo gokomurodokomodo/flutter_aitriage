@@ -51,7 +51,13 @@ class DropDownButton extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (isNetworkIcon == true) CachedNetworkImage(imageUrl: leftIconName!),
+                if (isNetworkIcon == true) CachedNetworkImage(
+                    imageUrl: leftIconName!,
+                    placeholder: (_, __) => SizedBox(width: 24.r),
+                    errorWidget: (_, __, ___) => SizedBox(width: 24.r),
+                    fadeInDuration: Duration.zero,
+                    fadeOutDuration: Duration.zero,
+                ),
                 if (_isSvg == true && isNetworkIcon == false) SvgIconWidget(name: leftIconName!, size: 24.r),
                 if (_isSvg == false && isNetworkIcon == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
                 if (leftIconName != null) SizedBox(width: 8.w),

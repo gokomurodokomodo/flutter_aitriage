@@ -91,7 +91,7 @@ class _Tablet extends GetView<SignInController> {
                   children: [
                     Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
                     TextButton(
-                        onPressed: () => Get.toNamed(AuthModulePageRoute.chooseHospital),
+                        onPressed: () => Get.toNamed(AuthModulePageRoute.registerAccountType),
                         child: Text('Sign up', style: AppStyle.styleForgotPassword,)),
                   ],
                 ),

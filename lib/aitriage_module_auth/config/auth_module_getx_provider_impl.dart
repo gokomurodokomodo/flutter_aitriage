@@ -3,12 +3,9 @@ import '../../aitriage_core/common/app_env.dart';
 import '../../aitriage_core/network/provider/get_base_provider.dart';
 
 class ModuleAuthGetXProviderImpl extends GetConnectBaseProvider {
-  ModuleAuthGetXProviderImpl({
-    String? url,
-    String? apiPrefix,
-    String? apiVersion})
+  ModuleAuthGetXProviderImpl()
       : super(
-          url: url ?? AppEnvironment.baseUrl,
-          apiPrefix: apiPrefix ?? AuthModuleApiRoute.apiPrefix,
-          apiVersion: apiVersion ?? AppEnvironment.apiVersion);
+          url: AppEnvironment.baseUrl,
+          apiPrefix: AuthModuleApiRoute.apiPrefix,
+          apiVersion: AppEnvironment.apiVersion);
 }
