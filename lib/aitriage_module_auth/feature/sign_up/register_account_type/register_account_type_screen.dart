@@ -118,7 +118,7 @@ class _Tablet extends GetView<RegisterAccountTypeController>{
   void _onTapButton(int index) async {
     controller.onTapButton(index);
     final argument = controller.vm.value.itemArgument;
-    await Get.toNamed(AuthModulePageRoute.registerAccountStatus, arguments: {'accountType': argument});
+    await Get.toNamed(AuthModulePageRoute.registerAccountStatus, arguments: <String, dynamic>{'accountType': argument});
     controller.resetView();
   }
 }

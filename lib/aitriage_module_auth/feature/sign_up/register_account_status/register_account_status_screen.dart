@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
-import 'package:flutter_aitriage/aitriage_core/util/debounce/debounce_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_color.dart';
@@ -24,17 +25,8 @@ class RegisterAccountStatusScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatefulWidget {
+class _Tablet extends GetView<RegisterAccountStatusController> {
   const _Tablet({super.key});
-
-  @override
-  State<_Tablet> createState() => _TabletState();
-}
-
-class _TabletState extends State<_Tablet> {
-  var operatingStatusIndex = -1;
-  var businessOwnerIndex = -1;
-  final debounce = DebounceUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -55,103 +47,116 @@ class _TabletState extends State<_Tablet> {
             SizedBox(height: 40.h),
             Text('Your organization information', style: AppStyle.styleCheckYourEmailNotification),
             SizedBox(height: 24.h),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SignUpIconWrapper(
-                    title: 'Ongoing',
-                    isSelected: operatingStatusIndex == 0,
-                    onTap: () => _onTapOperatingStatus(0),
-                    child: Image.asset(AppImage.icOngoing,
-                        width: 160.h, height: 160.h)),
-                SizedBox(width: 24.w),
-                SignUpIconWrapper(
-                    title: 'Opening Soon',
-                    isSelected: operatingStatusIndex == 1,
-                    onTap: () => _onTapOperatingStatus(1),
-                    child: Image.asset(AppImage.icClinic,
-                        width: 160.h, height: 160.h)),
-                SizedBox(width: 24.w),
-                SignUpIconWrapper(
-                    title: 'I just learned about this app',
-                    onTap: () => _onTapOperatingStatus(2),
-                    isSelected: operatingStatusIndex == 2,
-                    child: Image.asset(AppImage.icDeveloper,
-                        width: 160.h, height: 160.h))
-              ],
-            ),
-            SizedBox(height: 32.h),
-            Text('Are you the business owner or manager?', style: AppStyle.styleCheckYourEmailNotification),
-            SizedBox(height: 24.h),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SignUpIconWrapper(
-                    title: 'Yes',
-                    isSelected: businessOwnerIndex == 0,
-                    onTap: () => _onTapBusinessOwnerStatus(0),
-                    child: SvgIconWidget(
-                        name: AppImage.svgSuccessAlert,
-                        size: 80.h)),
-                SizedBox(width: 24.w),
-                SignUpIconWrapper(
-                    title: 'No',
-                    isSelected: businessOwnerIndex == 1,
-                    onTap: () => _onTapBusinessOwnerStatus(1),
-                    child: SvgIconWidget(
-                        name: AppImage.svgFailedAlert,
-                        size: 80.h,)),
-              ],
-            ),
+            Obx(() => Expanded(
+                child: ListView.separated(
+                    // Last Row for fixed business owner row
+                    itemCount: controller.vm.value.rowCount,
+                    itemBuilder: (_, rowIndex) {
+                      // Check if last row
+                      if (controller.vm.value.isFirstView(rowIndex)) {
+                        final firstItemIndex = rowIndex * 3;
+                        final secondItemIndex = rowIndex * 3 + 1;
+                        final thirdItemIndex = rowIndex * 3 + 2;
 
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Visibility(
+                              visible: controller.vm.value.shouldShowThisItem(firstItemIndex),
+                              child: SignUpIconWrapper(
+                                  onTap: () => _onTapStatusButton(firstItemIndex),
+                                  title: controller.vm.value.itemTitle(firstItemIndex),
+                                  isSelected: controller.vm.value.isStatusButtonSelected(firstItemIndex),
+                                  child: CachedNetworkImage(
+                                      width: 160.h,
+                                      height: 160.h,
+                                      imageUrl: controller.vm.value.itemImageUrl(firstItemIndex)
+                                  )),
+                            ),
+                            SizedBox(width: 24.w),
+                            Visibility(
+                              visible: controller.vm.value.shouldShowThisItem(secondItemIndex),
+                              child: SignUpIconWrapper(
+                                  onTap: () => _onTapStatusButton(secondItemIndex),
+                                  title: controller.vm.value.itemTitle(secondItemIndex),
+                                  isSelected: controller.vm.value.isStatusButtonSelected(secondItemIndex),
+                                  child: CachedNetworkImage(
+                                      width: 160.h,
+                                      height: 160.h,
+                                      imageUrl: controller.vm.value.itemImageUrl(secondItemIndex)
+                                  )),
+                            ),
+                            SizedBox(width: 24.w),
+                            Visibility(
+                              visible: controller.vm.value.shouldShowThisItem(thirdItemIndex),
+                              child: SignUpIconWrapper(
+                                  onTap: () => _onTapStatusButton(thirdItemIndex),
+                                  title: controller.vm.value.itemTitle(thirdItemIndex),
+                                  isSelected: controller.vm.value.isStatusButtonSelected(thirdItemIndex),
+                                  child: CachedNetworkImage(
+                                      width: 160.h,
+                                      height: 160.h,
+                                      imageUrl: controller.vm.value.itemImageUrl(thirdItemIndex)
+                                  )),
+                            ),
+                          ],
+                        );
+                      }
+
+                      return Column(
+                        children: [
+                          SizedBox(height: 32.h),
+                          Text('Are you the business owner or manager?', style: AppStyle.styleCheckYourEmailNotification),
+                          SizedBox(height: 24.h),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SignUpIconWrapper(
+                                  title: 'Yes',
+                                  isSelected: controller.vm.value.isYesNoButtonSelected(0),
+                                  onTap: () => _onTapYesNoButton(0),
+                                  child: SvgIconWidget(
+                                      name: AppImage.svgSuccessAlert,
+                                      size: 80.h)),
+                              SizedBox(width: 24.w),
+                              SignUpIconWrapper(
+                                  title: 'No',
+                                  isSelected: controller.vm.value.isYesNoButtonSelected(1),
+                                  onTap: () => _onTapYesNoButton(1),
+                                  child: SvgIconWidget(
+                                    name: AppImage.svgFailedAlert,
+                                    size: 80.h,)),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int rowIndex) => SizedBox(height: 32.r),
+                ))),
           ],
         ),
       ),
     );
   }
 
-  void _onTapOperatingStatus(int newIndex) {
-    setState(() => operatingStatusIndex = newIndex);
-    _checkALlOptionsSelected();
+  void _onTapStatusButton(int index) {
+    controller.onTapStatusButton(index);
+    _navigateToNextScreen();
   }
 
-  void _onTapBusinessOwnerStatus(int newIndex) {
-    setState(() => businessOwnerIndex = newIndex);
-    _checkALlOptionsSelected();
+  void _onTapYesNoButton(int index) {
+    controller.onTapYesNoButton(index);
+    _navigateToNextScreen();
   }
 
-  void _checkALlOptionsSelected() async {
-    var operatingStatus = '';
-    // YES = 1, NO = 0
-    final businessOwner = 1 - businessOwnerIndex;
-
-    switch (operatingStatusIndex) {
-      case 0:
-        operatingStatus = 'ONGOING';
-        break;
-      case 1:
-        operatingStatus = 'OPENING SOON';
-        break;
-      case 2:
-        operatingStatus = '';
-    }
-
-    if (operatingStatusIndex != -1 && businessOwnerIndex != -1) {
-      debounce.run(() async {
-        final accountType = Get.arguments?['accountType'];
-        await Get.toNamed(
-            AuthModulePageRoute.submitInfo,
-            arguments: {
-              'accountType': accountType,
-              'operatingStatus': operatingStatus,
-              'businessOwner': businessOwner
-            }
-        );
-        setState(() {
-          operatingStatusIndex = -1;
-          businessOwnerIndex = -1;
-        });
-      });
+  void _navigateToNextScreen() async {
+    if (controller.vm.value.shouldNavigateToNextScreen) {
+      final argument = Get.arguments;
+      argument['operatingStatus'] = controller.vm.value.statusArgument;
+      argument['businessOwner'] = controller.vm.value.yesNoArgument;
+      await Get.toNamed(AuthModulePageRoute.submitInfo, arguments: argument);
+      controller.resetView();
     }
   }
 }

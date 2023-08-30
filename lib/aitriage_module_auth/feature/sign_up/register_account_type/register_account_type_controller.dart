@@ -2,7 +2,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/data/api/query/register_ac
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_vm.dart';
 import 'package:get/get.dart';
-
 import '../../../domain/entity/register_account_param.dart';
 
 class RegisterAccountTypeController extends GetxController {
