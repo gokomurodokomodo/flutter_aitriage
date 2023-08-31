@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_getx_pr
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/query/register_account_query.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/generate_code_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_email_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/repository/sign_up_repository.dart';
 import '../../../aitriage_core/network/base_response.dart';
 import '../../../aitriage_core/util/device_info/device_info.dart';
@@ -35,5 +36,11 @@ class SignUpRepositoryImpl extends SignUpRepository {
   Future<RegisterAccountParamResponse> getRegisterAccountParam(RegisterAccountQuery query) async {
     final resp = await _paramProvider.get(AuthModuleApiRoute.getRegisterAccountParam, query: query.toQuery);
     return _paramProvider.convertResponse(resp, (json) => RegisterAccountParamResponse.fromJson(json));
+  }
+
+  @override
+  Future<BaseResponse> verifyEmail(VerifyEmailRequest request) async {
+    final resp = await _authProvider.post(AuthModuleApiRoute.verifyEmail, request.toRequest());
+    return _authProvider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
   }
 }

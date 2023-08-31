@@ -11,7 +11,6 @@ class RegisterRequest extends BaseRequest {
   final String phone;
   final String firstName;
   final String lastName;
-  final int? confirm;
 
   RegisterRequest({
     required this.accountType,
@@ -23,8 +22,7 @@ class RegisterRequest extends BaseRequest {
     required this.password,
     required this.phone,
     required this.firstName,
-    required this.lastName,
-    required this.confirm
+    required this.lastName
   });
 
   @override
@@ -39,6 +37,5 @@ class RegisterRequest extends BaseRequest {
     'phone' : phone,
     'firstName' : firstName,
     'lastName': lastName,
-    'confirm' : confirm
   };
 }

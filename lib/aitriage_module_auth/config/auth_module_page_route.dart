@@ -1,11 +1,13 @@
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_screen.dart';
 import 'package:get/get.dart';
 import '../domain/use_case/get_register_account_param_uc.dart';
@@ -89,6 +91,14 @@ class AuthModulePageRoute {
               Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
               Get.lazyPut(() => SubmitInfoController(Get.find<RegisterUseCaseImpl>()));
             })),
-        GetPage(name: verifyEmail, page: () => const VerifyEmailScreen())
+        GetPage(
+            name: verifyEmail,
+            page: () => const VerifyEmailScreen(),
+            binding: BindingsBuilder(() {
+              Get.lazyPut(() => SignUpRepositoryImpl());
+              Get.lazyPut(() => VerifyEmailUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+              Get.lazyPut(() => VerifyEmailController(Get.find<VerifyEmailUseCaseImpl>()));
+            })
+        )
       ];
 }

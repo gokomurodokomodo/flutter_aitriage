@@ -21,7 +21,7 @@ class SubmitInfoController extends GetxController {
   }
 
 
-  void submit() async {
+  void submit({Function(String)? successCallback}) async {
     final encryptedPassword = await CryptoUtil.encrypt(vm.password);
     final argument = Get.arguments;
     final request = RegisterRequest(
@@ -35,11 +35,11 @@ class SubmitInfoController extends GetxController {
         phone: vm.phoneNumber,
         firstName: vm.firstName,
         lastName: vm.lastName,
-        confirm: 1
     );
 
     try {
       await _registerUseCase.execute(request);
+      successCallback?.call(vm.email);
     } catch (e) {
       if (e is AppError) Get.snackbar('Error', e.message);
     }

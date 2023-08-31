@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
@@ -22,7 +22,7 @@ class VerifyEmailScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends GetView<VerifyEmailController> {
   const _Tablet({super.key});
 
   @override
@@ -52,6 +52,7 @@ class _Tablet extends StatelessWidget {
                 lengthCode: 4,
                 appContext: context,
                 backgroundColor: Colors.white,
+                onComplete: (verifyCode) => controller.onInputCompleted(verifyCode),
               ),
             ),
             SizedBox(height: 32.h),
@@ -59,6 +60,7 @@ class _Tablet extends StatelessWidget {
               shouldEnable: true,
               width: 360.w,
               title: 'Verify email',
+              onTap: () => controller.onSubmit(),
             ),
             SizedBox(height: 32.h),
             Row(

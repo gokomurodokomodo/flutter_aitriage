@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_color.dart';
 import '../../../../aitriage_core/common/app_style.dart';
+import '../../../config/auth_module_page_route.dart';
 import '../../../widget/agree_term_and_privacy_policy_checkbox.dart';
 import '../../../widget/auth_back_button.dart';
 import '../../../widget/step_count_widget.dart';
@@ -114,8 +115,12 @@ class _Tablet extends GetView<SubmitInfoController> {
               AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
               SizedBox(height: 32.h),
               ColorButton(title: 'Submit', shouldEnable: true, width: 360.w, onTap: () {
-                controller.submit();
-                // Get.toNamed(AuthModulePageRoute.verifyEmail)
+                controller.submit(
+                    successCallback: (email) => Get.toNamed(
+                        AuthModulePageRoute.verifyEmail,
+                        arguments: {'email': email}
+                    )
+                );
               })
             ],
           ),
