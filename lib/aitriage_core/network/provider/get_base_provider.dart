@@ -44,6 +44,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
         errorType: AppErrorType.networkError,
         statusCode: response.statusCode ?? 0,
         message: response.body?['message'] ?? 'Empty message',
+        statusMessage: response.body?['status'] ?? 'Empty message',
         body: response.body,
       );
     }

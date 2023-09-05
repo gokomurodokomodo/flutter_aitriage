@@ -17,7 +17,7 @@ class HandleNetworkError {
 
     if (error is AppError
         && error.errorType == AppErrorType.networkError) {
-      switch (error.message) {
+      switch (error.statusMessage) {
         case userNotExists:
           appErrorMessage = 'Account does not exist, please check your email address';
           break;
@@ -41,6 +41,9 @@ class HandleNetworkError {
           break;
         case userLocked:
           appErrorMessage = 'Account has been locked';
+          break;
+        default:
+          appErrorMessage = error.message;
           break;
       }
 

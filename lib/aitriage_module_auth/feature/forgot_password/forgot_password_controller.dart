@@ -5,16 +5,20 @@ import '../../data/api/query/forget_password_query.dart';
 
 class ForgotPasswordController extends GetxController{
   final SendPasswordResetVerifiedCodeUseCase _uc;
+  var _email = '';
 
   ForgotPasswordController(this._uc);
 
-  onTextEmailChange(String email) {}
+  void onTextEmailChange(String email) {
+    _email = email;
+  }
 
-  void _sendCode(String email) async {
-    final query = ForgetPasswordQuery(email);
+  void sendCode(Function(String)? sendCodeSuccessCallback) async {
+    final query = ForgetPasswordQuery(_email);
 
     try {
       await _uc.execute(query);
+      sendCodeSuccessCallback?.call(_email);
     } catch (e) {
       HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
     }

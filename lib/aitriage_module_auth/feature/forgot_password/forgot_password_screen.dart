@@ -52,7 +52,11 @@ class _Tablet extends GetView<ForgotPasswordController> {
               ),
                 SizedBox(height: 24.h,),
                 ColorButton(
-                  onTap: () => Get.toNamed(AuthModulePageRoute.checkYourEmail),
+                  onTap: () {
+                    controller.sendCode((email) => Get.toNamed(
+                        AuthModulePageRoute.checkYourEmail,
+                        arguments: {'email': email}));
+                  },
                   title: 'reset_password'.tr,
                   shouldEnable: true,
                   width: 360.w,

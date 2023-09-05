@@ -64,7 +64,9 @@ class AuthModulePageRoute {
             name: checkYourEmail,
             page: () => const CheckYourEmailScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => CheckYourEmailController());
+              Get.lazyPut(() => SignUpRepositoryImpl());
+              Get.lazyPut(() => GetRegisterAccountParamUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+              Get.lazyPut(() => CheckYourEmailController(Get.find<SendPasswordResetVerifiedCodeUseCaseImpl>()));
             })),
         GetPage(
             name: successResetPassword,

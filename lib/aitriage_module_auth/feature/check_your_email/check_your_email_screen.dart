@@ -33,14 +33,14 @@ class _Tablet extends GetView<CheckYourEmailController> {
         child: Column(
           children: [
             SizedBox(height: 160.h),
-            AuthenticationHeader(
+            Obx(() => AuthenticationHeader(
               svgIconNameWithBorder: AppImage.svgEmail,
               headerText: 'check_your_email'.tr,
               contentText: 'we_sent_password'.tr,
               styleContentText: AppStyle.styleCheckYourEmailNotification,
-              thirdText: controller.userEmail,
+              thirdText: controller.userEmail.value,
               styleThirdText: AppStyle.styleCheckYourEmail,
-            ),
+            )),
             SizedBox(height: 32.h,),
             ColorButton(
               shouldEnable: true,
@@ -58,7 +58,9 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 Text('didnt_receive_email'.tr),
                 SizedBox(height: 4.w,),
                 TextButton(
-                    onPressed: () => Get.toNamed(AuthModulePageRoute.setNewPassword),
+                    onPressed: () {
+                      controller.resend(() => Get.toNamed(AuthModulePageRoute.setNewPassword));
+                    },
                     child: Text('click_to_resend'.tr))
               ],
             ),
