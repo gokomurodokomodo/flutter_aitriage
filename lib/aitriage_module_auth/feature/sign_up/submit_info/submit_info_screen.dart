@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_color.dart';
 import '../../../../aitriage_core/common/app_style.dart';
+import '../../../../aitriage_core/util/global_function.dart';
 import '../../../config/auth_module_page_route.dart';
 import '../../../widget/agree_term_and_privacy_policy_checkbox.dart';
 import '../../../widget/auth_back_button.dart';
@@ -56,13 +57,17 @@ class _Tablet extends GetView<SubmitInfoController> {
                 ),
               ),
               SizedBox(height: 20.h),
-              Obx(() => DropDownButton(
+              DropDownButton(
                 title: 'Country',
                 shouldIncludeAsterisk: true,
-                isNetworkIcon: true,
-                leftIconName: controller.text.value,
-                contentText: 'Vietnam',
-              )),
+                dropDownWidth: 360.w,
+                onTapChildren: (index) => controller.onCountryChanged(index),
+                children: countryList.map((e) => CountryWidget(
+                  isNetworkIcon: true,
+                  leftIconName: e.emoji,
+                  contentText: e.capital,
+                )).toList(),
+              ),
               SizedBox(height: 20.h),
               Row(
                 mainAxisSize: MainAxisSize.min,

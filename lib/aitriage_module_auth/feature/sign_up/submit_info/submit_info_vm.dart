@@ -5,6 +5,7 @@ class SubmitInfoVM {
   var _phoneNumber = '';
   var _email = '';
   var _password = '';
+  var _index = 0;
 
   void updateVM({
     String? organizationName,
@@ -12,7 +13,8 @@ class SubmitInfoVM {
     String? lastName,
     String? phoneNumber,
     String? email,
-    String? password
+    String? password,
+    int? index
   }) {
     _organizationName = organizationName ?? _organizationName;
     _firstName = firstName ?? _firstName;
@@ -20,6 +22,7 @@ class SubmitInfoVM {
     _phoneNumber = phoneNumber ?? _phoneNumber;
     _email = email ?? _email;
     _password = password ?? _password;
+    _index = index ?? _index;
   }
 
   String get organizationName => _organizationName;
@@ -33,4 +36,6 @@ class SubmitInfoVM {
   String get email => _email;
 
   String get password => _password;
+
+  int get index => _index;
 }
