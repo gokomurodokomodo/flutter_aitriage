@@ -45,92 +45,92 @@ class _Tablet extends StatelessWidget {
             color: AppColor.colorAppBackground,
             borderRadius: BorderRadius.circular(12.r),
           ),
-          child: Column(
-            children: [
-              // Dialog Header
-              Row(
-                children: [
-                  Text('ADD PATIENT', style: AppStyle.styleTextDialogHeaderTitle),
-                  const Spacer(),
-                  GestureDetector(
-                      onTap: () => Get.back(),
-                      child: SvgIconWidget(name: AppImage.svgDialogClose, size: 24.r))
-                ],
-              ),
-              LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
-                  SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'Nationality*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
-                  SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'State*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
-                  SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(contentText: 'City*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(child: DropDownButton(contentText: 'Gender*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
-                          SizedBox(width: 24.w),
-                          Expanded(child: DropDownButton(contentText: 'Race*', dropDownWidth: double.infinity, dropDownHeight: 56.h)),
-                        ],
-                      )),
-                  SizedBox(width: 24.w),
-                  Expanded(child: CustomLoginField(hintText: 'Address', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          CustomLoginField(hintText: 'Phone number', textFieldWidth: double.infinity, textFieldHeight: 56.h),
-                          const Spacer(),
-                          CustomLoginField(hintText: 'Email', textFieldWidth: double.infinity, textFieldHeight: 56.h),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 24.w),
-                    Expanded(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
-                            textFieldWidth: double.infinity,
-                            textFieldHeight: constraints.maxHeight,
-                            hintText: 'Description',
-                          )))
-                  ],
-                ),
-              ),
-              LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
-              Row(
-                children: [
-                  const Spacer(),
-                  ColorButton(title: 'Cancel', width: 212.w, height: 48.h),
-                  SizedBox(width: 20.w),
-                  ColorButton(title: 'Save', shouldEnable: true, width: 212.w, height: 48.h)
-                ],
-              )
-            ],
-          ),
+          // child: Column(
+          //   children: [
+          //     // Dialog Header
+          //     Row(
+          //       children: [
+          //         Text('ADD PATIENT', style: AppStyle.styleTextDialogHeaderTitle),
+          //         const Spacer(),
+          //         GestureDetector(
+          //             onTap: () => Get.back(),
+          //             child: SvgIconWidget(name: AppImage.svgDialogClose, size: 24.r))
+          //       ],
+          //     ),
+          //     LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
+          //     Row(
+          //       children: [
+          //         Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
+          //         SizedBox(width: 24.w),
+          //         Expanded(child: DropDownButton(contentText: 'Nationality*', width: double.infinity, height: 56.h)),
+          //       ],
+          //     ),
+          //     SizedBox(height: 24.h),
+          //     Row(
+          //       children: [
+          //         Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
+          //         SizedBox(width: 24.w),
+          //         Expanded(child: DropDownButton(contentText: 'State*', width: double.infinity, height: 56.h)),
+          //       ],
+          //     ),
+          //     SizedBox(height: 24.h),
+          //     Row(
+          //       children: [
+          //         Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
+          //         SizedBox(width: 24.w),
+          //         Expanded(child: DropDownButton(contentText: 'City*', width: double.infinity, height: 56.h)),
+          //       ],
+          //     ),
+          //     SizedBox(height: 24.h),
+          //     Row(
+          //       children: [
+          //         Expanded(
+          //             child: Row(
+          //               children: [
+          //                 Expanded(child: DropDownButton(contentText: 'Gender*', width: double.infinity, height: 56.h)),
+          //                 SizedBox(width: 24.w),
+          //                 Expanded(child: DropDownButton(contentText: 'Race*', width: double.infinity, height: 56.h)),
+          //               ],
+          //             )),
+          //         SizedBox(width: 24.w),
+          //         Expanded(child: CustomLoginField(hintText: 'Address', textFieldWidth: double.infinity, textFieldHeight: 56.h)),
+          //       ],
+          //     ),
+          //     SizedBox(height: 24.h),
+          //     Expanded(
+          //       child: Row(
+          //         children: [
+          //           Expanded(
+          //             child: Column(
+          //               children: [
+          //                 CustomLoginField(hintText: 'Phone number', textFieldWidth: double.infinity, textFieldHeight: 56.h),
+          //                 const Spacer(),
+          //                 CustomLoginField(hintText: 'Email', textFieldWidth: double.infinity, textFieldHeight: 56.h),
+          //               ],
+          //             ),
+          //           ),
+          //           SizedBox(width: 24.w),
+          //           Expanded(
+          //               child: LayoutBuilder(
+          //                 builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
+          //                   textFieldWidth: double.infinity,
+          //                   textFieldHeight: constraints.maxHeight,
+          //                   hintText: 'Description',
+          //                 )))
+          //         ],
+          //       ),
+          //     ),
+          //     LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
+          //     Row(
+          //       children: [
+          //         const Spacer(),
+          //         ColorButton(title: 'Cancel', width: 212.w, height: 48.h),
+          //         SizedBox(width: 20.w),
+          //         ColorButton(title: 'Save', shouldEnable: true, width: 212.w, height: 48.h)
+          //       ],
+          //     )
+          //   ],
+          // ),
         ),
       ),
     );

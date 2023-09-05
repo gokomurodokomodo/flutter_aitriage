@@ -8,25 +8,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 
 class DropDownButton extends StatefulWidget {
-  final double? dropDownWidth;
-  final double? dropDownHeight;
+  final double? width;
+  final double? height;
   final String? title;
   final bool? shouldIncludeAsterisk;
-  final String? leftIconName;
-  final String? contentText;
-  final TextStyle? contentTextStyle;
-  final bool? isNetworkIcon;
+  final double? dropDownWidth;
+  final double? dropDownHeight;
+  final List<Widget>? children;
+  final Function(int)? onTapChildren;
 
   const DropDownButton({
     super.key,
-    this.dropDownWidth,
-    this.dropDownHeight,
+    this.width,
+    this.height,
     this.title,
     this.shouldIncludeAsterisk,
-    this.leftIconName,
-    this.contentText,
-    this.contentTextStyle,
-    this.isNetworkIcon = false
+    this.dropDownWidth,
+    this.dropDownHeight,
+    this.children,
+    this.onTapChildren
   });
 
   @override
@@ -40,12 +40,11 @@ class _DropDownButtonState extends State<DropDownButton> {
   final layerLink = LayerLink();
   var tapOutSideAndHideOverlay = false;
   var tapOutSideView = false;
+  var index = 0;
 
   @override
   void initState() {
     super.initState();
-    // final renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
-    // final offset = renderBox.localToGlobal(Offset.zero);
   }
 
   @override
@@ -79,28 +78,17 @@ class _DropDownButtonState extends State<DropDownButton> {
             ),
             if (widget.title != null) SizedBox(height: 14.h),
             BaseBorderWrapper(
-              width: widget.dropDownWidth ?? 360.w,
-              height: widget.dropDownHeight ?? 44.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (widget.isNetworkIcon == true) CachedNetworkImage(
-                      imageUrl: widget.leftIconName!,
-                      placeholder: (_, __) => SizedBox(width: 24.r),
-                      errorWidget: (_, __, ___) => SizedBox(width: 24.r),
-                      fadeInDuration: Duration.zero,
-                      fadeOutDuration: Duration.zero,
-                    ),
-                    if (_isSvg == true && widget.isNetworkIcon == false) SvgIconWidget(name: widget.leftIconName!, size: 24.r),
-                    if (_isSvg == false && widget.isNetworkIcon == false) Image.asset(widget.leftIconName!, width: 24.r, height: 24.r),
-                    if (widget.leftIconName != null) SizedBox(width: 8.w),
-                    Text(widget.contentText ?? '', style: widget.contentTextStyle ?? AppStyle.styleTextDropDownButton),
-                    const Spacer(),
-                    SvgIconWidget(name: AppImage.svgDropDownArrow, size: 16.r)
-                  ],
-                ),
+              width: widget.width ?? 360.w,
+              height: widget.height ?? 44.h,
+              child: Stack(
+                children: [
+                  widget.children?[index] ?? const SizedBox(),
+                  Positioned(
+                      bottom: 10.h,
+                      right: 14.w,
+                      child: SvgIconWidget(
+                          name: AppImage.svgDropDownArrow, size: 16.r))
+                ],
               ),
             )
           ],
@@ -113,24 +101,32 @@ class _DropDownButtonState extends State<DropDownButton> {
     overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
         builder: (_) => Positioned(
-            width: 50,
-            height: 100,
+            width: widget.dropDownWidth ?? widget.width ?? 200,
+            height: widget.dropDownHeight ?? 200,
             child: CompositedTransformFollower(
               offset: Offset(0, 50 + 22.h),
               link: layerLink,
               child: TapRegion(
-                onTapInside: (_) {
-                  _hideOverLay();
-                },
                 onTapOutside: (_) {
                   tapOutSideAndHideOverlay = true;
                   _hideOverLay();
                 },
                 behavior: HitTestBehavior.translucent,
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.blue,
+                child: BaseBorderWrapper(
+                  width: widget.width,
+                  height: 200,
+                  child: ListView(
+                    children: widget.children?.map((e) => GestureDetector(
+                        onTap: () {
+                          final newIndex = widget.children?.indexOf(e);
+                          widget.onTapChildren?.call(newIndex!);
+                          _hideOverLay();
+                          setState(() {
+                            index = newIndex!;
+                          });
+                        },
+                        child: e)).toList() ?? [],
+                  ),
                 ),
               ),
             )
@@ -149,6 +145,57 @@ class _DropDownButtonState extends State<DropDownButton> {
   }
 
   bool get overLayIsShown => overlayEntry!.mounted;
+}
 
-  bool? get _isSvg => widget.leftIconName?.contains('.svg');
+class CountryWidget extends StatelessWidget {
+  final bool? isNetworkIcon;
+  final String? leftIconName;
+  final String? contentText;
+  final TextStyle? contentTextStyle;
+  final double? width;
+  final double? height;
+
+  const CountryWidget({
+    super.key,
+    this.isNetworkIcon,
+    this.leftIconName,
+    this.contentText,
+    this.contentTextStyle,
+    this.width,
+    this.height
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+      width: width ?? 360.w,
+      height: height ?? 44.h,
+      child: Row(
+        children: [
+          if (isNetworkIcon == true) CachedNetworkImage(
+            imageUrl: leftIconName!,
+            placeholder: (_, __) => SizedBox(width: 24.r),
+            errorWidget: (_, __, ___) => SizedBox(width: 24.r),
+            fadeInDuration: Duration.zero,
+            fadeOutDuration: Duration.zero,
+          ),
+          if (_isSvg == true && isNetworkIcon == false) SvgIconWidget(name: leftIconName!, size: 24.r),
+          if (_isSvg == false && isNetworkIcon == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
+          if (leftIconName != null) SizedBox(width: 8.w),
+          Expanded(
+            child: Text(
+                contentText ?? '',
+                style: contentTextStyle ?? AppStyle.styleTextDropDownButton,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+            ),
+          ),
+          SizedBox(width: 16.r, height: 16.r)
+        ],
+      ),
+    );
+  }
+
+  bool? get _isSvg => leftIconName?.contains('.svg');
 }

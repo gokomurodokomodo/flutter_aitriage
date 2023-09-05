@@ -24,12 +24,13 @@ class SubmitInfoController extends GetxController {
   void submit({Function(String)? successCallback}) async {
     final encryptedPassword = await CryptoUtil.encrypt(vm.password);
     final argument = Get.arguments;
+    final isoCode = countryList[vm.index].iso3;
     final request = RegisterRequest(
         accountType: argument?['accountType'] ?? '',
         operatingStatus: argument?['operatingStatus'] ?? '',
         businessOwner: argument?['businessOwner'] ?? 0,
         organizationName: vm.organizationName,
-        isoCode: 'VNM',
+        isoCode: isoCode ?? '',
         email: vm.email,
         password: encryptedPassword,
         phone: vm.phoneNumber,
@@ -69,7 +70,7 @@ class SubmitInfoController extends GetxController {
     vm.updateVM(password: password);
   }
 
-  void onCountryChanged() {
-
+  void onCountryChanged(int index) {
+    vm.updateVM(index: index);
   }
 }
