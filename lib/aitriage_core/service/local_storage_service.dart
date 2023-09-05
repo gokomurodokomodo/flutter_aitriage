@@ -17,6 +17,27 @@ class LocalStorageService extends GetxService {
         encryptedSharedPreferences: true,
       ));
 
+  ///[setSecuredUser] used for offline login with userName as key and password as value, this function call after success login.
+  void setSecuredUser({
+    required String userName,
+    required String password
+}) async{
+    if(await securedBox.containsKey(key: userName)){
+      if(await securedBox.read(key: userName) != password){
+        securedBox.write(key: userName, value: password);
+      }
+    } else {
+      securedBox.write(key: userName, value: password);
+    }
+  }
+
+  ///[getSecuredUserPassword] return password for key is userName(Email) of user have been saved in local storage.
+  Future<String> getSecuredUserPassword({
+    required String userName
+}) async{
+    return await securedBox.read(key: userName) ?? 'USER_NOT_EXIST';
+  }
+
   void set({dynamic value, required String forKey}) {
     box.write(forKey, value);
   }

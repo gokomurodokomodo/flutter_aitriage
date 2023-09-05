@@ -46,8 +46,9 @@ class AuthModulePageRoute {
             name: signIn,
             page: () => const SignInScreen(),
             binding: BindingsBuilder(() {
+              Get.lazyPut(() => SignUpRepositoryImpl());
               Get.lazyPut(() => SignInRepositoryImpl());
-              Get.lazyPut(() => SignInUseCaseImpl(Get.find()));
+              Get.lazyPut(() => SignInUseCaseImpl(Get.find(), Get.find()));
               Get.lazyPut(() => SignInController(Get.find()));
             })),
         GetPage(
@@ -106,7 +107,8 @@ class AuthModulePageRoute {
             page: () => const VerifyEmailScreen(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => VerifyEmailUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+              Get.lazyPut(() => SignInRepositoryImpl());
+              Get.lazyPut(() => VerifyEmailUseCaseImpl(Get.find<SignUpRepositoryImpl>(), Get.find()));
               Get.lazyPut(() => VerifyEmailController(Get.find<VerifyEmailUseCaseImpl>()));
             })
         )

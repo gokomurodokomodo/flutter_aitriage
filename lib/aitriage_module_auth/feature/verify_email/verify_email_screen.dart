@@ -23,57 +23,60 @@ class VerifyEmailScreen extends StatelessWidget {
 }
 
 class _Tablet extends GetView<VerifyEmailController> {
-  const _Tablet({super.key});
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 160.h),
-            AuthenticationHeader(
-              svgIconNameWithBorder: AppImage.svgEmail,
-              headerText: 'check_your_email'.tr,
-              contentText: 'we_sent_password'.tr,
-              styleContentText: AppStyle.styleCheckYourEmailNotification,
-              thirdText: 'lorem.ipsum@gmail.com',
-              styleThirdText: AppStyle.styleCheckYourEmail,
-            ),
-            SizedBox(height: 32.h),
-            SizedBox(
-              width: 360.w,
-              child: InputPinCode(
-                shouldHideCode: false,
-                borderRadius: BorderRadius.circular(12.r),
-                fieldWidth: 70.w,
-                fieldHeight: 70.w,
-                lengthCode: 4,
-                appContext: context,
-                backgroundColor: Colors.white,
-                onComplete: (verifyCode) => controller.onInputCompleted(verifyCode),
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 160.h),
+              AuthenticationHeader(
+                svgIconNameWithBorder: AppImage.svgEmail,
+                headerText: 'check_your_email'.tr,
+                contentText: 'we_sent_password'.tr,
+                styleContentText: AppStyle.styleCheckYourEmailNotification,
+                thirdText: 'lorem.ipsum@gmail.com',
+                styleThirdText: AppStyle.styleCheckYourEmail,
               ),
-            ),
-            SizedBox(height: 32.h),
-            ColorButton(
-              shouldEnable: true,
-              width: 360.w,
-              title: 'Verify email',
-              onTap: () => controller.onSubmit(),
-            ),
-            SizedBox(height: 32.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('didnt_receive_email'.tr),
-                SizedBox(height: 4.w,),
-                TextButton(
-                    onPressed: () {  },
-                    child: Text('click_to_resend'.tr))
-              ],
-            ),
-          ],
+              SizedBox(height: 32.h),
+              SizedBox(
+                width: 360.w,
+                child: InputPinCode(
+                  shouldHideCode: false,
+                  borderRadius: BorderRadius.circular(12.r),
+                  fieldWidth: 70.w,
+                  fieldHeight: 70.w,
+                  lengthCode: 4,
+                  appContext: context,
+                  backgroundColor: Colors.white,
+                  onComplete: (verifyCode) => controller.onInputCompleted(verifyCode),
+                ),
+              ),
+              SizedBox(height: 32.h),
+              ColorButton(
+                shouldEnable: true,
+                width: 360.w,
+                title: 'Verify email',
+                onTap: () => controller.onSubmit(),
+              ),
+              SizedBox(height: 32.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('didnt_receive_email'.tr),
+                  SizedBox(height: 4.w,),
+                  TextButton(
+                      onPressed: () {  },
+                      child: Text('click_to_resend'.tr))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -81,7 +84,7 @@ class _Tablet extends GetView<VerifyEmailController> {
 }
 
 class _Phone extends StatelessWidget {
-  const _Phone({super.key});
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {
