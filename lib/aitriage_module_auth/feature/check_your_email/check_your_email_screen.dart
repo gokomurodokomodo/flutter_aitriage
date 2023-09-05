@@ -48,7 +48,6 @@ class _Tablet extends GetView<CheckYourEmailController> {
               title: 'open_email_app'.tr,
               onTap: (){
                 controller.openEmailApp();
-                Get.toNamed(AuthModulePageRoute.setNewPassword);
               },
             ),
             SizedBox(height: 32.h,),
@@ -59,7 +58,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 SizedBox(height: 4.w,),
                 TextButton(
                     onPressed: () {
-                      controller.resend(() => Get.toNamed(AuthModulePageRoute.setNewPassword));
+                      controller.resend();
                     },
                     child: Text('click_to_resend'.tr))
               ],
@@ -78,5 +77,4 @@ class _Phone extends StatelessWidget{
   Widget build(BuildContext context) {
     return const Placeholder();
   }
-
 }
