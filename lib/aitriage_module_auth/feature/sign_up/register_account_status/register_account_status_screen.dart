@@ -156,7 +156,7 @@ class _Tablet extends GetView<RegisterAccountStatusController> {
       argument['operatingStatus'] = controller.vm.value.statusArgument;
       argument['businessOwner'] = controller.vm.value.yesNoArgument;
       await Get.toNamed(AuthModulePageRoute.submitInfo, arguments: argument);
-      controller.resetView();
+      // controller.resetView();
     }
   }
 }

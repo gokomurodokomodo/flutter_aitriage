@@ -43,10 +43,10 @@ class RegisterAccountStatusController extends GetxController {
     _updateView(buttonYesNoIndex: index);
   }
 
-  void resetView() {
-    _updateView(
-        buttonStatusIndex: -1,
-        buttonYesNoIndex: -1
-    );
-  }
+  // void resetView() {
+  //   _updateView(
+  //       buttonStatusIndex: -1,
+  //       buttonYesNoIndex: -1
+  //   );
+  // }
 }

@@ -33,9 +33,9 @@ class RegisterAccountTypeController extends GetxController {
     vm.refresh();
   }
 
-  void resetView() {
-    _updateView(buttonSelectedIndex: -1);
-  }
+  // void resetView() {
+  //   _updateView(buttonSelectedIndex: -1);
+  // }
 
   void onTapButton(int index) {
     _updateView(buttonSelectedIndex: index);

@@ -114,7 +114,7 @@ class _Tablet extends GetView<SignInController> {
                 children: countryList.map((e) => CountryWidget(
                   isNetworkIcon: true,
                   leftIconName: e.emoji,
-                  contentText: e.capital,
+                  contentText: e.name,
                   width: 200.w,
                 )).toList(),
               ),

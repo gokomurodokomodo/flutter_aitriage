@@ -65,7 +65,7 @@ class _Tablet extends GetView<SubmitInfoController> {
                 children: countryList.map((e) => CountryWidget(
                   isNetworkIcon: true,
                   leftIconName: e.emoji,
-                  contentText: e.capital,
+                  contentText: e.name,
                 )).toList(),
               ),
               SizedBox(height: 20.h),
