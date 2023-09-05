@@ -40,7 +40,7 @@ class CheckYourEmailController extends GetxController{
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
+        return const AlertDialog(
           title: Text("Open Mail App"),
           content: Text("No mail apps installed"),
           actions: <Widget>[

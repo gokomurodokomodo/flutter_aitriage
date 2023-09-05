@@ -27,6 +27,7 @@ class HandleNetworkError {
         && error.errorType == AppErrorType.networkError) {
       switch (error.statusMessage) {
         case requestVerifiedEmail:
+          appErrorMessage = error.body['data'];
           break;
         case deviceNotRegistered:
           appErrorMessage = 'The device is unregistered';
@@ -66,7 +67,7 @@ class HandleNetworkError {
           break;
       }
 
-      handlerStatusMessage?.call(appErrorMessage, error.statusMessage, error.body);
+      handlerStatusMessage.call(appErrorMessage, error.statusMessage, error.body);
     }
   }
 }

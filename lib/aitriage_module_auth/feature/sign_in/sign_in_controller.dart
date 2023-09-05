@@ -1,10 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
+import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
+import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
 import 'package:get/get.dart';
 
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
+import '../../../aitriage_core/service/local_storage_service.dart';
 
 class SignInController extends GetxController{
   final _vm = SignInVM();
@@ -17,19 +20,17 @@ class SignInController extends GetxController{
   SignInController(this._useCase);
 
   void onSubmitSignIn() async{
-    try{
-      final result = await _useCase.execute(await _vm.signInRequest);
-    } catch(e){
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
-      // HandleNetworkError.handleNetworkError(e , (message) {
-      //   print((e as AppError).body['data']);
-      //   if(message == '') {
-      //     return;
-      //   } else{
-      //     Get.snackbar('Error', message);
-      //   }
-      // });
+    if(await isConnectedToInternet()){
+      try{
+        final result = await _useCase.execute(await _vm.signInRequest);
+        LocalStorageService().setSecuredUser(userName: _vm.username, password: await CryptoUtil.encrypt(_vm.password));
+      } catch(e){
+        _handleError(e);
+      }
+    } else {
+      print('not connected');
     }
+
   }
 
   void onTextEmailChange(String email){
@@ -69,6 +70,22 @@ class SignInController extends GetxController{
       r'^(?=.*[!@#\$%^&*(),.?":{}|<>])(?=.*[0-9]).{8,}$',
     );
     return passwordRegex.hasMatch(password);
+  }
+
+  void _handleError(dynamic e){
+    if (e is! AppError){
+      return;
+    } else {
+      if(e.statusMessage == HandleNetworkError.requestVerifiedEmail){
+        _useCase.genCodeForSignIn(_vm.username);
+        Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
+          'userName' : _vm.username,
+          'password': _vm.password
+        });
+      } else{
+        HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      }
+    }
   }
 
 
