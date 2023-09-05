@@ -1,7 +1,7 @@
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
-import '../base_response.dart';
-import '../logging.dart';
+import '../common/base_response.dart';
+import '../logging/logging.dart';
 
 class GetConnectBaseProvider extends GetConnect with ShowLog {
   final String url;

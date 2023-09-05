@@ -1,5 +1,7 @@
+import 'package:flutter_aitriage/aitriage_module_auth/data/repository/forget_password_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/send_password_reset_verified_code.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
@@ -54,7 +56,9 @@ class AuthModulePageRoute {
             name: forgotPassword,
             page: () => const ForgotPasswordScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => ForgotPasswordController());
+              Get.lazyPut(() => ForgetPasswordRepositoryImpl());
+              Get.lazyPut(() => SendPasswordResetVerifiedCodeUseCaseImpl(Get.find<ForgetPasswordRepositoryImpl>()));
+              Get.lazyPut(() => ForgotPasswordController(Get.find<SendPasswordResetVerifiedCodeUseCaseImpl>()));
             })),
         GetPage(
             name: checkYourEmail,

@@ -1,6 +1,6 @@
+import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/common/app_error.dart';
 import '../../data/api/request/verify_email_request.dart';
 
 class VerifyEmailController extends GetxController {
@@ -22,7 +22,7 @@ class VerifyEmailController extends GetxController {
       final resp = await _uc.execute(request);
       Get.snackbar('Success', resp.message.toString());
     } catch (e) {
-      if (e is AppError) Get.snackbar('Error', e.message);
+      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
     }
   }
 }

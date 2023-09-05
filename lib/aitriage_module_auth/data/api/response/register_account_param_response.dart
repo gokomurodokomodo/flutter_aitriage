@@ -1,5 +1,6 @@
-import 'package:flutter_aitriage/aitriage_core/network/base_response.dart';
+
 import 'package:flutter_aitriage/aitriage_module_auth/domain/entity/register_account_param.dart';
+import '../../../../aitriage_core/network/common/base_response.dart';
 
 class RegisterAccountParamResponse extends BaseResponse {
   final data = <RegisterAccountParam>[];

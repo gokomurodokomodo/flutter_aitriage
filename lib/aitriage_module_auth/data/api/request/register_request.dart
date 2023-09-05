@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/network/base_request.dart';
+import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 
 class RegisterRequest extends BaseRequest {
   final String accountType;

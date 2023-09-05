@@ -7,7 +7,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/generate_
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_email_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/repository/sign_up_repository.dart';
-import '../../../aitriage_core/network/base_response.dart';
+import '../../../aitriage_core/network/common/base_response.dart';
 import '../../../aitriage_core/util/device_info/device_info.dart';
 import '../api/response/register_account_param_response.dart';
 

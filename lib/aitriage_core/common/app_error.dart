@@ -1,4 +1,4 @@
-enum AppErrorType { networkError, cachedError }
+enum AppErrorType { networkError, unknown }
 
 class AppError {
   final AppErrorType errorType;

@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/network/base_query.dart';
+import '../../../../aitriage_core/network/common/base_query.dart';
 
 enum RegisterAccountQueryEnum { registerAccountType, registerAccountStatus }
 

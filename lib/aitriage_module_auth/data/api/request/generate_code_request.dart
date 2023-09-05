@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/network/base_request.dart';
+import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 
 class GenerateCodeRequest extends BaseRequest {
   final String email;

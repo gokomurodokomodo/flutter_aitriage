@@ -1,5 +1,4 @@
 import 'package:flutter_aitriage/aitriage_core/service/api_service/get_system_param/get_system_param_response.dart';
-
 import '../../../common/app_env.dart';
 import '../../../network/provider/get_base_provider.dart';
 import '../api_service_route.dart';
