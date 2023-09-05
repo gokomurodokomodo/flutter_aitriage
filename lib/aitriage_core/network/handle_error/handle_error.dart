@@ -9,6 +9,10 @@ class HandleNetworkError {
   static const invalidVerification = 'INVALID_VERIFICATION';
   static const expiredVerification = 'EXPIRED_VERIFICATION';
   static const userLocked = 'USER_LOCKED';
+  static const invalidUserPassword = 'INVALID_USER_PASSWORD';
+  static const locationExpired = 'LOCATION_EXPIRED';
+  static const deviceNotRegistered = 'DEVICE_NOT_REGISTERED';
+  static const requestVerifiedEmail = 'REQUIRE_VERIFIED_EMAIL';
 
   HandleNetworkError._();
 
@@ -18,6 +22,18 @@ class HandleNetworkError {
     if (error is AppError
         && error.errorType == AppErrorType.networkError) {
       switch (error.statusMessage) {
+        case requestVerifiedEmail:
+
+          break;
+        case deviceNotRegistered:
+          appErrorMessage = 'The device is unregistered';
+        break;
+        case locationExpired:
+          appErrorMessage = 'Your access has expired. Please renew your subscription.';
+        break;
+        case invalidUserPassword:
+          appErrorMessage = 'Invalid email or password';
+        break;
         case userNotExists:
           appErrorMessage = 'Account does not exist, please check your email address';
           break;

@@ -1,6 +1,8 @@
+import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_in_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/forget_password_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/send_password_reset_verified_code.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
@@ -44,7 +46,9 @@ class AuthModulePageRoute {
             name: signIn,
             page: () => const SignInScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignInController());
+              Get.lazyPut(() => SignInRepositoryImpl());
+              Get.lazyPut(() => SignInUseCaseImpl(Get.find()));
+              Get.lazyPut(() => SignInController(Get.find()));
             })),
         GetPage(
             name: signInWithCode,

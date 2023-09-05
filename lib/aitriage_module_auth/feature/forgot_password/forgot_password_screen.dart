@@ -62,7 +62,8 @@ class _Tablet extends GetView<ForgotPasswordController> {
                   width: 360.w,
                 ),
               SizedBox(height: 32.h,),
-              const BackToLoginTextButton(
+              BackToLoginTextButton(
+                onBackButtonPressed: () => Get.back(),
               ),
             ],
           ),

@@ -7,4 +7,5 @@ class AuthModuleApiRoute {
   static const getRegisterAccountParam = '/param-type/list';
   static const verifyEmail = '/twoFa/EMAIL/verify-code';
   static const forgetPassword = '/auth/forget-pass/request';
+  static const signIn = '/auth/login';
 }

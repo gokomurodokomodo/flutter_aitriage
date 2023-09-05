@@ -45,23 +45,23 @@ class _Tablet extends GetView<SignInController> {
                 headerText: 'welcome_back'.tr,
               ),
               SizedBox(height: 14.h),
-                SizedBox(
-                  child: CustomLoginField(
-                    onTextChange: (_) => controller.onTextEmailChange(_),
-                    // isValidated: widget.controller.isValidEmail.value,
-                    label: 'email_label'.tr,
-                    hintText: 'email_hint'.tr,
-                  ),
+              SizedBox(
+                child: CustomLoginField(
+                  onTextChange: (_) => controller.onTextEmailChange(_),
+                  // isValidated: widget.controller.isValidEmail.value,
+                  label: 'email_label'.tr,
+                  hintText: 'email_hint'.tr,
                 ),
+              ),
               SizedBox(height: 14.h),
-                CustomLoginField(
-                  shouldSecured: true,
-                  onTextChange: (_) =>
-                      controller.onTextPasswordChange(_),
-                  // isValidated: widget.controller.isValidPassword.value,
-                  label: 'password_label'.tr,
-                  hintText: 'password_hint'.tr,
-                ),
+              CustomLoginField(
+                shouldSecured: true,
+                onTextChange: (_) =>
+                    controller.onTextPasswordChange(_),
+                // isValidated: widget.controller.isValidPassword.value,
+                label: 'password_label'.tr,
+                hintText: 'password_hint'.tr,
+              ),
               Obx(() {
                 return SizedBox(
                   width: 360.w,
@@ -70,29 +70,36 @@ class _Tablet extends GetView<SignInController> {
                     onTapCheck: (value) {
                       controller.onCheckBoxTap(value);
                     },
-                    onTapForgotPassword: () => Get.toNamed(AuthModulePageRoute.forgotPassword),
+                    onTapForgotPassword: () =>
+                        Get.toNamed(AuthModulePageRoute.forgotPassword),
                   ),
                 );
               }),
-              SizedBox(
+              Obx(() {
+                return SizedBox(
                   width: 360.w,
                   child: ColorButton(
                     title: 'sign_in'.tr,
-                    shouldEnable: true,
-                    onTap: () => Get.toNamed(AuthModulePageRoute.signInWithCode),
+                    shouldEnable: controller.isValidated.value,
+                    onTap: () => controller.onSubmitSignIn(),
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
-                ),
+                );
+              }),
               SizedBox(
                 width: 450.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
+                    Text('dont_have_account'.tr,
+                      style: AppStyle.styleRememberMeText,),
                     TextButton(
-                        onPressed: () => Get.toNamed(AuthModulePageRoute.registerAccountType),
-                        child: Text('Sign up', style: AppStyle.styleForgotPassword,)),
+                        onPressed: () =>
+                            Get.toNamed(
+                                AuthModulePageRoute.registerAccountType),
+                        child: Text(
+                          'Sign up', style: AppStyle.styleForgotPassword,)),
                   ],
                 ),
               ),
