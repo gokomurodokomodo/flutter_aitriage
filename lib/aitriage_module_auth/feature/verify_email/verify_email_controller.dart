@@ -22,7 +22,7 @@ class VerifyEmailController extends GetxController {
       final resp = await _uc.execute(request);
       Get.snackbar('Success', resp.message.toString());
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 }

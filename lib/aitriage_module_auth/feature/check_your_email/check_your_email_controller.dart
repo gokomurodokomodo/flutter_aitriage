@@ -26,7 +26,7 @@ class CheckYourEmailController extends GetxController{
     try {
       await _uc.execute(query);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 }

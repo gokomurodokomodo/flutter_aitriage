@@ -20,7 +20,7 @@ class ForgotPasswordController extends GetxController{
       await _uc.execute(query);
       sendCodeSuccessCallback?.call(_email);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 }

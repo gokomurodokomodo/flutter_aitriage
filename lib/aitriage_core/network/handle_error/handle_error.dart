@@ -16,14 +16,17 @@ class HandleNetworkError {
 
   HandleNetworkError._();
 
-  static void handleNetworkError(dynamic error, Function(String)? handler) {
+  /// handlerStatusMessage(String, String, dynamic) -> new mappedStatusMessage, originStatusMessage, body
+  static void handleNetworkError(
+    dynamic error,
+    Function(String, String, dynamic) handlerStatusMessage,
+  ) {
     var appErrorMessage = '';
 
     if (error is AppError
         && error.errorType == AppErrorType.networkError) {
       switch (error.statusMessage) {
         case requestVerifiedEmail:
-
           break;
         case deviceNotRegistered:
           appErrorMessage = 'The device is unregistered';
@@ -63,7 +66,7 @@ class HandleNetworkError {
           break;
       }
 
-      handler?.call(appErrorMessage);
+      handlerStatusMessage?.call(appErrorMessage, error.statusMessage, error.body);
     }
   }
 }

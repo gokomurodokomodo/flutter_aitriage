@@ -20,7 +20,7 @@ class ApiService extends GetxService {
       final resp = await getCountryUseCase.execute();
       countryList.addAll(resp.data);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 
@@ -29,7 +29,7 @@ class ApiService extends GetxService {
       final resp = await getSystemParamUseCase.execute();
       systemParam = resp.data;
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 }

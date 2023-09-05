@@ -20,14 +20,15 @@ class SignInController extends GetxController{
     try{
       final result = await _useCase.execute(await _vm.signInRequest);
     } catch(e){
-      HandleNetworkError.handleNetworkError(e , (message) {
-        print((e as AppError).body['data']);
-        if(message == '') {
-          return;
-        } else{
-          Get.snackbar('Error', message);
-        }
-      });
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      // HandleNetworkError.handleNetworkError(e , (message) {
+      //   print((e as AppError).body['data']);
+      //   if(message == '') {
+      //     return;
+      //   } else{
+      //     Get.snackbar('Error', message);
+      //   }
+      // });
     }
   }
 
