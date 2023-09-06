@@ -26,9 +26,16 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
     });
 
     httpClient.addRequestModifier<void>((request) async {
+      String? accessToken;
+
+      if (accessToken != null) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
+      }
+
       return request;
     });
 
+    // interceptor -> refresh token
     httpClient.addResponseModifier((request, response) {
       return response;
     });
