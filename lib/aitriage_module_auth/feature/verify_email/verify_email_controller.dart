@@ -1,5 +1,6 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_login_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
@@ -33,9 +34,12 @@ class VerifyEmailController extends GetxController {
     );
 
     try {
+      AlertUtil.showLoadingIndicator();
       final resp = await _uc.execute(request);
       Get.snackbar('Success', resp.message.toString());
+      AlertUtil.closeAllAlert();
     } catch (e) {
+      AlertUtil.closeAllAlert();
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
@@ -49,9 +53,8 @@ class VerifyEmailController extends GetxController {
         password: await CryptoUtil.encrypt(argument?['password']),
         verificationCode: _verifyCode);
 
-    print('here i am ${request.userName} ${request.password} ${request.verificationCode}');
-
     try {
+      AlertUtil.showLoadingIndicator();
       final result = await _uc.loginWithVerificationCode(request);
       Get.snackbar('Success', result.message.toString());
       final key = '${AppConstant.preCharSaveUserData}$userName}';
@@ -59,8 +62,10 @@ class VerifyEmailController extends GetxController {
       LocalStorageService().setSecuredUserData(key: key, data: result.data);
       LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
       LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
+      AlertUtil.closeAllAlert();
       Get.toNamed(MainRoute.main);
     } catch (e) {
+      AlertUtil.closeAllAlert();
       HandleNetworkError.handleNetworkError(
           e, (message, _, __) => Get.snackbar('Error', message));
     }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
+import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
+import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
@@ -31,7 +34,9 @@ class SignInController extends GetxController{
         LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
         LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
         Get.toNamed(MainRoute.main);
+        AlertUtil.closeAllAlert();
       } catch(e){
+        AlertUtil.closeAllAlert();
         _handleError(e);
       }
     } else {

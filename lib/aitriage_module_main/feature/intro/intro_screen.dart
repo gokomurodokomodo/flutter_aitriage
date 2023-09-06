@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
@@ -57,7 +58,12 @@ class _TabletState extends State<_Tablet> {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       floatingActionButton: GestureDetector(
-        onTap: () => Get.toNamed(MainRoute.main),
+        // onTap: () => Get.toNamed(MainRoute.main),
+        onTap: () {
+          AlertUtil.showLoadingIndicator();
+          Future.delayed(Duration(seconds: 2), () => AlertUtil.showLoadingIndicator(timeout: Duration(seconds: 8)));
+          // AlertUtil.closeAllAlert();
+        },
         child: Container(
           width: 40.r, 
           height: 40.r,
