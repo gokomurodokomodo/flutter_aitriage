@@ -82,12 +82,11 @@ class _Tablet extends GetView<SignInController> {
                   child: ColorButton(
                     title: 'sign_in'.tr,
                     shouldEnable: controller.isValidated.value,
-                    onTap: () {
+                    onTap: () async {
                       controller.onSubmitSignIn(
-                        successCallback: () {
-                          Get.toNamed(MainRoute.main);
-                        }
-                      );
+                          callback: (value) => Get.toNamed(
+                              MainRoute.main,
+                              arguments: {'userInfo': value}));
                     },
                     // shouldEnable: widget.controller.isValidated.value,
                   ),

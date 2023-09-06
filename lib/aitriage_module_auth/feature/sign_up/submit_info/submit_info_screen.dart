@@ -119,13 +119,15 @@ class _Tablet extends GetView<SubmitInfoController> {
               SizedBox(height: 20.h),
               AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
               SizedBox(height: 32.h),
-              ColorButton(title: 'Submit', shouldEnable: true, width: 360.w, onTap: () {
-                controller.submit(
-                    successCallback: (email) => Get.toNamed(
-                        AuthModulePageRoute.verifyEmail,
-                        arguments: {'email': email}
-                    )
-                );
+              ColorButton(
+                  title: 'Submit',
+                  shouldEnable: true,
+                  width: 360.w,
+                  onTap: () {
+                    controller.submit(
+                        successCallback: (email) => Get.toNamed(
+                            AuthModulePageRoute.verifyEmail,
+                            arguments: {'email': email}));
               })
             ],
           ),
