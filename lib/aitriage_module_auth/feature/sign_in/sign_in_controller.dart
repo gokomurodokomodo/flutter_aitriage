@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
@@ -21,10 +22,13 @@ class SignInController extends GetxController{
 
   void onSubmitSignIn() async{
     if(await isConnectedToInternet()){
-      try{
+      try {
+        AlertUtil.showLoadingIndicator();
         final result = await _useCase.execute(await _vm.signInRequest);
         LocalStorageService().setSecuredUser(userName: _vm.username, password: await CryptoUtil.encrypt(_vm.password));
+        AlertUtil.closeAllAlert();
       } catch(e){
+        AlertUtil.closeAllAlert();
         _handleError(e);
       }
     } else {
