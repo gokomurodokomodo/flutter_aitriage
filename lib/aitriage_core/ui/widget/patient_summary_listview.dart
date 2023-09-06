@@ -4,7 +4,6 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../aitriage_module_assessment/widget/gender_with_symbol.dart';
-import '../../common/app_color.dart';
 import 'line_separated.dart';
 
 const _orderRatio = 1;

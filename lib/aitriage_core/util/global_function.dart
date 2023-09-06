@@ -11,9 +11,3 @@ final cachedImage = <Image>[];
 // getCountry api in ApiService
 final countryList = <Country>[];
 var systemParam = SystemParam.fromJson(null);
-
-///[isConnectedToInternet] check if device is connected to internet or not.
-Future<bool> isConnectedToInternet() async{
-  final connectivityResult = await (Connectivity().checkConnectivity());
-  return connectivityResult != ConnectivityResult.none;
-}

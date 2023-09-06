@@ -145,7 +145,7 @@ class _PhoneState extends State<_Phone> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColor.colorAppBackground,
     );
   }

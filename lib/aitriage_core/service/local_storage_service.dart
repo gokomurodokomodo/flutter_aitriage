@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
+import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/entity/user_param.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,6 +21,16 @@ class LocalStorageService extends GetxService {
       aOptions: AndroidOptions(
         encryptedSharedPreferences: true,
       ));
+
+  void setCurrentAcessToken({
+    required String accessToken
+  }){
+    securedBox.write(key: AppConstant.keyAccessToken, value: accessToken);
+  }
+
+  Future<String> getCurrentAccessToken() async{
+    return await securedBox.read(key: AppConstant.keyAccessToken) ?? '';
+  }
 
   ///[setSecuredUser] used for offline login with userName as key and password as value, this function call after success login.
   void setSecuredUser({
@@ -36,6 +51,38 @@ class LocalStorageService extends GetxService {
     required String userName
 }) async{
     return await securedBox.read(key: userName) ?? 'USER_NOT_EXIST';
+  }
+
+  ///[setSecuredUserData] map userData to Json then encode it to String and save into SercuredBox with key is user's password.
+  void setSecuredUserData({
+    required String key,
+    required UserParam data
+  }) async {
+    final json = data.toJson();
+    final serializeJson = jsonEncode(json);
+    securedBox.write(key: key, value: serializeJson);
+  }
+
+  ///[getUserData] return user's data from sercuredBox
+  Future<UserParam> getUserData({
+    required String key
+  }) async {
+    final rawData = await securedBox.read(key: key);
+    final json = await jsonDecode(rawData ?? '');
+    return UserParam.fromJson(json);
+  }
+
+  void setFirstDateOffline() async {
+    if(await securedBox.containsKey(key: AppConstant.firstDateOffline)) {
+      return;
+    } else{
+    securedBox.write(key: AppConstant.firstDateOffline, value: DateTime.now().toString());
+    }
+  }
+
+  Future<DateTime> getFirstDateOffline() async {
+    final firstDateOffline = await securedBox.read(key: AppConstant.firstDateOffline) ?? DateTime.now().toString();
+    return DateTime.parse(firstDateOffline);
   }
 
   void set({dynamic value, required String forKey}) {

@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
+import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
+import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
-
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/service/local_storage_service.dart';
 
@@ -21,18 +24,36 @@ class SignInController extends GetxController{
   SignInController(this._useCase);
 
   void onSubmitSignIn() async{
-    if(await isConnectedToInternet()){
-      try {
-        AlertUtil.showLoadingIndicator();
+    if(await NetworkCheckUtil().isConnectedToInternet()){
+      try{
         final result = await _useCase.execute(await _vm.signInRequest);
-        LocalStorageService().setSecuredUser(userName: _vm.username, password: await CryptoUtil.encrypt(_vm.password));
+        final password = _vm.password;
+        final key = '${AppConstant.preCharSaveUserData}${_vm.username}';
+        LocalStorageService().setSecuredUser(userName: _vm.username, password: password);
+        LocalStorageService().setSecuredUserData(key: key, data: result.data);
+        LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
+        LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
+        Get.toNamed(MainRoute.main);
         AlertUtil.closeAllAlert();
       } catch(e){
         AlertUtil.closeAllAlert();
         _handleError(e);
       }
     } else {
-      print('not connected');
+      final password = _vm.password;
+      final key = '${AppConstant.preCharSaveUserData}${_vm.username}';
+      if(password == await LocalStorageService().getSecuredUserPassword(userName: _vm.username)){
+        final timePast = (DateTime.now().difference(await LocalStorageService().getFirstDateOffline())).inDays;
+        if(timePast > 7) {
+          Get.dialog(AlertDialog(title: Text('Expired 7 Day'),));
+        } else {
+          final result = await LocalStorageService().getUserData(key: key);
+          LocalStorageService().setFirstDateOffline();
+          LocalStorageService().setCurrentAcessToken(accessToken: result.accessToken ?? '');
+          Get.toNamed(MainRoute.main);
+        }
+      }
+        
     }
 
   }

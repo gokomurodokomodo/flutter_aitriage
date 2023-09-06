@@ -1,8 +1,10 @@
+import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_login_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/service/local_storage_service.dart';
 import '../../data/api/request/verify_email_request.dart';
@@ -53,10 +55,15 @@ class VerifyEmailController extends GetxController {
 
     try {
       AlertUtil.showLoadingIndicator();
-      final resp = await _uc.loginWithVerificationCode(request);
-      Get.snackbar('Success', resp.message.toString());
+      final result = await _uc.loginWithVerificationCode(request);
+      Get.snackbar('Success', result.message.toString());
+      final key = '${AppConstant.preCharSaveUserData}$userName}';
       LocalStorageService().setSecuredUser(userName: userName, password: password);
+      LocalStorageService().setSecuredUserData(key: key, data: result.data);
+      LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
+      LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
       AlertUtil.closeAllAlert();
+      Get.toNamed(MainRoute.main);
     } catch (e) {
       AlertUtil.closeAllAlert();
       HandleNetworkError.handleNetworkError(
