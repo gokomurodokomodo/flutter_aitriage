@@ -22,7 +22,7 @@ class LocalStorageService extends GetxService {
         encryptedSharedPreferences: true,
       ));
 
-  void setCurrentAcessToken({
+  void setCurrentAccessToken({
     required String accessToken
   }){
     securedBox.write(key: AppConstant.keyAccessToken, value: accessToken);

@@ -36,10 +36,10 @@ class VerifyEmailController extends GetxController {
     try {
       AlertUtil.showLoadingIndicator();
       final resp = await _uc.execute(request);
+      Get.back();
       Get.snackbar('Success', resp.message.toString());
-      AlertUtil.closeAllAlert();
     } catch (e) {
-      AlertUtil.closeAllAlert();
+      Get.back();
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
@@ -56,16 +56,16 @@ class VerifyEmailController extends GetxController {
     try {
       AlertUtil.showLoadingIndicator();
       final result = await _uc.loginWithVerificationCode(request);
+      Get.back();
       Get.snackbar('Success', result.message.toString());
       final key = '${AppConstant.preCharSaveUserData}$userName}';
       LocalStorageService().setSecuredUser(userName: userName, password: password);
       LocalStorageService().setSecuredUserData(key: key, data: result.data);
       LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
-      LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
-      AlertUtil.closeAllAlert();
+      LocalStorageService().setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
       Get.toNamed(MainRoute.main);
     } catch (e) {
-      AlertUtil.closeAllAlert();
+      Get.back();
       HandleNetworkError.handleNetworkError(
           e, (message, _, __) => Get.snackbar('Error', message));
     }

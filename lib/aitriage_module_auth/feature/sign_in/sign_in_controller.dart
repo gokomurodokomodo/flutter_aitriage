@@ -23,20 +23,21 @@ class SignInController extends GetxController{
 
   SignInController(this._useCase);
 
-  void onSubmitSignIn() async{
+  void onSubmitSignIn({Function? successCallback}) async{
     if(await NetworkCheckUtil().isConnectedToInternet()){
       try{
+        AlertUtil.showLoadingIndicator();
         final result = await _useCase.execute(await _vm.signInRequest);
+        Get.back();
         final password = _vm.password;
         final key = '${AppConstant.preCharSaveUserData}${_vm.username}';
         LocalStorageService().setSecuredUser(userName: _vm.username, password: password);
         LocalStorageService().setSecuredUserData(key: key, data: result.data);
         LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
-        LocalStorageService().setCurrentAcessToken(accessToken: result.data.accessToken ?? '');
-        Get.toNamed(MainRoute.main);
-        AlertUtil.closeAllAlert();
+        LocalStorageService().setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
+        successCallback?.call();
       } catch(e){
-        AlertUtil.closeAllAlert();
+        Get.back();
         _handleError(e);
       }
     } else {
@@ -49,7 +50,7 @@ class SignInController extends GetxController{
         } else {
           final result = await LocalStorageService().getUserData(key: key);
           LocalStorageService().setFirstDateOffline();
-          LocalStorageService().setCurrentAcessToken(accessToken: result.accessToken ?? '');
+          LocalStorageService().setCurrentAccessToken(accessToken: result.accessToken ?? '');
           Get.toNamed(MainRoute.main);
         }
       }

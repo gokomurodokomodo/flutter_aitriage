@@ -60,9 +60,6 @@ class _TabletState extends State<_Tablet> {
       floatingActionButton: GestureDetector(
         // onTap: () => Get.toNamed(MainRoute.main),
         onTap: () {
-          AlertUtil.showLoadingIndicator();
-          Future.delayed(Duration(seconds: 2), () => AlertUtil.showLoadingIndicator(timeout: Duration(seconds: 8)));
-          // AlertUtil.closeAllAlert();
         },
         child: Container(
           width: 40.r, 

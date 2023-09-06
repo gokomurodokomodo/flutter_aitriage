@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_core/service/local_storage_service.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
 import '../common/base_response.dart';
@@ -21,17 +22,17 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
     // thứ tự các callback
     // authenticator -> requestModifier -> responseModifier
 
-    httpClient.addAuthenticator<dynamic>((request) {
+    httpClient.addAuthenticator<dynamic>((request) async {
+      final accessToken = await LocalStorageService().getCurrentAccessToken();
+
+      if (accessToken.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
+      }
+
       return request;
     });
 
     httpClient.addRequestModifier<void>((request) async {
-      String? accessToken;
-
-      if (accessToken != null) {
-        request.headers['Authorization'] = 'Bearer $accessToken';
-      }
-
       return request;
     });
 
