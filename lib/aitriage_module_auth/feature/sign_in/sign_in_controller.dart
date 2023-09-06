@@ -65,6 +65,7 @@ class SignInController extends GetxController{
       Get.back();
       callback?.call(userInfo);
     } catch (e) {
+      Get.back();
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
