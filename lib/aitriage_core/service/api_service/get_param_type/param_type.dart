@@ -1,4 +1,4 @@
-class RegisterAccountParam {
+class ParamType {
   final String? groupType;
   final String? type;
   final String? key;
@@ -8,7 +8,7 @@ class RegisterAccountParam {
   final int? position;
   final String? scope;
 
-  RegisterAccountParam.fromJson(dynamic json)
+  ParamType.fromJson(dynamic json)
       : groupType = json?['groupType'],
         type = json?['type'],
         key = json?['key'],

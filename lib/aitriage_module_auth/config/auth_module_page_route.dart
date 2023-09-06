@@ -14,7 +14,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_inf
 import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_screen.dart';
 import 'package:get/get.dart';
-import '../domain/use_case/get_register_account_param_uc.dart';
 import '../feature/check_your_email/check_your_email_controller.dart';
 import '../feature/forgot_password/forgot_password_controller.dart';
 import '../feature/forgot_password/forgot_password_screen.dart';
@@ -70,7 +69,6 @@ class AuthModulePageRoute {
             page: () => const CheckYourEmailScreen(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => GetRegisterAccountParamUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
               Get.lazyPut(() => CheckYourEmailController(Get.find<SendPasswordResetVerifiedCodeUseCaseImpl>()));
             })),
         GetPage(
@@ -82,17 +80,13 @@ class AuthModulePageRoute {
             name: registerAccountType,
             page: () => const RegisterAccountTypeScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => GetRegisterAccountParamUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-              Get.lazyPut(() => RegisterAccountTypeController(Get.find<GetRegisterAccountParamUseCaseImpl>()));
+              Get.lazyPut(() => RegisterAccountTypeController());
             })),
         GetPage(
             name: registerAccountStatus,
             page: () => const RegisterAccountStatusScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => GetRegisterAccountParamUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-              Get.lazyPut(() => RegisterAccountStatusController(Get.find<GetRegisterAccountParamUseCaseImpl>()));
+              Get.lazyPut(() => RegisterAccountStatusController());
             })),
         GetPage(
             name: submitInfo,

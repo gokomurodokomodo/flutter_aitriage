@@ -43,7 +43,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
   }
 
   T convertResponse<T extends BaseResponse>(Response response, T Function(dynamic) converter) {
-    showResponse(response.body);
+    showResponse(response.request!.url.toString(), response.body);
 
     if (response.isOk) {
       return converter.call(response.body);

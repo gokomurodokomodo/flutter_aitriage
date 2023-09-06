@@ -1,29 +1,31 @@
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_param_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type_group_type.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
+import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_vm.dart';
 import 'package:get/get.dart';
-import '../../../data/api/query/register_account_query.dart';
-import '../../../domain/entity/register_account_param.dart';
 
 class RegisterAccountStatusController extends GetxController {
-  final GetRegisterAccountParamUseCase _useCase;
   final vm = RegisterAccountStatusVM().obs;
 
-  RegisterAccountStatusController(this._useCase);
+  RegisterAccountStatusController();
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     _getParam();
   }
 
   void _getParam() async {
-    final query = RegisterAccountQuery(RegisterAccountQueryEnum.registerAccountStatus);
-    final resp = await _useCase.execute(query);
-    _updateView(list: resp.data);
+    final list = paramTypes
+        .where((e) => e.groupType == ParamTypeGroupType.registerAccountStatus.stringValue)
+        .toList();
+    _updateView(list: list);
   }
 
   void _updateView({
-    List<RegisterAccountParam>? list,
+    List<ParamType>? list,
     int? buttonStatusIndex,
     int? buttonYesNoIndex,
   }) {
@@ -42,11 +44,4 @@ class RegisterAccountStatusController extends GetxController {
   void onTapYesNoButton(int index) {
     _updateView(buttonYesNoIndex: index);
   }
-
-  // void resetView() {
-  //   _updateView(
-  //       buttonStatusIndex: -1,
-  //       buttonYesNoIndex: -1
-  //   );
-  // }
 }
