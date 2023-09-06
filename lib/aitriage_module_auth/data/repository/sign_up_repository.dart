@@ -40,7 +40,8 @@ class SignUpRepositoryImpl extends SignUpRepository {
 
   @override
   Future<BaseResponse> verifyEmail(VerifyEmailRequest request) async {
-    final resp = await _authProvider.post(AuthModuleApiRoute.verifyEmail, request.toRequest());
+    final deviceInfo = await DeviceInfoUtils().getHeader();
+    final resp = await _authProvider.post(AuthModuleApiRoute.verifyEmail, request.toRequest(), headers: {'Device': deviceInfo.toHeaderJson()});
     return _authProvider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
   }
 }
