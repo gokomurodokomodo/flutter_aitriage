@@ -1,4 +1,3 @@
-import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_vm.dart';
 import 'package:get/get.dart';

@@ -13,7 +13,6 @@ import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 import '../../config/auth_module_page_route.dart';
 import '../../widget/drop_down_button.dart';
 import '../../widget/remember_me_forgot_password.dart';
-import '../../widget/sign_in_divider.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

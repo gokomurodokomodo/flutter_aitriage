@@ -5,8 +5,6 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../common/app_image.dart';
-
 class AuthenticationHeader extends StatelessWidget {
   final String? svgIconName;
   final String? headerText;

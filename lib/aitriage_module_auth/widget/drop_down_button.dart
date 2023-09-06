@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
@@ -77,20 +76,20 @@ class _DropDownButtonState extends State<DropDownButton> {
               ],
             ),
             if (widget.title != null) SizedBox(height: 14.h),
-            BaseBorderWrapper(
-              width: widget.width ?? 360.w,
-              height: widget.height ?? 44.h,
-              child: Stack(
-                children: [
-                  widget.children?[index] ?? const SizedBox(),
-                  Positioned(
-                      bottom: 10.h,
-                      right: 14.w,
-                      child: SvgIconWidget(
-                          name: AppImage.svgDropDownArrow, size: 16.r))
-                ],
-              ),
-            )
+            // BaseBorderWrapper(
+            //   width: widget.width ?? 360.w,
+            //   height: widget.height ?? 44.h,
+            //   child: Stack(
+            //     children: [
+            //       widget.children?[index] ?? const SizedBox(),
+            //       Positioned(
+            //           bottom: 10.h,
+            //           right: 14.w,
+            //           child: SvgIconWidget(
+            //               name: AppImage.svgDropDownArrow, size: 16.r))
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),
