@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>350310247193-mi4hipen8f31eu4eqm02oq2o0jtj8rin.apps.googleusercontent.com</string>
+	<string>767429013713-d7vqn73h9ttijlu26qtki8g64hjej5cb.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.350310247193-mi4hipen8f31eu4eqm02oq2o0jtj8rin</string>
+	<string>com.googleusercontent.apps.767429013713-d7vqn73h9ttijlu26qtki8g64hjej5cb</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB7BVN36RdSLWD2zC-MQLtuc9uoQo2HtN0</string>
+	<string>AIzaSyDrT_YStkWuQ2B0TU_1wK8_7aFN2WYrwsE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>350310247193</string>
+	<string>767429013713</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.beedu.aitriage</string>
 	<key>PROJECT_ID</key>
-	<string>flutter-aitriage</string>
+	<string>aitriage-test</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flutter-aitriage.appspot.com</string>
+	<string>aitriage-test.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:350310247193:ios:c42fad20c7e502b5eb3388</string>
+	<string>1:767429013713:ios:dce583b2087cfef35a95f0</string>
+	<key>DATABASE_URL</key>
+	<string>https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

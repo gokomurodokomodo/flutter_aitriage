@@ -5,7 +5,7 @@ default_platform(:android)
 
 platform :android do
   FIREBASE_APP_IDS = {
-    "Develop": "1:350310247193:android:beabd8c221222b10eb3388",
+    "Develop": "1:767429013713:android:bdd4f1b4593cd1985a95f0",
     'Staging': "1:156031586891:android:a08b4866c7046ef01f33ce",
     "Pre-Release": "1:903998936175:android:fee624737e02afcdd0e99a"
   }.freeze
