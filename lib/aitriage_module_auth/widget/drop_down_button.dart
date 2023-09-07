@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dar
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_image.dart';
 
 class DropDownButton extends StatefulWidget {
   final double? width;
@@ -15,6 +16,7 @@ class DropDownButton extends StatefulWidget {
   final double? dropDownHeight;
   final List<Widget>? children;
   final Function(int)? onTapChildren;
+  final Widget? placeHolder;
 
   const DropDownButton({
     super.key,
@@ -25,7 +27,8 @@ class DropDownButton extends StatefulWidget {
     this.dropDownWidth,
     this.dropDownHeight,
     this.children,
-    this.onTapChildren
+    this.onTapChildren,
+    this.placeHolder
   });
 
   @override
@@ -40,10 +43,12 @@ class _DropDownButtonState extends State<DropDownButton> {
   var tapOutSideAndHideOverlay = false;
   var tapOutSideView = false;
   var index = 0;
+  var enablePlaceHolder = false;
 
   @override
   void initState() {
     super.initState();
+    if (widget.placeHolder != null) enablePlaceHolder = true;
   }
 
   @override
@@ -76,20 +81,22 @@ class _DropDownButtonState extends State<DropDownButton> {
               ],
             ),
             if (widget.title != null) SizedBox(height: 14.h),
-            // BaseBorderWrapper(
-            //   width: widget.width ?? 360.w,
-            //   height: widget.height ?? 44.h,
-            //   child: Stack(
-            //     children: [
-            //       widget.children?[index] ?? const SizedBox(),
-            //       Positioned(
-            //           bottom: 10.h,
-            //           right: 14.w,
-            //           child: SvgIconWidget(
-            //               name: AppImage.svgDropDownArrow, size: 16.r))
-            //     ],
-            //   ),
-            // )
+            BaseBorderWrapper(
+              width: widget.width ?? 360.w,
+              height: widget.height ?? 44.h,
+              child: Stack(
+                children: [
+                  (enablePlaceHolder)
+                      ? widget.placeHolder!
+                      : widget.children?[index] ?? const SizedBox(),
+                  Positioned(
+                      bottom: 10.h,
+                      right: 14.w,
+                      child: SvgIconWidget(
+                          name: AppImage.svgDropDownArrow, size: 16.r))
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -117,6 +124,7 @@ class _DropDownButtonState extends State<DropDownButton> {
                   child: ListView(
                     children: widget.children?.map((e) => GestureDetector(
                         onTap: () {
+                          enablePlaceHolder = false;
                           final newIndex = widget.children?.indexOf(e);
                           widget.onTapChildren?.call(newIndex!);
                           _hideOverLay();

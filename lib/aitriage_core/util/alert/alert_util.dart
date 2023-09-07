@@ -7,7 +7,6 @@ class AlertUtil {
   static void showLoadingIndicator({
     Duration timeout = const Duration(seconds: 5)
   }) {
-    closeAllAlert();
     final key = GlobalKey();
     final loadingIndicator = Center(
       key: key,
@@ -19,21 +18,19 @@ class AlertUtil {
         ),
       ),
     );
-    Future.delayed(Duration.zero, () => Get.dialog(loadingIndicator, barrierDismissible: true));
+    Get.dialog(loadingIndicator, barrierDismissible: true, arguments: key);
     Future.delayed(timeout, () {
-      if (key.currentContext?.mounted == true) {
-        closeAllAlert();
-      }
+      if (key.currentContext?.mounted == true && Get.isDialogOpen == true) {
+        Get.back();
+      };
     });
   }
 
   static void showLoadingIndicatorWithText() {
-    closeAllAlert();
+    // hideLoading();
   }
 
   static void showCustomDialog() {
-    closeAllAlert();
+    // hideLoading();
   }
-
-  static void closeAllAlert() => Future.delayed(Duration.zero, () => Get.back(closeOverlays: true));
 }

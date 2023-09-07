@@ -10,9 +10,10 @@ mixin ShowLog {
     ''');
   }
 
-  void showResponse(dynamic json) {
+  void showResponse(String url, dynamic json) {
     log('''
     ----------RESPONSE BODY----------
+    url: $url
     ${jsonToPrettyString(json)}
     ''');
   }

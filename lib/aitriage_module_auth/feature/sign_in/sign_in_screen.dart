@@ -10,6 +10,7 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
+import '../../../aitriage_module_main/config/main_route.dart';
 import '../../config/auth_module_page_route.dart';
 import '../../widget/drop_down_button.dart';
 import '../../widget/remember_me_forgot_password.dart';
@@ -81,7 +82,12 @@ class _Tablet extends GetView<SignInController> {
                   child: ColorButton(
                     title: 'sign_in'.tr,
                     shouldEnable: controller.isValidated.value,
-                    onTap: () => controller.onSubmitSignIn(),
+                    onTap: () async {
+                      controller.onSubmitSignIn(
+                          callback: (value) => Get.toNamed(
+                              MainRoute.main,
+                              arguments: {'userInfo': value}));
+                    },
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
                 );

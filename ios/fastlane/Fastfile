@@ -9,7 +9,7 @@ default_platform(:ios)
 platform :ios do
 
   FIREBASE_APP_IDS = {
-    "dev": "1:350310247193:ios:c42fad20c7e502b5eb3388",
+    "dev": "1:767429013713:ios:dce583b2087cfef35a95f0",
     'staging': "1:156031586891:ios:fc393438d6312fd91f33ce",
     "pro": "1:903998936175:ios:dd0c20ced670213ed0e99a"
   }.freeze

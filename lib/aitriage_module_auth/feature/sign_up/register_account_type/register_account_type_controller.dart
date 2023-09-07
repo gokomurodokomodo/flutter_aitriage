@@ -1,29 +1,31 @@
-import 'package:flutter_aitriage/aitriage_module_auth/data/api/query/register_account_query.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_vm.dart';
 import 'package:get/get.dart';
-import '../../../domain/entity/register_account_param.dart';
+import '../../../../aitriage_core/service/api_service/api_service.dart';
+import '../../../../aitriage_core/service/api_service/get_param_type/param_type.dart';
+import '../../../../aitriage_core/service/api_service/get_param_type/param_type_group_type.dart';
+import '../../../../aitriage_core/util/alert/alert_util.dart';
+import '../../../../aitriage_core/util/global_function.dart';
 
 class RegisterAccountTypeController extends GetxController {
-  final GetRegisterAccountParamUseCase _useCase;
   final vm = RegisterAccountTypeVM().obs;
 
-  RegisterAccountTypeController(this._useCase);
+  RegisterAccountTypeController();
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     _getParam();
   }
 
   void _getParam() async {
-    final query = RegisterAccountQuery(RegisterAccountQueryEnum.registerAccountType);
-    final resp = await _useCase.execute(query);
-    _updateView(list: resp.data);
+    final list = paramTypes
+        .where((e) => e.groupType == ParamTypeGroupType.registerAccountType.stringValue)
+        .toList();
+    _updateView(list: list);
   }
 
   void _updateView({
-    List<RegisterAccountParam>? list,
+    List<ParamType>? list,
     int? buttonSelectedIndex
   }) {
     vm.value.updateVM(
@@ -32,10 +34,6 @@ class RegisterAccountTypeController extends GetxController {
     );
     vm.refresh();
   }
-
-  // void resetView() {
-  //   _updateView(buttonSelectedIndex: -1);
-  // }
 
   void onTapButton(int index) {
     _updateView(buttonSelectedIndex: index);
