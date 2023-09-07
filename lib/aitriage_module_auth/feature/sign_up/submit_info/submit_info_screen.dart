@@ -19,9 +19,7 @@ class SubmitInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(
-        tablet: _Tablet(),
-        phone: _Phone());
+    return const DeviceDetector(tablet: _Tablet(), phone: _Phone());
   }
 }
 
@@ -46,28 +44,34 @@ class _Tablet extends GetView<SubmitInfoController> {
                   width: (240.h * 3) + (24.w * 2),
                   child: const StepCountWidget(index: 3)),
               SizedBox(height: 40.h),
-              Text('Please add more information below', style: AppStyle.styleCheckYourEmailNotification),
+              Text('Please add more information below',
+                  style: AppStyle.styleCheckYourEmailNotification),
               SizedBox(height: 24.h),
               Center(
                 child: CustomLoginField(
                   label: 'Organization name',
                   enableLabelAsterisk: true,
                   hintText: 'Organization name',
-                  onTextChange: (value) => controller.onOrganizationNameChanged(value),
+                  onTextChange: (value) =>
+                      controller.onOrganizationNameChanged(value),
                 ),
               ),
               SizedBox(height: 20.h),
-              DropDownButton(
-                title: 'Country',
-                shouldIncludeAsterisk: true,
-                dropDownWidth: 360.w,
-                onTapChildren: (index) => controller.onCountryChanged(index),
-                children: countryList.map((e) => CountryWidget(
-                  isNetworkIcon: true,
-                  leftIconName: e.emoji,
-                  contentText: e.name,
-                )).toList(),
-              ),
+              Obx(() => DropDownButton(
+                    title: 'Country',
+                    shouldIncludeAsterisk: true,
+                    dropDownWidth: 360.w,
+                    onTapChildren: (index) =>
+                        controller.onCountryChanged(index),
+                    children: countryList
+                        .map((e) => CountryWidget(
+                              isNetworkIcon: true,
+                              leftIconName: e.emoji,
+                              contentText: e.name,
+                              isChoosed: e.name == countryList[controller.chooseIndex.value].name,
+                            ))
+                        .toList(),
+                  )),
               SizedBox(height: 20.h),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -77,7 +81,8 @@ class _Tablet extends GetView<SubmitInfoController> {
                     enableLabelAsterisk: true,
                     hintText: 'First name',
                     textFieldWidth: 170.w,
-                    onTextChange: (value) => controller.onFirstNameChanged(value),
+                    onTextChange: (value) =>
+                        controller.onFirstNameChanged(value),
                   ),
                   SizedBox(width: 20.w),
                   CustomLoginField(
@@ -85,7 +90,8 @@ class _Tablet extends GetView<SubmitInfoController> {
                     enableLabelAsterisk: true,
                     hintText: 'Last name',
                     textFieldWidth: 170.w,
-                    onTextChange: (value) => controller.onLastNameChanged(value),
+                    onTextChange: (value) =>
+                        controller.onLastNameChanged(value),
                   ),
                 ],
               ),
@@ -104,7 +110,8 @@ class _Tablet extends GetView<SubmitInfoController> {
                   label: 'Phone number',
                   enableLabelAsterisk: true,
                   hintText: 'Enter your phone number',
-                  onTextChange: (value) => controller.onPhoneNumberChanged(value),
+                  onTextChange: (value) =>
+                      controller.onPhoneNumberChanged(value),
                 ),
               ),
               SizedBox(height: 20.h),
@@ -128,7 +135,7 @@ class _Tablet extends GetView<SubmitInfoController> {
                         successCallback: (email) => Get.toNamed(
                             AuthModulePageRoute.verifyEmail,
                             arguments: {'email': email}));
-              })
+                  })
             ],
           ),
         ),
@@ -145,5 +152,3 @@ class _Phone extends StatelessWidget {
     return const Placeholder();
   }
 }
-
-

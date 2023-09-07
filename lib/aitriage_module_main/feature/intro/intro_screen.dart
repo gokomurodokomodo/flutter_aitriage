@@ -104,6 +104,9 @@ class _TabletState extends State<_Tablet> {
           CircleIndicator(index: index, length: 4),
           SizedBox(height: 50.h),
           ColorButton(
+              onTap: () =>
+                            Get.toNamed(
+                                AuthModulePageRoute.registerAccountType),
               title: 'sign_up_title'.tr, 
               width: 360.w, 
               shouldEnable: true,

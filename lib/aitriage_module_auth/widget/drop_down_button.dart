@@ -161,6 +161,7 @@ class CountryWidget extends StatelessWidget {
   final TextStyle? contentTextStyle;
   final double? width;
   final double? height;
+  final bool isChoosed;
 
   const CountryWidget({
     super.key,
@@ -169,12 +170,14 @@ class CountryWidget extends StatelessWidget {
     this.contentText,
     this.contentTextStyle,
     this.width,
-    this.height
+    this.height,
+    this.isChoosed = false
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: isChoosed ? AppColor.colorLineSeparated : Colors.white,
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
       width: width ?? 360.w,
       height: height ?? 44.h,
@@ -193,8 +196,8 @@ class CountryWidget extends StatelessWidget {
           Expanded(
             child: Text(
                 contentText ?? '',
-                style: contentTextStyle ?? AppStyle.styleTextDropDownButton,
-                overflow: TextOverflow.ellipsis,
+                style: (contentTextStyle ?? AppStyle.styleTextDropDownButton).copyWith(decoration: TextDecoration.none),
+                // overflow: TextOverflow.ellipsis,
                 maxLines: 1,
             ),
           ),

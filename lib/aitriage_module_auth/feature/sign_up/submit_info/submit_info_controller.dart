@@ -10,6 +10,7 @@ class SubmitInfoController extends GetxController {
   final RegisterUseCase _registerUseCase;
   final vm = SubmitInfoVM();
   var text = ''.obs;
+  var chooseIndex = 0.obs;
 
   SubmitInfoController(this._registerUseCase);
 
@@ -70,6 +71,7 @@ class SubmitInfoController extends GetxController {
   }
 
   void onCountryChanged(int index) {
+    chooseIndex.value = index;
     vm.updateVM(index: index);
   }
 }
