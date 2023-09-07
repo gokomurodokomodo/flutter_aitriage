@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
 import '../../../../aitriage_core/service/localization_service.dart';
 import '../../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 

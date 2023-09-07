@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
 import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/database/provider/hive_provider.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_aitriage/aitriage_core/util/device_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module.dart';
@@ -32,7 +33,8 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
     _initLocalization(),
     _initLocalStorage(),
     _initService(),
-    _initFirebase()
+    _initFirebase(),
+    _initDataBase()
   ]).then((value) => appEventChannel.addEvent(FinishInitEvent('done')));
 
   runApp(App(pages: pages));
@@ -70,6 +72,8 @@ Future _initFirebase() async {}
 Future _initService() async {
   Get.put(ApiService(), permanent: true);
 }
+
+Future _initDataBase() async => HiveProvider.init();
 
 
 

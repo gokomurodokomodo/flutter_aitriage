@@ -1,7 +1,7 @@
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_vm.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/service/api_service/api_service.dart';
-import '../../../../aitriage_core/service/api_service/get_param_type/param_type.dart';
+import '../../../../aitriage_core/service/entity/param_type.dart';
 import '../../../../aitriage_core/service/api_service/get_param_type/param_type_group_type.dart';
 import '../../../../aitriage_core/util/alert/alert_util.dart';
 import '../../../../aitriage_core/util/global_function.dart';

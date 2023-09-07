@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
 import 'package:flutter_aitriage/aitriage_core/service/api_service/get_system_param/system_param.dart';
 
-import '../service/api_service/get_country/country.dart';
+import '../service/entity/country.dart';
 
 // CachedImage for intro and get_startedScreen
 // Use imageCache.clear() to clear all

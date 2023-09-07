@@ -1,5 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
 import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type_group_type.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
