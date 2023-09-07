@@ -1,13 +1,11 @@
-import 'package:flutter_aitriage/aitriage_core/service/database_table.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import '../../entity/city.dart';
+import '../../entity/country.dart';
 import '../../entity/param_type.dart';
-
-final _listAdapter = <TypeAdapter>[
-  ParamTypeAdapter(),
-  CountryAdapter()
-];
+import '../../entity/race.dart';
+import '../../entity/role.dart';
+import '../../entity/state.dart';
 
 class HiveProvider {
   HiveProvider._();
@@ -16,9 +14,16 @@ class HiveProvider {
     final path = await getApplicationDocumentsDirectory();
     Hive.init(path.path);
 
-    for (var table in DatabaseTable.values) {
-      Hive.registerAdapter(table.typeAdapter);
-    }
+    Hive.registerAdapter(CityAdapter());
+    Hive.registerAdapter(CountryAdapter());
+    Hive.registerAdapter(ParamTypeAdapter());
+    Hive.registerAdapter(RaceAdapter());
+    Hive.registerAdapter(RoleAdapter());
+    Hive.registerAdapter(StateAdapter());
+
+    // for (var table in DatabaseTable.values) {
+    //   Hive.registerAdapter(table.typeAdapter);
+    // }
   }
 
   static read() {
