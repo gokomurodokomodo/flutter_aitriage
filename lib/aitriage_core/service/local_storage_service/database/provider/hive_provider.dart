@@ -1,11 +1,13 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import '../../entity/city.dart';
-import '../../entity/country.dart';
-import '../../entity/param_type.dart';
-import '../../entity/race.dart';
-import '../../entity/role.dart';
-import '../../entity/state.dart';
+
+import '../../../../entity/city.dart';
+import '../../../../entity/country.dart';
+import '../../../../entity/param_type.dart';
+import '../../../../entity/race.dart';
+import '../../../../entity/role.dart';
+import '../../../../entity/state.dart';
+
 
 class HiveProvider {
   HiveProvider._();
@@ -21,9 +23,6 @@ class HiveProvider {
     Hive.registerAdapter(RoleAdapter());
     Hive.registerAdapter(StateAdapter());
 
-    // for (var table in DatabaseTable.values) {
-    //   Hive.registerAdapter(table.typeAdapter);
-    // }
   }
 
   static read() {

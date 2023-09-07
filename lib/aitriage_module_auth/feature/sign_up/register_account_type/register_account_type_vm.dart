@@ -1,6 +1,6 @@
-import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
-import 'package:flutter_aitriage/aitriage_core/service/localization_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/localization_service/localization_service.dart';
 import 'package:flutter_aitriage/aitriage_core/util/language_string_from_json/language_string_from_json.dart';
+import '../../../../aitriage_core/entity/param_type.dart';
 
 class RegisterAccountTypeVM {
   var _buttonSelectedIndex = -1;

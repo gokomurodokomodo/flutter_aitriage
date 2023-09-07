@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
+import '../../../entity/param_type.dart';
 import '../../../network/common/base_response.dart';
 
 class GetParamTypeResponse extends BaseResponse {

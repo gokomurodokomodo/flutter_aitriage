@@ -1,10 +1,11 @@
-import 'package:flutter_aitriage/aitriage_core/service/entity/city.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/race.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/state.dart';
 import 'package:hive/hive.dart';
-import 'entity/country.dart';
-import 'entity/param_type.dart';
-import 'entity/role.dart';
+
+import '../../../entity/city.dart';
+import '../../../entity/country.dart';
+import '../../../entity/param_type.dart';
+import '../../../entity/race.dart';
+import '../../../entity/role.dart';
+import '../../../entity/state.dart';
 
 enum DatabaseTable { city, country, paramType, race, role, state }
 

@@ -14,7 +14,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
-import '../../../aitriage_core/service/local_storage_service.dart';
+import '../../../aitriage_core/service/local_storage_service/local_storage_service.dart';
 
 class SignInController extends GetxController{
   final _vm = SignInVM();

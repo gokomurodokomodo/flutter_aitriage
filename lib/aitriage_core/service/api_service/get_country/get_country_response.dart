@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
+import '../../../entity/country.dart';
 import '../../../network/common/base_response.dart';
 
 class GetCountryResponse extends BaseResponse {
