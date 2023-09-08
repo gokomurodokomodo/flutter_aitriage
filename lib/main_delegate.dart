@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
@@ -68,14 +69,16 @@ Future<void> _initLocalStorage() => GetStorage.init();
 
 Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
-Future _initFirebase() async {}
+Future _initFirebase() async => await Firebase.initializeApp();
+
+Future _initDataBase() async => await IsarProvider.init();
 
 Future _initService() async {
   Get.put(ApiService(), permanent: true);
   Get.put(LocalStorageService(), permanent: true);
 }
 
-Future _initDataBase() async => IsarProvider.init();
+
 
 
 
