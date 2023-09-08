@@ -1,25 +1,17 @@
-import 'package:hive/hive.dart';
+import 'package:isar/isar.dart';
 part 'param_type.g.dart';
 
-@HiveType(typeId: 2)
+@collection
 class ParamType {
-  @HiveField(0)
+  Id? isarId;
   final String? groupType;
-  @HiveField(1)
   final String? type;
-  @HiveField(2)
   final String? key;
-  @HiveField(3)
   final String? value;
-  @HiveField(4)
   final String? description;
-  @HiveField(5)
   final String? mediaUrl;
-  @HiveField(6)
   final int? position;
-  @HiveField(7)
   final String? scope;
-
 
   ParamType(
       this.groupType,

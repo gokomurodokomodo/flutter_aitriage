@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../../../entity/city.dart';
 import '../../../../entity/country.dart';
 import '../../../../entity/param_type.dart';
@@ -16,12 +15,12 @@ class HiveProvider {
     final path = await getApplicationDocumentsDirectory();
     Hive.init(path.path);
 
-    Hive.registerAdapter(CityAdapter());
-    Hive.registerAdapter(CountryAdapter());
-    Hive.registerAdapter(ParamTypeAdapter());
-    Hive.registerAdapter(RaceAdapter());
-    Hive.registerAdapter(RoleAdapter());
-    Hive.registerAdapter(StateAdapter());
+    // Hive.registerAdapter(CityAdapter());
+    // Hive.registerAdapter(CountryAdapter());
+    // Hive.registerAdapter(ParamTypeAdapter());
+    // Hive.registerAdapter(RaceAdapter());
+    // Hive.registerAdapter(RoleAdapter());
+    // Hive.registerAdapter(StateAdapter());
 
   }
 

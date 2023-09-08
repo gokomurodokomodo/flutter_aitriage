@@ -1,21 +1,15 @@
-import 'package:hive/hive.dart';
+import 'package:isar/isar.dart';
 part 'state.g.dart';
 
-@HiveType(typeId: 5)
+@collection
 class State {
-  @HiveField(0)
+  Id? isarId;
   final int? id;
-  @HiveField(1)
   final String? name;
-  @HiveField(2)
   final int? countryId;
-  @HiveField(3)
   final String? countryCode;
-  @HiveField(4)
   final String? countryName;
-  @HiveField(5)
   final String? stateCode;
-  @HiveField(6)
   final String? type;
 
   State(

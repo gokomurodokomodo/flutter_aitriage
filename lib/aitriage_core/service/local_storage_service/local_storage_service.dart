@@ -10,7 +10,7 @@ class LocalStorageService extends GetxService {
 
   static final _instance = LocalStorageService._();
 
-  factory LocalStorageService() => _instance;
+  factory LocalStorageService()  => _instance;
 
   final GetStorage box = GetStorage();
 

@@ -1,15 +1,12 @@
-import 'package:hive/hive.dart';
+import 'package:isar/isar.dart';
 part 'race.g.dart';
 
-@HiveType(typeId: 3)
+@collection
 class Race {
-  @HiveField(0)
+  Id? isarId;
   final int? id;
-  @HiveField(1)
   final String? code;
-  @HiveField(2)
   final String? name;
-  @HiveField(3)
   final String? dispStatus;
 
   Race(
