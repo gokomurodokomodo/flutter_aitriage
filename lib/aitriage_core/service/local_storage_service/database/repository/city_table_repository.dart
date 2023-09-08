@@ -3,34 +3,37 @@ import 'package:flutter_aitriage/aitriage_core/service/local_storage_service/dat
 import 'package:isar/isar.dart';
 
 class CityTableRepository {
-  readByMultipleId(List<int> list) {
-    final cities = IsarProvider.instance.citys.getAll(list);
+  final _cityDB = IsarProvider.instance.citys;
+
+  Future<List<City?>> readByMultipleId(List<int> listId) {
+    final cities = _cityDB.getAll(listId);
     return cities;
   }
 
-  readById(int id) async {
-    final city = await IsarProvider.instance.citys.get(id);
+  Future<City?> readById(int id) async {
+    final city = await _cityDB.get(id);
     return city;
   }
 
-  readAll() {
-    final allCity = IsarProvider.instance.citys.where().findAll();
+  Future<List<City>> readAll() {
+    final allCity = _cityDB.where().findAll();
     return allCity;
   }
 
-  deleteAll() async {
-    await IsarProvider.instance.writeTxn(() async {
-      await IsarProvider.instance.citys.where().deleteAll();
+  Future<int> deleteAll() async {
+    return await IsarProvider.instance.writeTxn(() async {
+      final result = await _cityDB.where().deleteAll();
+      return result;
     });
   }
 
-  deleteById(int id) {
-    IsarProvider.instance.citys.delete(id);
+  Future<bool> deleteById(int id) async {
+    return await _cityDB.delete(id);
   }
 
-  write(City city) async {
+  Future<int> write(City city) async {
     return IsarProvider.instance.writeTxn(() async {
-      return await IsarProvider.instance.citys.put(city);
+      return await _cityDB.put(city);
     });
   }
 }
