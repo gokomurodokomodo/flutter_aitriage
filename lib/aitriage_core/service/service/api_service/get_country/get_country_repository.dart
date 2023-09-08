@@ -1,7 +1,6 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
 import 'package:flutter_aitriage/aitriage_core/network/provider/get_base_provider.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service_route.dart';
-
+import '../api_service_route.dart';
 import 'get_country_response.dart';
 
 class GetCountryRepository {

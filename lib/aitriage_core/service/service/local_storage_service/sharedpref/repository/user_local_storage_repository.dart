@@ -1,8 +1,7 @@
 import 'dart:convert';
-
-import 'package:flutter_aitriage/aitriage_core/service/local_storage_service/sharedpref/provider/get_storage_provider.dart';
-import '../../../../../aitriage_module_auth/domain/entity/user_param.dart';
-import '../../../../common/app_constant.dart';
+import '../../../../../../aitriage_module_auth/domain/entity/user_param.dart';
+import '../../../../../common/app_constant.dart';
+import '../provider/get_storage_provider.dart';
 import '../provider/secure_storage_provider.dart';
 
 class UserLocalStorageRepository {

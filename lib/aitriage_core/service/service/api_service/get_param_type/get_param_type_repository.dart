@@ -1,5 +1,5 @@
-import '../../../common/app_env.dart';
-import '../../../network/provider/get_base_provider.dart';
+import '../../../../common/app_env.dart';
+import '../../../../network/provider/get_base_provider.dart';
 import '../api_service_route.dart';
 import 'get_param_type_response.dart';
 

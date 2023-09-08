@@ -1,5 +1,5 @@
+import '../../../../network/common/base_response.dart';
 import '../../../entity/country.dart';
-import '../../../network/common/base_response.dart';
 
 class GetCountryResponse extends BaseResponse {
   final List<Country> data;

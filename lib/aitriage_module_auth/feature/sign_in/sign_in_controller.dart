@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/api_service.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_user_info/user_info.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
-import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
-import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/entity/user_param.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
-import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
-import '../../../aitriage_core/service/local_storage_service/local_storage_service.dart';
+import '../../../aitriage_core/service/service/api_service/api_service.dart';
+import '../../../aitriage_core/service/service/api_service/get_user_info/user_info.dart';
+import '../../../aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 
 class SignInController extends GetxController{
   final _vm = SignInVM();

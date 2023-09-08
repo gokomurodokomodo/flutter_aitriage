@@ -1,5 +1,5 @@
+import '../../../../network/common/base_response.dart';
 import '../../../entity/param_type.dart';
-import '../../../network/common/base_response.dart';
 
 class GetParamTypeResponse extends BaseResponse {
   final data = <ParamType>[];

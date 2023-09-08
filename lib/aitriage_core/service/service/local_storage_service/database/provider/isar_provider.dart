@@ -1,11 +1,12 @@
-import 'package:flutter_aitriage/aitriage_core/entity/city.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/param_type.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/race.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/role.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/state.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../../../entity/city.dart';
+import '../../../../entity/country.dart';
+import '../../../../entity/param_type.dart';
+import '../../../../entity/race.dart';
+import '../../../../entity/role.dart';
+import '../../../../entity/state.dart';
 
 class IsarProvider {
   IsarProvider._();

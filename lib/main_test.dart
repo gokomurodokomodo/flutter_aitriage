@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/entity/city.dart';
-import 'package:flutter_aitriage/aitriage_core/service/local_storage_service/database/provider/isar_provider.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'aitriage_core/service/local_storage_service/database/repository/isar_database_repository.dart';
+import 'aitriage_core/service/entity/city.dart';
+import 'aitriage_core/service/service/local_storage_service/database/provider/isar_provider.dart';
+import 'aitriage_core/service/service/local_storage_service/database/repository/isar_database_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
