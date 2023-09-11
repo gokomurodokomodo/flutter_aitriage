@@ -32,7 +32,6 @@ class ApiService extends GetxService {
   @override
   void onInit() async{
     super.onInit();
-    await _getParamType();
   }
 
   // country, city, state are json file, need parsing
@@ -53,7 +52,7 @@ class ApiService extends GetxService {
     }
   }
 
-  Future<void> _getParamType() async {
+  Future<void> getParamType() async {
     try {
       final resp = await getParamTypeUseCase.execute();
       paramTypes.addAll(resp.data);
