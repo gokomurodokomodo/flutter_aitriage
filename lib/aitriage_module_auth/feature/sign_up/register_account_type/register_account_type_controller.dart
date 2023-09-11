@@ -1,7 +1,7 @@
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_vm.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/service/entity/param_type.dart';
-import '../../../../aitriage_core/service/service/api_service/get_param_type/param_type_group_type.dart';
+import '../../../../aitriage_core/service/service/api_service/response/get_param_type_response.dart';
 import '../../../../aitriage_core/util/global_function.dart';
 
 class RegisterAccountTypeController extends GetxController {

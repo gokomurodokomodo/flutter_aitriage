@@ -35,8 +35,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
     _initLocalization(),
     _initLocalStorage(),
     _initService(),
-    _initFirebase(),
-    _initDataBase()
+    _initFirebase()
   ]).then((value) => appEventChannel.addEvent(FinishInitEvent('done')));
 
   runApp(App(pages: pages));
@@ -74,12 +73,7 @@ Future _initFirebase() async => await Firebase.initializeApp();
 Future _initDataBase() async => await IsarProvider.init();
 
 Future _initService() async {
+  await _initDataBase();
   Get.put(ApiService(), permanent: true);
   Get.put(LocalStorageService(), permanent: true);
 }
-
-
-
-
-
-
