@@ -39,7 +39,11 @@ dependencies:
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   firebase_core: ^2.15.1
+  firebase_database: any
+  firebase_auth: any
   http: ^1.1.0
+  retry: ^3.1.2
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:

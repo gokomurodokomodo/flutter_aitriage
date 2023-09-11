@@ -15,7 +15,9 @@ class AppEnvironment {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
           'apiPrefix': '',
-          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem'
+          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem',
+          'firebase-rtdb-url': 'https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app',
+          'firebase-auth-key': '@!AITriage#230906',
         };
         break;
       case AppEnvironmentType.pro:
@@ -23,7 +25,9 @@ class AppEnvironment {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
           'apiPrefix': '',
-          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem'
+          'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem',
+          'firebase-rtdb-url': 'https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app',
+          'firebase-auth-key': '@!AITriage#230906',
         };
         break;
     }
@@ -35,5 +39,6 @@ class AppEnvironment {
   static String get apiVersion => _config['apiVersion'];
   static String get apiPrefix => _config['apiPrefix'];
   static String get publicPem => config['publicPem'];
-
+  static String get firebaseRTDBUrl => config['firebase-rtdb-url'] as String;
+  static String get firebaseAuthKey => config['firebase-auth-key'];
 }

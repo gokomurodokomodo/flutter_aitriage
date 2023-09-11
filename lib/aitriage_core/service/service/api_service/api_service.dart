@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_pars
 import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_parsing_country_json_uc.dart';
 import 'package:get/get.dart';
 import '../../../network/handle_error/handle_error.dart';
+import '../../../network/provider/firebase_provider.dart';
 import '../../../util/global_function.dart';
 import '../../entity/state.dart';
 import '../../usecase/download_and_parsing_state_json_uc.dart';
@@ -32,6 +33,11 @@ class ApiService extends GetxService {
     super.onInit();
     _getAppParam();
     _getParamType();
+    final firebaseProvider = FirebaseProvider.getItemsOn('syncs', (dynamic) {
+      return dynamic;
+    }).listen((event) {
+      print('FIREBASE123 $event');
+    });
   }
 
   // country, city, state are json file, need parsing
@@ -45,7 +51,6 @@ class ApiService extends GetxService {
       _listRace.addAll(resp.race);
       _trialTime = resp.trialTime;
     } catch (e) {
-      print(e);
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
