@@ -40,7 +40,7 @@ class _Tablet extends GetView<VerifyEmailController> {
                 headerText: 'check_your_email'.tr,
                 contentText: 'we_sent_password'.tr,
                 styleContentText: AppStyle.styleCheckYourEmailNotification,
-                thirdText: 'lorem.ipsum@gmail.com',
+                thirdText: controller.getEmail(),
                 styleThirdText: AppStyle.styleCheckYourEmail,
               ),
               SizedBox(height: 32.h),
@@ -71,7 +71,9 @@ class _Tablet extends GetView<VerifyEmailController> {
                   Text('didnt_receive_email'.tr),
                   SizedBox(height: 4.w,),
                   TextButton(
-                      onPressed: () {  },
+                      onPressed: () {
+                        controller.resendCode();
+                      },
                       child: Text('click_to_resend'.tr))
                 ],
               ),

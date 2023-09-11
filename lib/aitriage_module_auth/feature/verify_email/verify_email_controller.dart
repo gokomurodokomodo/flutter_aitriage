@@ -6,7 +6,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_lo
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/service/local_storage_service.dart';
+import '../../../aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 import '../../data/api/request/verify_email_request.dart';
 
 class VerifyEmailController extends GetxController {
@@ -25,6 +25,24 @@ class VerifyEmailController extends GetxController {
     }
   }
 
+  String getEmail(){
+    return Get.arguments?['email'];
+  }
+
+  Future<void> resendCode() async{
+    final email = Get.arguments?['email'];
+
+    try{
+      AlertUtil.showLoadingIndicator();
+      final response = await _uc.resendSignUpVerificationCode(email);
+      Get.back();
+      Get.snackbar('Success', response.message.toString());
+    } catch (e){
+      Get.back();
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+    }
+  }
+
 
   Future<void> _onRegisterSubmit() async {
     final argument = Get.arguments;
@@ -38,6 +56,7 @@ class VerifyEmailController extends GetxController {
       final resp = await _uc.execute(request);
       Get.back();
       Get.snackbar('Success', resp.message.toString());
+      await Get.offNamed(MainRoute.gettingStartedMain);
     } catch (e) {
       Get.back();
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
@@ -59,10 +78,11 @@ class VerifyEmailController extends GetxController {
       Get.back();
       Get.snackbar('Success', result.message.toString());
       final key = '${AppConstant.preCharSaveUserData}$userName}';
-      LocalStorageService().setSecuredUser(userName: userName, password: password);
-      LocalStorageService().setSecuredUserData(key: key, data: result.data);
-      LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
-      LocalStorageService().setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
+      final localStorageService = LocalStorageService();
+      localStorageService.setSecuredUser(userName: userName, password: password);
+      localStorageService.setSecuredUserData(key: key, data: result.data);
+      localStorageService.removeSecured(key: AppConstant.firstDateOffline);
+      localStorageService.setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
       Get.toNamed(MainRoute.main);
     } catch (e) {
       Get.back();

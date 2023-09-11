@@ -29,6 +29,7 @@ class _Tablet extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    print(controller.chooseIndex.value);
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       body: Padding(
@@ -45,16 +46,19 @@ class _Tablet extends GetView<SignUpController> {
                   width: (240.h * 3) + (24.w * 2),
                   child: const StepCountWidget(index: 3)),
               SizedBox(height: 40.h),
-              Text('Please add more information below',
+              Text('please_add_information'.tr,
                   style: AppStyle.styleCheckYourEmailNotification),
               SizedBox(height: 24.h),
               Obx(() => Center(
                     child: CustomLoginField(
-                      label: 'Organization name',
+                      label: 'organization_name'.tr,
                       enableLabelAsterisk: true,
-                      hintText: 'Organization name',
+                      hintText: 'organization_name'.tr,
+                      controller: controller
+                          .textControllerVM.value.organizationFieldController,
                       onTapOutside: () {
-                        controller.onOrganizationNameChanged(controller.submitInfoVM.organizationName);
+                        controller.onOrganizationNameChanged(
+                            controller.submitInfoVM.value.organizationName);
                       },
                       onTextChange: (value) =>
                           controller.onOrganizationNameChanged(value),
@@ -65,7 +69,8 @@ class _Tablet extends GetView<SignUpController> {
                   )),
               SizedBox(height: 10.h),
               Obx(() => DropDownButton(
-                    title: 'Country',
+                    chooseIndex: controller.chooseIndex.value,
+                    title: 'country'.tr,
                     shouldIncludeAsterisk: true,
                     dropDownWidth: 360.w,
                     onTapChildren: (index) =>
@@ -88,13 +93,15 @@ class _Tablet extends GetView<SignUpController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Obx(() => CustomLoginField(
-                          label: 'First name',
+                          label: 'first_name'.tr,
                           enableLabelAsterisk: true,
-                          hintText: 'First name',
+                          hintText: 'first_name'.tr,
                           textFieldWidth: 170.w,
-                          controller: controller.textControllerVM.value.firstNameFieldController,
-                          onTapOutside: (){
-                            controller.onFirstNameChanged(controller.submitInfoVM.firstName);
+                          controller: controller
+                              .textControllerVM.value.firstNameFieldController,
+                          onTapOutside: () {
+                            controller.onFirstNameChanged(
+                                controller.submitInfoVM.value.firstName);
                           },
                           onTextChange: (value) =>
                               controller.onFirstNameChanged(value),
@@ -104,12 +111,14 @@ class _Tablet extends GetView<SignUpController> {
                         )),
                     SizedBox(width: 20.w),
                     Obx(() => CustomLoginField(
-                          label: 'Last name',
+                          label: 'last_name'.tr,
                           enableLabelAsterisk: true,
-                          hintText: 'Last name',
-                          controller: controller.textControllerVM.value.lastNameFieldController,                          
+                          hintText: 'last_name'.tr,
+                          controller: controller
+                              .textControllerVM.value.lastNameFieldController,
                           textFieldWidth: 170.w,
-                          onTapOutside: () => controller.onLastNameChanged(controller.submitInfoVM.lastName),
+                          onTapOutside: () => controller.onLastNameChanged(
+                              controller.submitInfoVM.value.lastName),
                           onTextChange: (value) =>
                               controller.onLastNameChanged(value),
                           isValidated:
@@ -121,11 +130,13 @@ class _Tablet extends GetView<SignUpController> {
               ),
               Obx(() => Center(
                     child: CustomLoginField(
-                      label: 'Email',
+                      label: 'email'.tr,
                       enableLabelAsterisk: true,
-                      hintText: 'Enter your email',
-                      controller: controller.textControllerVM.value.emailFieldController,
-                      onTapOutside: () => controller.onEmailChanged(controller.submitInfoVM.email),
+                      hintText: 'email_placeholder'.tr,
+                      controller: controller
+                          .textControllerVM.value.emailFieldController,
+                      onTapOutside: () => controller
+                          .onEmailChanged(controller.submitInfoVM.value.email),
                       onTextChange: (value) => controller.onEmailChanged(value),
                       isValidated: controller.validateVM.value.isEmailValidate,
                       unvalidateText: 'un_validated_email'.tr,
@@ -134,11 +145,13 @@ class _Tablet extends GetView<SignUpController> {
               SizedBox(height: 20.h),
               Obx(() => Center(
                     child: CustomLoginField(
-                      label: 'Phone number',
+                      label: 'phone_number'.tr,
                       enableLabelAsterisk: true,
-                      controller: controller.textControllerVM.value.phoneNumberFieldController,
-                      hintText: 'Enter your phone number',
-                      onTapOutside: () => controller.onPhoneNumberChanged(controller.submitInfoVM.phoneNumber),
+                      controller: controller
+                          .textControllerVM.value.phoneNumberFieldController,
+                      hintText: 'phone_number_placeholder'.tr,
+                      onTapOutside: () => controller.onPhoneNumberChanged(
+                          controller.submitInfoVM.value.phoneNumber),
                       onTextChange: (value) =>
                           controller.onPhoneNumberChanged(value),
                       isValidated:
@@ -154,12 +167,14 @@ class _Tablet extends GetView<SignUpController> {
                       children: [
                         CustomLoginField(
                           shouldHaveTrailingIcon: true,
-                          controller: controller.textControllerVM.value.passwordFieldController,   
-                          label: 'Password',
+                          controller: controller
+                              .textControllerVM.value.passwordFieldController,
+                          label: 'password'.tr,
                           labelStyle: AppStyle.styleTextButtonBackToLogin,
                           enableLabelAsterisk: true,
-                          hintText: 'Choose a password',
-                          onTapOutside: () => controller.onPasswordChanged(controller.submitInfoVM.password),
+                          hintText: 'password_placeholder'.tr,
+                          onTapOutside: () => controller.onPasswordChanged(
+                              controller.submitInfoVM.value.password),
                           onTextChange: (value) =>
                               controller.onPasswordChanged(value),
                           isValidated:
@@ -173,18 +188,22 @@ class _Tablet extends GetView<SignUpController> {
                     ),
                   )),
               SizedBox(height: 20.h),
-              AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
+              Obx(() => AgreeTermAndPrivacyPolicyCheckbox(
+                    passedValue: controller.checkedTermAndPrivacy.value,
+                    width: 360.w,
+                    onTap: (_) => controller.onTapTermAndPrivacyCheckBox(_),
+                  )),
               SizedBox(height: 32.h),
-              ColorButton(
-                  title: 'Submit',
-                  shouldEnable: true,
+              Obx(() => ColorButton(
+                  title: 'submit'.tr,
+                  shouldEnable: controller.shouldEnableSubmitButton.value,
                   width: 360.w,
                   onTap: () {
                     controller.submit(
                         successCallback: (email) => Get.toNamed(
                             AuthModulePageRoute.verifyEmail,
                             arguments: {'email': email}));
-                  })
+                  }))
             ],
           ),
         ),

@@ -17,11 +17,11 @@ class TextControllerVM{
     String? passwordFieldController,
   }){
     _organizationFieldController.text = organizationFieldController ?? _organizationFieldController.text;
-    _firstNameFieldController.text = organizationFieldController ?? _firstNameFieldController.text;
-    _lastNameFieldController.text = organizationFieldController ?? _lastNameFieldController.text;
-    _emailFieldController.text = organizationFieldController ?? _emailFieldController.text;
-    _phoneNumberFieldController.text = organizationFieldController ?? _phoneNumberFieldController.text;
-    _passwordFieldController.text = organizationFieldController ?? _passwordFieldController.text;
+    _firstNameFieldController.text = firstNameFieldController ?? _firstNameFieldController.text;
+    _lastNameFieldController.text = lastNameFieldController ?? _lastNameFieldController.text;
+    _emailFieldController.text = emailFieldController ?? _emailFieldController.text;
+    _phoneNumberFieldController.text = phoneNumberFieldController ?? _phoneNumberFieldController.text;
+    _passwordFieldController.text = passwordFieldController ?? _passwordFieldController.text;
   }
 
   TextEditingController get organizationFieldController => _organizationFieldController;

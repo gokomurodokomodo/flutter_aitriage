@@ -12,6 +12,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:sprintf/sprintf.dart';
 import '../../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../widget/auth_back_button.dart';
 import '../../../widget/sign_up_icon_wrapper.dart';
@@ -38,7 +39,6 @@ class _Tablet extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    print('on ready');
     
     return WillPopScope(
       onWillPop: () async {
@@ -61,8 +61,8 @@ class _Tablet extends StatelessWidget{
               SizedBox(height: 60.h),
               AuthenticationHeader(
                 svgIconName: AppImage.svgAppLogo,
-                headerText: 'Start your ${systemParam.trialTime}-day free trial',
-                contentText: '100% free. No credit card needed',
+                headerText: sprintf('start_your_trial'.tr, [systemParam.trialTime]),
+                contentText: 'free_trial'.tr,
                 styleContentText: AppStyle.styleCheckYourEmailNotification,
               ),
               SizedBox(height: 24.h),
@@ -70,7 +70,7 @@ class _Tablet extends StatelessWidget{
                   width: (240.h * 3) + (24.w * 2),
                   child: const StepCountWidget(index: 1)),
               SizedBox(height: 40.h),
-              Text('Hospital or clinics', style: AppStyle.styleCheckYourEmailNotification),
+              Text('hospital_or_clinic'.tr, style: AppStyle.styleCheckYourEmailNotification),
               SizedBox(height: 24.h),
               Obx(() => Expanded(
                 child: ListView.separated(

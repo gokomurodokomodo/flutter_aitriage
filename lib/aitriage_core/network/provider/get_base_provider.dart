@@ -1,6 +1,6 @@
-import 'package:flutter_aitriage/aitriage_core/service/local_storage_service.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
+import '../../service/service/local_storage_service/local_storage_service.dart';
 import '../common/base_response.dart';
 import '../logging/logging.dart';
 

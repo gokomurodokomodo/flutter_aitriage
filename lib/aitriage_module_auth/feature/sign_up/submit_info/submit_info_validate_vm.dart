@@ -5,11 +5,12 @@ class SubmitInfoValidateVM{
   bool _isEmailValidate = true;
   bool _isPhoneNumberValidate = true;
   bool _isPasswordValidate = true;
+
   RegExp emailReg = RegExp(
       r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$',
     );
   final RegExp passwordRegex = RegExp(
-      r'^(?=.*[!@#\$%^&*(),.?":{}|<>])(?=.*[0-9]).{8,}$',
+      r'^(?=.*[A-Z])[A-Za-z0-9]{8,}$',
     );
 
     void updateOrganizationValidate(String? isOrganizationValidate){
@@ -33,7 +34,7 @@ class SubmitInfoValidateVM{
     }
 
     void updatePasswordValidate(String? isPasswordValidate){
-      _isPasswordValidate = _validateWithRegrex(isPasswordValidate, passwordRegex);
+      _isPasswordValidate = _validateWithRegrex(isPasswordValidate, passwordRegex, isPasswordValidate: true);
     }
 
   bool get isOrganizationValidate => _isOrganizationValidate;
@@ -42,6 +43,14 @@ class SubmitInfoValidateVM{
   bool get isEmailValidate => _isEmailValidate;
   bool get isPhoneNumberValidate => _isPhoneNumberValidate;
   bool get isPasswordValidate => _isPasswordValidate;
+  bool get isAllValidated {
+    return ((_isOrganizationValidate) 
+    && (_isEmailValidate) 
+    && (_isFirstNameValidate)
+    && (_isLastNameValidate)
+    && (_isPasswordValidate)
+    &&(_isPhoneNumberValidate)) ? true : false;
+  }
 
   bool _validateNotRegrex(String? information){
     if(information == null){
@@ -55,10 +64,16 @@ class SubmitInfoValidateVM{
     }
   }
   
-  bool _validateWithRegrex(String? information, RegExp regrex){
+  bool _validateWithRegrex(String? information, RegExp regrex, {bool isPasswordValidate = false}){
+    
     if(information == null){
-      return true;
+      return false;
     } else {
+      if(isPasswordValidate){
+        if(information.contains(RegExp(r'[!@#$%^&*()?":{}|<>]'))) {
+          return true;
+        }
+      }
       return regrex.hasMatch(information) ? true : false;
     }
   }

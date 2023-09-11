@@ -46,7 +46,7 @@ class _Tablet extends GetView<SignUpController> {
                 width: (240.h * 3) + (24.w * 2),
                 child: const StepCountWidget(index: 2)),
             SizedBox(height: 40.h),
-            Text('Your organization information', style: AppStyle.styleCheckYourEmailNotification),
+            Text('your_organization_information'.tr, style: AppStyle.styleCheckYourEmailNotification),
             SizedBox(height: 24.h),
             Obx(() => Expanded(
                 child: ListView.separated(
@@ -108,13 +108,13 @@ class _Tablet extends GetView<SignUpController> {
                       return Column(
                         children: [
                           SizedBox(height: 32.h),
-                          Text('Are you the business owner or manager?', style: AppStyle.styleCheckYourEmailNotification),
+                          Text('business_owner_or_manager'.tr, style: AppStyle.styleCheckYourEmailNotification),
                           SizedBox(height: 24.h),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SignUpIconWrapper(
-                                  title: 'Yes',
+                                  title: 'yes'.tr,
                                   isSelected: controller.accountStatusVM.value.isYesNoButtonSelected(0),
                                   onTap: () => _onTapYesNoButton(0),
                                   child: SvgIconWidget(
@@ -122,7 +122,7 @@ class _Tablet extends GetView<SignUpController> {
                                       size: 80.h)),
                               SizedBox(width: 24.w),
                               SignUpIconWrapper(
-                                  title: 'No',
+                                  title: 'no'.tr,
                                   isSelected: controller.accountStatusVM.value.isYesNoButtonSelected(1),
                                   onTap: () => _onTapYesNoButton(1),
                                   child: SvgIconWidget(

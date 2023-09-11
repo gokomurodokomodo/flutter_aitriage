@@ -11,11 +11,13 @@ import '../../aitriage_core/common/app_style.dart';
 class AgreeTermAndPrivacyPolicyCheckbox extends StatefulWidget {
   final Function(bool)? onTap;
   final double? width;
+  final bool passedValue;
 
   const AgreeTermAndPrivacyPolicyCheckbox({
     super.key,
     this.onTap,
-    this.width
+    this.width,
+    this.passedValue = false
   });
 
   @override
@@ -23,7 +25,7 @@ class AgreeTermAndPrivacyPolicyCheckbox extends StatefulWidget {
 }
 
 class _AgreeTermAndPrivacyPolicyCheckboxState extends State<AgreeTermAndPrivacyPolicyCheckbox> {
-  var value = false;
+  var mainValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,13 @@ class _AgreeTermAndPrivacyPolicyCheckboxState extends State<AgreeTermAndPrivacyP
             width: 20.r,
             height: 20.r,
             child: Checkbox(
-                value: value,
+                value: widget.passedValue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7.r),
                 ),
                 onChanged: (newValue) {
-                  setState(() => value = newValue ?? false);
-                  widget.onTap?.call(value);
+                  setState(() => mainValue = newValue ?? false);
+                  widget.onTap?.call(mainValue);
                 }
             ),
           ),

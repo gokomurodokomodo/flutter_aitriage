@@ -1,8 +1,7 @@
-import 'dart:ffi';
 
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type.dart';
-import 'package:flutter_aitriage/aitriage_core/service/api_service/get_param_type/param_type_group_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/service/api_service/get_param_type/param_type_group_type.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -19,11 +18,13 @@ class SignUpController extends GetxController{
   final accountStatusVM = RegisterAccountStatusVM().obs;
   final accountTypeVM = RegisterAccountTypeVM().obs;
   final RegisterUseCase _registerUseCase;
-  final submitInfoVM = SubmitInfoVM();
+  final submitInfoVM = SubmitInfoVM().obs;
   final textControllerVM = TextControllerVM().obs;
   var text = ''.obs;
   var chooseIndex = 0.obs;
   var sercurePassword = true.obs;
+  var shouldEnableSubmitButton = false.obs;
+  var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
   SignUpController(this._registerUseCase);
   
@@ -89,24 +90,24 @@ class SignUpController extends GetxController{
 
   //submit info
   void submit({Function(String)? successCallback}) async {
-    final encryptedPassword = await CryptoUtil.encrypt(submitInfoVM.password);
-    final isoCode = countryList[submitInfoVM.index].iso3;
+    final encryptedPassword = await CryptoUtil.encrypt(submitInfoVM.value.password);
+    final isoCode = countryList[submitInfoVM.value.index].iso3;
     final request = RegisterRequest(
         accountType: accountTypeVM.value.itemArgument,
         operatingStatus: accountStatusVM.value.statusArgument,
         businessOwner: accountStatusVM.value.yesNoArgument,
-        organizationName: submitInfoVM.organizationName,
+        organizationName: submitInfoVM.value.organizationName,
         isoCode: isoCode ?? '',
-        email: submitInfoVM.email,
+        email: submitInfoVM.value.email,
         password: encryptedPassword,
-        phone: submitInfoVM.phoneNumber,
-        firstName: submitInfoVM.firstName,
-        lastName: submitInfoVM.lastName,
+        phone: submitInfoVM.value.phoneNumber,
+        firstName: submitInfoVM.value.firstName,
+        lastName: submitInfoVM.value.lastName,
     );
 
     try {
       await _registerUseCase.execute(request);
-      successCallback?.call(submitInfoVM.email);
+      successCallback?.call(submitInfoVM.value.email);
     } catch (e) {
       if (e is AppError) Get.snackbar('Error', e.message);
     }
@@ -119,54 +120,83 @@ class SignUpController extends GetxController{
   void onOrganizationNameChanged(String? organizationName) {
     validateVM.value.updateOrganizationValidate(organizationName);
     validateVM.refresh();
-    submitInfoVM.updateVM(organizationName: organizationName);
+    submitInfoVM.value.updateVM(organizationName: organizationName);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(organizationFieldController: organizationName);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onFirstNameChanged(String? firstName) {
     validateVM.value.updateFirstNameValidate(firstName);
     validateVM.refresh();
-    submitInfoVM.updateVM(firstName: firstName);
+    submitInfoVM.value.updateVM(firstName: firstName);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(firstNameFieldController: firstName);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onLastNameChanged(String? lastName) {
     validateVM.value.updateLastNameValidate(lastName);
     validateVM.refresh();
-    submitInfoVM.updateVM(lastName: lastName);
+    submitInfoVM.value.updateVM(lastName: lastName);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(lastNameFieldController: lastName);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onEmailChanged(String? email) {
     validateVM.value.updateEmailValidate(email);
     validateVM.refresh();
-    submitInfoVM.updateVM(email: email);
+    submitInfoVM.value.updateVM(email: email);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(emailFieldController: email);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onPhoneNumberChanged(String? phoneNumber) {
     validateVM.value.updatePhoneNumberValidate(phoneNumber);
     validateVM.refresh();
-    submitInfoVM.updateVM(phoneNumber: phoneNumber);
+    submitInfoVM.value.updateVM(phoneNumber: phoneNumber);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(phoneNumberFieldController: phoneNumber);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onPasswordChanged(String password) {
     validateVM.value.updatePasswordValidate(password);
     validateVM.refresh();
-    submitInfoVM.updateVM(password: password);
+    submitInfoVM.value.updateVM(password: password);
+    submitInfoVM.refresh();
     textControllerVM.value.updateVM(passwordFieldController: password);
     textControllerVM.refresh();
+    _shouldEnableSubmitButton();
   }
 
   void onCountryChanged(int index) {
     chooseIndex.value = index;
-    submitInfoVM.updateVM(index: index);
+    
+    print(chooseIndex.value);
+    submitInfoVM.value.updateVM(index: index);
+    submitInfoVM.refresh();
+    _shouldEnableSubmitButton();
+  }
+
+  void onTapTermAndPrivacyCheckBox(bool isChecked){
+    checkedTermAndPrivacy.value = isChecked;
+    _shouldEnableSubmitButton();
+  }
+
+  void _shouldEnableSubmitButton(){
+    if(validateVM.value.isAllValidated && checkedTermAndPrivacy.value){
+      shouldEnableSubmitButton.value = true;
+    } else {
+      shouldEnableSubmitButton.value = false;
+    }
   }
 
 }

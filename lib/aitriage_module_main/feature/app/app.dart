@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../aitriage_core/common/app_image.dart';
-import '../../../aitriage_core/service/localization_service.dart';
+import '../../../aitriage_core/service/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/util/device_util.dart';
