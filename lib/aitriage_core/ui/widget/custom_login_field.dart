@@ -28,6 +28,7 @@ class CustomLoginField extends StatelessWidget {
   final Function? onSwitchPasswordView;
   final bool sercurePassword;
   final TextEditingController? controller;
+  final Function? onTapInside;
 
   const CustomLoginField({
     super.key,
@@ -50,7 +51,8 @@ class CustomLoginField extends StatelessWidget {
     this.shouldHaveTrailingIcon = false,
     this.onSwitchPasswordView,
     this.sercurePassword = true,
-    this.controller
+    this.controller,
+    this.onTapInside
   });
 
   @override
@@ -88,6 +90,9 @@ class CustomLoginField extends StatelessWidget {
                   onChanged: (_) {
                     onTextChange?.call(_);
                   },
+                  onTap: (){
+                    onTapInside?.call();
+                  },
                   onTapOutside: (_) {
                     onTapOutside?.call();
                     Get.focusScope?.unfocus();
@@ -113,6 +118,7 @@ class CustomLoginField extends StatelessWidget {
                   child: Icon(
                     sercurePassword ? Icons.visibility : Icons.visibility_off,
                     color: Colors.black87,
+                    size: 20.w,
                     ),
                 ),
               ),

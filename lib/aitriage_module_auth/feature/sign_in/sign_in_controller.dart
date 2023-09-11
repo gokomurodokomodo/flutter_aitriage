@@ -9,11 +9,11 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/service/service/api_service/api_service.dart';
-import '../../../aitriage_core/service/service/api_service/get_user_info/user_info.dart';
+import '../../../aitriage_core/service/entity/user_info.dart';
 import '../../../aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 
 class SignInController extends GetxController{
-  final _vm = SignInVM();
+  final vm = SignInVM().obs;
   var isValidEmail = false.obs;
   var isValidPassword = false.obs;
   var isValidated = false.obs;
@@ -21,6 +21,14 @@ class SignInController extends GetxController{
   final SignInUseCaseImpl _useCase;
 
   SignInController(this._useCase);
+
+  @override
+  void onInit() {
+    super.onInit();
+    final apiService = Get.find<ApiService>();
+    vm.value.updateVM(countryList: apiService.listCountry);
+    vm.refresh();
+  }
 
   void onSubmitSignIn({
     Function(UserInfo)? callback
@@ -32,19 +40,19 @@ class SignInController extends GetxController{
 
       if (checkNetwork) {
         final apiService = Get.find<ApiService>();
-        final result = await _useCase.execute(await _vm.signInRequest);
+        final result = await _useCase.execute(await vm.value.signInRequest);
         final resp = await apiService.getUserInfoUseCase.execute(result.data.id ?? 0);
-        final password = _vm.password;
-        final key = '${AppConstant.preCharSaveUserData}${_vm.username}';
-        LocalStorageService().setSecuredUser(userName: _vm.username, password: password);
+        final password = vm.value.password;
+        final key = '${AppConstant.preCharSaveUserData}${vm.value.username}';
+        LocalStorageService().setSecuredUser(userName: vm.value.username, password: password);
         LocalStorageService().setSecuredUserData(key: key, data: result.data);
         LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
         LocalStorageService().setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
         userInfo = resp.data;
       } else {
-        final password = _vm.password;
-        final key = '${AppConstant.preCharSaveUserData}${_vm.username}';
-        if(password == await LocalStorageService().getSecuredUserPassword(userName: _vm.username)){
+        final password = vm.value.password;
+        final key = '${AppConstant.preCharSaveUserData}${vm.value.username}';
+        if(password == await LocalStorageService().getSecuredUserPassword(userName: vm.value.username)){
           final timePast = (DateTime.now().difference(await LocalStorageService().getFirstDateOffline())).inDays;
           if(timePast > 7) {
             Get.dialog(AlertDialog(title: Text('Expired 7 Day'),));
@@ -68,13 +76,13 @@ class SignInController extends GetxController{
 
   void onTextEmailChange(String email){
     isValidEmail.value = _validateEmail(email);
-    if(isValidEmail.value) _vm.updateVM(username: email);
+    if(isValidEmail.value) vm.value.updateVM(username: email);
     _validate();
   }
 
   void onTextPasswordChange(String password){
     isValidPassword.value = _validatePassword(password);
-    if(isValidPassword.value) _vm.updateVM(password: password);
+    if(isValidPassword.value) vm.value.updateVM(password: password);
     _validate();
   }
 
@@ -110,10 +118,10 @@ class SignInController extends GetxController{
       return;
     } else {
       if(e.statusMessage == HandleNetworkError.requestVerifiedEmail){
-        _useCase.genCodeForSignIn(_vm.username);
+        _useCase.genCodeForSignIn(vm.value.username);
         Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
-          'userName' : _vm.username,
-          'password': _vm.password
+          'userName' : vm.value.username,
+          'password': vm.value.password
         });
       } else{
         HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));

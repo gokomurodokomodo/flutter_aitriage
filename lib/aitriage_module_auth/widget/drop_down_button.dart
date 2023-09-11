@@ -51,11 +51,11 @@ class _DropDownButtonState extends State<DropDownButton> {
   void initState() {
     super.initState();
     if (widget.placeHolder != null) enablePlaceHolder = true;
+    index = widget.chooseIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    index = widget.chooseIndex;
     return TapRegion(
       onTapInside: (_) {
         if (!tapOutSideView && tapOutSideAndHideOverlay) {

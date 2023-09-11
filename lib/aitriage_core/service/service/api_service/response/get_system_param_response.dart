@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/get_system_param/system_param.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/system_param.dart';
 import '../../../../network/common/base_response.dart';
 
 class GetSystemParamResponse extends BaseResponse {

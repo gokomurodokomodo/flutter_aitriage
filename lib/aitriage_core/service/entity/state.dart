@@ -21,4 +21,13 @@ class State {
       this.stateCode,
       this.type
   );
+
+  State.fromJson(dynamic json)
+      : id = json?['id'],
+        name = json?['name'],
+        countryId = json?['countryId'],
+        countryCode = json?['countryCode'],
+        countryName = json?['countryName'],
+        stateCode = json?['stateCode'],
+        type = json?['type'];
 }

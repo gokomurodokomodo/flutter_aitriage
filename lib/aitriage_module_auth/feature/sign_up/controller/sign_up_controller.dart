@@ -1,7 +1,8 @@
 
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/get_param_type/param_type_group_type.dart';
+import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/service/api_service/response/get_param_type_response.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -26,13 +27,16 @@ class SignUpController extends GetxController{
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
+  final apiService = Get.find<ApiService>();
   SignUpController(this._registerUseCase);
   
   @override
   void onReady() {
     _getAccountStatusParam();
     _getAccountTypeParam();
-    text.value = countryList.first.emoji!;
+    text.value = apiService.listCountry.first.emoji!;
+    submitInfoVM.value.updateVM(listCountry: apiService.listCountry);
+    submitInfoVM.refresh();
     super.onReady();
   }
 
@@ -91,7 +95,7 @@ class SignUpController extends GetxController{
   //submit info
   void submit({Function(String)? successCallback}) async {
     final encryptedPassword = await CryptoUtil.encrypt(submitInfoVM.value.password);
-    final isoCode = countryList[submitInfoVM.value.index].iso3;
+    final isoCode = apiService.listCountry[submitInfoVM.value.index].iso3;
     final request = RegisterRequest(
         accountType: accountTypeVM.value.itemArgument,
         operatingStatus: accountStatusVM.value.statusArgument,
@@ -179,7 +183,6 @@ class SignUpController extends GetxController{
 
   void onCountryChanged(int index) {
     chooseIndex.value = index;
-    
     print(chooseIndex.value);
     submitInfoVM.value.updateVM(index: index);
     submitInfoVM.refresh();

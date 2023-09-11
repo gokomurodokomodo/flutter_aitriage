@@ -24,4 +24,14 @@ class City {
       this.countryCode,
       this.countryName
   );
+
+  City.fromJson(dynamic json)
+      : id = json?['id'],
+        name = json?['name'],
+        stateId = json?['stateId'],
+        stateCode = json?['stateCode'],
+        stateName = json?['stateName'],
+        countryId = json?['countryId'],
+        countryCode = json?['countryCode'],
+        countryName = json?['countryName'];
 }

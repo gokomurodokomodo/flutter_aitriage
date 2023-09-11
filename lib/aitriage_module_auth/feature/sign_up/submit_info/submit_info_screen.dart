@@ -3,13 +3,11 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_color.dart';
 import '../../../../aitriage_core/common/app_style.dart';
-import '../../../../aitriage_core/util/global_function.dart';
 import '../../../config/auth_module_page_route.dart';
 import '../../../widget/agree_term_and_privacy_policy_checkbox.dart';
 import '../../../widget/auth_back_button.dart';
@@ -60,6 +58,7 @@ class _Tablet extends GetView<SignUpController> {
                         controller.onOrganizationNameChanged(
                             controller.submitInfoVM.value.organizationName);
                       },
+                      onTapInside:()=> controller.validateVM.value.updateFirstTimeOrganization(false),
                       onTextChange: (value) =>
                           controller.onOrganizationNameChanged(value),
                       isValidated:
@@ -68,24 +67,24 @@ class _Tablet extends GetView<SignUpController> {
                     ),
                   )),
               SizedBox(height: 10.h),
-              Obx(() => DropDownButton(
+              DropDownButton(
                     chooseIndex: controller.chooseIndex.value,
                     title: 'country'.tr,
                     shouldIncludeAsterisk: true,
                     dropDownWidth: 360.w,
                     onTapChildren: (index) =>
                         controller.onCountryChanged(index),
-                    children: countryList
-                        .map((e) => CountryWidget(
+                    children: controller.apiService.listCountry
+                        .map((e) => Obx(() =>CountryWidget(
                               isNetworkIcon: true,
                               leftIconName: e.emoji,
                               contentText: e.name,
                               isChoosed: e.name ==
-                                  countryList[controller.chooseIndex.value]
+                                  controller.apiService.listCountry[controller.chooseIndex.value]
                                       .name,
-                            ))
+                            )))
                         .toList(),
-                  )),
+                  ),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 110.h,
@@ -99,6 +98,7 @@ class _Tablet extends GetView<SignUpController> {
                           textFieldWidth: 170.w,
                           controller: controller
                               .textControllerVM.value.firstNameFieldController,
+                          onTapInside: () => controller.validateVM.value.updateFirstTimeFirstName(false),
                           onTapOutside: () {
                             controller.onFirstNameChanged(
                                 controller.submitInfoVM.value.firstName);
@@ -119,6 +119,7 @@ class _Tablet extends GetView<SignUpController> {
                           textFieldWidth: 170.w,
                           onTapOutside: () => controller.onLastNameChanged(
                               controller.submitInfoVM.value.lastName),
+                          onTapInside: () => controller.validateVM.value.updateFirstTimeLastName(false),
                           onTextChange: (value) =>
                               controller.onLastNameChanged(value),
                           isValidated:
@@ -135,6 +136,7 @@ class _Tablet extends GetView<SignUpController> {
                       hintText: 'email_placeholder'.tr,
                       controller: controller
                           .textControllerVM.value.emailFieldController,
+                      onTapInside: () => controller.validateVM.value.updateFirstTimeEmail(false),
                       onTapOutside: () => controller
                           .onEmailChanged(controller.submitInfoVM.value.email),
                       onTextChange: (value) => controller.onEmailChanged(value),
@@ -150,6 +152,7 @@ class _Tablet extends GetView<SignUpController> {
                       controller: controller
                           .textControllerVM.value.phoneNumberFieldController,
                       hintText: 'phone_number_placeholder'.tr,
+                      onTapInside: () => controller.validateVM.value.updateFirstTimePhoneNumber(false),
                       onTapOutside: () => controller.onPhoneNumberChanged(
                           controller.submitInfoVM.value.phoneNumber),
                       onTextChange: (value) =>
@@ -166,6 +169,7 @@ class _Tablet extends GetView<SignUpController> {
                       alignment: Alignment.centerRight,
                       children: [
                         CustomLoginField(
+                          onTapInside: () => controller.validateVM.value.updateFirstTimePassword(false),
                           shouldHaveTrailingIcon: true,
                           controller: controller
                               .textControllerVM.value.passwordFieldController,
@@ -189,6 +193,8 @@ class _Tablet extends GetView<SignUpController> {
                   )),
               SizedBox(height: 20.h),
               Obx(() => AgreeTermAndPrivacyPolicyCheckbox(
+                    termUrl: controller.apiService.termUrl,
+                    privacyUrl: controller.apiService.privacyUrl,
                     passedValue: controller.checkedTermAndPrivacy.value,
                     width: 360.w,
                     onTap: (_) => controller.onTapTermAndPrivacyCheckBox(_),

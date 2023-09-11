@@ -35,7 +35,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
     _initLocalization(),
     _initLocalStorage(),
     _initService(),
-    _initFirebase(),
+    _initFirebase()
     // _initDataBase()
   ]).then((value) => appEventChannel.addEvent(FinishInitEvent('done')));
 
@@ -43,7 +43,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
 }
 
 Future<void> _setPreferOrientation() async => DeviceUtil.isTablet
-      ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+      ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       : SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
 Future<void> _setImmersiveModeOnTablet() async{
@@ -74,12 +74,7 @@ Future _initFirebase() async => await Firebase.initializeApp();
 // Future _initDataBase() async => await IsarProvider.init();
 
 Future _initService() async {
+  // await _initDataBase();
   Get.put(ApiService(), permanent: true);
   Get.put(LocalStorageService(), permanent: true);
 }
-
-
-
-
-
-

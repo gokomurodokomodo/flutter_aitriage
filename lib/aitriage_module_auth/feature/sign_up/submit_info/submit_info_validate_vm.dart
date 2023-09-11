@@ -6,6 +6,13 @@ class SubmitInfoValidateVM{
   bool _isPhoneNumberValidate = true;
   bool _isPasswordValidate = true;
 
+  bool _isFirstTimeOrganization = true;
+  bool _isFirstTimeFirstName = true;
+  bool _isFirstTimeLastName = true;
+  bool _isFirstTimeEmail = true;
+  bool _isFirstTimePhoneNumber = true;
+  bool _isFirstTimePassword = true;
+
   RegExp emailReg = RegExp(
       r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$',
     );
@@ -14,27 +21,51 @@ class SubmitInfoValidateVM{
     );
 
     void updateOrganizationValidate(String? isOrganizationValidate){
-      _isOrganizationValidate = _validateNotRegrex(isOrganizationValidate);
+      _isOrganizationValidate = _validateNotRegrex(isOrganizationValidate) || _isFirstTimeOrganization;
     }
 
     void updateFirstNameValidate(String? isFirstNameValidate){
-      _isFirstNameValidate = _validateNotRegrex(isFirstNameValidate);
+      _isFirstNameValidate = _validateNotRegrex(isFirstNameValidate) || _isFirstTimeFirstName;
     }
 
     void updateEmailValidate(String? isEmailValidate){
-      _isEmailValidate = _validateWithRegrex(isEmailValidate, emailReg);
+      _isEmailValidate = _validateWithRegrex(isEmailValidate, emailReg) || _isFirstTimeEmail;
     }
 
     void updateLastNameValidate(String? isLastNameValidate){
-      _isLastNameValidate = _validateNotRegrex(isLastNameValidate);
+      _isLastNameValidate = _validateNotRegrex(isLastNameValidate) || _isFirstTimeLastName;
     }
 
     void updatePhoneNumberValidate(String? isPhoneNumberValidate){
-      _isPhoneNumberValidate = _validateNotRegrex(isPhoneNumberValidate);
+      _isPhoneNumberValidate = _validateNotRegrex(isPhoneNumberValidate) || _isFirstTimePhoneNumber;
     }
 
     void updatePasswordValidate(String? isPasswordValidate){
-      _isPasswordValidate = _validateWithRegrex(isPasswordValidate, passwordRegex, isPasswordValidate: true);
+      _isPasswordValidate = _validateWithRegrex(isPasswordValidate, passwordRegex, isPasswordValidate: true) || _isFirstTimePassword;
+    }
+
+    void updateFirstTimeOrganization(bool isFirstTime){
+      _isFirstTimeOrganization = isFirstTime;
+    }
+
+    void updateFirstTimeFirstName(bool isFirstTime){
+      _isFirstTimeFirstName = isFirstTime;
+    }
+
+    void updateFirstTimeLastName(bool isFirstTime){
+      _isFirstTimeLastName = isFirstTime;
+    }
+
+    void updateFirstTimeEmail(bool isFirstTime){
+      _isFirstTimeEmail = isFirstTime;
+    }
+
+    void updateFirstTimePhoneNumber(bool isFirstTime){
+      _isFirstTimePhoneNumber = isFirstTime;
+    }
+
+    void updateFirstTimePassword(bool isFirstTime){
+      _isFirstTimePassword = isFirstTime;
     }
 
   bool get isOrganizationValidate => _isOrganizationValidate;
