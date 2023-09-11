@@ -74,7 +74,7 @@ class ApiService extends GetxService {
     }
   }
 
-  void _getParamType() async {
+  Future<void> getParamType() async {
     try {
       final resp = await getParamTypeUseCase.execute();
       paramTypes.addAll(resp.data);

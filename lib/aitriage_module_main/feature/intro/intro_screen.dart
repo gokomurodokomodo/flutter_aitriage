@@ -114,7 +114,7 @@ class _TabletState extends State<_Tablet> {
           ),
           SizedBox(height: 34.h),
           GestureDetector(
-            onTap: () => Get.toNamed(AuthModulePageRoute.signIn),
+            onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
