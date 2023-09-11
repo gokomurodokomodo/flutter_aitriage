@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_validate_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_vm.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_error.dart';
@@ -11,6 +12,8 @@ class SubmitInfoController extends GetxController {
   final vm = SubmitInfoVM();
   var text = ''.obs;
   var chooseIndex = 0.obs;
+  var sercurePassword = true.obs;
+  final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
 
   SubmitInfoController(this._registerUseCase);
 
@@ -46,27 +49,44 @@ class SubmitInfoController extends GetxController {
     }
   }
 
+  
+  void onSwitchPassword() {
+    sercurePassword.value = !sercurePassword.value;
+  }
+
   void onOrganizationNameChanged(String? organizationName) {
-    vm.updateVM(organizationName: organizationName);
+      validateVM.value.updateOrganizationValidate(organizationName);
+      validateVM.refresh();
+      vm.updateVM(organizationName: organizationName);
   }
 
   void onFirstNameChanged(String? firstName) {
+    validateVM.value.updateFirstNameValidate(firstName);
+    validateVM.refresh();
     vm.updateVM(firstName: firstName);
   }
 
   void onLastNameChanged(String? lastName) {
+    validateVM.value.updateLastNameValidate(lastName);
+    validateVM.refresh();
     vm.updateVM(lastName: lastName);
   }
 
   void onEmailChanged(String? email) {
+    validateVM.value.updateEmailValidate(email);
+    validateVM.refresh();
     vm.updateVM(email: email);
   }
 
   void onPhoneNumberChanged(String? phoneNumber) {
+    validateVM.value.updatePhoneNumberValidate(phoneNumber);
+    validateVM.refresh();
     vm.updateVM(phoneNumber: phoneNumber);
   }
 
   void onPasswordChanged(String password) {
+    validateVM.value.updatePasswordValidate(password);
+    validateVM.refresh();
     vm.updateVM(password: password);
   }
 
@@ -74,4 +94,6 @@ class SubmitInfoController extends GetxController {
     chooseIndex.value = index;
     vm.updateVM(index: index);
   }
+
+
 }

@@ -8,6 +8,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_ema
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_controller.dart';
@@ -80,21 +81,21 @@ class AuthModulePageRoute {
             name: registerAccountType,
             page: () => const RegisterAccountTypeScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => RegisterAccountTypeController());
+              Get.lazyPut(() => SignUpRepositoryImpl());
+              Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+              Get.lazyPut(() => SignUpController(Get.find<RegisterUseCaseImpl>()));
             })),
         GetPage(
             name: registerAccountStatus,
             page: () => const RegisterAccountStatusScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => RegisterAccountStatusController());
+              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: submitInfo,
             page: () => const SubmitInfoScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-              Get.lazyPut(() => SubmitInfoController(Get.find<RegisterUseCaseImpl>()));
+              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: verifyEmail,

@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,9 +105,9 @@ class _TabletState extends State<_Tablet> {
           CircleIndicator(index: index, length: 4),
           SizedBox(height: 50.h),
           ColorButton(
-              onTap: () =>
-                            Get.toNamed(
-                                AuthModulePageRoute.registerAccountType),
+              onTap: () => Navigator.of(Get.context!).push(
+                MaterialPageRoute(builder: (context) => const RegisterAccountTypeScreen())
+              ),
               title: 'sign_up_title'.tr, 
               width: 360.w, 
               shouldEnable: true,

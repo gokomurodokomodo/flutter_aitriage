@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class SubmitInfoScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<SubmitInfoController> {
+class _Tablet extends GetView<SignUpController> {
   const _Tablet({super.key});
 
   @override
@@ -47,16 +48,22 @@ class _Tablet extends GetView<SubmitInfoController> {
               Text('Please add more information below',
                   style: AppStyle.styleCheckYourEmailNotification),
               SizedBox(height: 24.h),
-              Center(
-                child: CustomLoginField(
-                  label: 'Organization name',
-                  enableLabelAsterisk: true,
-                  hintText: 'Organization name',
-                  onTextChange: (value) =>
-                      controller.onOrganizationNameChanged(value),
-                ),
-              ),
-              SizedBox(height: 20.h),
+              Obx(() => Center(
+                    child: CustomLoginField(
+                      label: 'Organization name',
+                      enableLabelAsterisk: true,
+                      hintText: 'Organization name',
+                      onTapOutside: () {
+                        controller.onOrganizationNameChanged(controller.submitInfoVM.organizationName);
+                      },
+                      onTextChange: (value) =>
+                          controller.onOrganizationNameChanged(value),
+                      isValidated:
+                          controller.validateVM.value.isOrganizationValidate,
+                      unvalidateText: 'un_validated_organization'.tr,
+                    ),
+                  )),
+              SizedBox(height: 10.h),
               Obx(() => DropDownButton(
                     title: 'Country',
                     shouldIncludeAsterisk: true,
@@ -68,61 +75,103 @@ class _Tablet extends GetView<SubmitInfoController> {
                               isNetworkIcon: true,
                               leftIconName: e.emoji,
                               contentText: e.name,
-                              isChoosed: e.name == countryList[controller.chooseIndex.value].name,
+                              isChoosed: e.name ==
+                                  countryList[controller.chooseIndex.value]
+                                      .name,
                             ))
                         .toList(),
                   )),
               SizedBox(height: 20.h),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomLoginField(
-                    label: 'First name',
-                    enableLabelAsterisk: true,
-                    hintText: 'First name',
-                    textFieldWidth: 170.w,
-                    onTextChange: (value) =>
-                        controller.onFirstNameChanged(value),
-                  ),
-                  SizedBox(width: 20.w),
-                  CustomLoginField(
-                    label: 'Last name',
-                    enableLabelAsterisk: true,
-                    hintText: 'Last name',
-                    textFieldWidth: 170.w,
-                    onTextChange: (value) =>
-                        controller.onLastNameChanged(value),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              Center(
-                child: CustomLoginField(
-                  label: 'Email',
-                  enableLabelAsterisk: true,
-                  hintText: 'Enter your email',
-                  onTextChange: (value) => controller.onEmailChanged(value),
+              SizedBox(
+                height: 110.h,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Obx(() => CustomLoginField(
+                          label: 'First name',
+                          enableLabelAsterisk: true,
+                          hintText: 'First name',
+                          textFieldWidth: 170.w,
+                          controller: controller.textControllerVM.value.firstNameFieldController,
+                          onTapOutside: (){
+                            controller.onFirstNameChanged(controller.submitInfoVM.firstName);
+                          },
+                          onTextChange: (value) =>
+                              controller.onFirstNameChanged(value),
+                          isValidated:
+                              controller.validateVM.value.isFirstNameValidate,
+                          unvalidateText: 'un_validated_first_name'.tr,
+                        )),
+                    SizedBox(width: 20.w),
+                    Obx(() => CustomLoginField(
+                          label: 'Last name',
+                          enableLabelAsterisk: true,
+                          hintText: 'Last name',
+                          controller: controller.textControllerVM.value.lastNameFieldController,                          
+                          textFieldWidth: 170.w,
+                          onTapOutside: () => controller.onLastNameChanged(controller.submitInfoVM.lastName),
+                          onTextChange: (value) =>
+                              controller.onLastNameChanged(value),
+                          isValidated:
+                              controller.validateVM.value.isLastNameValidate,
+                          unvalidateText: 'un_validated_last_name'.tr,
+                        )),
+                  ],
                 ),
               ),
+              Obx(() => Center(
+                    child: CustomLoginField(
+                      label: 'Email',
+                      enableLabelAsterisk: true,
+                      hintText: 'Enter your email',
+                      controller: controller.textControllerVM.value.emailFieldController,
+                      onTapOutside: () => controller.onEmailChanged(controller.submitInfoVM.email),
+                      onTextChange: (value) => controller.onEmailChanged(value),
+                      isValidated: controller.validateVM.value.isEmailValidate,
+                      unvalidateText: 'un_validated_email'.tr,
+                    ),
+                  )),
               SizedBox(height: 20.h),
-              Center(
-                child: CustomLoginField(
-                  label: 'Phone number',
-                  enableLabelAsterisk: true,
-                  hintText: 'Enter your phone number',
-                  onTextChange: (value) =>
-                      controller.onPhoneNumberChanged(value),
-                ),
-              ),
+              Obx(() => Center(
+                    child: CustomLoginField(
+                      label: 'Phone number',
+                      enableLabelAsterisk: true,
+                      controller: controller.textControllerVM.value.phoneNumberFieldController,
+                      hintText: 'Enter your phone number',
+                      onTapOutside: () => controller.onPhoneNumberChanged(controller.submitInfoVM.phoneNumber),
+                      onTextChange: (value) =>
+                          controller.onPhoneNumberChanged(value),
+                      isValidated:
+                          controller.validateVM.value.isPhoneNumberValidate,
+                      unvalidateText: 'un_validated_phone_number'.tr,
+                      textInputFormatter: RegExp('[0-9]'),
+                    ),
+                  )),
               SizedBox(height: 20.h),
-              Center(
-                child: CustomLoginField(
-                  label: 'Password',
-                  enableLabelAsterisk: true,
-                  hintText: 'Choose a password',
-                  onTextChange: (value) => controller.onPasswordChanged(value),
-                ),
-              ),
+              Obx(() => Center(
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        CustomLoginField(
+                          shouldHaveTrailingIcon: true,
+                          controller: controller.textControllerVM.value.passwordFieldController,   
+                          label: 'Password',
+                          labelStyle: AppStyle.styleTextButtonBackToLogin,
+                          enableLabelAsterisk: true,
+                          hintText: 'Choose a password',
+                          onTapOutside: () => controller.onPasswordChanged(controller.submitInfoVM.password),
+                          onTextChange: (value) =>
+                              controller.onPasswordChanged(value),
+                          isValidated:
+                              controller.validateVM.value.isPasswordValidate,
+                          unvalidateText: 'un_validated_password'.tr,
+                          shouldSecured: controller.sercurePassword.value,
+                          onSwitchPasswordView: controller.onSwitchPassword,
+                          sercurePassword: controller.sercurePassword.value,
+                        ),
+                      ],
+                    ),
+                  )),
               SizedBox(height: 20.h),
               AgreeTermAndPrivacyPolicyCheckbox(width: 360.w),
               SizedBox(height: 32.h),

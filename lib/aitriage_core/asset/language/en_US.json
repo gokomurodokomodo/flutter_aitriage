@@ -45,5 +45,11 @@
   "intro_label_2": "Intelligent disease prediction and risk stratification",
   "intro_label_3": "Accurate and Reliable",
   "intro_label_4": "Facility Management",
-  "get_started_with_aitriage": "Get started with aiTriage"
+  "get_started_with_aitriage": "Get started with aiTriage",
+  "un_validated_organization" : "Please provide the organizaton name",
+  "un_validated_first_name" : "Blank first name",
+  "un_validated_last_name" : "Blank last name",
+  "un_validated_email" : "Your email is not correct",
+  "un_validated_phone_number" : "Your phone number is not correct",
+  "un_validated_password" : "Your password is too weak"
 }
