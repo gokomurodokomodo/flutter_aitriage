@@ -19,11 +19,17 @@ class DatabaseRepository<T> {
     return await _db.where().findAll();
   }
 
-  /// Insert or update an object. Returns the id of the new or updated object.
-  /// If the object has an non-final id property, it will be set to the assigned id.
-  /// Otherwise you should use the returned id to update the object
-  Future<int> write(T object) async {
-    return IsarProvider.instance.writeTxn(() async => await _db.put(object));
+
+  Future write({T? object, List<T>? list}) async {
+    return IsarProvider.instance.writeTxn(() async {
+      if (object != null) await _db.put(object);
+
+      if (list != null) {
+        for (var item in list) {
+          await _db.put(item);
+        }
+      }
+    });
   }
 
   /// Delete a single object by its id.

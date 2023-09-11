@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_core/service/entity/table_sync_date.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -22,7 +23,8 @@ class IsarProvider {
         ParamTypeSchema,
         RaceSchema,
         RoleSchema,
-        StateSchema
+        StateSchema,
+        TableSyncDateSchema
       ],
       directory: path.path,
     );

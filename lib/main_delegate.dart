@@ -71,10 +71,10 @@ Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
 Future _initFirebase() async => await Firebase.initializeApp();
 
-// Future _initDataBase() async => await IsarProvider.init();
+Future _initDataBase() async => await IsarProvider.init();
 
 Future _initService() async {
-  // await _initDataBase();
+  await _initDataBase();
   Get.put(ApiService(), permanent: true);
   Get.put(LocalStorageService(), permanent: true);
 }
