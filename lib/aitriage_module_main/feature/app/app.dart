@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class _AppState extends State<App> with SubscriptionCollector {
   var finishInit = false;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     final appEventChannel = AppEventChannel();
     final lastEvent = appEventChannel.getLastEvent<FinishInitEvent>();
@@ -46,6 +47,8 @@ class _AppState extends State<App> with SubscriptionCollector {
   }
 
   void notifyFinishInit() async {
+    final apiService = Get.find<ApiService>();
+    await apiService.getAppParam();
     // Close appEventChannel
     disposeAllStreamInCollector();
     // Preload image asset

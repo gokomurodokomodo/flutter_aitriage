@@ -162,6 +162,11 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextCancelAssessment,
   );
+  static final styleErrorText = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextCancelAssessment,
+  );
   static final styleStepItemProcessing = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,

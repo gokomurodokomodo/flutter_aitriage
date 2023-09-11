@@ -7,7 +7,7 @@ import 'aitriage_core/service/service/local_storage_service/database/repository/
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await IsarProvider.init();
+  // await IsarProvider.init();
   runApp(const AppTest());
 }
 

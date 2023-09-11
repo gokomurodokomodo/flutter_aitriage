@@ -17,6 +17,7 @@ class DropDownButton extends StatefulWidget {
   final List<Widget>? children;
   final Function(int)? onTapChildren;
   final Widget? placeHolder;
+  final int chooseIndex;
 
   const DropDownButton({
     super.key,
@@ -28,7 +29,8 @@ class DropDownButton extends StatefulWidget {
     this.dropDownHeight,
     this.children,
     this.onTapChildren,
-    this.placeHolder
+    this.placeHolder,
+    this.chooseIndex = 0
   });
 
   @override
@@ -49,6 +51,7 @@ class _DropDownButtonState extends State<DropDownButton> {
   void initState() {
     super.initState();
     if (widget.placeHolder != null) enablePlaceHolder = true;
+    index = widget.chooseIndex;
   }
 
   @override

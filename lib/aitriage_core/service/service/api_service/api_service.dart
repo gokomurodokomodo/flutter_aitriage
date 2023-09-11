@@ -27,22 +27,17 @@ class ApiService extends GetxService {
   final _listState = <State>[];
   final _listRace = <Race>[];
   var _trialTime = '';
+  var _termUrl = '';
+  var _privacyUrl = '';
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-    _getAppParam();
-    _getParamType();
-    final firebaseProvider = FirebaseProvider.getItemsOn('syncs', (dynamic) {
-      return dynamic;
-    }).listen((event) {
-      print('FIREBASE123 $event');
-    });
   }
 
   // country, city, state are json file, need parsing
   // race
-  void _getAppParam() async {
+  Future<void> getAppParam() async {
     try {
       final resp = await getAppParamUseCase.execute();
       _listCountry.addAll(await downloadAndParsingCountryJsonUseCase.execute(resp.countryFileUrl));
@@ -50,7 +45,10 @@ class ApiService extends GetxService {
       _listState.addAll(await downloadAndParsingStateJsonUseCase.execute(resp.stateFileUrl));
       _listRace.addAll(resp.race);
       _trialTime = resp.trialTime;
+      _termUrl = resp.termURL;
+      _privacyUrl = resp.privacyUrl;
     } catch (e) {
+      print(e);
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
@@ -70,4 +68,6 @@ class ApiService extends GetxService {
   List<State> get listState => _listState.toList();
   List<Race> get listRace => _listRace.toList();
   String get trialTime => _trialTime.toString();
+  String get termUrl => _termUrl;
+  String get privacyUrl => _privacyUrl;
 }

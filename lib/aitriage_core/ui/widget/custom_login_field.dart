@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import '../../common/app_style.dart';
 class CustomLoginField extends StatelessWidget {
   final String? label;
   final String? hintText;
-  final String? labelStyle;
+  final TextStyle? labelStyle;
   final String? hintStyle;
   final double? textFieldRadius;
   final double? textFieldWidth;
@@ -20,6 +21,14 @@ class CustomLoginField extends StatelessWidget {
   final bool shouldSecured;
   final bool? enableLabelAsterisk;
   final bool? enableHintTextAsterisk;
+  final String? unvalidateText;
+  final Function? onTapOutside;
+  final RegExp? textInputFormatter;
+  final bool shouldHaveTrailingIcon;
+  final Function? onSwitchPasswordView;
+  final bool sercurePassword;
+  final TextEditingController? controller;
+  final Function? onTapInside;
 
   const CustomLoginField({
     super.key,
@@ -35,7 +44,15 @@ class CustomLoginField extends StatelessWidget {
     this.type,
     this.shouldSecured = false,
     this.enableLabelAsterisk = false,
-    this.enableHintTextAsterisk
+    this.enableHintTextAsterisk,
+    this.unvalidateText,
+    this.onTapOutside,
+    this.textInputFormatter,
+    this.shouldHaveTrailingIcon = false,
+    this.onSwitchPasswordView,
+    this.sercurePassword = true,
+    this.controller,
+    this.onTapInside
   });
 
   @override
@@ -46,34 +63,77 @@ class CustomLoginField extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            label == null ? const SizedBox() : Text(label!, style: AppStyle.styleTextButtonBackToLogin,),
+            label == null ? const SizedBox() : Text(label!, style: labelStyle ?? AppStyle.styleTextButtonBackToLogin,),
             if (enableLabelAsterisk!) Text('*', style: AppStyle.styleTextButtonBackToLogin.copyWith(color: AppColor.colorAsterisk))
           ],
         ),
         label == null ? const SizedBox() : SizedBox(height: 10.h,),
-        BaseBorderWrapper(
-          height: textFieldHeight ?? 44.h,
-          width: textFieldWidth ?? 360.w,
-          child: Padding(
-            padding: EdgeInsets.only(left: 10.w),
-            child: TextField(
-              obscureText: shouldSecured ? true : false,
-              enableSuggestions: shouldSecured ? false : true,
-              autocorrect: shouldSecured ? false : true,
-              keyboardType: type ?? TextInputType.text,
-              onChanged: (_) {
-                onTextChange?.call(_);
-              },
-              onTapOutside: (_) => Get.focusScope?.unfocus(),
-              decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: AppStyle.styleCustomTextFieldHintText,
-                  border: InputBorder.none
+        Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            BaseBorderWrapper(
+              height: textFieldHeight ?? 44.h,
+              width: textFieldWidth ?? 360.w,
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.w),
+                child: TextField(
+                  controller: controller,
+                  inputFormatters: textInputFormatter == null 
+                      ? null 
+                      : <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(textInputFormatter!)
+                      ],
+                  obscureText: shouldSecured ? true : false,
+                  enableSuggestions: shouldSecured ? false : true,
+                  autocorrect: shouldSecured ? false : true,
+                  keyboardType: type ?? TextInputType.text,
+                  onChanged: (_) {
+                    onTextChange?.call(_);
+                  },
+                  onTap: (){
+                    onTapInside?.call();
+                  },
+                  onTapOutside: (_) {
+                    onTapOutside?.call();
+                    Get.focusScope?.unfocus();
+                  },
+                  decoration: InputDecoration(
+                      hintText: hintText,
+                      hintStyle: AppStyle.styleCustomTextFieldHintText,
+                      border: InputBorder.none
+                  ),
+                ),
               ),
             ),
-          ),
+            Visibility(
+              visible: shouldHaveTrailingIcon,
+              child: SizedBox(
+                width: 50.w,
+                child: InkWell(
+                onTap: (){
+                  onSwitchPasswordView?.call();
+                },
+                child: Container(
+                  padding: EdgeInsets.only(top: 5.h),
+                  child: Icon(
+                    sercurePassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black87,
+                    size: 20.w,
+                    ),
+                ),
+              ),
+                      ),
+            ),
+          ],
         ),
-        isValidated == null ? const SizedBox() : isValidated == false ?const Text("Please type in valid email.") : const SizedBox()
+        SizedBox(height: 5.h,),
+        isValidated == null 
+            ? const SizedBox() 
+            : isValidated == false 
+                ? unvalidateText == null 
+                    ? const SizedBox() 
+                    : Text(unvalidateText!, style: AppStyle.styleErrorText,)
+                : const SizedBox()
       ],
     );
   }

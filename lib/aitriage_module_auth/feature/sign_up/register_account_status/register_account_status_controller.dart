@@ -42,4 +42,5 @@ class RegisterAccountStatusController extends GetxController {
   void onTapYesNoButton(int index) {
     _updateView(buttonYesNoIndex: index);
   }
+
 }

@@ -25,6 +25,24 @@ class VerifyEmailController extends GetxController {
     }
   }
 
+  String getEmail(){
+    return Get.arguments?['email'];
+  }
+
+  Future<void> resendCode() async{
+    final email = Get.arguments?['email'];
+
+    try{
+      AlertUtil.showLoadingIndicator();
+      final response = await _uc.resendSignUpVerificationCode(email);
+      Get.back();
+      Get.snackbar('Success', response.message.toString());
+    } catch (e){
+      Get.back();
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+    }
+  }
+
 
   Future<void> _onRegisterSubmit() async {
     final argument = Get.arguments;
@@ -38,6 +56,7 @@ class VerifyEmailController extends GetxController {
       final resp = await _uc.execute(request);
       Get.back();
       Get.snackbar('Success', resp.message.toString());
+      await Get.offNamed(MainRoute.gettingStartedMain);
     } catch (e) {
       Get.back();
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));

@@ -13,12 +13,16 @@ class GetAppParamUseCase {
     final countryFileUrl = systemParamResp.data.systemPathFileCountries;
     final cityFileUrl = systemParamResp.data.systemPathFileCity;
     final stateFileUrl = systemParamResp.data.systemPathFileStates;
+    final privacyUrl = systemParamResp.data.systemUrlPrivacyPolicy;
+    final termUrl = systemParamResp.data.systemUrlTerms;
     final appParam = AppParam(
         countryFileUrl ?? '',
         cityFileUrl ?? '',
         stateFileUrl ?? '',
         systemParamResp.data.trialTime ?? '',
-        raceResp.data
+        raceResp.data,
+        termUrl ?? '',
+        privacyUrl ?? ''
     );
 
     return appParam;
@@ -31,12 +35,16 @@ class AppParam {
   final String stateFileUrl;
   final String trialTime;
   final List<Race> race;
+  final String termURL;
+  final String privacyUrl;
 
   AppParam(
       this.countryFileUrl,
       this.cityFileUrl,
       this.stateFileUrl,
       this.trialTime,
-      this.race
+      this.race,
+      this.termURL,
+      this.privacyUrl
   );
 }

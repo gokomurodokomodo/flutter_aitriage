@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ class DownloadAndParsingCountryJson {
     final resp = await _client.get(Uri.parse(url));
     final parsed = jsonDecode(resp.body) as Map<String, dynamic>;
     final result = (parsed?['RECORDS'] as List).map((e) => Country.fromJson(e)).toList();
-
+    if(kDebugMode) print(result.length);
     return result;
   }
 }

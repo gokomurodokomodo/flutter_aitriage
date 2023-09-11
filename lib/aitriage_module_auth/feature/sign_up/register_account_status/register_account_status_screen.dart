@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class RegisterAccountStatusScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<RegisterAccountStatusController> {
+class _Tablet extends GetView<SignUpController> {
   const _Tablet({super.key});
 
   @override
@@ -45,15 +46,15 @@ class _Tablet extends GetView<RegisterAccountStatusController> {
                 width: (240.h * 3) + (24.w * 2),
                 child: const StepCountWidget(index: 2)),
             SizedBox(height: 40.h),
-            Text('Your organization information', style: AppStyle.styleCheckYourEmailNotification),
+            Text('your_organization_information'.tr, style: AppStyle.styleCheckYourEmailNotification),
             SizedBox(height: 24.h),
             Obx(() => Expanded(
                 child: ListView.separated(
                     // Last Row for fixed business owner row
-                    itemCount: controller.vm.value.rowCount,
+                    itemCount: controller.accountStatusVM.value.rowCount,
                     itemBuilder: (_, rowIndex) {
                       // Check if last row
-                      if (controller.vm.value.isFirstView(rowIndex)) {
+                      if (controller.accountStatusVM.value.isFirstView(rowIndex)) {
                         final firstItemIndex = rowIndex * 3;
                         final secondItemIndex = rowIndex * 3 + 1;
                         final thirdItemIndex = rowIndex * 3 + 2;
@@ -63,41 +64,41 @@ class _Tablet extends GetView<RegisterAccountStatusController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Visibility(
-                              visible: controller.vm.value.shouldShowThisItem(firstItemIndex),
+                              visible: controller.accountStatusVM.value.shouldShowThisItem(firstItemIndex),
                               child: SignUpIconWrapper(
                                   onTap: () => _onTapStatusButton(firstItemIndex),
-                                  title: controller.vm.value.itemTitle(firstItemIndex),
-                                  isSelected: controller.vm.value.isStatusButtonSelected(firstItemIndex),
+                                  title: controller.accountStatusVM.value.itemTitle(firstItemIndex),
+                                  isSelected: controller.accountStatusVM.value.isStatusButtonSelected(firstItemIndex),
                                   child: CachedNetworkImage(
                                       width: 160.h,
                                       height: 160.h,
-                                      imageUrl: controller.vm.value.itemImageUrl(firstItemIndex)
+                                      imageUrl: controller.accountStatusVM.value.itemImageUrl(firstItemIndex)
                                   )),
                             ),
                             SizedBox(width: 24.w),
                             Visibility(
-                              visible: controller.vm.value.shouldShowThisItem(secondItemIndex),
+                              visible: controller.accountStatusVM.value.shouldShowThisItem(secondItemIndex),
                               child: SignUpIconWrapper(
                                   onTap: () => _onTapStatusButton(secondItemIndex),
-                                  title: controller.vm.value.itemTitle(secondItemIndex),
-                                  isSelected: controller.vm.value.isStatusButtonSelected(secondItemIndex),
+                                  title: controller.accountStatusVM.value.itemTitle(secondItemIndex),
+                                  isSelected: controller.accountStatusVM.value.isStatusButtonSelected(secondItemIndex),
                                   child: CachedNetworkImage(
                                       width: 160.h,
                                       height: 160.h,
-                                      imageUrl: controller.vm.value.itemImageUrl(secondItemIndex)
+                                      imageUrl: controller.accountStatusVM.value.itemImageUrl(secondItemIndex)
                                   )),
                             ),
                             SizedBox(width: 24.w),
                             Visibility(
-                              visible: controller.vm.value.shouldShowThisItem(thirdItemIndex),
+                              visible: controller.accountStatusVM.value.shouldShowThisItem(thirdItemIndex),
                               child: SignUpIconWrapper(
                                   onTap: () => _onTapStatusButton(thirdItemIndex),
-                                  title: controller.vm.value.itemTitle(thirdItemIndex),
-                                  isSelected: controller.vm.value.isStatusButtonSelected(thirdItemIndex),
+                                  title: controller.accountStatusVM.value.itemTitle(thirdItemIndex),
+                                  isSelected: controller.accountStatusVM.value.isStatusButtonSelected(thirdItemIndex),
                                   child: CachedNetworkImage(
                                       width: 160.h,
                                       height: 160.h,
-                                      imageUrl: controller.vm.value.itemImageUrl(thirdItemIndex)
+                                      imageUrl: controller.accountStatusVM.value.itemImageUrl(thirdItemIndex)
                                   )),
                             ),
                           ],
@@ -107,22 +108,22 @@ class _Tablet extends GetView<RegisterAccountStatusController> {
                       return Column(
                         children: [
                           SizedBox(height: 32.h),
-                          Text('Are you the business owner or manager?', style: AppStyle.styleCheckYourEmailNotification),
+                          Text('business_owner_or_manager'.tr, style: AppStyle.styleCheckYourEmailNotification),
                           SizedBox(height: 24.h),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SignUpIconWrapper(
-                                  title: 'Yes',
-                                  isSelected: controller.vm.value.isYesNoButtonSelected(0),
+                                  title: 'yes'.tr,
+                                  isSelected: controller.accountStatusVM.value.isYesNoButtonSelected(0),
                                   onTap: () => _onTapYesNoButton(0),
                                   child: SvgIconWidget(
                                       name: AppImage.svgSuccessAlert,
                                       size: 80.h)),
                               SizedBox(width: 24.w),
                               SignUpIconWrapper(
-                                  title: 'No',
-                                  isSelected: controller.vm.value.isYesNoButtonSelected(1),
+                                  title: 'no'.tr,
+                                  isSelected: controller.accountStatusVM.value.isYesNoButtonSelected(1),
                                   onTap: () => _onTapYesNoButton(1),
                                   child: SvgIconWidget(
                                     name: AppImage.svgFailedAlert,
@@ -141,21 +142,18 @@ class _Tablet extends GetView<RegisterAccountStatusController> {
   }
 
   void _onTapStatusButton(int index) {
-    controller.onTapStatusButton(index);
+    controller.onAccountStatusTapStatusButton(index);
     _navigateToNextScreen();
   }
 
   void _onTapYesNoButton(int index) {
-    controller.onTapYesNoButton(index);
+    controller.onAccountStatusTapYesNoButton(index);
     _navigateToNextScreen();
   }
 
   void _navigateToNextScreen() async {
-    if (controller.vm.value.shouldNavigateToNextScreen) {
-      final argument = Get.arguments;
-      argument['operatingStatus'] = controller.vm.value.statusArgument;
-      argument['businessOwner'] = controller.vm.value.yesNoArgument;
-      await Get.toNamed(AuthModulePageRoute.submitInfo, arguments: argument);
+    if (controller.accountStatusVM.value.shouldNavigateToNextScreen) {
+      await Get.toNamed(AuthModulePageRoute.submitInfo);
       // controller.resetView();
     }
   }
