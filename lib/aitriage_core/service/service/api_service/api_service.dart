@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_pars
 import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_parsing_country_json_uc.dart';
 import 'package:get/get.dart';
 import '../../../network/handle_error/handle_error.dart';
+import '../../../network/provider/firebase_provider.dart';
 import '../../../util/global_function.dart';
 import '../../entity/state.dart';
 import '../../usecase/download_and_parsing_state_json_uc.dart';
