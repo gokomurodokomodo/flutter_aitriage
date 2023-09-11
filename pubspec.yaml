@@ -34,7 +34,8 @@ dependencies:
   url_launcher: ^6.1.14
   open_mail_app: ^0.4.5
   connectivity_plus: ^4.0.2
-
+  webview_flutter: ^4.2.4
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
