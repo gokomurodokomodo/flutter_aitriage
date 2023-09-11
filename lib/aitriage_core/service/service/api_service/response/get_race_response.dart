@@ -1,5 +1,11 @@
 import 'package:flutter_aitriage/aitriage_core/network/common/base_response.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/race.dart';
 
 class GetRaceResponse extends BaseResponse {
-  GetRaceResponse.fromJson(dynamic json) : super.fromJson(json);
+  final data = <Race>[];
+
+  GetRaceResponse.fromJson(dynamic json) : super.fromJson(json) {
+    final list = (json?['data'] as List).map((e) => Race.fromJson(e));
+    data.addAll(list);
+  }
 }

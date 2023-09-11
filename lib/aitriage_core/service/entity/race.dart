@@ -15,4 +15,10 @@ class Race {
       this.name,
       this.dispStatus
   );
+
+  Race.fromJson(dynamic json)
+      : id = json?['id'],
+        code = json?['code'],
+        name = json?['name'],
+        dispStatus = json?['dispStatus'];
 }

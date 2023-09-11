@@ -7,10 +7,12 @@ class RegisterAccountTypeVM {
   var _buttonSelectedIndex = -1;
   var _rowCount = 0;
   final _list = <ParamType>[];
+  var _trialTime = '';
 
   void updateVM({
     List<ParamType>? list,
-    int? buttonSelectedIndex
+    int? buttonSelectedIndex,
+    String? trialTime
   }) {
     if (list != null) {
       _list.clear();
@@ -20,6 +22,7 @@ class RegisterAccountTypeVM {
     }
 
     _buttonSelectedIndex = buttonSelectedIndex ?? _buttonSelectedIndex;
+    _trialTime = trialTime ?? _trialTime;
   }
 
   int get buttonSelectedIndex => _buttonSelectedIndex;
@@ -54,4 +57,6 @@ class RegisterAccountTypeVM {
     final item = _list[_buttonSelectedIndex];
     return item.key ?? '';
   }
+
+  String get trialTime => _trialTime.toString();
 }

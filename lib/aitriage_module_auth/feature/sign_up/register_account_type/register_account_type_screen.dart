@@ -43,7 +43,7 @@ class _Tablet extends GetView<RegisterAccountTypeController>{
             SizedBox(height: 60.h),
             AuthenticationHeader(
               svgIconName: AppImage.svgAppLogo,
-              headerText: 'Start your ${systemParam.trialTime}-day free trial',
+              headerText: 'Start your ${controller.vm.value.trialTime}-day free trial',
               contentText: '100% free. No credit card needed',
               styleContentText: AppStyle.styleCheckYourEmailNotification,
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -112,17 +111,17 @@ class _Tablet extends GetView<SignInController> {
               SizedBox(
                 height: 80.h,
               ),
-              DropDownButton(
+              Obx(() => DropDownButton(
                 width: 200.w,
                 title: '',
                 shouldIncludeAsterisk: false,
-                children: countryList.map((e) => CountryWidget(
+                children: controller.vm.value.countryList.map((e) => CountryWidget(
                   isNetworkIcon: true,
                   leftIconName: e.emoji,
                   contentText: e.name,
                   width: 200.w,
                 )).toList(),
-              ),
+              )),
             ],
           ),
         ),

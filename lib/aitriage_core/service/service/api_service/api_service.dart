@@ -1,28 +1,51 @@
+import 'package:flutter_aitriage/aitriage_core/service/entity/city.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/race.dart';
+import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_parsing_city_json_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_parsing_country_json_uc.dart';
 import 'package:get/get.dart';
 import '../../../network/handle_error/handle_error.dart';
 import '../../../util/global_function.dart';
+import '../../entity/state.dart';
+import '../../usecase/download_and_parsing_state_json_uc.dart';
 import '../../usecase/get_param_type_uc.dart';
 import '../../usecase/get_system_param_uc.dart';
 import '../../usecase/get_user_info_uc.dart';
 
 class ApiService extends GetxService {
-  final getSystemParamUseCase = GetSystemParamUseCase();
+  // UseCase
+  final getAppParamUseCase = GetAppParamUseCase();
   final getUserInfoUseCase = GetUserInfoUseCase();
   final getParamTypeUseCase = GetParamTypeUseCase();
+  final downloadAndParsingCountryJsonUseCase = DownloadAndParsingCountryJson();
+  final downloadAndParsingCityJsonUseCase = DownloadAndParsingCityJsonUseCase();
+  final downloadAndParsingStateJsonUseCase = DownloadAndParsingStateJsonUseCase();
+  // Data
+  final _listCountry = <Country>[];
+  final _listCity = <City>[];
+  final _listState = <State>[];
+  final _listRace = <Race>[];
+  var _trialTime = '';
 
   @override
   void onInit() {
     super.onInit();
-    _getSystemParam();
+    _getAppParam();
     _getParamType();
   }
 
-  // country, city, state, race
-  void _getSystemParam() async {
+  // country, city, state are json file, need parsing
+  // race
+  void _getAppParam() async {
     try {
-      final resp = await getSystemParamUseCase.execute();
-      systemParam = resp.data;
+      final resp = await getAppParamUseCase.execute();
+      _listCountry.addAll(await downloadAndParsingCountryJsonUseCase.execute(resp.countryFileUrl));
+      _listCity.addAll(await downloadAndParsingCityJsonUseCase.execute(resp.cityFileUrl));
+      _listState.addAll(await downloadAndParsingStateJsonUseCase.execute(resp.stateFileUrl));
+      _listRace.addAll(resp.race);
+      _trialTime = resp.trialTime;
     } catch (e) {
+      print(e);
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
@@ -35,4 +58,11 @@ class ApiService extends GetxService {
       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
+
+  // return new list to avoid modify
+  List<Country> get listCountry => _listCountry.toList();
+  List<City> get listCity => _listCity.toList();
+  List<State> get listState => _listState.toList();
+  List<Race> get listRace => _listRace.toList();
+  String get trialTime => _trialTime.toString();
 }

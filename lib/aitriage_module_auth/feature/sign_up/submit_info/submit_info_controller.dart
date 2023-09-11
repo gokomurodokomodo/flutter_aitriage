@@ -1,14 +1,14 @@
+import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_vm.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_error.dart';
 import '../../../../aitriage_core/util/crypto/crypto.dart';
-import '../../../../aitriage_core/util/global_function.dart';
 import '../../../data/api/request/register_request.dart';
 
 class SubmitInfoController extends GetxController {
   final RegisterUseCase _registerUseCase;
-  final vm = SubmitInfoVM();
+  final vm = SubmitInfoVM().obs;
   var text = ''.obs;
   var chooseIndex = 0.obs;
 
@@ -17,61 +17,64 @@ class SubmitInfoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    text.value = countryList.first.emoji!;
+    final apiService = Get.find<ApiService>();
+    vm.value.updateVM(listCountry: apiService.listCountry);
+    text.value = vm.value.listCountry.first.emoji!;
+    vm.refresh();
   }
 
 
   void submit({Function(String)? successCallback}) async {
-    final encryptedPassword = await CryptoUtil.encrypt(vm.password);
+    final encryptedPassword = await CryptoUtil.encrypt(vm.value.password);
     final argument = Get.arguments;
-    final isoCode = countryList[vm.index].iso3;
+    final isoCode = vm.value.listCountry[vm.value.index].iso3;
     final request = RegisterRequest(
         accountType: argument?['accountType'] ?? '',
         operatingStatus: argument?['operatingStatus'] ?? '',
         businessOwner: argument?['businessOwner'] ?? 0,
-        organizationName: vm.organizationName,
+        organizationName: vm.value.organizationName,
         isoCode: isoCode ?? '',
-        email: vm.email,
+        email: vm.value.email,
         password: encryptedPassword,
-        phone: vm.phoneNumber,
-        firstName: vm.firstName,
-        lastName: vm.lastName,
+        phone: vm.value.phoneNumber,
+        firstName: vm.value.firstName,
+        lastName: vm.value.lastName,
     );
 
     try {
       await _registerUseCase.execute(request);
-      successCallback?.call(vm.email);
+      successCallback?.call(vm.value.email);
     } catch (e) {
       if (e is AppError) Get.snackbar('Error', e.message);
     }
   }
 
   void onOrganizationNameChanged(String? organizationName) {
-    vm.updateVM(organizationName: organizationName);
+    vm.value.updateVM(organizationName: organizationName);
   }
 
   void onFirstNameChanged(String? firstName) {
-    vm.updateVM(firstName: firstName);
+    vm.value.updateVM(firstName: firstName);
   }
 
   void onLastNameChanged(String? lastName) {
-    vm.updateVM(lastName: lastName);
+    vm.value.updateVM(lastName: lastName);
   }
 
   void onEmailChanged(String? email) {
-    vm.updateVM(email: email);
+    vm.value.updateVM(email: email);
   }
 
   void onPhoneNumberChanged(String? phoneNumber) {
-    vm.updateVM(phoneNumber: phoneNumber);
+    vm.value.updateVM(phoneNumber: phoneNumber);
   }
 
   void onPasswordChanged(String password) {
-    vm.updateVM(password: password);
+    vm.value.updateVM(password: password);
   }
 
   void onCountryChanged(int index) {
     chooseIndex.value = index;
-    vm.updateVM(index: index);
+    vm.value.updateVM(index: index);
   }
 }

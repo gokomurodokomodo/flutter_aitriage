@@ -1,3 +1,5 @@
+import '../../../../aitriage_core/service/entity/country.dart';
+
 class SubmitInfoVM {
   var _organizationName = '';
   var _firstName = '';
@@ -6,6 +8,7 @@ class SubmitInfoVM {
   var _email = '';
   var _password = '';
   var _index = 0;
+  final _listCountry = <Country>[];
 
   void updateVM({
     String? organizationName,
@@ -14,7 +17,8 @@ class SubmitInfoVM {
     String? phoneNumber,
     String? email,
     String? password,
-    int? index
+    int? index,
+    List<Country>? listCountry
   }) {
     _organizationName = organizationName ?? _organizationName;
     _firstName = firstName ?? _firstName;
@@ -23,6 +27,11 @@ class SubmitInfoVM {
     _email = email ?? _email;
     _password = password ?? _password;
     _index = index ?? _index;
+
+    if (listCountry != null) {
+      _listCountry.clear();
+      _listCountry.addAll(listCountry);
+    }
   }
 
   String get organizationName => _organizationName;
@@ -38,4 +47,6 @@ class SubmitInfoVM {
   String get password => _password;
 
   int get index => _index;
+
+  List<Country> get listCountry => _listCountry.toList();
 }

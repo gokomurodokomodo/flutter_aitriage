@@ -7,6 +7,4 @@ import '../service/entity/system_param.dart';
 final cachedImage = <Image>[];
 // Save the country for later use to optimize api calling
 // getCountry api in ApiService
-final countryList = <Country>[];
-var systemParam = SystemParam.fromJson(null);
 final paramTypes = <ParamType>[];
