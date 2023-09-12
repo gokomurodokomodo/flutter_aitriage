@@ -72,10 +72,8 @@ class SignInUseCaseImpl extends SignInUseCase {
           await apiService.getUserInfoUC.execute(result.data.id ?? 0);
       final password = request.password;
       final key = '${AppConstant.preCharSaveUserData}${request.username}';
-      Get.forceAppUpdate();
       return resp.data;
     } on Exception catch (e) {
-      print(e);
       return UserInfo.fromJson('');
     }
   }
