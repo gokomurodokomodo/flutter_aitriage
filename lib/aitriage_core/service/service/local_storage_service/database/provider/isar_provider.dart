@@ -1,7 +1,6 @@
 import 'package:flutter_aitriage/aitriage_core/service/entity/table_sync_date.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../../../entity/city.dart';
 import '../../../../entity/country.dart';
 import '../../../../entity/param_type.dart';

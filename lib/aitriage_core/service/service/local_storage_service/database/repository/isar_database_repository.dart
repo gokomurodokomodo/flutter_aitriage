@@ -1,32 +1,36 @@
 import 'package:isar/isar.dart';
 import '../provider/isar_provider.dart';
 
-class DatabaseRepository<T> {
-  final _db = IsarProvider.instance.collection<T>();
+class DatabaseRepository {
+  DatabaseRepository._();
 
   /// Get a single object by its id or null if the object does not exist
-  Future<T?> readById(int id) async {
-    return await _db.get(id);
+  static Future<T?> readById<T>(int id) async {
+    final db = IsarProvider.instance.collection<T>();
+    return await db.get(id);
   }
 
   /// Get a list of objects by their ids or null if an object does not exist.
-  Future<List<T?>> readByMultipleId(List<int> listId) async {
-    return await _db.getAll(listId);
+  static Future<List<T?>> readByMultipleId<T>(List<int> listId) async {
+    final db = IsarProvider.instance.collection<T>();
+    return await db.getAll(listId);
   }
 
   /// Find all objects.
-  Future<List<T>> readAll() async {
-    return await _db.where().findAll();
+  static Future<List<T>> readAll<T>() async {
+    final db = IsarProvider.instance.collection<T>();
+    return await db.where().findAll();
   }
 
 
-  Future write({T? object, List<T>? list}) async {
+  static Future write<T>({T? object, List<T>? list}) async {
+    final db = IsarProvider.instance.collection<T>();
     return IsarProvider.instance.writeTxn(() async {
-      if (object != null) await _db.put(object);
+      if (object != null) await db.put(object);
 
       if (list != null) {
         for (var item in list) {
-          await _db.put(item);
+          await db.put(item);
         }
       }
     });
@@ -34,12 +38,14 @@ class DatabaseRepository<T> {
 
   /// Delete a single object by its id.
   /// Returns whether the object has been deleted
-  Future<bool> deleteById(int id) async {
-    return await _db.delete(id);
+  static Future<bool> deleteById<T>(int id) async {
+    final db = IsarProvider.instance.collection<T>();
+    return await db.delete(id);
   }
 
   /// Delete all objects. Returns the number of deleted objects
-  Future<int> deleteAll() async {
-    return await IsarProvider.instance.writeTxn(() async => await _db.where().deleteAll());
+  static Future<int> deleteAll<T>() async {
+    final db = IsarProvider.instance.collection<T>();
+    return await IsarProvider.instance.writeTxn(() async => await db.where().deleteAll());
   }
 }
