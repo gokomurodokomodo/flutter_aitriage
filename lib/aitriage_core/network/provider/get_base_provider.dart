@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_core/service/service/flutter_secured_storage/response/get_active_user_information.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
 import '../../service/service/local_storage_service/local_storage_service.dart';
@@ -23,7 +24,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
     // authenticator -> requestModifier -> responseModifier
 
     httpClient.addAuthenticator<dynamic>((request) async {
-      final accessToken = await LocalStorageService().getCurrentAccessToken();
+      final accessToken = await ActiveUserInfomation.accessToken.data;
 
       if (accessToken.isNotEmpty) {
         request.headers['Authorization'] = 'Bearer $accessToken';

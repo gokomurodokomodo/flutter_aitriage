@@ -19,13 +19,13 @@ class SignInController extends GetxController{
   var isValidated = false.obs;
   var isCheck = false.obs;
   final SignInUseCaseImpl _useCase;
+  final apiService = Get.find<ApiService>();
 
   SignInController(this._useCase);
 
   @override
   void onInit() {
     super.onInit();
-    final apiService = Get.find<ApiService>();
     vm.value.updateVM(countryList: apiService.listCountry);
     vm.refresh();
   }
@@ -37,35 +37,13 @@ class SignInController extends GetxController{
       final checkNetwork = await NetworkCheckUtil().isConnectedToInternet();
       AlertUtil.showLoadingIndicator();
       late UserInfo userInfo;
+      final request = await vm.value.signInRequest;
 
       if (checkNetwork) {
-        final apiService = Get.find<ApiService>();
-        final result = await _useCase.execute(await vm.value.signInRequest);
-        final resp = await apiService.getUserInfoUseCase.execute(result.data.id ?? 0);
-        final password = vm.value.password;
-        final key = '${AppConstant.preCharSaveUserData}${vm.value.username}';
-        LocalStorageService().setSecuredUser(userName: vm.value.username, password: password);
-        LocalStorageService().setSecuredUserData(key: key, data: result.data);
-        LocalStorageService().removeSecured(key: AppConstant.firstDateOffline);
-        LocalStorageService().setCurrentAccessToken(accessToken: result.data.accessToken ?? '');
-        userInfo = resp.data;
+        userInfo = await _useCase.onlineSignIn(request);
       } else {
-        final password = vm.value.password;
-        final key = '${AppConstant.preCharSaveUserData}${vm.value.username}';
-        if(password == await LocalStorageService().getSecuredUserPassword(userName: vm.value.username)){
-          final timePast = (DateTime.now().difference(await LocalStorageService().getFirstDateOffline())).inDays;
-          if(timePast > 7) {
-            Get.dialog(AlertDialog(title: Text('Expired 7 Day'),));
-          } else {
-            final result = await LocalStorageService().getUserData(key: key);
-            LocalStorageService().setFirstDateOffline();
-            LocalStorageService().setCurrentAccessToken(accessToken: result.accessToken ?? '');
-            // temp value
-            userInfo = UserInfo.fromJson(null);
-          }
-        }
+        
       }
-
       Get.back();
       callback?.call(userInfo);
     } catch (e) {
