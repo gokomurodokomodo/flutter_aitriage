@@ -12,14 +12,17 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../data/api/request/generate_code_request.dart';
 
-abstract class SignInUseCase{
+abstract class SignInUseCase {
   Future<UserParamResponse> execute(SignInRequest request);
+
   Future<BaseResponse> genCodeForSignIn(String email);
+
   Future<UserInfo> onlineSignIn(SignInRequest request);
+
   Future<String> offlineSignIn(SignInRequest request);
 }
 
-class SignInUseCaseImpl extends SignInUseCase{
+class SignInUseCaseImpl extends SignInUseCase {
   final SignInRepositoryImpl _repository;
   final SignUpRepositoryImpl _genCodeRepository;
   final apiService = Get.find<ApiService>();
@@ -27,23 +30,20 @@ class SignInUseCaseImpl extends SignInUseCase{
   SignInUseCaseImpl(this._repository, this._genCodeRepository);
 
   @override
-  Future<UserParamResponse> execute(SignInRequest request) async{
+  Future<UserParamResponse> execute(SignInRequest request) async {
     final result = await _repository.signIn(request);
     return result;
   }
 
   @override
-  Future<BaseResponse> genCodeForSignIn(String email) async{
-    final request = GenerateCodeRequest(
-      email: email,
-      reason: 'VERIFY_EMAIL'
-    );
+  Future<BaseResponse> genCodeForSignIn(String email) async {
+    final request = GenerateCodeRequest(email: email, reason: 'VERIFY_EMAIL');
     final result = await _genCodeRepository.generateCodeEmail2Fa(request);
     return result;
   }
-  
+
   @override
-  Future<String> offlineSignIn(SignInRequest request) async{
+  Future<String> offlineSignIn(SignInRequest request) async {
     // final password = request.password;
     //     final key = '${AppConstant.preCharSaveUserData}${request.username}';
     //     if(password == await LocalStorageService().getSecuredUserPassword(userName: request.username)){
@@ -56,27 +56,27 @@ class SignInUseCaseImpl extends SignInUseCase{
     //         LocalStorageService().setCurrentAccessToken(accessToken: result.accessToken ?? '');
     //         // temp value
     //         // return UserInfo.fromJson(null);
-            
+
     //       }
     //     }
-        return '';
-  }
-  
-  @override
-  Future<UserInfo> onlineSignIn(SignInRequest request) async{
-    try {
-  final result = await execute(request);
-  await ActiveUserInfomation.accessToken.setSecuredData(result.data.accessToken ?? '');
-  print('here ${await ActiveUserInfomation.accessToken.data}');
-  final resp = await apiService.getUserInfoUseCase.execute(result.data.id ?? 0);
-  final password = request.password;
-  final key = '${AppConstant.preCharSaveUserData}${request.username}';
-  Get.forceAppUpdate();
-  return resp.data;
-} on Exception catch (e) {
-  print(e);
-  return UserInfo.fromJson('');
-}
+    return '';
   }
 
+  @override
+  Future<UserInfo> onlineSignIn(SignInRequest request) async {
+    try {
+      final result = await execute(request);
+      await ActiveUserInfomation.accessToken
+          .setSecuredData(result.data.accessToken ?? '');
+      final resp =
+          await apiService.getUserInfoUC.execute(result.data.id ?? 0);
+      final password = request.password;
+      final key = '${AppConstant.preCharSaveUserData}${request.username}';
+      Get.forceAppUpdate();
+      return resp.data;
+    } on Exception catch (e) {
+      print(e);
+      return UserInfo.fromJson('');
+    }
+  }
 }
