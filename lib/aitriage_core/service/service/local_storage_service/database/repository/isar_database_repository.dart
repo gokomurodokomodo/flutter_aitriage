@@ -29,9 +29,7 @@ class DatabaseRepository {
       if (object != null) await db.put(object);
 
       if (list != null) {
-        for (var item in list) {
-          await db.put(item);
-        }
+        await db.putAll(list);
       }
     });
   }

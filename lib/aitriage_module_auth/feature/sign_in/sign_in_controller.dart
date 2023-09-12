@@ -41,7 +41,7 @@ class SignInController extends GetxController{
       if (checkNetwork) {
         final apiService = Get.find<ApiService>();
         final result = await _useCase.execute(await vm.value.signInRequest);
-        final resp = await apiService.getUserInfoUseCase.execute(result.data.id ?? 0);
+        final resp = await apiService.getUserInfoUC.execute(result.data.id ?? 0);
         final password = vm.value.password;
         final key = '${AppConstant.preCharSaveUserData}${vm.value.username}';
         LocalStorageService().setSecuredUser(userName: vm.value.username, password: password);

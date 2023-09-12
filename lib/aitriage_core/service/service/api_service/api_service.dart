@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/city.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/race.dart';
 import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_parsing_json_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/usecase/get_table_sync_date_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/usecase/load_collection_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/usecase/save_collection_uc.dart';
 import 'package:get/get.dart';
 import '../../../network/handle_error/handle_error.dart';
@@ -16,11 +19,12 @@ import '../../usecase/get_user_info_uc.dart';
 
 class ApiService extends GetxService {
   // UseCase
-  final getAppParamUseCase = GetAppParamUseCase();
-  final getUserInfoUseCase = GetUserInfoUseCase();
-  final getParamTypeUseCase = GetParamTypeUseCase();
-  final getTableSyncDateUseCase = GetTableSyncDateUseCase();
+  final getAppParamUC = GetAppParamUseCase();
+  final getUserInfoUC = GetUserInfoUseCase();
+  final getParamTypeUC = GetParamTypeUseCase();
+  final getTableSyncDateUC = GetTableSyncDateUseCase();
   final saveCollectionUC = SaveCollectionUseCase();
+  final loadCollectionUC = LoadCollectionUseCase();
   // Data
   final _listCountry = <Country>[];
   final _listCity = <City>[];
@@ -34,15 +38,15 @@ class ApiService extends GetxService {
   // race
   Future<void> getAppParam() async {
     try {
-      final timeSyncData = await getTableSyncDateUseCase.execute();
-      final param = await getAppParamUseCase.execute();
+      final timeSyncData = await getTableSyncDateUC.execute();
+      final param = await getAppParamUC.execute();
       _saveInSession(param);
       timeSyncData == null
           ? compute(_downloadAndParsingData, param).then((result) => _handleParsingData(result))
           : _loadDb();
     } catch (e) {
-      HandleNetworkError.handleNetworkError(
-          e, (message, _, __) => Get.snackbar('Error', message));
+      // HandleNetworkError.handleNetworkError(
+      //     e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 
@@ -55,15 +59,18 @@ class ApiService extends GetxService {
 
   // MUST BE STATIC OR GLOBAL FUNCTION OR ELSE GETTING POINTER ERROR IN ISOLATE
   static Future<List<dynamic>> _downloadAndParsingData(AppParam param) async {
-    final downloadAndParsingJsonUC = DownloadAndParsingJsonUseCase();
-    final countries = await downloadAndParsingJsonUC
-        .execute<Country>(param.countryFileUrl, (json) => Country.fromJson(json));
-    final cities = await downloadAndParsingJsonUC
-        .execute<City>(param.cityFileUrl, (json) => City.fromJson(json));
-    final states = await downloadAndParsingJsonUC
-        .execute<State>(param.stateFileUrl, (json) => State.fromJson(json));
-
-    return [countries, cities, states];
+    try {
+      final downloadAndParsingJsonUC = DownloadAndParsingJsonUseCase();
+      final countries = await downloadAndParsingJsonUC
+          .execute<Country>(param.countryFileUrl, (json) => Country.fromJson(json));
+      final cities = await downloadAndParsingJsonUC
+          .execute<City>(param.cityFileUrl, (json) => City.fromJson(json));
+      final states = await downloadAndParsingJsonUC
+          .execute<State>(param.stateFileUrl, (json) => State.fromJson(json));
+      return [countries, cities, states];
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
   void _handleParsingData(List<dynamic> list) {
@@ -71,10 +78,10 @@ class ApiService extends GetxService {
     _listCountry.addAll(list[0] as List<Country>);
     _listCity.addAll(list[1] as List<City>);
     _listState.addAll(list[2] as List<State>);
-    _saveToDb();
+    _saveDb();
   }
 
-  void _saveToDb() async {
+  void _saveDb() async {
     // save sync time
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final tableSyncDate = TableSyncDate.setAll(now);
@@ -85,16 +92,22 @@ class ApiService extends GetxService {
   }
 
   void _loadDb() async {
-
+    final countries = await loadCollectionUC.execute<Country>();
+    final cities = await loadCollectionUC.execute<City>();
+    final states = await loadCollectionUC.execute<State>();
+    _listCountry.addAll(countries);
+    _listCity.addAll(cities);
+    _listState.addAll(states);
+    log('------LOAD DB-------');
   }
 
   Future<void> getParamType() async {
     try {
-      final resp = await getParamTypeUseCase.execute();
+      final resp = await getParamTypeUC.execute();
       paramTypes.addAll(resp.data);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(
-          e, (message, _, __) => Get.snackbar('Error', message));
+      // HandleNetworkError.handleNetworkError(
+      //     e, (message, _, __) => Get.snackbar('Error', message));
     }
   }
 

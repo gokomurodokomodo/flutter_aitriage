@@ -48,8 +48,8 @@ class _AppState extends State<App> with SubscriptionCollector {
 
   void notifyFinishInit() async {
     final apiService = Get.find<ApiService>();
-    await apiService.getAppParam();
-    await apiService.getParamType();
+    apiService.getAppParam();
+    apiService.getParamType();
     // Close appEventChannel
     disposeAllStreamInCollector();
     // Preload image asset
