@@ -1,6 +1,6 @@
-import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
+import '../../../aitriage_core/entity/country.dart';
 
 class SignInVM {
   var _username = '';

@@ -1,6 +1,6 @@
-import 'package:flutter_aitriage/aitriage_core/service/service/flutter_secured_storage/response/get_active_user_information.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
+import '../../local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../common/base_response.dart';
 import '../logging/logging.dart';
 

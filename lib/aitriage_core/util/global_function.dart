@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../service/entity/country.dart';
-import '../service/entity/param_type.dart';
-import '../service/entity/system_param.dart';
+import '../entity/param_type.dart';
 // CachedImage for intro and get_startedScreen
 // Use imageCache.clear() to clear all
 final cachedImage = <Image>[];

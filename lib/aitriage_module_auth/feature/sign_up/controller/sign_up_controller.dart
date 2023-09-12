@@ -1,8 +1,5 @@
-
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/response/get_param_type_response.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -13,6 +10,8 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_inf
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/text_controller_vm.dart';
 import 'package:get/get.dart';
 
+import '../../../../aitriage_core/entity/param_type.dart';
+import '../../../../aitriage_core/service/hivi_service/response/get_param_type_response.dart';
 import '../register_account_status/register_account_status_vm.dart';
 
 class SignUpController extends GetxController{
@@ -27,7 +26,7 @@ class SignUpController extends GetxController{
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
-  final apiService = Get.find<ApiService>();
+  final apiService = Get.find<HiviService>();
   SignUpController(this._registerUseCase);
   
   @override
@@ -183,7 +182,6 @@ class SignUpController extends GetxController{
 
   void onCountryChanged(int index) {
     chooseIndex.value = index;
-    print(chooseIndex.value);
     submitInfoVM.value.updateVM(index: index);
     submitInfoVM.refresh();
     _shouldEnableSubmitButton();
