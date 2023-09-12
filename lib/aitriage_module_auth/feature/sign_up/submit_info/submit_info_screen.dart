@@ -67,24 +67,24 @@ class _Tablet extends GetView<SignUpController> {
                     ),
                   )),
               SizedBox(height: 10.h),
-              DropDownButton(
-                    chooseIndex: controller.chooseIndex.value,
-                    title: 'country'.tr,
-                    shouldIncludeAsterisk: true,
-                    dropDownWidth: 360.w,
-                    onTapChildren: (index) =>
-                        controller.onCountryChanged(index),
-                    children: controller.apiService.listCountry
-                        .map((e) => Obx(() =>CountryWidget(
-                              isNetworkIcon: true,
-                              leftIconName: e.emoji,
-                              contentText: e.name,
-                              isChoosed: e.name ==
-                                  controller.apiService.listCountry[controller.chooseIndex.value]
-                                      .name,
-                            )))
-                        .toList(),
-                  ),
+              // DropDownButton(
+              //       chooseIndex: controller.chooseIndex.value,
+              //       title: 'country'.tr,
+              //       shouldIncludeAsterisk: true,
+              //       dropDownWidth: 360.w,
+              //       onTapChildren: (index) =>
+              //           controller.onCountryChanged(index),
+              //       children: controller.apiService.listCountry
+              //           .map((e) => Obx(() =>CountryWidget(
+              //                 isNetworkIcon: true,
+              //                 leftIconName: e.emoji,
+              //                 contentText: e.name,
+              //                 isChoosed: e.name ==
+              //                     controller.apiService.listCountry[controller.chooseIndex.value]
+              //                         .name,
+              //               )))
+              //           .toList(),
+              //     ),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 110.h,
@@ -147,6 +147,7 @@ class _Tablet extends GetView<SignUpController> {
               SizedBox(height: 20.h),
               Obx(() => Center(
                     child: CustomLoginField(
+                      type: const TextInputType.numberWithOptions(),
                       label: 'phone_number'.tr,
                       enableLabelAsterisk: true,
                       controller: controller

@@ -16,12 +16,12 @@ class TextControllerVM{
     String? phoneNumberFieldController,
     String? passwordFieldController,
   }){
-    _organizationFieldController.text = organizationFieldController ?? _organizationFieldController.text;
-    _firstNameFieldController.text = firstNameFieldController ?? _firstNameFieldController.text;
-    _lastNameFieldController.text = lastNameFieldController ?? _lastNameFieldController.text;
-    _emailFieldController.text = emailFieldController ?? _emailFieldController.text;
-    _phoneNumberFieldController.text = phoneNumberFieldController ?? _phoneNumberFieldController.text;
-    _passwordFieldController.text = passwordFieldController ?? _passwordFieldController.text;
+    _organizationFieldController.value = _organizationFieldController.value.copyWith(text: organizationFieldController ?? _organizationFieldController.text);
+    _firstNameFieldController.value = _firstNameFieldController.value.copyWith(text: _firstNameFieldController.text);
+    _lastNameFieldController.value = _lastNameFieldController.value.copyWith(text: lastNameFieldController ?? _lastNameFieldController.text);
+    _emailFieldController.value = _emailFieldController.value.copyWith(text: emailFieldController ?? _emailFieldController.text);
+    _phoneNumberFieldController.value = _phoneNumberFieldController.value.copyWith(text: phoneNumberFieldController ?? _phoneNumberFieldController.text);
+    _passwordFieldController.value = _passwordFieldController.value.copyWith(text: passwordFieldController ?? _passwordFieldController.text);
   }
 
   TextEditingController get organizationFieldController => _organizationFieldController;
