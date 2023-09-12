@@ -7,8 +7,8 @@ class DownloadAndParsingJsonUseCase {
     // if callback use the same instance of client will emit connection auto close error
     final client = http.Client();
     final resp = await client.get(Uri.parse(url));
-    final parsed = jsonDecode(resp.body) as Map<String, dynamic>;
-    final result = (parsed as List).map((e) => parser.call(e)).toList();
+    final parsed = jsonDecode(resp.body) as List;
+    final result = parsed.map((e) => parser.call(e)).toList();
 
     return result;
   }
