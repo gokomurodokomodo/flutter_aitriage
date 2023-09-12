@@ -8,6 +8,8 @@ import 'package:flutter_aitriage/aitriage_core/service/usecase/download_and_pars
 import 'package:flutter_aitriage/aitriage_core/service/usecase/get_table_sync_date_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/usecase/load_collection_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/usecase/save_collection_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
+import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/finish_sync_data.dart';
 import 'package:get/get.dart';
 import '../../../network/handle_error/handle_error.dart';
 import '../../../util/global_function.dart';
@@ -89,6 +91,9 @@ class ApiService extends GetxService {
     await saveCollectionUC.execute<City>(list: _listCity);
     await saveCollectionUC.execute<State>(list: _listState);
     await saveCollectionUC.execute<TableSyncDate>(object: tableSyncDate);
+    // notify listener
+    final appEventChannel = AppEventChannel();
+    appEventChannel.addEvent(FinishSyncData(true));
   }
 
   void _loadDb() async {
