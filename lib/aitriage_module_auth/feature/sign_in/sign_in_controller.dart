@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
@@ -10,7 +8,6 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/service/service/api_service/api_service.dart';
 import '../../../aitriage_core/service/entity/user_info.dart';
-import '../../../aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 
 class SignInController extends GetxController{
   final vm = SignInVM().obs;

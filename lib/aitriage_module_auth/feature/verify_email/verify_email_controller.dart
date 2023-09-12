@@ -7,7 +7,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_lo
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 import '../../data/api/request/verify_email_request.dart';
 
 class VerifyEmailController extends GetxController {

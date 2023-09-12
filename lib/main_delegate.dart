@@ -12,7 +12,6 @@ import 'aitriage_core/common/app_module.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/service/service/api_service/api_service.dart';
 import 'aitriage_core/service/service/local_storage_service/database/provider/isar_provider.dart';
-import 'aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 import 'aitriage_core/service/service/localization_service/localization_service.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import 'aitriage_module_auth/config/auth_module.dart';
@@ -37,7 +36,6 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
     _initLocalStorage(),
     _initService(),
     _initFirebase()
-    // _initDataBase()
   ]).then((value) => appEventChannel.addEvent(FinishInitEvent('done')));
 
   runApp(App(pages: pages));
@@ -75,7 +73,12 @@ Future _initFirebase() async => await Firebase.initializeApp();
 Future _initDataBase() async => await IsarProvider.init();
 
 Future _initService() async {
+  // api service using database
+  // wait until database finish init
   await _initDataBase();
-  Get.put(ApiService(), permanent: true);
+  final apiService = Get.put(ApiService(), permanent: true);
   Get.put(SecuredBox(), permanent: true);
+  // Calling api to get param for app
+  await apiService.getAppParam();
+  await apiService.getParamType();
 }
