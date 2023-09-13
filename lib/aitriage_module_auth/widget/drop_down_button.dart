@@ -93,10 +93,12 @@ class _DropDownButtonState extends State<DropDownButton> {
                       ? widget.placeHolder!
                       : widget.children?[index] ?? const SizedBox(),
                   Positioned(
-                      bottom: 10.h,
+                      bottom: 13.h,
                       right: 14.w,
-                      child: SvgIconWidget(
-                          name: AppImage.svgDropDownArrow, size: 16.r))
+                      child: Center(
+                        child: SvgIconWidget(
+                            name: AppImage.svgDropDownArrow, size: 16.r),
+                      ))
                 ],
               ),
             )

@@ -1,6 +1,7 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -29,14 +30,17 @@ class SignUpController extends GetxController{
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
   final apiService = Get.find<HiviService>();
   SignUpController(this._registerUseCase);
+  final GetListCountryUC _getListCountryUC = GetListCountryUC();
   var listCountry = <Country>[].obs;
   
   @override
   void onReady() async{
     _getAccountStatusParam();
     _getAccountTypeParam();
+    final response = await _getListCountryUC.execute();
+    listCountry.value = response.data;
+    submitInfoVM.value.updateVM(listCountry: response.data);
     text.value = listCountry.first.emoji!;
-    submitInfoVM.value.updateVM(listCountry: listCountry);
     submitInfoVM.refresh();
     super.onReady();
   }
@@ -195,6 +199,9 @@ class SignUpController extends GetxController{
   }
 
   void _shouldEnableSubmitButton(){
+    print(validateVM.value.isAllValidated);
+    print(checkedTermAndPrivacy.value);
+
     if(validateVM.value.isAllValidated && checkedTermAndPrivacy.value){
       shouldEnableSubmitButton.value = true;
     } else {

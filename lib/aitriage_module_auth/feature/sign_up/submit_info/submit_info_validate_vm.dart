@@ -17,7 +17,7 @@ class SubmitInfoValidateVM{
       r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$',
     );
   final RegExp passwordRegex = RegExp(
-      r'^(?=.*[A-Z])[A-Za-z0-9]{8,}$',
+      r'^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s\.\,:])([^\s]){8,16}$',
     );
 
     void updateOrganizationValidate(String? isOrganizationValidate){
@@ -110,11 +110,7 @@ class SubmitInfoValidateVM{
     if(information == null){
       return false;
     } else {
-      if(isPasswordValidate){
-        if(information.contains(RegExp(r'[!@#$%^&*()?":{}|<>]'))) {
-          return true;
-        }
-      }
+      if(isPasswordValidate){}
       return regrex.hasMatch(information) ? true : false;
     }
   }

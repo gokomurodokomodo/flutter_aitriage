@@ -1,6 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
-import 'package:flutter_aitriage/aitriage_core/service/usecase/get_list_country_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
@@ -19,13 +18,15 @@ class SignInController extends GetxController{
   var isCheck = false.obs;
   final SignInUseCaseImpl _useCase;
   final hiviService = Get.find<HiviService>();
+  final GetListCountryUC _getListCountryUC = GetListCountryUC();
 
   SignInController(this._useCase);
 
   @override
   void onInit() async{
     super.onInit();
-    vm.value.updateVM(countryList: hiviService.listCountry);
+    final response = await _getListCountryUC.execute();
+    vm.value.updateVM(countryList: response.data);
     vm.refresh();
   }
 

@@ -106,7 +106,9 @@ class _AppState extends State<App> with SubscriptionCollector {
                 // Init page route
                 initialRoute: initialRoute,
                 getPages: widget.pages,
-                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme(
+                  
+                )),
                 // Init localize
                 translations: LocalizationService(),
                 locale: LocalizationService.currentLocale,
