@@ -1,5 +1,7 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
+import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -18,8 +20,8 @@ import '../register_account_status/register_account_status_vm.dart';
 
 class SignUpController extends GetxController{
   final RegisterUseCase _registerUseCase;
-  final GetRegisterAccountStatusUseCase getRegisterAccountStatusUC;
-  final GetRegisterAccountTypeUseCase getRegisterAccountTypeUC;
+  final GetRegisterAccountStatusUseCase _getRegisterAccountStatusUC;
+  final GetRegisterAccountTypeUseCase _getRegisterAccountTypeUC;
   final accountStatusVM = RegisterAccountStatusVM().obs;
   final accountTypeVM = RegisterAccountTypeVM().obs;
   final submitInfoVM = SubmitInfoVM().obs;
@@ -31,8 +33,10 @@ class SignUpController extends GetxController{
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
   final apiService = Get.find<HiviService>();
-  SignUpController(this._registerUseCase, this.getRegisterAccountStatusUC, this.getRegisterAccountTypeUC);
-  
+  var listCountry = <Country>[].obs;
+
+  SignUpController(this._registerUseCase, this._getRegisterAccountStatusUC, this._getRegisterAccountTypeUC);
+
   @override
   void onReady() {
     _getAccountStatusParam();
@@ -45,7 +49,7 @@ class SignUpController extends GetxController{
 
   // Account Status
   void _getAccountStatusParam(){
-    final list = getRegisterAccountStatusUC.execute();
+    final list = _getRegisterAccountStatusUC.execute();
     _updateAccountStatusView(list: list);
   }
 
@@ -72,7 +76,7 @@ class SignUpController extends GetxController{
 
   //Account Type
   void _getAccountTypeParam() async {
-    final list = getRegisterAccountTypeUC.execute();
+    final list = _getRegisterAccountTypeUC.execute();
     _updateAccountTypeView(list: list);
   }
 
@@ -94,7 +98,7 @@ class SignUpController extends GetxController{
   //submit info
   void submit({Function(String)? successCallback}) async {
     final encryptedPassword = await CryptoUtil.encrypt(submitInfoVM.value.password);
-    final isoCode = apiService.listCountry[submitInfoVM.value.index].iso3;
+    final isoCode = listCountry[submitInfoVM.value.index].iso3;
     final request = RegisterRequest(
         accountType: accountTypeVM.value.itemArgument,
         operatingStatus: accountStatusVM.value.statusArgument,

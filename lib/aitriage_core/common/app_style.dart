@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_color.dart';
 
 class AppStyle {
@@ -163,7 +164,7 @@ class AppStyle {
     color: AppColor.colorTextCancelAssessment,
   );
   static final styleErrorText = TextStyle(
-    fontSize: fontSizeSM,
+    fontSize: fontSizeXS,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextCancelAssessment,
   );
@@ -177,9 +178,9 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorTextFieldPlaceHolder,
   );
-  static final styleTextDropDownButton = TextStyle(
+  static final styleTextDropDownButton = GoogleFonts.poppins(
     fontSize: fontSizeSM,
-    fontWeight: fontWeight500,
+    fontWeight: fontWeightRegular,
     color: AppColor.colorDialogTitleText,
   );
   static final styleTextPageNavigatorItemEnable = TextStyle(

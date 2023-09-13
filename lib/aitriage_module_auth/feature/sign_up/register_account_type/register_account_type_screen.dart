@@ -24,6 +24,11 @@ class RegisterAccountTypeScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    /*
+    Không put ở Binding vì Getx không remove GetxController khi gọi hàm Get.back()
+    mà gọi sau khi có event khác được gọi ngay sau khi vừa back.
+    Đưa vào hàm build sẽ bị delete khi view mất.
+     */
     Get.put(SignUpRepositoryImpl());
     Get.put(RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
     Get.put(GetRegisterAccountTypeUseCaseImpl());

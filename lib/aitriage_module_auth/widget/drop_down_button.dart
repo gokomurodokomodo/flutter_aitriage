@@ -91,12 +91,14 @@ class _DropDownButtonState extends State<DropDownButton> {
                 children: [
                   (enablePlaceHolder)
                       ? widget.placeHolder!
-                      : widget.children?[index] ?? const SizedBox(),
+                      : shouldShowChildren ? widget.children![index] : const SizedBox(),
                   Positioned(
-                      bottom: 10.h,
+                      bottom: 13.h,
                       right: 14.w,
-                      child: SvgIconWidget(
-                          name: AppImage.svgDropDownArrow, size: 16.r))
+                      child: Center(
+                        child: SvgIconWidget(
+                            name: AppImage.svgDropDownArrow, size: 16.r),
+                      ))
                 ],
               ),
             )
@@ -155,6 +157,14 @@ class _DropDownButtonState extends State<DropDownButton> {
   }
 
   bool get overLayIsShown => overlayEntry!.mounted;
+
+  bool get shouldShowChildren {
+    if (widget.children != null) {
+      if (widget.children!.isNotEmpty) return true;
+    }
+
+    return false;
+  }
 }
 
 class CountryWidget extends StatelessWidget {

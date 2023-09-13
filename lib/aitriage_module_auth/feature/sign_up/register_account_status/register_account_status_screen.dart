@@ -18,15 +18,16 @@ class RegisterAccountStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(
+    return DeviceDetector(
         tablet: _Tablet(),
-        phone: _Phone()
+        phone: const _Phone()
     );
   }
 }
 
-class _Tablet extends GetView<SignUpController> {
-  const _Tablet();
+class _Tablet extends StatelessWidget {
+  _Tablet();
+  final SignUpController controller = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {

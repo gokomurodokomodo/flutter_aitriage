@@ -80,27 +80,25 @@ class AuthModulePageRoute {
             name: registerAccountType,
             page: () => const RegisterAccountTypeScreen(),
             binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-              Get.put(
-                  SignUpController(
-                      Get.find<RegisterUseCaseImpl>(),
-                      Get.find<GetRegisterAccountStatusUseCaseImpl>(),
-                      Get.find<GetRegisterAccountTypeUseCaseImpl>()
-                  )
-              );
+              // Get.lazyPut(() => SignUpRepositoryImpl());
+              // Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
+              // Get.put(
+              //     SignUpController(
+              //         Get.find<RegisterUseCaseImpl>(),
+              //         Get.find<GetRegisterAccountStatusUseCaseImpl>(),
+              //         Get.find<GetRegisterAccountTypeUseCaseImpl>()
+              //     )
+              // );
             })),
         GetPage(
             name: registerAccountStatus,
             page: () => const RegisterAccountStatusScreen(),
             binding: BindingsBuilder(() {
-              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: submitInfo,
             page: () => const SubmitInfoScreen(),
             binding: BindingsBuilder(() {
-              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: verifyEmail,

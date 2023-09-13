@@ -1,5 +1,7 @@
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
 import 'package:get/get.dart';
@@ -15,13 +17,15 @@ class SignInController extends GetxController{
   var isCheck = false.obs;
   final SignInUseCaseImpl _useCase;
   final hiviService = Get.find<HiviService>();
+  final GetListCountryUC _getListCountryUC = GetListCountryUC();
 
   SignInController(this._useCase);
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-    vm.value.updateVM(countryList: hiviService.listCountry);
+    final response = await _getListCountryUC.execute();
+    vm.value.updateVM(countryList: response.data);
     vm.refresh();
   }
 
@@ -41,8 +45,23 @@ class SignInController extends GetxController{
 
       onSuccess?.call(userInfo);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
+      Get.back();
+      HandleNetworkError.handleNetworkError(e, (message, statusMessage, errorCode) {
+        if(statusMessage == HandleNetworkError.requestVerifiedEmail){
+          _onRequestVerify();
+      } else{
+        onError?.call(message);
+      }
+      });
     }
+  }
+
+  void _onRequestVerify(){
+    _useCase.genCodeForSignIn(vm.value.username);
+        Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
+          'userName' : vm.value.username,
+          'password': vm.value.password
+        });
   }
 
   void onTextEmailChange(String email){

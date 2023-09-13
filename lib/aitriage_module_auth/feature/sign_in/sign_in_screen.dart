@@ -122,6 +122,7 @@ class _Tablet extends GetView<SignInController> {
                 height: 80.h,
               ),
               Obx(() => DropDownButton(
+                dropDownHeight: 150.h,
                 width: 200.w,
                 title: '',
                 shouldIncludeAsterisk: false,
