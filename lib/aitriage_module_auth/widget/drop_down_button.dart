@@ -113,7 +113,7 @@ class _DropDownButtonState extends State<DropDownButton> {
             width: widget.dropDownWidth ?? widget.width ?? 200,
             height: widget.dropDownHeight ?? 200,
             child: CompositedTransformFollower(
-              offset: Offset(0, 50 + 22.h),
+              offset: Offset(0, widget.height ?? 44.h / 2),
               link: layerLink,
               child: TapRegion(
                 onTapOutside: (_) {

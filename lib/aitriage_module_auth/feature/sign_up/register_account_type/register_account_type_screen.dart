@@ -6,6 +6,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_type_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:sprintf/sprintf.dart';
 import '../../../../aitriage_core/service/hivi_service/hivi_service.dart';
 import '../../../../aitriage_core/ui/widget/authentication_header.dart';
+import '../../../domain/use_case/get_register_account_status_uc.dart';
 import '../../../widget/auth_back_button.dart';
 import '../../../widget/sign_up_icon_wrapper.dart';
 import '../../../widget/step_count_widget.dart';
@@ -24,7 +26,15 @@ class RegisterAccountTypeScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     Get.put(SignUpRepositoryImpl());
     Get.put(RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-    Get.put(SignUpController(Get.find<RegisterUseCaseImpl>()));
+    Get.put(GetRegisterAccountTypeUseCaseImpl());
+    Get.put(GetRegisterAccountStatusUseCaseImpl());
+    Get.put(
+        SignUpController(
+            Get.find<RegisterUseCaseImpl>(),
+            Get.find<GetRegisterAccountStatusUseCaseImpl>(),
+            Get.find<GetRegisterAccountTypeUseCaseImpl>()
+        )
+    );
     return DeviceDetector(
         tablet: _Tablet(),
         phone: _Phone());

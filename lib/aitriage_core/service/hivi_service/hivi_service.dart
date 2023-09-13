@@ -12,6 +12,7 @@ import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_eve
 import 'package:get/get.dart';
 import '../../entity/city.dart';
 import '../../entity/country.dart';
+import '../../entity/param_type.dart';
 import '../../entity/race.dart';
 import '../../entity/state.dart';
 import '../../entity/table_sync_date.dart';
@@ -33,6 +34,7 @@ class HiviService extends GetxService {
   var _trialTime = '';
   var _termUrl = '';
   var _privacyUrl = '';
+  final _paramTypes = <ParamType>[];
 
   // country, city, state are json file, need parsing
   // race
@@ -113,7 +115,8 @@ class HiviService extends GetxService {
   }) async {
     try {
       final resp = await getParamTypeUC.execute();
-      paramTypes.addAll(resp.data);
+      _paramTypes.clear();
+      _paramTypes.addAll(resp.data);
       onSuccess?.call();
     } catch (e) {
       onError?.call(e);
@@ -134,4 +137,6 @@ class HiviService extends GetxService {
   String get termUrl => _termUrl.toString();
 
   String get privacyUrl => _privacyUrl.toString();
+
+  List<ParamType> get paramType => _paramTypes.toList();
 }

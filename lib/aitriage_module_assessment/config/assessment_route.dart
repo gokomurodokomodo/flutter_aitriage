@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/work_flow/workflow_screen.dart';
 import 'package:get/get.dart';
+import '../domain/use_case/get_race_uc.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
 import '../feature/all_patients/all_patients_screen.dart';
@@ -49,6 +52,12 @@ class AssessmentRoute {
             settings: settings,
             page: () => const AddNewPatientScreen(),
             binding: BindingsBuilder(() {
+              Get.lazyPut(() => GetGenderUseCaseImpl());
+              Get.lazyPut(() => GetRaceUseCaseImpl());
+              Get.lazyPut(() => AddNewPatientController(
+                Get.find<GetGenderUseCaseImpl>(),
+                Get.find<GetRaceUseCaseImpl>(),
+              ));
             }),
             opaque: false,
             // fullscreenDialog: true
@@ -92,7 +101,15 @@ class AssessmentRoute {
         // to make screen look like a dialog - for tablet dialog
         opaque: false,
         transition: Transition.fadeIn,
-        fullscreenDialog: true
+        fullscreenDialog: true,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => GetGenderUseCaseImpl());
+          Get.lazyPut(() => GetRaceUseCaseImpl());
+          Get.lazyPut(() => AddNewPatientController(
+              Get.find<GetGenderUseCaseImpl>(),
+              Get.find<GetRaceUseCaseImpl>(),
+          ));
+        })
     )
   ];
 }

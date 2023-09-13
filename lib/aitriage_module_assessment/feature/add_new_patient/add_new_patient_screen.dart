@@ -7,6 +7,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_text_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
@@ -28,7 +29,7 @@ class AddNewPatientScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends GetView<AddNewPatientController> {
   const _Tablet();
 
   @override
@@ -91,25 +92,35 @@ class _Tablet extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                              child: DropDownButton(
-                                  placeHolder: AddPatientDropDownPlaceHolder(title: 'Gender*'),
-                                  width: 200,
-                                  height: 56.h,
-                                  dropDownHeight: 200,
-                                  children: [
-                                    Container(width: 50, height: 50, color: Colors.red)
-                                  ],
+                              child: LayoutBuilder(
+                                builder: (_, constraints) {
+                                  return DropDownButton(
+                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Gender*'),
+                                    width: constraints.maxWidth,
+                                    height: 56.h,
+                                    dropDownHeight: 100,
+                                    children: controller.vm.value.genders.map((e) => SizedBox(
+                                        width: constraints.maxWidth,
+                                        height: 50.h,
+                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                                  );
+                                },
                               )
                           ),
                           SizedBox(width: 24.w),
                           Expanded(
-                              child: DropDownButton(
-                                  placeHolder: AddPatientDropDownPlaceHolder(title: 'Race*'),
-                                  width: 200,
-                                  height: 56.h,
-                                  children: [
-                                    Container(width: 50, height: 50, color: Colors.red)
-                                  ],
+                              child: LayoutBuilder(
+                                builder: (_, constraints) {
+                                  return DropDownButton(
+                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
+                                    width: constraints.maxWidth,
+                                    height: 56.h,
+                                    children: controller.vm.value.races.map((e) => SizedBox(
+                                        width: constraints.maxWidth,
+                                        height: 50.h,
+                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                                  );
+                                },
                               )
                           ),
                         ],
@@ -204,7 +215,6 @@ class _Phone extends StatelessWidget {
                   title: 'Confirm',
                   shouldEnable: true,
                   onTap: () {
-
                     Get.to(() => AlertScreen(
                         onTapPrimaryButton: () {
                           Get.until((route) => route.isFirst);
