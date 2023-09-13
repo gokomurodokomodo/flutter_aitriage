@@ -104,7 +104,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                           Expanded(
                               child: LayoutBuilder(
                                 builder: (_, constraints) {
-                                  return DropDownButton(
+                                  return Obx(() => DropDownButton(
                                     placeHolder: const AddPatientDropDownPlaceHolder(title: 'Gender*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
@@ -113,7 +113,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                                         width: constraints.maxWidth,
                                         height: 50.h,
                                         child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                                  );
+                                  ));
                                 },
                               )
                           ),
@@ -121,7 +121,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                           Expanded(
                               child: LayoutBuilder(
                                 builder: (_, constraints) {
-                                  return DropDownButton(
+                                  return Obx(() => DropDownButton(
                                     placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
@@ -129,7 +129,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                                         width: constraints.maxWidth,
                                         height: 50.h,
                                         child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                                  );
+                                  ));
                                 },
                               )
                           ),
