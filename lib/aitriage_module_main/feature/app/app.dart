@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../aitriage_core/common/app_image.dart';
-import '../../../aitriage_core/service/service/localization_service/localization_service.dart';
+import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/util/device_util.dart';
@@ -47,9 +46,6 @@ class _AppState extends State<App> with SubscriptionCollector {
   }
 
   void notifyFinishInit() async {
-    final apiService = Get.find<ApiService>();
-    apiService.getAppParam();
-    apiService.getParamType();
     // Close appEventChannel
     disposeAllStreamInCollector();
     // Preload image asset

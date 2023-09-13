@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sprintf/sprintf.dart';
+import '../../../../aitriage_core/service/hivi_service/hivi_service.dart';
 import '../../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../widget/auth_back_button.dart';
 import '../../../widget/sign_up_icon_wrapper.dart';
@@ -40,7 +40,7 @@ class _Tablet extends StatelessWidget{
   _Tablet();
 
   final SignUpController controller = Get.find();
-  final apiService = Get.find<ApiService>();
+  final hiviService = Get.find<HiviService>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _Tablet extends StatelessWidget{
               SizedBox(height: 60.h),
               AuthenticationHeader(
                 svgIconName: AppImage.svgAppLogo,
-                headerText: sprintf('start_your_trial'.tr, [apiService.trialTime]),
+                headerText: sprintf('start_your_trial'.tr, [hiviService.trialTime]),
                 contentText: 'free_trial'.tr,
                 styleContentText: AppStyle.styleCheckYourEmailNotification,
               ),

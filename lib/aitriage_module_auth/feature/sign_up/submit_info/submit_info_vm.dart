@@ -1,4 +1,4 @@
-import '../../../../aitriage_core/service/entity/country.dart';
+import '../../../../aitriage_core/entity/country.dart';
 
 class SubmitInfoVM {
   var _organizationName = '';

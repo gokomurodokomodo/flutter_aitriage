@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
-import 'package:flutter_aitriage/aitriage_core/service/entity/user_info.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
-import 'package:flutter_aitriage/aitriage_core/service/service/flutter_secured_storage/response/get_active_user_information.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/response/user_param_response.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_in_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/entity/user_info.dart';
+import '../../../aitriage_core/local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../data/api/request/generate_code_request.dart';
 
@@ -24,7 +23,7 @@ abstract class SignInUseCase {
 class SignInUseCaseImpl extends SignInUseCase {
   final SignInRepositoryImpl _repository;
   final SignUpRepositoryImpl _genCodeRepository;
-  final apiService = Get.find<ApiService>();
+  final hiviService = Get.find<HiviService>();
 
   SignInUseCaseImpl(this._repository, this._genCodeRepository);
 
@@ -68,7 +67,7 @@ class SignInUseCaseImpl extends SignInUseCase {
       await ActiveUserInfomation.accessToken
           .setSecuredData(result.data.accessToken ?? '');
       final resp =
-          await apiService.getUserInfoUC.execute(result.data.id ?? 0);
+          await hiviService.getUserInfoUC.execute(result.data.id ?? 0);
       final password = request.password;
       final key = '${AppConstant.preCharSaveUserData}${request.username}';
       return resp.data;

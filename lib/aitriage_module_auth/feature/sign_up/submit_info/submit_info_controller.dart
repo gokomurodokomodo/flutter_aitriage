@@ -1,9 +1,9 @@
-import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_validate_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_vm.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_error.dart';
+import '../../../../aitriage_core/service/hivi_service/hivi_service.dart';
 import '../../../../aitriage_core/util/crypto/crypto.dart';
 import '../../../data/api/request/register_request.dart';
 
@@ -12,7 +12,7 @@ class SubmitInfoController extends GetxController {
   final vm = SubmitInfoVM().obs;
   var text = ''.obs;
   var chooseIndex = 0.obs;
-  var sercurePassword = true.obs;
+  var securePassword = true.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
 
   SubmitInfoController(this._registerUseCase);
@@ -20,8 +20,8 @@ class SubmitInfoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final apiService = Get.find<ApiService>();
-    vm.value.updateVM(listCountry: apiService.listCountry);
+    final hiviService = Get.find<HiviService>();
+    vm.value.updateVM(listCountry: hiviService.listCountry);
     text.value = vm.value.listCountry.first.emoji!;
     vm.refresh();
   }
@@ -54,7 +54,7 @@ class SubmitInfoController extends GetxController {
 
   
   void onSwitchPassword() {
-    sercurePassword.value = !sercurePassword.value;
+    securePassword.value = !securePassword.value;
   }
 
   void onOrganizationNameChanged(String? organizationName) {
