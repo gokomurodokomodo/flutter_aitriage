@@ -8,6 +8,7 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
+import '../../../aitriage_module_main/config/main_route.dart';
 import '../../widget/input_pin_code.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
@@ -62,7 +63,25 @@ class _Tablet extends GetView<VerifyEmailController> {
                 shouldEnable: true,
                 width: 360.w,
                 title: 'Verify email',
-                onTap: () => controller.onSubmit(),
+                onTap: () {
+                  onLoginSuccess() {
+                    Get.toNamed(MainRoute.main);
+                  }
+                  onRegisterSuccess(message) async {
+                    Get.back();
+                    Get.snackbar('Success', message);
+                    await Get.offNamed(MainRoute.gettingStartedMain);
+                  }
+                  onError(message) {
+                    Get.back();
+                    Get.snackbar('Error', message);
+                  }
+                  controller.onSubmit(
+                      onRegisterSuccess: onRegisterSuccess,
+                      onLoginSuccess: onLoginSuccess,
+                      onError: onError
+                  );
+                }
               ),
               SizedBox(height: 32.h),
               Row(
@@ -72,7 +91,18 @@ class _Tablet extends GetView<VerifyEmailController> {
                   SizedBox(height: 4.w,),
                   TextButton(
                       onPressed: () {
-                        controller.resendCode();
+                        onSuccess(message) {
+                          Get.back();
+                          Get.snackbar('Success', message);
+                        }
+                        onError(message) {
+                          Get.back();
+                          Get.snackbar('Error', message);
+                        }
+                        controller.resendCode(
+                          onSuccess: onSuccess,
+                          onError: onError
+                        );
                       },
                       child: Text('click_to_resend'.tr))
                 ],

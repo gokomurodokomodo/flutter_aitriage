@@ -57,7 +57,8 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 SizedBox(height: 4.w,),
                 TextButton(
                     onPressed: () {
-                      controller.resend();
+                      onError(error) => Get.snackbar('Error', error);
+                      controller.resend(onError: onError);
                     },
                     child: Text('click_to_resend'.tr))
               ],

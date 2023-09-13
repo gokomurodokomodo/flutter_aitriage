@@ -1,7 +1,5 @@
-import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
 import 'package:get/get.dart';
@@ -28,7 +26,8 @@ class SignInController extends GetxController{
   }
 
   void onSubmitSignIn({
-    Function(UserInfo)? callback
+    Function(UserInfo)? onSuccess,
+    Function(dynamic)? onError
   }) async{
     try {
       final checkNetwork = await NetworkCheckUtil().isConnectedToInternet();
@@ -38,14 +37,11 @@ class SignInController extends GetxController{
 
       if (checkNetwork) {
         userInfo = await _useCase.onlineSignIn(request);
-      } else {
-
       }
-      Get.back();
-      callback?.call(userInfo);
+
+      onSuccess?.call(userInfo);
     } catch (e) {
-      Get.back();
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
     }
   }
 
@@ -83,24 +79,24 @@ class SignInController extends GetxController{
 
   bool _validatePassword(String password){
     final RegExp passwordRegex = RegExp(
-      r'^(?=.*[!@#\$%^&*(),.?":{}|<>])(?=.*[0-9]).{8,}$',
+      r'^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[0-9]).{8,}$',
     );
     return passwordRegex.hasMatch(password);
   }
 
-  void _handleError(dynamic e){
-    if (e is! AppError){
-      return;
-    } else {
-      if(e.statusMessage == HandleNetworkError.requestVerifiedEmail){
-        _useCase.genCodeForSignIn(vm.value.username);
-        Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
-          'userName' : vm.value.username,
-          'password': vm.value.password
-        });
-      } else{
-        HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
-      }
-    }
-  }
+  // void _handleError(dynamic e){
+  //   if (e is! AppError){
+  //     return;
+  //   } else {
+  //     if(e.statusMessage == HandleNetworkError.requestVerifiedEmail){
+  //       _useCase.genCodeForSignIn(vm.value.username);
+  //       Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
+  //         'userName' : vm.value.username,
+  //         'password': vm.value.password
+  //       });
+  //     } else{
+  //       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+  //     }
+  //   }
+  // }
 }

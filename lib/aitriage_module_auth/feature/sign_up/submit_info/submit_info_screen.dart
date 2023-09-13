@@ -3,7 +3,6 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_color.dart';
@@ -23,11 +22,10 @@ class SubmitInfoScreen extends StatelessWidget {
 }
 
 class _Tablet extends GetView<SignUpController> {
-  const _Tablet({super.key});
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
-    print(controller.chooseIndex.value);
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       body: Padding(
@@ -220,7 +218,7 @@ class _Tablet extends GetView<SignUpController> {
 }
 
 class _Phone extends StatelessWidget {
-  const _Phone({super.key});
+  const _Phone();
 
   @override
   Widget build(BuildContext context) {

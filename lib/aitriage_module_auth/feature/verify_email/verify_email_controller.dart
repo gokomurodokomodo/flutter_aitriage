@@ -1,10 +1,8 @@
-import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_login_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
-import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../../data/api/request/verify_email_request.dart';
@@ -17,11 +15,15 @@ class VerifyEmailController extends GetxController {
 
   void onInputCompleted(String verifyCode) => _verifyCode = verifyCode;
 
-  void onSubmit() async {
+  void onSubmit({
+    Function(String)? onRegisterSuccess,
+    Function? onLoginSuccess,
+    Function(dynamic)? onError
+  }) async {
     if(Get.arguments['userName'] == null){
-      _onRegisterSubmit();
+      _onRegisterSubmit(onSuccess: onRegisterSuccess, onError: onError);
     } else {
-      _onLoginSubmit();
+      _onLoginSubmit(onSuccess: onLoginSuccess, onError: onError);
     }
   }
 
@@ -29,22 +31,26 @@ class VerifyEmailController extends GetxController {
     return Get.arguments?['email'];
   }
 
-  Future<void> resendCode() async{
+  Future<void> resendCode({
+    Function(String)? onSuccess,
+    Function(dynamic)? onError
+  }) async{
     final email = Get.arguments?['email'];
 
     try{
       AlertUtil.showLoadingIndicator();
       final response = await _uc.resendSignUpVerificationCode(email);
-      Get.back();
-      Get.snackbar('Success', response.message.toString());
+      onSuccess?.call(response.message.toString());
     } catch (e){
-      Get.back();
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
     }
   }
 
 
-  Future<void> _onRegisterSubmit() async {
+  Future<void> _onRegisterSubmit({
+    Function(String)? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     final argument = Get.arguments;
     final request = VerifyEmailRequest(
         email: argument?['email'],
@@ -54,19 +60,19 @@ class VerifyEmailController extends GetxController {
     try {
       AlertUtil.showLoadingIndicator();
       final resp = await _uc.execute(request);
-      Get.back();
-      Get.snackbar('Success', resp.message.toString());
-      await Get.offNamed(MainRoute.gettingStartedMain);
+      onSuccess?.call(resp.message.toString());
     } catch (e) {
-      Get.back();
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
     }
   }
 
-  void _onLoginSubmit() async {
+  void _onLoginSubmit({
+    Function? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     final argument = Get.arguments;
-    final userName = argument?['userName'];
-    final password = await CryptoUtil.encrypt(argument?['password']);
+    // final userName = argument?['userName'];
+    // final password = await CryptoUtil.encrypt(argument?['password']);
     final request = VerifyLoginRequest(
         userName: argument?['userName'],
         password: await CryptoUtil.encrypt(argument?['password']),
@@ -77,13 +83,12 @@ class VerifyEmailController extends GetxController {
       final result = await _uc.loginWithVerificationCode(request);
       Get.back();
       Get.snackbar('Success', result.message.toString());
-      final key = '${AppConstant.preCharSaveUserData}$userName}';
-      ActiveUserInfomation.accessToken.setSecuredData(result.data.accessToken ?? '');
-      Get.toNamed(MainRoute.main);
+      // final key = '${AppConstant.preCharSaveUserData}$userName}';
+      ActiveUserInformation.accessToken.setSecuredData(result.data.accessToken ?? '');
+      onSuccess?.call();
     } catch (e) {
-      Get.back();
       HandleNetworkError.handleNetworkError(
-          e, (message, _, __) => Get.snackbar('Error', message));
+          e, (message, _, __) => onError?.call(e));
     }
   }
 }

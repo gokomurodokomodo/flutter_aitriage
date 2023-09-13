@@ -1,15 +1,15 @@
 import '../repository/get_active_user_data.dart';
 import '../repository/set_active_user_data.dart';
 
-enum ActiveUserInfomation {accessToken, refreshToken}
+enum ActiveUserInformation {accessToken, refreshToken}
 
-extension ActiveUserInfomationX on ActiveUserInfomation{
+extension ActiveUserInfomationX on ActiveUserInformation{
   Future<String> get data async{
     switch(this){
-      case ActiveUserInfomation.accessToken:
-        return await GetActiveUserRepository().getUserAccessToken(accessTokenKey: ActiveUserInfomation.accessToken.securedKey);
+      case ActiveUserInformation.accessToken:
+        return await GetActiveUserRepository().getUserAccessToken(accessTokenKey: ActiveUserInformation.accessToken.securedKey);
 
-      case ActiveUserInfomation.refreshToken:
+      case ActiveUserInformation.refreshToken:
       return '';
 
       default:
@@ -19,21 +19,21 @@ extension ActiveUserInfomationX on ActiveUserInfomation{
 
   String get securedKey{
     switch(this){
-      case ActiveUserInfomation.accessToken:
+      case ActiveUserInformation.accessToken:
         return 'ACCESS_TOKEN';
-      case ActiveUserInfomation.refreshToken:
+      case ActiveUserInformation.refreshToken:
         return "REFRESH_TOKEN";
     }
   }
 }
 
-extension ActiveUserInfomationY on ActiveUserInfomation{
+extension ActiveUserInfomationY on ActiveUserInformation{
   Future<void> setSecuredData(String data) async {
     switch(this){
-      case ActiveUserInfomation.accessToken:
-        await SetActiveUserRepository().setAccessToken(ActiveUserInfomation.accessToken.securedKey, data);
-      case ActiveUserInfomation.refreshToken:
-        await SetActiveUserRepository().setAccessToken(ActiveUserInfomation.accessToken.securedKey, data);
+      case ActiveUserInformation.accessToken:
+        await SetActiveUserRepository().setAccessToken(ActiveUserInformation.accessToken.securedKey, data);
+      case ActiveUserInformation.refreshToken:
+        await SetActiveUserRepository().setAccessToken(ActiveUserInformation.accessToken.securedKey, data);
     }
   }
 }

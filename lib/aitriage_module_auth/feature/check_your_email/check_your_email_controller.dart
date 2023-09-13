@@ -50,13 +50,17 @@ class CheckYourEmailController extends GetxController{
     );
   }
 
-  void resend() async {
+  void resend({
+    Function? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     final query = ForgetPasswordQuery(userEmail.value);
 
     try {
       await _uc.execute(query);
+      onSuccess?.call();
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
     }
   }
 }
