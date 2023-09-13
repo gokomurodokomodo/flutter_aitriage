@@ -30,7 +30,9 @@ class ColorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap?.call(),
+      onTap: () {
+        shouldEnable ? onTap?.call() : {};
+      } ,
       behavior: HitTestBehavior.translucent,
       child: Container(
         height: _height,

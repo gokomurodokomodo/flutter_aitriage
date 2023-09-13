@@ -75,6 +75,16 @@ class SubmitInfoValidateVM{
   bool get isPhoneNumberValidate => _isPhoneNumberValidate;
   bool get isPasswordValidate => _isPasswordValidate;
   bool get isAllValidated {
+    if(
+      _isFirstTimeEmail 
+      || _isFirstTimeFirstName
+      || _isFirstTimeLastName
+      || _isFirstTimeOrganization
+      || _isFirstTimePassword
+      || _isFirstTimePhoneNumber
+    ){
+      return false;
+    }
     return ((_isOrganizationValidate) 
     && (_isEmailValidate) 
     && (_isFirstNameValidate)

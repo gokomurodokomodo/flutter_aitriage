@@ -18,12 +18,14 @@ class SubmitInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(tablet: _Tablet(), phone: _Phone());
+    return  DeviceDetector(tablet: _Tablet(), phone: _Phone());
   }
 }
 
-class _Tablet extends GetView<SignUpController> {
-  const _Tablet({super.key});
+class _Tablet extends StatelessWidget {
+  _Tablet({super.key});
+  final SignUpController controller = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,8 @@ class _Tablet extends GetView<SignUpController> {
               SizedBox(height: 24.h),
               Obx(() => Center(
                     child: CustomLoginField(
+                      shouldAddBorder: true,
+                      enableBorder: !controller.validateVM.value.isOrganizationValidate,
                       label: 'organization_name'.tr,
                       enableLabelAsterisk: true,
                       hintText: 'organization_name'.tr,
@@ -67,24 +71,24 @@ class _Tablet extends GetView<SignUpController> {
                     ),
                   )),
               SizedBox(height: 10.h),
-              // DropDownButton(
-              //       chooseIndex: controller.chooseIndex.value,
-              //       title: 'country'.tr,
-              //       shouldIncludeAsterisk: true,
-              //       dropDownWidth: 360.w,
-              //       onTapChildren: (index) =>
-              //           controller.onCountryChanged(index),
-              //       children: controller.apiService.listCountry
-              //           .map((e) => Obx(() =>CountryWidget(
-              //                 isNetworkIcon: true,
-              //                 leftIconName: e.emoji,
-              //                 contentText: e.name,
-              //                 isChoosed: e.name ==
-              //                     controller.apiService.listCountry[controller.chooseIndex.value]
-              //                         .name,
-              //               )))
-              //           .toList(),
-              //     ),
+              DropDownButton(
+                    chooseIndex: controller.chooseIndex.value,
+                    title: 'country'.tr,
+                    shouldIncludeAsterisk: true,
+                    dropDownWidth: 360.w,
+                    onTapChildren: (index) =>
+                        controller.onCountryChanged(index),
+                    children: controller.listCountry
+                        .map((e) => Obx(() =>CountryWidget(
+                              isNetworkIcon: true,
+                              leftIconName: e.emoji,
+                              contentText: e.name,
+                              isChoosed: e.name ==
+                                  controller.listCountry[controller.chooseIndex.value]
+                                      .name,
+                            )))
+                        .toList(),
+                  ),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 110.h,
@@ -92,6 +96,8 @@ class _Tablet extends GetView<SignUpController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Obx(() => CustomLoginField(
+                          shouldAddBorder: true,
+                          enableBorder: !controller.validateVM.value.isFirstNameValidate,
                           label: 'first_name'.tr,
                           enableLabelAsterisk: true,
                           hintText: 'first_name'.tr,
@@ -111,6 +117,8 @@ class _Tablet extends GetView<SignUpController> {
                         )),
                     SizedBox(width: 20.w),
                     Obx(() => CustomLoginField(
+                          shouldAddBorder: true,
+                          enableBorder: !controller.validateVM.value.isLastNameValidate,
                           label: 'last_name'.tr,
                           enableLabelAsterisk: true,
                           hintText: 'last_name'.tr,
@@ -131,6 +139,8 @@ class _Tablet extends GetView<SignUpController> {
               ),
               Obx(() => Center(
                     child: CustomLoginField(
+                      shouldAddBorder: true,
+                      enableBorder: !controller.validateVM.value.isEmailValidate,
                       label: 'email'.tr,
                       enableLabelAsterisk: true,
                       hintText: 'email_placeholder'.tr,
@@ -147,6 +157,8 @@ class _Tablet extends GetView<SignUpController> {
               SizedBox(height: 20.h),
               Obx(() => Center(
                     child: CustomLoginField(
+                      shouldAddBorder: true,
+                      enableBorder: !controller.validateVM.value.isPhoneNumberValidate,
                       type: const TextInputType.numberWithOptions(),
                       label: 'phone_number'.tr,
                       enableLabelAsterisk: true,
@@ -169,25 +181,30 @@ class _Tablet extends GetView<SignUpController> {
                     child: Stack(
                       alignment: Alignment.centerRight,
                       children: [
-                        CustomLoginField(
-                          onTapInside: () => controller.validateVM.value.updateFirstTimePassword(false),
-                          shouldHaveTrailingIcon: true,
-                          controller: controller
-                              .textControllerVM.value.passwordFieldController,
-                          label: 'password'.tr,
-                          labelStyle: AppStyle.styleTextButtonBackToLogin,
-                          enableLabelAsterisk: true,
-                          hintText: 'password_placeholder'.tr,
-                          onTapOutside: () => controller.onPasswordChanged(
-                              controller.submitInfoVM.value.password),
-                          onTextChange: (value) =>
-                              controller.onPasswordChanged(value),
-                          isValidated:
-                              controller.validateVM.value.isPasswordValidate,
-                          unvalidateText: 'un_validated_password'.tr,
-                          shouldSecured: controller.sercurePassword.value,
-                          onSwitchPasswordView: controller.onSwitchPassword,
-                          sercurePassword: controller.sercurePassword.value,
+                        SizedBox(
+                          width: 360.w,
+                          child: CustomLoginField(
+                            shouldAddBorder: true,
+                            enableBorder: !controller.validateVM.value.isPasswordValidate,
+                            onTapInside: () => controller.validateVM.value.updateFirstTimePassword(false),
+                            shouldHaveTrailingIcon: true,
+                            controller: controller
+                                .textControllerVM.value.passwordFieldController,
+                            label: 'password'.tr,
+                            labelStyle: AppStyle.styleTextButtonBackToLogin,
+                            enableLabelAsterisk: true,
+                            hintText: 'password_placeholder'.tr,
+                            onTapOutside: () => controller.onPasswordChanged(
+                                controller.submitInfoVM.value.password),
+                            onTextChange: (value) =>
+                                controller.onPasswordChanged(value),
+                            isValidated:
+                                controller.validateVM.value.isPasswordValidate,
+                            unvalidateText: 'un_validated_password'.tr,
+                            shouldSecured: controller.sercurePassword.value,
+                            onSwitchPasswordView: controller.onSwitchPassword,
+                            sercurePassword: controller.sercurePassword.value,
+                          ),
                         ),
                       ],
                     ),

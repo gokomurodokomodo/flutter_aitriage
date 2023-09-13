@@ -163,7 +163,7 @@ class AppStyle {
     color: AppColor.colorTextCancelAssessment,
   );
   static final styleErrorText = TextStyle(
-    fontSize: fontSizeSM,
+    fontSize: fontSizeXS,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextCancelAssessment,
   );

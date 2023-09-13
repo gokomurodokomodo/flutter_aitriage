@@ -29,6 +29,8 @@ class CustomLoginField extends StatelessWidget {
   final bool sercurePassword;
   final TextEditingController? controller;
   final Function? onTapInside;
+  final bool shouldAddBorder;
+  final bool enableBorder;
 
   const CustomLoginField({
     super.key,
@@ -52,7 +54,9 @@ class CustomLoginField extends StatelessWidget {
     this.onSwitchPasswordView,
     this.sercurePassword = true,
     this.controller,
-    this.onTapInside
+    this.onTapInside,
+    this.shouldAddBorder = false,
+    this.enableBorder = false,
   });
 
   @override
@@ -71,9 +75,15 @@ class CustomLoginField extends StatelessWidget {
         Stack(
           alignment: Alignment.centerRight,
           children: [
-            BaseBorderWrapper(
+            Container(
               height: textFieldHeight ?? 44.h,
               width: textFieldWidth ?? 360.w,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: (shouldAddBorder && enableBorder) ? AppColor.colorTextCancelAssessment : AppColor.colorTextFieldPlaceHolder
+                ),
+                borderRadius: BorderRadius.circular(8.w),
+              ),
               child: Padding(
                 padding: EdgeInsets.only(left: 10.w),
                 child: TextField(
@@ -113,20 +123,17 @@ class CustomLoginField extends StatelessWidget {
                 onTap: (){
                   onSwitchPasswordView?.call();
                 },
-                child: Container(
-                  padding: EdgeInsets.only(top: 5.h),
-                  child: Icon(
-                    sercurePassword ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.black87,
-                    size: 20.w,
-                    ),
-                ),
+                child: Icon(
+                  sercurePassword ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black87,
+                  size: 20.w,
+                  ),
               ),
                       ),
             ),
           ],
         ),
-        SizedBox(height: 5.h,),
+        SizedBox(height: 3.h,),
         isValidated == null 
             ? const SizedBox() 
             : isValidated == false 

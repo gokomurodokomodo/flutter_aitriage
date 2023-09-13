@@ -89,13 +89,11 @@ class AuthModulePageRoute {
             name: registerAccountStatus,
             page: () => const RegisterAccountStatusScreen(),
             binding: BindingsBuilder(() {
-              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: submitInfo,
             page: () => const SubmitInfoScreen(),
             binding: BindingsBuilder(() {
-              Get.put(() => Get.find(tag: 'signUpController'));
             })),
         GetPage(
             name: verifyEmail,

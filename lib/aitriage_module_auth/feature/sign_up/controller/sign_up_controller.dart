@@ -1,8 +1,10 @@
 
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
+import 'package:flutter_aitriage/aitriage_core/service/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/entity/param_type.dart';
 import 'package:flutter_aitriage/aitriage_core/service/service/api_service/api_service.dart';
 import 'package:flutter_aitriage/aitriage_core/service/service/api_service/response/get_param_type_response.dart';
+import 'package:flutter_aitriage/aitriage_core/service/usecase/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -27,17 +29,26 @@ class SignUpController extends GetxController{
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
+  final _listCountryUseCase = GetListCountryUC();
   final apiService = Get.find<ApiService>();
   SignUpController(this._registerUseCase);
+  var listCountry = <Country>[].obs;
   
   @override
-  void onReady() {
+  void onReady() async{
     _getAccountStatusParam();
     _getAccountTypeParam();
-    text.value = apiService.listCountry.first.emoji!;
-    submitInfoVM.value.updateVM(listCountry: apiService.listCountry);
+    listCountry.value = await _getCountryList();
+    text.value = listCountry.first.emoji!;
+    submitInfoVM.value.updateVM(listCountry: listCountry);
     submitInfoVM.refresh();
     super.onReady();
+  }
+
+  Future<List<Country>> _getCountryList() async{
+    final response = await _listCountryUseCase.execute();
+    final data = response.data;
+    return data;
   }
 
   // Account Status
@@ -95,7 +106,7 @@ class SignUpController extends GetxController{
   //submit info
   void submit({Function(String)? successCallback}) async {
     final encryptedPassword = await CryptoUtil.encrypt(submitInfoVM.value.password);
-    final isoCode = apiService.listCountry[submitInfoVM.value.index].iso3;
+    final isoCode = listCountry[submitInfoVM.value.index].iso3;
     final request = RegisterRequest(
         accountType: accountTypeVM.value.itemArgument,
         operatingStatus: accountStatusVM.value.statusArgument,

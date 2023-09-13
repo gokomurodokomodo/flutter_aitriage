@@ -46,10 +46,10 @@
   "intro_label_3": "Accurate and Reliable",
   "intro_label_4": "Facility Management",
   "get_started_with_aitriage": "Get started with aiTriage",
-  "un_validated_organization" : "Please provide the organizaton name",
-  "un_validated_first_name" : "Blank first name",
-  "un_validated_last_name" : "Blank last name",
-  "un_validated_email" : "Your email is not correct",
-  "un_validated_phone_number" : "Your phone number is not correct",
-  "un_validated_password" : "Your password is too weak"
+  "un_validated_organization" : "Please enter organization name",
+  "un_validated_first_name" : "Please enter first name",
+  "un_validated_last_name" : "Please enter last name",
+  "un_validated_email" : "Please enter your email",
+  "un_validated_phone_number" : "Please enter your number phone",
+  "un_validated_password" : "Password must have at least 8 characters; 1 lowercase letter; 1 UPPERCASE letter; 1 number and 1 special character"
 }

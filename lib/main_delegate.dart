@@ -12,7 +12,6 @@ import 'aitriage_core/common/app_module.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/service/service/api_service/api_service.dart';
 import 'aitriage_core/service/service/local_storage_service/database/provider/isar_provider.dart';
-import 'aitriage_core/service/service/local_storage_service/local_storage_service.dart';
 import 'aitriage_core/service/service/localization_service/localization_service.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import 'aitriage_module_auth/config/auth_module.dart';
