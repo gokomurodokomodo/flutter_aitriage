@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/download_and_parsing_json_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_param_type_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_system_param_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_table_sync_date_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_user_info_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/load_collection_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/save_collection_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/download_and_parsing_json_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_param_type_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_system_param_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_table_sync_date_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_user_info_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/load_collection_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/save_collection_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/finish_sync_data.dart';
 import 'package:get/get.dart';
@@ -36,7 +36,10 @@ class HiviService extends GetxService {
 
   // country, city, state are json file, need parsing
   // race
-  Future<void> getAppParam() async {
+  Future<void> getAppParam({
+    Function? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     try {
       final timeSyncData = await getTableSyncDateUC.execute();
       final param = await getAppParamUC.execute();
@@ -44,9 +47,9 @@ class HiviService extends GetxService {
       timeSyncData == null
           ? compute(_downloadAndParsingData, param).then((result) => _handleParsingData(result))
           : _loadDb();
+      onSuccess?.call();
     } catch (e) {
-      // HandleNetworkError.handleNetworkError(
-      //     e, (message, _, __) => Get.snackbar('Error', message));
+      onError?.call(e);
     }
   }
 
@@ -104,13 +107,16 @@ class HiviService extends GetxService {
     log('------LOAD DB-------');
   }
 
-  Future<void> getParamType() async {
+  Future<void> getParamType({
+    Function? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     try {
       final resp = await getParamTypeUC.execute();
       paramTypes.addAll(resp.data);
+      onSuccess?.call();
     } catch (e) {
-      // HandleNetworkError.handleNetworkError(
-      //     e, (message, _, __) => Get.snackbar('Error', message));
+      onError?.call(e);
     }
   }
 

@@ -14,17 +14,19 @@ class ForgotPasswordController extends GetxController{
     _email = email;
   }
 
-  void sendCode({Function(String)? successCallback}) async {
+  void sendCode({
+    Function(String)? onSuccess,
+    Function(dynamic)? onError
+  }) async {
     final query = ForgetPasswordQuery(_email);
 
     try {
       AlertUtil.showLoadingIndicator();
       await _uc.execute(query);
-      Get.back();
-      successCallback?.call(_email);
+
+      onSuccess?.call(_email);
     } catch (e) {
-      Get.back();
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
     }
   }
 }

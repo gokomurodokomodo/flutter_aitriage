@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
@@ -53,10 +52,17 @@ class _Tablet extends GetView<ForgotPasswordController> {
                 SizedBox(height: 24.h,),
                 ColorButton(
                   onTap: () {
-                    controller.sendCode(
-                        successCallback: (email) => Get.toNamed(
-                        AuthModulePageRoute.checkYourEmail,
-                        arguments: {'email': email}));
+                    onSuccess(email) {
+                      Get.back();
+                      Get.toNamed(
+                          AuthModulePageRoute.checkYourEmail,
+                          arguments: {'email': email});
+                    }
+                    onError(message) {
+                      Get.back();
+                      Get.snackbar('Error', message);
+                    }
+                    controller.sendCode(onSuccess: onSuccess, onError: onError);
                   },
                   title: 'reset_password'.tr,
                   shouldEnable: true,
@@ -72,11 +78,7 @@ class _Tablet extends GetView<ForgotPasswordController> {
       ),
     );
   }
-
 }
-
-
-
 
 class _Phone extends StatelessWidget{
   @override

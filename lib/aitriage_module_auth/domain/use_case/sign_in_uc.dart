@@ -1,4 +1,3 @@
-import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/response/user_param_response.dart';
@@ -64,12 +63,12 @@ class SignInUseCaseImpl extends SignInUseCase {
   Future<UserInfo> onlineSignIn(SignInRequest request) async {
     try {
       final result = await execute(request);
-      await ActiveUserInfomation.accessToken
+      await ActiveUserInformation.accessToken
           .setSecuredData(result.data.accessToken ?? '');
       final resp =
           await hiviService.getUserInfoUC.execute(result.data.id ?? 0);
-      final password = request.password;
-      final key = '${AppConstant.preCharSaveUserData}${request.username}';
+      // final password = request.password;
+      // final key = '${AppConstant.preCharSaveUserData}${request.username}';
       return resp.data;
     } on Exception catch (e) {
       return UserInfo.fromJson('');
