@@ -62,9 +62,19 @@ class _Tablet extends GetView<AddNewPatientController> {
                   Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
                   Expanded(
-                      child: DropDownButton(
-                          placeHolder: AddPatientDropDownPlaceHolder(title: 'Nationality*'),
-                          width: double.maxFinite, height: 56.h
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          return Obx(() => DropDownButton(
+                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
+                            width: constraints.maxWidth,
+                            height: 56.h,
+                            dropDownHeight: 100,
+                            children: controller.vm.value.nationalities.map((e) => SizedBox(
+                                width: constraints.maxWidth,
+                                height: 50.h,
+                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                          ));
+                        },
                       )
                   ),
                 ],

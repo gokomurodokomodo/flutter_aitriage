@@ -4,10 +4,12 @@ import '../../../aitriage_core/util/language_string_from_json/language_string_fr
 class AddNewPatientVM {
   final _genders = <String>[];
   final _races = <String>[];
+  final _nationalities = <String>[];
 
   void update({
     List<String>? genders,
     List<String>? races,
+    List<String>? nationalities,
   }) {
     if (genders != null) {
       final getCode = LocalizationService.currentLanguage.locale.languageCode;
@@ -20,8 +22,14 @@ class AddNewPatientVM {
       _races.clear();
       _races.addAll(races);
     }
+
+    if (nationalities != null) {
+      _nationalities.clear();
+      _nationalities.addAll(nationalities);
+    }
   }
 
   List<String> get genders => _genders.toList();
   List<String> get races => _races.toList();
+  List<String> get nationalities => _nationalities.toList();
 }

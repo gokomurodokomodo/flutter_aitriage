@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/data/repository/patient_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/work_flow/workflow_screen.dart';
 import 'package:get/get.dart';
+import '../domain/use_case/get_nationality_uc.dart';
 import '../domain/use_case/get_race_uc.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
@@ -54,9 +56,12 @@ class AssessmentRoute {
             binding: BindingsBuilder(() {
               Get.lazyPut(() => GetGenderUseCaseImpl());
               Get.lazyPut(() => GetRaceUseCaseImpl());
+              Get.lazyPut(() => PatientRepositoryImpl());
+              Get.lazyPut(() => GetNationalityUseCaseImpl(Get.find<PatientRepositoryImpl>()));
               Get.lazyPut(() => AddNewPatientController(
                 Get.find<GetGenderUseCaseImpl>(),
                 Get.find<GetRaceUseCaseImpl>(),
+                Get.find<GetNationalityUseCaseImpl>()
               ));
             }),
             opaque: false,
@@ -105,9 +110,12 @@ class AssessmentRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => GetGenderUseCaseImpl());
           Get.lazyPut(() => GetRaceUseCaseImpl());
+          Get.lazyPut(() => PatientRepositoryImpl());
+          Get.lazyPut(() => GetNationalityUseCaseImpl(Get.find<PatientRepositoryImpl>()));
           Get.lazyPut(() => AddNewPatientController(
               Get.find<GetGenderUseCaseImpl>(),
               Get.find<GetRaceUseCaseImpl>(),
+              Get.find<GetNationalityUseCaseImpl>()
           ));
         })
     )

@@ -7,7 +7,7 @@ class GetListCountryLanguageRepository{
   final _provider = GetConnectBaseProvider(url: AppEnvironment.baseUrl);
 
   Future<GetListCountryLanguageResponse> getListCountryLanguage() async{
-    final resp = await _provider.get(HiviServiceRoute.getListCountry);
+    final resp = await _provider.get(HiviServiceRoute.getCountry);
     return _provider.convertResponse(resp, (json) => GetListCountryLanguageResponse.fromJson(json));
   }
 }

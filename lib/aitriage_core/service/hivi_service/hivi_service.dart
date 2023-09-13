@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/download_and_parsing_json_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_param_type_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_system_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_table_sync_date_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_user_info_uc.dart';
@@ -16,13 +16,11 @@ import '../../entity/param_type.dart';
 import '../../entity/race.dart';
 import '../../entity/state.dart';
 import '../../entity/table_sync_date.dart';
-import '../../util/global_function.dart';
 
 class HiviService extends GetxService {
   // UseCase
   final getAppParamUC = GetAppParamUseCase();
   final getUserInfoUC = GetUserInfoUseCase();
-  final getParamTypeUC = GetParamTypeUseCase();
   final getTableSyncDateUC = GetTableSyncDateUseCase();
   final saveCollectionUC = SaveCollectionUseCase();
   final loadCollectionUC = LoadCollectionUseCase();
@@ -31,10 +29,8 @@ class HiviService extends GetxService {
   final _listCity = <City>[];
   final _listState = <State>[];
   final _listRace = <Race>[];
-  var _trialTime = '';
-  var _termUrl = '';
-  var _privacyUrl = '';
   final _paramTypes = <ParamType>[];
+  late SystemParam _systemParam;
 
   // country, city, state are json file, need parsing
   // race
@@ -44,22 +40,21 @@ class HiviService extends GetxService {
   }) async {
     try {
       final timeSyncData = await getTableSyncDateUC.execute();
-      final param = await getAppParamUC.execute();
-      _saveInSession(param);
-      timeSyncData == null
-          ? compute(_downloadAndParsingData, param).then((result) => _handleParsingData(result))
-          : _loadDb();
-      onSuccess?.call();
+
+      if (timeSyncData == null) {
+        final appParam = await getAppParamUC.execute();
+        _systemParam = appParam.systemParam;
+        _listRace.addAll(appParam.races);
+        _paramTypes.addAll(appParam.paramTypes);
+        compute(_downloadAndParsingData, appParam).then((result) => _handleParsingData(result));
+      } else {
+        _loadDb();
+      }
+
+      // onSuccess?.call();
     } catch (e) {
       onError?.call(e);
     }
-  }
-
-  void _saveInSession(AppParam param) {
-    _trialTime = param.trialTime;
-    _termUrl = param.termURL;
-    _privacyUrl = param.privacyUrl;
-    _listRace.addAll(param.race);
   }
 
   // MUST BE STATIC OR GLOBAL FUNCTION OR ELSE GETTING POINTER ERROR IN ISOLATE
@@ -67,11 +62,11 @@ class HiviService extends GetxService {
     try {
       final downloadAndParsingJsonUC = DownloadAndParsingJsonUseCase();
       final countries = await downloadAndParsingJsonUC
-          .execute<Country>(param.countryFileUrl, (json) => Country.fromJson(json));
+          .execute<Country>(param.systemParam.systemPathFileCountries ?? '', (json) => Country.fromJson(json));
       final cities = await downloadAndParsingJsonUC
-          .execute<City>(param.cityFileUrl, (json) => City.fromJson(json));
+          .execute<City>(param.systemParam.systemPathFileCity ?? '', (json) => City.fromJson(json));
       final states = await downloadAndParsingJsonUC
-          .execute<State>(param.stateFileUrl, (json) => State.fromJson(json));
+          .execute<State>(param.systemParam.systemPathFileStates ?? '', (json) => State.fromJson(json));
       return [countries, cities, states];
     } catch (e) {
       return Future.error(e);
@@ -93,6 +88,9 @@ class HiviService extends GetxService {
     await saveCollectionUC.execute<Country>(list: _listCountry);
     await saveCollectionUC.execute<City>(list: _listCity);
     await saveCollectionUC.execute<State>(list: _listState);
+    await saveCollectionUC.execute<Race>(list: _listRace);
+    await saveCollectionUC.execute<ParamType>(list: _paramTypes);
+    await saveCollectionUC.execute<SystemParam>(object: _systemParam);
     await saveCollectionUC.execute<TableSyncDate>(object: tableSyncDate);
     // notify listener
     final appEventChannel = AppEventChannel();
@@ -100,27 +98,19 @@ class HiviService extends GetxService {
   }
 
   void _loadDb() async {
+    log('------LOAD DB-------');
     final countries = await loadCollectionUC.execute<Country>();
     final cities = await loadCollectionUC.execute<City>();
     final states = await loadCollectionUC.execute<State>();
+    final races = await loadCollectionUC.execute<Race>();
+    final paramTypes = await loadCollectionUC.execute<ParamType>();
+    final systemParam = await loadCollectionUC.execute<SystemParam>();
     _listCountry.addAll(countries);
     _listCity.addAll(cities);
     _listState.addAll(states);
-    log('------LOAD DB-------');
-  }
-
-  Future<void> getParamType({
-    Function? onSuccess,
-    Function(dynamic)? onError
-  }) async {
-    try {
-      final resp = await getParamTypeUC.execute();
-      _paramTypes.clear();
-      _paramTypes.addAll(resp.data);
-      onSuccess?.call();
-    } catch (e) {
-      onError?.call(e);
-    }
+    _listRace.addAll(races);
+    _paramTypes.addAll(paramTypes);
+    _systemParam = systemParam.first;
   }
 
   // return new list to avoid modify
@@ -132,11 +122,11 @@ class HiviService extends GetxService {
 
   List<Race> get listRace => _listRace.toList();
 
-  String get trialTime => _trialTime.toString();
+  String get trialTime => _systemParam.trialTime.toString();
 
-  String get termUrl => _termUrl.toString();
+  String get termUrl => _systemParam.systemUrlTerms.toString();
 
-  String get privacyUrl => _privacyUrl.toString();
+  String get privacyUrl => _systemParam.systemUrlPrivacyPolicy.toString();
 
   List<ParamType> get paramType => _paramTypes.toList();
 }
