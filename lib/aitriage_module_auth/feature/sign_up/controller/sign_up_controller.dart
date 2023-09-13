@@ -1,7 +1,7 @@
 import 'package:flutter_aitriage/aitriage_core/common/app_error.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/usecase/get_list_country_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
@@ -199,9 +199,6 @@ class SignUpController extends GetxController{
   }
 
   void _shouldEnableSubmitButton(){
-    print(validateVM.value.isAllValidated);
-    print(checkedTermAndPrivacy.value);
-
     if(validateVM.value.isAllValidated && checkedTermAndPrivacy.value){
       shouldEnableSubmitButton.value = true;
     } else {

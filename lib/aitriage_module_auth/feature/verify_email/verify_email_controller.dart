@@ -28,14 +28,18 @@ class VerifyEmailController extends GetxController {
   }
 
   String getEmail(){
-    return Get.arguments?['email'];
+    if(Get.arguments['userName'] == null){
+        return Get.arguments?['email'];
+    } else {
+      return Get.arguments['userName'];
+    }
   }
 
   Future<void> resendCode({
     Function(String)? onSuccess,
     Function(dynamic)? onError
   }) async{
-    final email = Get.arguments?['email'];
+    final email = getEmail();
 
     try{
       AlertUtil.showLoadingIndicator();
@@ -71,8 +75,6 @@ class VerifyEmailController extends GetxController {
     Function(dynamic)? onError
   }) async {
     final argument = Get.arguments;
-    // final userName = argument?['userName'];
-    // final password = await CryptoUtil.encrypt(argument?['password']);
     final request = VerifyLoginRequest(
         userName: argument?['userName'],
         password: await CryptoUtil.encrypt(argument?['password']),
@@ -81,7 +83,6 @@ class VerifyEmailController extends GetxController {
     try {
       AlertUtil.showLoadingIndicator();
       final result = await _uc.loginWithVerificationCode(request);
-      Get.back();
       Get.snackbar('Success', result.message.toString());
       // final key = '${AppConstant.preCharSaveUserData}$userName}';
       ActiveUserInformation.accessToken.setSecuredData(result.data.accessToken ?? '');
