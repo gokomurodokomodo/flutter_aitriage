@@ -21,7 +21,7 @@ class SubmitInfoController extends GetxController {
   void onInit() {
     super.onInit();
     final hiviService = Get.find<HiviService>();
-    vm.value.updateVM(listCountry: hiviService.listCountry);
+    vm.value.updateVM(listCountry: hiviService.countries);
     text.value = vm.value.listCountry.first.emoji!;
     vm.refresh();
   }

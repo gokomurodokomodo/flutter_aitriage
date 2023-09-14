@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/download_and_parsing_json_uc.dart';
-import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_system_param_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_app_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_table_sync_date_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_user_info_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/load_collection_uc.dart';
@@ -14,6 +14,7 @@ import '../../entity/city.dart';
 import '../../entity/country.dart';
 import '../../entity/param_type.dart';
 import '../../entity/race.dart';
+import '../../entity/role.dart';
 import '../../entity/state.dart';
 import '../../entity/table_sync_date.dart';
 
@@ -25,10 +26,11 @@ class HiviService extends GetxService {
   final saveCollectionUC = SaveCollectionUseCase();
   final loadCollectionUC = LoadCollectionUseCase();
   // Data
-  final _listCountry = <Country>[];
-  final _listCity = <City>[];
-  final _listState = <State>[];
-  final _listRace = <Race>[];
+  final _countries = <Country>[];
+  final _cities = <City>[];
+  final _states = <State>[];
+  final _races = <Race>[];
+  final _roles = <Role>[];
   final _paramTypes = <ParamType>[];
   late SystemParam _systemParam;
 
@@ -44,8 +46,9 @@ class HiviService extends GetxService {
       if (timeSyncData == null) {
         final appParam = await getAppParamUC.execute();
         _systemParam = appParam.systemParam;
-        _listRace.addAll(appParam.races);
+        _races.addAll(appParam.races);
         _paramTypes.addAll(appParam.paramTypes);
+        _roles.addAll(appParam.roles);
         compute(_downloadAndParsingData, appParam).then((result) => _handleParsingData(result));
       } else {
         _loadDb();
@@ -75,9 +78,9 @@ class HiviService extends GetxService {
 
   void _handleParsingData(List<dynamic> list) {
     // must the same order in _downloadAndParsingData returning value
-    _listCountry.addAll(list[0] as List<Country>);
-    _listCity.addAll(list[1] as List<City>);
-    _listState.addAll(list[2] as List<State>);
+    _countries.addAll(list[0] as List<Country>);
+    _cities.addAll(list[1] as List<City>);
+    _states.addAll(list[2] as List<State>);
     _saveDb();
   }
 
@@ -85,12 +88,13 @@ class HiviService extends GetxService {
     // save sync time
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final tableSyncDate = TableSyncDate.setAll(now);
-    await saveCollectionUC.execute<Country>(list: _listCountry);
-    await saveCollectionUC.execute<City>(list: _listCity);
-    await saveCollectionUC.execute<State>(list: _listState);
-    await saveCollectionUC.execute<Race>(list: _listRace);
+    await saveCollectionUC.execute<Country>(list: _countries);
+    await saveCollectionUC.execute<City>(list: _cities);
+    await saveCollectionUC.execute<State>(list: _states);
+    await saveCollectionUC.execute<Race>(list: _races);
     await saveCollectionUC.execute<ParamType>(list: _paramTypes);
     await saveCollectionUC.execute<SystemParam>(object: _systemParam);
+    await saveCollectionUC.execute<Role>(list: _roles);
     await saveCollectionUC.execute<TableSyncDate>(object: tableSyncDate);
     // notify listener
     final appEventChannel = AppEventChannel();
@@ -105,22 +109,26 @@ class HiviService extends GetxService {
     final races = await loadCollectionUC.execute<Race>();
     final paramTypes = await loadCollectionUC.execute<ParamType>();
     final systemParam = await loadCollectionUC.execute<SystemParam>();
-    _listCountry.addAll(countries);
-    _listCity.addAll(cities);
-    _listState.addAll(states);
-    _listRace.addAll(races);
+    final roles = await loadCollectionUC.execute<Role>();
+    _countries.addAll(countries);
+    _cities.addAll(cities);
+    _states.addAll(states);
+    _races.addAll(races);
     _paramTypes.addAll(paramTypes);
+    _roles.addAll(roles);
     _systemParam = systemParam.first;
   }
 
   // return new list to avoid modify
-  List<Country> get listCountry => _listCountry.toList();
+  List<Country> get countries => _countries.toList();
 
-  List<City> get listCity => _listCity.toList();
+  List<City> get cities => _cities.toList();
 
-  List<State> get listState => _listState.toList();
+  List<State> get states => _states.toList();
 
-  List<Race> get listRace => _listRace.toList();
+  List<Race> get races => _races.toList();
+
+  List<Role> get roles => _roles.toList();
 
   String get trialTime => _systemParam.trialTime.toString();
 

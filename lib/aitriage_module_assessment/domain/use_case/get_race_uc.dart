@@ -9,7 +9,7 @@ class GetRaceUseCaseImpl extends GetRaceUseCase {
   @override
   List<String> execute() {
     final hiviService = Get.find<HiviService>();
-    final list = hiviService.listRace.map((e) => e.name ?? '').toList();
+    final list = hiviService.races.map((e) => e.name ?? '').toList();
 
     return list;
   }

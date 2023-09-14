@@ -41,8 +41,8 @@ class SignUpController extends GetxController{
   void onReady() {
     _getAccountStatusParam();
     _getAccountTypeParam();
-    text.value = apiService.listCountry.first.emoji!;
-    submitInfoVM.value.updateVM(listCountry: apiService.listCountry);
+    text.value = apiService.countries.first.emoji!;
+    submitInfoVM.value.updateVM(listCountry: apiService.countries);
     submitInfoVM.refresh();
     super.onReady();
   }

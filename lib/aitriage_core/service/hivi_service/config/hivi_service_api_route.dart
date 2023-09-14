@@ -1,5 +1,5 @@
-class HiviServiceRoute {
-  HiviServiceRoute._();
+class HiviServiceApiRoute {
+  HiviServiceApiRoute._();
 
   static const getSystemParam = '/setting/v1/system-param/list';
   static const getUserInfo = '/authen/v1/user/%s/info';
