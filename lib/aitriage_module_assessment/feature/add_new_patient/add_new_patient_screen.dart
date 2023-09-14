@@ -38,13 +38,14 @@ class _Tablet extends GetView<AddNewPatientController> {
       body: Center(
         child: Container(
           width: 960.w,
-          height: 656.h,
+          // height: 700.h,
           padding: EdgeInsets.all(24.r),
           decoration: BoxDecoration(
             color: AppColor.colorAppBackground,
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               // Dialog Header
               Row(
@@ -140,7 +141,8 @@ class _Tablet extends GetView<AddNewPatientController> {
                 ],
               ),
               SizedBox(height: 24.h),
-              Expanded(
+              SizedBox(
+                height: 136.h,
                 child: Row(
                   children: [
                     Expanded(
@@ -157,7 +159,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                         child: LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
                             textFieldWidth: double.maxFinite,
-                            textFieldHeight: constraints.maxHeight,
+                            textFieldHeight: constraints.maxHeight - 2.5,
                             hintText: 'Description',
                           )))
                   ],
