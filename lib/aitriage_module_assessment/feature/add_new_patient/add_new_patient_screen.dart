@@ -14,7 +14,7 @@ import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/base_dialog_scaffold_tablet.dart';
 import '../../../aitriage_core/ui/widget/line_separated.dart';
 import '../../../aitriage_module_auth/widget/drop_down_button.dart';
-import '../../config/assessment_route.dart';
+import '../../config/assessment_module_page_route.dart';
 import '../../widget/add_patient_drop_down_place_holder.dart';
 
 class AddNewPatientScreen extends StatelessWidget {
@@ -230,7 +230,7 @@ class _Phone extends StatelessWidget {
                     Get.to(() => AlertScreen(
                         onTapPrimaryButton: () {
                           Get.until((route) => route.isFirst);
-                          Get.until((route) => route.settings.name == AssessmentRoute.initialRoute, id: AssessmentRoute.nestedId);
+                          Get.until((route) => route.settings.name == AssessmentModulePageRoute.initialRoute, id: AssessmentModulePageRoute.nestedId);
                           },
                     ));
                   }))

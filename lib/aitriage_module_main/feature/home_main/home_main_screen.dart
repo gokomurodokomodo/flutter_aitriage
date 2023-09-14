@@ -6,7 +6,6 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../aitriage_core/common/app_color.dart';
 
 class HomeMainScreen extends StatelessWidget {

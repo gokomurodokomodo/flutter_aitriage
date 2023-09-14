@@ -9,7 +9,7 @@ import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dar
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/util/device_util.dart';
 import '../../../aitriage_core/util/subscription_collector/subscription_collector.dart';
-import '../../config/main_route.dart';
+import '../../config/main_module_page_route.dart';
 import '../splash_screen/splash_screen.dart';
 
 class App extends StatefulWidget {
@@ -86,8 +86,8 @@ class _AppState extends State<App> with SubscriptionCollector {
   bool get shouldLaunchIntroScreen => true;
 
   String get initialRoute => shouldLaunchIntroScreen
-      ? MainRoute.intro
-      : MainRoute.main;
+      ? MainModulePageRoute.intro
+      : MainModulePageRoute.main;
 
   @override
   Widget build(BuildContext context) {

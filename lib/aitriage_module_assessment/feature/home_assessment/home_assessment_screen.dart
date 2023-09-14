@@ -14,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
-import '../../config/assessment_route.dart';
+import '../../config/assessment_module_page_route.dart';
 import '../../widget/dashboard_patient_viewer.dart';
 import '../../widget/gender_with_symbol.dart';
 import '../../widget/list_view_page_navigator.dart';
@@ -129,7 +129,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                               title: 'Add new',
                               shouldEnable: true,
                               // onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
-                              onTap: () => Get.toNamed(AssessmentRoute.addNewPatients),
+                              onTap: () => Get.toNamed(AssessmentModulePageRoute.addNewPatients),
                               width: 102.w,
                             ) // SizedBox(width: 16.w)
                           ],
@@ -214,7 +214,7 @@ class _Phone extends GetView<HomeAssessmentController> {
               const Text('All Patients'),
               const Spacer(),
               GestureDetector(
-                  onTap: () => Get.toNamed(AssessmentRoute.allPatients, id: AssessmentRoute.nestedId),
+                  onTap: () => Get.toNamed(AssessmentModulePageRoute.allPatients, id: AssessmentModulePageRoute.nestedId),
                   child: const Text('See all'))
             ],
           ),

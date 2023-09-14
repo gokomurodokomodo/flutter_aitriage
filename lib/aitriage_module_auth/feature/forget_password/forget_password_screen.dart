@@ -9,10 +9,10 @@ import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
 import '../../config/auth_module_page_route.dart';
-import 'forgot_password_controller.dart';
+import 'forget_password_controller.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class ForgetPasswordScreen extends StatelessWidget {
+  const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<ForgotPasswordController> {
+class _Tablet extends GetView<ForgetPasswordController> {
   const _Tablet();
 
   @override
