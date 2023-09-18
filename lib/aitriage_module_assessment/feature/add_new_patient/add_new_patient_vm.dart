@@ -54,6 +54,7 @@ class AddNewPatientVM {
     String? description,
   }) {
     // location id need to be first
+    print('location id $_locationId');
     _locationId = locationId ?? _locationId;
     
     if (genders != null) {
