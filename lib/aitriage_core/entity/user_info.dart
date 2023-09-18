@@ -55,67 +55,67 @@ class UserInfo {
   List<Locations>? locations;
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    id = json?['id'];
-    username = json?['username'];
-    password = json?['password'];
-    type = json?['type'];
-    status = json?['status'];
-    activationCode = json?['activationCode'];
-    affiliationCode = json?['affiliationCode'];
-    affiliationUrl = json?['affiliationUrl'];
-    firstName = json?['firstName'];
-    lastName = json?['lastName'];
-    fullName = json?['fullName'];
-    displayName = json?['displayName'];
-    avatar = json?['avatar'];
-    gender = json?['gender'];
-    birthday = json?['birthday'];
-    yearOfBirth = json?['yearOfBirth'];
-    nationalityCode = json?['nationalityCode'];
-    nationality = json?['nationality'];
-    phone = json?['phone'];
-    phoneVerified = json?['phoneVerified'];
-    email = json?['email'];
-    emailVerified = json?['emailVerified'];
-    countryId = json?['countryId'];
-    countryCode = json?['countryCode'];
-    countryName = json?['countryName'];
-    stateId = json?['stateId'];
-    cityId = json?['cityId'];
-    cityName = json?['cityName'];
-    districtId = json?['districtId'];
-    districtName = json?['districtName'];
-    address = json?['address'];
-    rememberToken = json?['rememberToken'];
-    email2FaEnabled = json?['email2FaEnabled'];
-    sms2FaEnabled = json?['sms2FaEnabled'];
-    app2FaEnabled = json?['app2FaEnabled'];
-    app2FaSecret = json?['app2FaSecret'];
-    userGroupId = json?['userGroupId'];
-    numOfWrongLogin = json?['numOfWrongLogin'];
-    numOfWrongCode = json?['numOfWrongCode'];
-    numOfWrongPin = json?['numOfWrongPin'];
-    pin = json?['pin'];
-    pinEnabled = json?['pinEnabled'];
-    login2FaEnabled = json?['login2FaEnabled'];
-    transaction2FaEnabled = json?['transaction2FaEnabled'];
-    numOfLogin = json?['numOfLogin'];
-    lastTimeLogin = json?['lastTimeLogin'];
-    createdBy = json?['createdBy'];
-    createdAt = json?['createdAt'];
-    updatedBy = json?['updatedBy'];
-    updatedAt = json?['updatedAt'];
-    accessToken = json?['accessToken'];
-    accountId = json?['accountId'];
-    if (json?['roles'] != null) {
+    id = json['id'];
+    username = json['username'];
+    password = json['password'];
+    type = json['type'];
+    status = json['status'];
+    activationCode = json['activationCode'];
+    affiliationCode = json['affiliationCode'];
+    affiliationUrl = json['affiliationUrl'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    fullName = json['fullName'];
+    displayName = json['displayName'];
+    avatar = json['avatar'];
+    gender = json['gender'];
+    birthday = json['birthday'];
+    yearOfBirth = json['yearOfBirth'];
+    nationalityCode = json['nationalityCode'];
+    nationality = json['nationality'];
+    phone = json['phone'];
+    phoneVerified = json['phoneVerified'];
+    email = json['email'];
+    emailVerified = json['emailVerified'];
+    countryId = json['countryId'];
+    countryCode = json['countryCode'];
+    countryName = json['countryName'];
+    stateId = json['stateId'];
+    cityId = json['cityId'];
+    cityName = json['cityName'];
+    districtId = json['districtId'];
+    districtName = json['districtName'];
+    address = json['address'];
+    rememberToken = json['rememberToken'];
+    email2FaEnabled = json['email2FaEnabled'];
+    sms2FaEnabled = json['sms2FaEnabled'];
+    app2FaEnabled = json['app2FaEnabled'];
+    app2FaSecret = json['app2FaSecret'];
+    userGroupId = json['userGroupId'];
+    numOfWrongLogin = json['numOfWrongLogin'];
+    numOfWrongCode = json['numOfWrongCode'];
+    numOfWrongPin = json['numOfWrongPin'];
+    pin = json['pin'];
+    pinEnabled = json['pinEnabled'];
+    login2FaEnabled = json['login2FaEnabled'];
+    transaction2FaEnabled = json['transaction2FaEnabled'];
+    numOfLogin = json['numOfLogin'];
+    lastTimeLogin = json['lastTimeLogin'];
+    createdBy = json['createdBy'];
+    createdAt = json['createdAt'];
+    updatedBy = json['updatedBy'];
+    updatedAt = json['updatedAt'];
+    accessToken = json['accessToken'];
+    accountId = json['accountId'];
+    if (json['roles'] != null) {
       roles = <Roles>[];
-      json?['roles'].forEach((v) {
+      json['roles'].forEach((v) {
         roles!.add(Roles.fromJson(v));
       });
     }
-    if (json?['locations'] != null) {
+    if (json['locations'] != null) {
       locations = <Locations>[];
-      json?['locations'].forEach((v) {
+      json['locations'].forEach((v) {
         locations!.add(Locations.fromJson(v));
       });
     }
@@ -197,15 +197,15 @@ class Roles {
   String? accountNo;
 
   Roles.fromJson(Map<String, dynamic> json) {
-    id = json?['id'];
-    userId = json?['userId'];
-    objectType = json?['objectType'];
-    roleId = json?['roleId'];
-    roleCode = json?['roleCode'];
-    status = json?['status'];
-    locationId = json?['locationId'];
-    accountId = json?['accountId'];
-    accountNo = json?['accountNo'];
+    id = json['id'];
+    userId = json['userId'];
+    objectType = json['objectType'];
+    roleId = json['roleId'];
+    roleCode = json['roleCode'];
+    status = json['status'];
+    locationId = json['locationId'];
+    accountId = json['accountId'];
+    accountNo = json['accountNo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -262,42 +262,42 @@ class Locations {
   String? updatedAt;
 
   Locations.fromJson(Map<String, dynamic> json) {
-    id = json?['id'];
-    name = json?['name'];
-    parentId = json?['parentId'];
-    levelDepth = json?['levelDepth'];
-    treePath = json?['treePath'];
-    position = json?['position'];
-    avatar = json?['avatar'];
-    description = json?['description'];
-    email = json?['email'];
-    phone = json?['phone'];
-    phoneExt1 = json?['phoneExt1'];
-    phoneExt2 = json?['phoneExt2'];
-    countryId = json?['countryId'];
-    countryCode = json?['countryCode'];
-    countryName = json?['countryName'];
-    stateId = json?['stateId'];
-    cityId = json?['cityId'];
-    cityName = json?['cityName'];
-    districtId = json?['districtId'];
-    districtName = json?['districtName'];
-    address = json?['address'];
-    numOfUser = json?['numOfUser'];
-    numOfDevice = json?['numOfDevice'];
-    notifyExpireDate = json?['notifyExpireDate'];
-    expireDate = json?['expireDate'];
-    lockDate = json?['lockDate'];
-    status = json?['status'];
-    payingStatus = json?['payingStatus'];
-    lastLoginAt = json?['lastLoginAt'];
-    numOfLogin = json?['numOfLogin'];
-    accountId = json?['accountId'];
-    accountNo = json?['accountNo'];
-    createdBy = json?['createdBy'];
-    updatedBy = json?['updatedBy'];
-    createdAt = json?['createdAt'];
-    updatedAt = json?['updatedAt'];
+    id = json['id'];
+    name = json['name'];
+    parentId = json['parentId'];
+    levelDepth = json['levelDepth'];
+    treePath = json['treePath'];
+    position = json['position'];
+    avatar = json['avatar'];
+    description = json['description'];
+    email = json['email'];
+    phone = json['phone'];
+    phoneExt1 = json['phoneExt1'];
+    phoneExt2 = json['phoneExt2'];
+    countryId = json['countryId'];
+    countryCode = json['countryCode'];
+    countryName = json['countryName'];
+    stateId = json['stateId'];
+    cityId = json['cityId'];
+    cityName = json['cityName'];
+    districtId = json['districtId'];
+    districtName = json['districtName'];
+    address = json['address'];
+    numOfUser = json['numOfUser'];
+    numOfDevice = json['numOfDevice'];
+    notifyExpireDate = json['notifyExpireDate'];
+    expireDate = json['expireDate'];
+    lockDate = json['lockDate'];
+    status = json['status'];
+    payingStatus = json['payingStatus'];
+    lastLoginAt = json['lastLoginAt'];
+    numOfLogin = json['numOfLogin'];
+    accountId = json['accountId'];
+    accountNo = json['accountNo'];
+    createdBy = json['createdBy'];
+    updatedBy = json['updatedBy'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {

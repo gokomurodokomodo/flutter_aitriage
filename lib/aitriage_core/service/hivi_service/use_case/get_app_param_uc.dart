@@ -11,12 +11,12 @@ class GetAppParamUseCase {
     final systemParamResp = await _repository.getSystemParam();
     final raceResp = await _repository.getRace();
     final paramTypes = await _repository.getParamType();
-    final roles = await _repository.getRole();
+    // final roles = await _repository.getRole();
     final appParam = AppParam(
         systemParamResp.data,
         raceResp.data,
         paramTypes.data,
-        roles.data
+        // roles.data
     );
 
     return appParam;
@@ -27,12 +27,12 @@ class AppParam {
   final SystemParam systemParam;
   final List<Race> races;
   final List<ParamType> paramTypes;
-  final List<Role> roles;
+  // final List<Role> roles;
 
   AppParam(
       this.systemParam,
       this.races,
       this.paramTypes,
-      this.roles
+      // this.roles
   );
 }

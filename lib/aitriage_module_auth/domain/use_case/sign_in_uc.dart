@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/response/user_param_response.dart';

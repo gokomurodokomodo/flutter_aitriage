@@ -55,6 +55,7 @@ class _Tablet extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     
+    
     return WillPopScope(
       onWillPop: () async {
         Get.delete<SignUpController>();

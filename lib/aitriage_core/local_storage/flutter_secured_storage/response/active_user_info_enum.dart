@@ -1,5 +1,3 @@
-import 'package:flutter_aitriage/aitriage_core/entity/user_info.dart';
-
 import '../repository/active_user_repository.dart';
 
 enum ActiveUserInformationUseCase {accessToken, refreshToken, userInfo}

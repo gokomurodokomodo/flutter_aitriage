@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
