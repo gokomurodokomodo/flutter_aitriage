@@ -30,8 +30,8 @@ class HomeMainController extends GetxController {
 
   void _getListLocation() async {
     try {
-      final resp = await _getListLocationUC.execute('240');
-      _location = resp.data.first;
+      final resp = await _getListLocationUC.execute('2');
+      _location = resp.data.where((element) => element.countryId == 240).first;
     } catch (e) {
 
     }

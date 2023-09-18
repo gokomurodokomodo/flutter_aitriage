@@ -9,7 +9,7 @@ class GetListLocationRepositoryImpl extends GetListLocationRepository {
 
   @override
   Future<GetListLocationResponse> getListLocation(String userId) async {
-    final response = await _provider.get(MainModuleApiRoute.getListLocation.replaceFirst('%s', '2'));
+    final response = await _provider.get(MainModuleApiRoute.getListLocation.replaceFirst('%s', userId));
     return _provider.convertResponse(response, (json) => GetListLocationResponse.fromJson(json));
   }
 }

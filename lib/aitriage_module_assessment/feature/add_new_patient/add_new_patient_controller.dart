@@ -34,7 +34,7 @@ class AddNewPatientController extends GetxController {
     final location = Get.isRegistered<HomeMainController>()
         ? Get.find<HomeMainController>().location
         : null;
-    final locationId = location?.id;
+    final locationId = location?.countryId;
     final genders = _getGenderUC.execute();
     final races = _getRaceUC.execute();
     final nationalities = await _getNationalityUC.execute();

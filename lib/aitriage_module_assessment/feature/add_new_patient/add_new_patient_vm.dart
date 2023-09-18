@@ -54,9 +54,10 @@ class AddNewPatientVM {
     String? description,
   }) {
     // location id need to be first
-    print('location id $_locationId');
+
     _locationId = locationId ?? _locationId;
-    
+    print('location id $_locationId');
+
     if (genders != null) {
       final getCode = LocalizationService.currentLanguage.locale.languageCode;
       final list = genders.map((e) => LanguageStringFromJson.extractString(e, getCode)).toList();
