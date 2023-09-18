@@ -29,9 +29,9 @@ class City {
       : id = json?['id'],
         name = json?['name'],
         stateId = json?['stateId'],
-        stateCode = json?['stateCode'],
-        stateName = json?['stateName'],
-        countryId = json?['countryId'],
-        countryCode = json?['countryCode'],
-        countryName = json?['countryName'];
+        stateCode = json?['state_code'],
+        stateName = json?['state_name'],
+        countryId = json?['country_id'],
+        countryCode = json?['country_code'],
+        countryName = json?['country_name'];
 }
