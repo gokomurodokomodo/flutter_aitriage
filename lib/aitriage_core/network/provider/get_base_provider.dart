@@ -1,6 +1,6 @@
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
-import '../../local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../common/base_response.dart';
 import '../logging/logging.dart';
 
@@ -23,7 +23,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
     // authenticator -> requestModifier -> responseModifier
 
     httpClient.addAuthenticator<dynamic>((request) async {
-      final accessToken = await ActiveUserInformation.accessToken.data;
+      final accessToken = await ActiveUserInformation.accessToken.getData();
 
       if (accessToken.isNotEmpty) {
         request.headers['Authorization'] = 'Bearer $accessToken';

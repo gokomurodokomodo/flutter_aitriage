@@ -1,10 +1,10 @@
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/verify_login_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../../data/api/request/verify_email_request.dart';
 
 class VerifyEmailController extends GetxController {
@@ -44,7 +44,7 @@ class VerifyEmailController extends GetxController {
     try{
       AlertUtil.showLoadingIndicator();
       final response = await _uc.resendSignUpVerificationCode(email);
-      onSuccess?.call(response.message.toString());
+      onSuccess?.call('resend_email'.tr);
     } catch (e){
       HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
     }
@@ -66,7 +66,7 @@ class VerifyEmailController extends GetxController {
       final resp = await _uc.execute(request);
       onSuccess?.call(resp.message.toString());
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
     }
   }
 
@@ -85,11 +85,11 @@ class VerifyEmailController extends GetxController {
       final result = await _uc.loginWithVerificationCode(request);
       Get.snackbar('Success', result.message.toString());
       // final key = '${AppConstant.preCharSaveUserData}$userName}';
-      ActiveUserInformation.accessToken.setSecuredData(result.data.accessToken ?? '');
+      ActiveUserInformation.accessToken.setSecuredData(data: result.data.accessToken ?? '');
       onSuccess?.call();
     } catch (e) {
       HandleNetworkError.handleNetworkError(
-          e, (message, _, __) => onError?.call(e));
+          e, (message, _, __) => onError?.call(message));
     }
   }
 }

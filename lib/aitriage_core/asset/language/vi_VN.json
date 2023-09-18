@@ -20,7 +20,7 @@
   "back_to_login" : "Back to sign in",
   "reset_password" : "Reset password",
   "check_your_email" : "Check your email",
-  "we_sent_password" : "We sent a password reset link to",
+  "we_sent_password" : "We sent a verification code to",
   "open_email_app" : "Open email app",
   "didnt_receive_email" : "Didn’t receive the email?",
   "click_to_resend" : "Click to resend",
@@ -52,6 +52,7 @@
   "un_validated_email" : "Please enter your email",
   "un_validated_phone_number" : "Please enter your number phone",
   "un_validated_password" : "Password must have at least 8 characters; 1 lowercase letter; 1 UPPERCASE letter; 1 number and 1 special character",
-  "we_sent_verification_code" : "We sent a verification code",
-  "verify_email_title" : "Verify email"
+  "we_sent_verification_code" : "We sent a verification code to",
+  "verify_email_title" : "Verify email",
+  "resend_email" : "Resend successfully"
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/response/user_param_response.dart';
@@ -5,7 +8,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_in_re
 import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/user_info.dart';
-import '../../../aitriage_core/local_storage/flutter_secured_storage/response/get_active_user_information.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../data/api/request/generate_code_request.dart';
 
@@ -52,7 +54,7 @@ class SignInUseCaseImpl extends SignInUseCase {
     //         LocalStorageService().setFirstDateOffline();
     //         LocalStorageService().setCurrentAccessToken(accessToken: result.accessToken ?? '');
     //         // temp value
-    //         // return UserInfo.fromJson(null);
+    //         // return UserInfo.fromJson();
 
     //       }
     //     }
@@ -61,17 +63,15 @@ class SignInUseCaseImpl extends SignInUseCase {
 
   @override
   Future<UserInfo> onlineSignIn(SignInRequest request) async {
-    try {
       final result = await execute(request);
       await ActiveUserInformation.accessToken
-          .setSecuredData(result.data.accessToken ?? '');
+          .setSecuredData(data: result.data.accessToken ?? '');
       final resp =
           await hiviService.getUserInfoUC.execute(result.data.id ?? 0);
-      // final password = request.password;
-      // final key = '${AppConstant.preCharSaveUserData}${request.username}';
+      if(resp.data.email != null){
+        await ActiveUserInformation.userInfo
+          .setSecuredData(key: resp.data.email!, data: resp.data);
+      }
       return resp.data;
-    } on Exception catch (e) {
-      return UserInfo.fromJson('');
-    }
   }
 }

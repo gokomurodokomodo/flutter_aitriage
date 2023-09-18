@@ -10,6 +10,7 @@ class SecuredBox{
   final FlutterSecureStorage _securedBox = const FlutterSecureStorage(
       aOptions: AndroidOptions(
         encryptedSharedPreferences: true,
+        resetOnError: true,
       ));
 
   Future<void> write(
