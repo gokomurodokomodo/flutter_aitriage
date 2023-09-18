@@ -65,7 +65,7 @@ class AddNewPatientController extends GetxController {
   void onInfoChange({
     String? mrn,
     String? patientName,
-    String? dob,
+    String? date,
     int? genderIndex,
     int? raceIndex,
     String? phoneNumber,
@@ -80,7 +80,7 @@ class AddNewPatientController extends GetxController {
     vm.value.update(
       mrn: mrn,
       patientName: patientName,
-      dob: dob,
+      date: date,
       genderIndex: genderIndex,
       raceIndex: raceIndex,
       phoneNumber: phoneNumber,

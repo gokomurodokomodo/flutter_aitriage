@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
@@ -124,11 +121,10 @@ class _Tablet extends GetView<AddNewPatientController> {
                 children: [
                   Expanded(child: CustomLoginField(
                       type: TextInputType.datetime,
-                      textInputFormatter: DateTextFormatter(),
                       hintText: 'dd/mm/yyyy*',
                       textFieldWidth: double.maxFinite,
                       textFieldHeight: 56.h,
-                      onTextChange: (value) => controller.onInfoChange(dob: value),
+                      onTextChange: (value) => controller.onInfoChange(date: value),
                   )),
                   SizedBox(width: 24.w),
                   Expanded(
@@ -320,34 +316,5 @@ class _Phone extends StatelessWidget {
         ),
       )
     );
-  }
-}
-
-class DateTextFormatter extends TextInputFormatter {
-  static const _maxChars = 8;
-
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    var text = _format(newValue.text, '/');
-    return newValue.copyWith(text: text, selection: updateCursorPosition(text));
-  }
-
-  String _format(String value, String seperator) {
-    value = value.replaceAll(seperator, '');
-    var newString = '';
-
-    for (int i = 0; i < min(value.length, _maxChars); i++) {
-      newString += value[i];
-      if ((i == 1 || i == 3) && i != value.length - 1) {
-        newString += seperator;
-      }
-    }
-
-    return newString;
-  }
-
-  TextSelection updateCursorPosition(String text) {
-    return TextSelection.fromPosition(TextPosition(offset: text.length));
   }
 }
