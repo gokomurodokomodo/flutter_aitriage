@@ -12,7 +12,7 @@ extension ActiveUserInfomationX on ActiveUserInformationUseCase{
         return '';
 
       case ActiveUserInformationUseCase.userInfo:
-        return await ActiveUserRepository().getUserInfo(userKey: key);
+        return await ActiveUserRepository().getUserInfo(userKey: ActiveUserInformationUseCase.userInfo.securedKey);
 
       default:
         return '';
@@ -22,7 +22,7 @@ extension ActiveUserInfomationX on ActiveUserInformationUseCase{
   String get securedKey{
     switch(this){
       case ActiveUserInformationUseCase.userInfo:
-        return '';
+        return 'USER_INFO';
       case ActiveUserInformationUseCase.accessToken:
         return 'ACCESS_TOKEN';
       case ActiveUserInformationUseCase.refreshToken:
@@ -35,7 +35,7 @@ extension ActiveUserInfomationY on ActiveUserInformationUseCase{
   Future<void> setSecuredData({String key = '', required dynamic data}) async {
     switch(this){ 
       case ActiveUserInformationUseCase.userInfo:
-        await ActiveUserRepository().setUserInfo(key, data);
+        await ActiveUserRepository().setUserInfo(ActiveUserInformationUseCase.userInfo.securedKey, data);
       case ActiveUserInformationUseCase.accessToken:
         await ActiveUserRepository().setAccessToken(ActiveUserInformationUseCase.accessToken.securedKey, data);
       case ActiveUserInformationUseCase.refreshToken:
