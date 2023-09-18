@@ -23,7 +23,7 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
     // authenticator -> requestModifier -> responseModifier
 
     httpClient.addAuthenticator<dynamic>((request) async {
-      final accessToken = await ActiveUserInformation.accessToken.getData();
+      final accessToken = await ActiveUserInformationUseCase.accessToken.getData();
 
       if (accessToken.isNotEmpty) {
         request.headers['Authorization'] = 'Bearer $accessToken';

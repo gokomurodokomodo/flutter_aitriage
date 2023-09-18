@@ -51,12 +51,17 @@ class _Tablet extends GetView<HomeAssessmentController> {
             CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
             SizedBox(width: 20.w),
             // CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
-            Container(
-              height: 40.r,
-              width: 40.r,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue,
+            GestureDetector(
+              onTapDown:(details) {
+                _showPopUp(details.globalPosition);
+              },
+              child: Container(
+                height: 40.r,
+                width: 40.r,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ],
@@ -148,6 +153,10 @@ class _Tablet extends GetView<HomeAssessmentController> {
         ),
       )
     );
+  }
+  
+  void _showPopUp(Offset globalPosition) {
+    
   }
 }
 

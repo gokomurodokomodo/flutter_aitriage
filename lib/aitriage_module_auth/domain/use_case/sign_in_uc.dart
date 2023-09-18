@@ -64,14 +64,15 @@ class SignInUseCaseImpl extends SignInUseCase {
   @override
   Future<UserInfo> onlineSignIn(SignInRequest request) async {
       final result = await execute(request);
-      await ActiveUserInformation.accessToken
+      await ActiveUserInformationUseCase.accessToken
           .setSecuredData(data: result.data.accessToken ?? '');
       final resp =
           await hiviService.getUserInfoUC.execute(result.data.id ?? 0);
       if(resp.data.email != null){
-        await ActiveUserInformation.userInfo
+        await ActiveUserInformationUseCase.userInfo
           .setSecuredData(key: resp.data.email!, data: resp.data);
       }
       return resp.data;
+
   }
 }

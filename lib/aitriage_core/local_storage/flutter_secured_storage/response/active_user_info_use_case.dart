@@ -1,17 +1,19 @@
+import 'package:flutter_aitriage/aitriage_core/entity/user_info.dart';
+
 import '../repository/active_user_repository.dart';
 
-enum ActiveUserInformation {accessToken, refreshToken, userInfo}
+enum ActiveUserInformationUseCase {accessToken, refreshToken, userInfo}
 
-extension ActiveUserInfomationX on ActiveUserInformation{
+extension ActiveUserInfomationX on ActiveUserInformationUseCase{
   Future<dynamic> getData({String key = ''}) async{
     switch(this){
-      case ActiveUserInformation.accessToken:
-        return await ActiveUserRepository().getUserAccessToken(accessTokenKey: ActiveUserInformation.accessToken.securedKey);
+      case ActiveUserInformationUseCase.accessToken:
+        return await ActiveUserRepository().getUserAccessToken(accessTokenKey: ActiveUserInformationUseCase.accessToken.securedKey);
 
-      case ActiveUserInformation.refreshToken:
+      case ActiveUserInformationUseCase.refreshToken:
         return '';
 
-      case ActiveUserInformation.userInfo:
+      case ActiveUserInformationUseCase.userInfo:
         return await ActiveUserRepository().getUserInfo(userKey: key);
 
       default:
@@ -21,25 +23,25 @@ extension ActiveUserInfomationX on ActiveUserInformation{
 
   String get securedKey{
     switch(this){
-      case ActiveUserInformation.userInfo:
+      case ActiveUserInformationUseCase.userInfo:
         return '';
-      case ActiveUserInformation.accessToken:
+      case ActiveUserInformationUseCase.accessToken:
         return 'ACCESS_TOKEN';
-      case ActiveUserInformation.refreshToken:
+      case ActiveUserInformationUseCase.refreshToken:
         return "REFRESH_TOKEN";
     }
   }
 }
 
-extension ActiveUserInfomationY on ActiveUserInformation{
+extension ActiveUserInfomationY on ActiveUserInformationUseCase{
   Future<void> setSecuredData({String key = '', required dynamic data}) async {
     switch(this){ 
-      case ActiveUserInformation.userInfo:
+      case ActiveUserInformationUseCase.userInfo:
         await ActiveUserRepository().setUserInfo(key, data);
-      case ActiveUserInformation.accessToken:
-        await ActiveUserRepository().setAccessToken(ActiveUserInformation.accessToken.securedKey, data);
-      case ActiveUserInformation.refreshToken:
-        await ActiveUserRepository().setAccessToken(ActiveUserInformation.accessToken.securedKey, data);
+      case ActiveUserInformationUseCase.accessToken:
+        await ActiveUserRepository().setAccessToken(ActiveUserInformationUseCase.accessToken.securedKey, data);
+      case ActiveUserInformationUseCase.refreshToken:
+        await ActiveUserRepository().setAccessToken(ActiveUserInformationUseCase.accessToken.securedKey, data);
     }
   }
 }

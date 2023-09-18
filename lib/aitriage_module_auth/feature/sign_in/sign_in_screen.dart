@@ -125,10 +125,16 @@ class _Tablet extends GetView<SignInController> {
                 height: 80.h,
               ),
               Obx(() => DropDownButton(
+                    onTapChildren: (_) => controller.setIndex(_),
                     dropDownHeight: 150.h,
                     width: 200.w,
                     title: '',
                     shouldIncludeAsterisk: false,
+                    placeHolder: CountryWidget(
+                      isNetworkIcon: true,
+                      leftIconName: controller.vm.value.countryList[controller.countryIndex.value].emoji,
+                      contentText: controller.vm.value.countryList[controller.countryIndex.value].name,
+                    ),
                     children: controller.vm.value.countryList
                         .map((e) => CountryWidget(
                               isNetworkIcon: true,

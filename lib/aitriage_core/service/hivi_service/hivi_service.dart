@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/user_info.dart';
 import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/repository/active_user_repository.dart';
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/download_and_parsing_json_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_app_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_table_sync_date_uc.dart';
@@ -27,7 +28,6 @@ class HiviService extends GetxService {
   final getTableSyncDateUC = GetTableSyncDateUseCase();
   final saveCollectionUC = SaveCollectionUseCase();
   final loadCollectionUC = LoadCollectionUseCase();
-  final offlineActiveUserData = ActiveUserRepository();
   // Data
   final _countries = <Country>[];
   final _cities = <City>[];
@@ -123,7 +123,7 @@ class HiviService extends GetxService {
   }
 
   Future<UserInfo> getOfflineUserInfo(String userKey) async{
-    return await offlineActiveUserData.getUserInfo(userKey: userKey);
+    return await ActiveUserInformationUseCase.userInfo.getData();
   }
 
   // return new list to avoid modify

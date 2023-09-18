@@ -17,6 +17,7 @@ class SignInController extends GetxController{
   var isValidated = false.obs;
   var isCheck = false.obs;
   var isSecured = true.obs;
+  var countryIndex = 0.obs;
   final SignInUseCaseImpl _useCase;
   final hiviService = Get.find<HiviService>();
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
@@ -107,5 +108,9 @@ class SignInController extends GetxController{
 
   void onSwitchPasswordView() {
     isSecured.value = !isSecured.value;
+  }
+
+  void setIndex(int i) {
+    countryIndex.value = i;
   }
 }

@@ -85,7 +85,7 @@ class VerifyEmailController extends GetxController {
       final result = await _uc.loginWithVerificationCode(request);
       Get.snackbar('Success', result.message.toString());
       // final key = '${AppConstant.preCharSaveUserData}$userName}';
-      ActiveUserInformation.accessToken.setSecuredData(data: result.data.accessToken ?? '');
+      ActiveUserInformationUseCase.accessToken.setSecuredData(data: result.data.accessToken ?? '');
       onSuccess?.call();
     } catch (e) {
       HandleNetworkError.handleNetworkError(
