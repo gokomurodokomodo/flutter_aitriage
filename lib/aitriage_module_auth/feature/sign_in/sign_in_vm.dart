@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import '../../../aitriage_core/entity/country.dart';
@@ -29,5 +30,5 @@ class SignInVM {
     return request;
   }
 
-  List<Country> get countryList => _countryList.toList();
+  List<Country> get countryList => (_countryList.isEmpty) ? [] : _countryList.toList();
 }
