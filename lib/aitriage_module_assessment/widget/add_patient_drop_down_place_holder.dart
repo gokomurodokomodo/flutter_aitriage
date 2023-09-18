@@ -16,6 +16,7 @@ class AddPatientDropDownPlaceHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Container(
         width: double.maxFinite,
         height: double.maxFinite,

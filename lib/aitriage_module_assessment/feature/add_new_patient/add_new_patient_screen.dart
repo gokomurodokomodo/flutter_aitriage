@@ -69,7 +69,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
                             width: constraints.maxWidth,
                             height: 56.h,
-                            dropDownHeight: 100,
+                            dropDownHeight: 200,
                             children: controller.vm.value.nationalities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -92,7 +92,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'State*'),
                             width: constraints.maxWidth,
                             height: 56.h,
-                            dropDownHeight: 100,
+                            dropDownHeight: 200,
                             children: controller.vm.value.states.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -115,7 +115,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'City*'),
                             width: constraints.maxWidth,
                             height: 56.h,
-                            dropDownHeight: 100,
+                            dropDownHeight: 200,
                             children: controller.vm.value.cities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
