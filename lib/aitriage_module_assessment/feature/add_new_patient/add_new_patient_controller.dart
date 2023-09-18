@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_city_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_nationality_uc.dart';
@@ -5,6 +6,8 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_core/entity/patient.dart';
+import '../../data/api/request/add_patient_request.dart';
 import '../../domain/use_case/get_race_uc.dart';
 
 class AddNewPatientController extends GetxController {
@@ -13,6 +16,7 @@ class AddNewPatientController extends GetxController {
   final GetNationalityUseCase _getNationalityUC;
   final GetCityUseCase _getCityUC;
   final GetStateUseCase _getStateUC;
+  final AddPatientUseCase _addPatientUC;
   final vm = AddNewPatientVM().obs;
 
   AddNewPatientController(
@@ -20,7 +24,9 @@ class AddNewPatientController extends GetxController {
       this._getRaceUC,
       this._getNationalityUC,
       this._getCityUC,
-      this._getStateUC);
+      this._getStateUC,
+      this._addPatientUC
+  );
 
   @override
   void onInit() async {
@@ -42,5 +48,16 @@ class AddNewPatientController extends GetxController {
         countryId: countryId
     );
     vm.refresh();
+  }
+
+  void addPatient() async {
+    try {
+      final patient = Patient.fromJson(null);
+      final request = AddPatientRequest(patient);
+      final accountId = '2';
+      await _addPatientUC.execute(request, accountId);
+    } catch (e) {
+
+    }
   }
 }

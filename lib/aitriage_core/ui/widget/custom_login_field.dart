@@ -23,7 +23,7 @@ class CustomLoginField extends StatelessWidget {
   final bool? enableHintTextAsterisk;
   final String? unvalidateText;
   final Function? onTapOutside;
-  final RegExp? textInputFormatter;
+  final RegExp? textInputRegex;
   final bool shouldHaveTrailingIcon;
   final Function? onSwitchPasswordView;
   final bool sercurePassword;
@@ -31,6 +31,7 @@ class CustomLoginField extends StatelessWidget {
   final Function? onTapInside;
   final bool shouldAddBorder;
   final bool enableBorder;
+  final TextInputFormatter? textInputFormatter;
 
   const CustomLoginField({
     super.key,
@@ -49,7 +50,7 @@ class CustomLoginField extends StatelessWidget {
     this.enableHintTextAsterisk,
     this.unvalidateText,
     this.onTapOutside,
-    this.textInputFormatter,
+    this.textInputRegex,
     this.shouldHaveTrailingIcon = false,
     this.onSwitchPasswordView,
     this.sercurePassword = true,
@@ -57,6 +58,7 @@ class CustomLoginField extends StatelessWidget {
     this.onTapInside,
     this.shouldAddBorder = false,
     this.enableBorder = false,
+    this.textInputFormatter
   });
 
   @override
@@ -88,10 +90,11 @@ class CustomLoginField extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10.w),
                 child: TextField(
                   controller: controller,
-                  inputFormatters: textInputFormatter == null 
-                      ? null 
+                  inputFormatters: textInputRegex == null
+                      ? null
                       : <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(textInputFormatter!)
+                        FilteringTextInputFormatter.allow(textInputRegex!),
+                        if (textInputFormatter != null) textInputFormatter!,
                       ],
                   obscureText: shouldSecured ? true : false,
                   enableSuggestions: shouldSecured ? false : true,

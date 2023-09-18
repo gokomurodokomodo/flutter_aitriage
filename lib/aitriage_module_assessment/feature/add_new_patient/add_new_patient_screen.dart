@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
@@ -106,7 +109,12 @@ class _Tablet extends GetView<AddNewPatientController> {
               SizedBox(height: 24.h),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
+                  Expanded(child: CustomLoginField(
+                      type: TextInputType.datetime,
+                      textInputFormatter: DateTextFormatter(),
+                      hintText: 'dd/mm/yyyy*',
+                      textFieldWidth: double.maxFinite,
+                      textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
                   Expanded(
                       child: LayoutBuilder(
@@ -201,7 +209,13 @@ class _Tablet extends GetView<AddNewPatientController> {
                   const Spacer(),
                   ColorButton(title: 'Cancel', width: 212.w, height: 48.h),
                   SizedBox(width: 20.w),
-                  ColorButton(title: 'Save', shouldEnable: true, width: 212.w, height: 48.h)
+                  ColorButton(
+                      title: 'Save',
+                      shouldEnable: true,
+                      width: 212.w,
+                      height: 48.h,
+                      onTap: () => controller.addPatient(),
+                  )
                 ],
               )
             ],
@@ -271,5 +285,34 @@ class _Phone extends StatelessWidget {
         ),
       )
     );
+  }
+}
+
+class DateTextFormatter extends TextInputFormatter {
+  static const _maxChars = 8;
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var text = _format(newValue.text, '/');
+    return newValue.copyWith(text: text, selection: updateCursorPosition(text));
+  }
+
+  String _format(String value, String seperator) {
+    value = value.replaceAll(seperator, '');
+    var newString = '';
+
+    for (int i = 0; i < min(value.length, _maxChars); i++) {
+      newString += value[i];
+      if ((i == 1 || i == 3) && i != value.length - 1) {
+        newString += seperator;
+      }
+    }
+
+    return newString;
+  }
+
+  TextSelection updateCursorPosition(String text) {
+    return TextSelection.fromPosition(TextPosition(offset: text.length));
   }
 }

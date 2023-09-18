@@ -172,7 +172,7 @@ class _Tablet extends StatelessWidget {
                       isValidated:
                           controller.validateVM.value.isPhoneNumberValidate,
                       unvalidateText: 'un_validated_phone_number'.tr,
-                      textInputFormatter: RegExp('[0-9]'),
+                      textInputRegex: RegExp('[0-9]'),
                     ),
                   )),
               SizedBox(height: 20.h),
