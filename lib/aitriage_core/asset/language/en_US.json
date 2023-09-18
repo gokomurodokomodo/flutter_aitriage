@@ -70,6 +70,7 @@
   "phone_number_placeholder" : "Enter your phone number",
   "password" : "Password",
   "password_placeholder" : "Choose a password",
-  "submit" : "Submit"
-
+  "submit" : "Submit",
+  "we_sent_verification_code" : "We sent a verification code",
+  "verify_email_title" : "Verify email"
 }

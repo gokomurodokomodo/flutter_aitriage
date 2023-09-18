@@ -39,7 +39,7 @@ class _Tablet extends GetView<VerifyEmailController> {
               AuthenticationHeader(
                 svgIconNameWithBorder: AppImage.svgEmail,
                 headerText: 'check_your_email'.tr,
-                contentText: 'we_sent_password'.tr,
+                contentText: 'we_sent_verification_code'.tr,
                 styleContentText: AppStyle.styleCheckYourEmailNotification,
                 thirdText: controller.getEmail(),
                 styleThirdText: AppStyle.styleCheckYourEmail,
@@ -62,7 +62,7 @@ class _Tablet extends GetView<VerifyEmailController> {
               ColorButton(
                 shouldEnable: true,
                 width: 360.w,
-                title: 'Verify email',
+                title: 'verify_email_title'.tr,
                 onTap: () {
                   onLoginSuccess() {
                     Get.toNamed(MainRoute.main);
