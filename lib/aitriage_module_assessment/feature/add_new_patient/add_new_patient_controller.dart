@@ -7,7 +7,6 @@ import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_pati
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/patient.dart';
-import '../../data/api/request/add_patient_request.dart';
 import '../../domain/use_case/get_race_uc.dart';
 
 class AddNewPatientController extends GetxController {

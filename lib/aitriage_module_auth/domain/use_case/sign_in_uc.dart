@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
+import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/sign_in_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/response/user_param_response.dart';
@@ -64,13 +62,11 @@ class SignInUseCaseImpl extends SignInUseCase {
   @override
   Future<UserInfo> onlineSignIn(SignInRequest request) async {
       final result = await execute(request);
-      await ActiveUserInformationUseCase.accessToken
-          .setSecuredData(data: result.data.accessToken ?? '');
+      await ActiveUserUtil.setAccessToken(result.data.accessToken ?? '');
       final resp =
           await hiviService.getUserInfoUC.execute(result.data.id ?? 0);
       if(resp.data.email != null){
-        await ActiveUserInformationUseCase.userInfo
-          .setSecuredData(key: resp.data.email!, data: resp.data);
+        await ActiveUserUtil.setUserInfo(resp.data);
       }
       return resp.data;
 

@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'aitriage_core/common/app_module.dart';
 import 'package:get_storage/get_storage.dart';
 import 'aitriage_core/local_storage/database/provider/isar_provider.dart';
-import 'aitriage_core/local_storage/flutter_secured_storage/core/secured_box.dart';
 import 'aitriage_core/service/hivi_service/hivi_service.dart';
 import 'aitriage_core/service/localization_service/localization_service.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
@@ -77,7 +76,6 @@ Future _initService() async {
   // wait until database finish init
   await _initDataBase();
   final hiviService = Get.put(HiviService(), permanent: true);
-  Get.put(SecuredBox(), permanent: true);
   // Calling api to get param for app
   // Must put here to ensure data ready when going screen inside;
   await hiviService.getAppParam();

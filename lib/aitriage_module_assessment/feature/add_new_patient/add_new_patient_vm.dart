@@ -56,7 +56,6 @@ class AddNewPatientVM {
     // location id need to be first
 
     _locationId = locationId ?? _locationId;
-    print('location id $_locationId');
 
     if (genders != null) {
       final getCode = LocalizationService.currentLanguage.locale.languageCode;

@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
+import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
@@ -85,7 +85,7 @@ class VerifyEmailController extends GetxController {
       final result = await _uc.loginWithVerificationCode(request);
       Get.snackbar('Success', result.message.toString());
       // final key = '${AppConstant.preCharSaveUserData}$userName}';
-      ActiveUserInformationUseCase.accessToken.setSecuredData(data: result.data.accessToken ?? '');
+      ActiveUserUtil.setAccessToken(result.data.accessToken ?? '');
       onSuccess?.call();
     } catch (e) {
       HandleNetworkError.handleNetworkError(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/keep_alive_wrapper.dart';
+import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_navigator.dart';
 import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_location_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_navigator.dart';
@@ -11,6 +12,7 @@ class HomeMainController extends GetxController {
   // Use case
   final GetListLocationUseCase _getListLocationUC;
   // Data
+  final _locations = <Location>[];
   var _location = Location.fromJson(null);
   //
   final modules = <Widget>[
@@ -30,7 +32,8 @@ class HomeMainController extends GetxController {
 
   void _getListLocation() async {
     try {
-      final resp = await _getListLocationUC.execute('2');
+      final user = await ActiveUserUtil.userInfo;
+      final resp = await _getListLocationUC.execute(user.id.toString());
       _location = resp.data.where((element) => element.countryId == 240).first;
     } catch (e) {
 

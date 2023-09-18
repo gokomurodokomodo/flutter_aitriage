@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecuredBox{
@@ -20,7 +22,7 @@ class SecuredBox{
     try {
       await _securedBox.write(key: key, value: data); 
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -30,7 +32,7 @@ class SecuredBox{
       try {
         return await _securedBox.read(key: key) ?? ''; 
       } catch (e) {
-        print(e); 
+        log(e.toString());
       }
     return '';
   }

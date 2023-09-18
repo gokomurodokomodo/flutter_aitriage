@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter_aitriage/aitriage_core/entity/user_info.dart';
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/core/secured_box.dart';
+import '../../local_storage/flutter_secured_storage/provider/secured_box.dart';
 
 class ActiveUserRepository{
   final securedBox = SecuredBox();
@@ -29,5 +28,4 @@ class ActiveUserRepository{
     final encodeJson = jsonEncode(jsonData);
     await securedBox.write(key: key,data: encodeJson);
   }
-
 }
