@@ -19,9 +19,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DeviceDetector(
-        tablet: const _Tablet(),
-        phone: _Phone());
+    return DeviceDetector(tablet: const _Tablet(), phone: _Phone());
   }
 }
 
@@ -54,14 +52,17 @@ class _Tablet extends GetView<SignInController> {
                 ),
               ),
               SizedBox(height: 14.h),
-              CustomLoginField(
-                shouldSecured: true,
-                onTextChange: (_) =>
-                    controller.onTextPasswordChange(_),
-                // isValidated: widget.controller.isValidPassword.value,
-                label: 'password_label'.tr,
-                hintText: 'password_hint'.tr,
-              ),
+              Obx(() => CustomLoginField(
+                    shouldHaveTrailingIcon: true,
+                    onSwitchPasswordView: () =>
+                        controller.onSwitchPasswordView(),
+                    sercurePassword: controller.isSecured.value,
+                    shouldSecured: controller.isSecured.value,
+                    onTextChange: (_) => controller.onTextPasswordChange(_),
+                    // isValidated: widget.controller.isValidPassword.value,
+                    label: 'password_label'.tr,
+                    hintText: 'password_hint'.tr,
+                  )),
               Obx(() {
                 return SizedBox(
                   width: 360.w,
@@ -84,18 +85,17 @@ class _Tablet extends GetView<SignInController> {
                     onTap: () async {
                       onSuccess(value) {
                         Get.back();
-                        Get.toNamed(
-                            MainModulePageRoute.main,
+                        Get.toNamed(MainModulePageRoute.main,
                             arguments: {'userInfo': value});
                       }
+
                       onError(message) {
                         Get.back();
                         Get.snackbar('Error', message);
                       }
+
                       controller.onSubmitSignIn(
-                          onSuccess: onSuccess,
-                          onError: onError
-                      );
+                          onSuccess: onSuccess, onError: onError);
                     },
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
@@ -107,14 +107,17 @@ class _Tablet extends GetView<SignInController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('dont_have_account'.tr,
-                      style: AppStyle.styleRememberMeText,),
+                    Text(
+                      'dont_have_account'.tr,
+                      style: AppStyle.styleRememberMeText,
+                    ),
                     TextButton(
-                        onPressed: () =>
-                            Get.toNamed(
-                                AuthModulePageRoute.registerAccountType),
+                        onPressed: () => Get.toNamed(
+                            AuthModulePageRoute.registerAccountType),
                         child: Text(
-                          'Sign up', style: AppStyle.styleForgotPassword,)),
+                          'Sign up',
+                          style: AppStyle.styleForgotPassword,
+                        )),
                   ],
                 ),
               ),
@@ -122,17 +125,19 @@ class _Tablet extends GetView<SignInController> {
                 height: 80.h,
               ),
               Obx(() => DropDownButton(
-                dropDownHeight: 150.h,
-                width: 200.w,
-                title: '',
-                shouldIncludeAsterisk: false,
-                children: controller.vm.value.countryList.map((e) => CountryWidget(
-                  isNetworkIcon: true,
-                  leftIconName: e.emoji,
-                  contentText: e.name,
-                  width: 200.w,
-                )).toList(),
-              )),
+                    dropDownHeight: 150.h,
+                    width: 200.w,
+                    title: '',
+                    shouldIncludeAsterisk: false,
+                    children: controller.vm.value.countryList
+                        .map((e) => CountryWidget(
+                              isNetworkIcon: true,
+                              leftIconName: e.emoji,
+                              contentText: e.name,
+                              width: 200.w,
+                            ))
+                        .toList(),
+                  )),
             ],
           ),
         ),

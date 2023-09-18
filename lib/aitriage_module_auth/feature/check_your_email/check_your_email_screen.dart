@@ -57,14 +57,17 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 SizedBox(height: 4.w,),
                 TextButton(
                     onPressed: () {
+                      onSuccess() => Get.snackbar('Success', 'resend_email'.tr);
                       onError(error) => Get.snackbar('Error', error);
-                      controller.resend(onError: onError);
+                      controller.resend(onError: onError, onSuccess: onSuccess);
                     },
                     child: Text('click_to_resend'.tr))
               ],
             ),
             SizedBox(height: 32.h,),
-            const BackToLoginTextButton(),
+            BackToLoginTextButton(
+              onBackButtonPressed: () => Get.until((route) => Get.currentRoute.contains('login')),
+            ),
           ],
         ),
       ),

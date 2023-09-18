@@ -18,14 +18,13 @@ class SubmitInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  DeviceDetector(tablet: _Tablet(), phone: const _Phone());
+    return DeviceDetector(tablet: _Tablet(), phone: const _Phone());
   }
 }
 
 class _Tablet extends StatelessWidget {
   _Tablet();
   final SignUpController controller = Get.find();
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,8 @@ class _Tablet extends StatelessWidget {
               Obx(() => Center(
                     child: CustomLoginField(
                       shouldAddBorder: true,
-                      enableBorder: !controller.validateVM.value.isOrganizationValidate,
+                      enableBorder:
+                          !controller.validateVM.value.isOrganizationValidate,
                       label: 'organization_name'.tr,
                       enableLabelAsterisk: true,
                       hintText: 'organization_name'.tr,
@@ -61,7 +61,8 @@ class _Tablet extends StatelessWidget {
                         controller.onOrganizationNameChanged(
                             controller.submitInfoVM.value.organizationName);
                       },
-                      onTapInside:()=> controller.validateVM.value.updateFirstTimeOrganization(false),
+                      onTapInside: () => controller.validateVM.value
+                          .updateFirstTimeOrganization(false),
                       onTextChange: (value) =>
                           controller.onOrganizationNameChanged(value),
                       isValidated:
@@ -70,24 +71,33 @@ class _Tablet extends StatelessWidget {
                     ),
                   )),
               SizedBox(height: 10.h),
-              DropDownButton(
+              Obx(() => DropDownButton(
                     chooseIndex: controller.chooseIndex.value,
                     title: 'country'.tr,
                     shouldIncludeAsterisk: true,
                     dropDownWidth: 360.w,
                     onTapChildren: (index) =>
                         controller.onCountryChanged(index),
+                    placeHolder: CountryWidget(
+                      isNetworkIcon: true,
+                      leftIconName: controller
+                          .listCountry[controller.chooseIndex.value].emoji,
+                      contentText: controller
+                          .listCountry[controller.chooseIndex.value].name,
+                      isChoosed: false,
+                    ),
                     children: controller.listCountry
-                        .map((e) => Obx(() =>CountryWidget(
+                        .map((e) => Obx(() => CountryWidget(
                               isNetworkIcon: true,
                               leftIconName: e.emoji,
                               contentText: e.name,
                               isChoosed: e.name ==
-                                  controller.listCountry[controller.chooseIndex.value]
+                                  controller
+                                      .listCountry[controller.chooseIndex.value]
                                       .name,
                             )))
                         .toList(),
-                  ),
+                  )),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 110.h,
@@ -96,14 +106,16 @@ class _Tablet extends StatelessWidget {
                   children: [
                     Obx(() => CustomLoginField(
                           shouldAddBorder: true,
-                          enableBorder: !controller.validateVM.value.isFirstNameValidate,
+                          enableBorder:
+                              !controller.validateVM.value.isFirstNameValidate,
                           label: 'first_name'.tr,
                           enableLabelAsterisk: true,
                           hintText: 'first_name'.tr,
                           textFieldWidth: 170.w,
                           controller: controller
                               .textControllerVM.value.firstNameFieldController,
-                          onTapInside: () => controller.validateVM.value.updateFirstTimeFirstName(false),
+                          onTapInside: () => controller.validateVM.value
+                              .updateFirstTimeFirstName(false),
                           onTapOutside: () {
                             controller.onFirstNameChanged(
                                 controller.submitInfoVM.value.firstName);
@@ -117,7 +129,8 @@ class _Tablet extends StatelessWidget {
                     SizedBox(width: 20.w),
                     Obx(() => CustomLoginField(
                           shouldAddBorder: true,
-                          enableBorder: !controller.validateVM.value.isLastNameValidate,
+                          enableBorder:
+                              !controller.validateVM.value.isLastNameValidate,
                           label: 'last_name'.tr,
                           enableLabelAsterisk: true,
                           hintText: 'last_name'.tr,
@@ -126,7 +139,8 @@ class _Tablet extends StatelessWidget {
                           textFieldWidth: 170.w,
                           onTapOutside: () => controller.onLastNameChanged(
                               controller.submitInfoVM.value.lastName),
-                          onTapInside: () => controller.validateVM.value.updateFirstTimeLastName(false),
+                          onTapInside: () => controller.validateVM.value
+                              .updateFirstTimeLastName(false),
                           onTextChange: (value) =>
                               controller.onLastNameChanged(value),
                           isValidated:
@@ -139,13 +153,15 @@ class _Tablet extends StatelessWidget {
               Obx(() => Center(
                     child: CustomLoginField(
                       shouldAddBorder: true,
-                      enableBorder: !controller.validateVM.value.isEmailValidate,
+                      enableBorder:
+                          !controller.validateVM.value.isEmailValidate,
                       label: 'email'.tr,
                       enableLabelAsterisk: true,
                       hintText: 'email_placeholder'.tr,
                       controller: controller
                           .textControllerVM.value.emailFieldController,
-                      onTapInside: () => controller.validateVM.value.updateFirstTimeEmail(false),
+                      onTapInside: () => controller.validateVM.value
+                          .updateFirstTimeEmail(false),
                       onTapOutside: () => controller
                           .onEmailChanged(controller.submitInfoVM.value.email),
                       onTextChange: (value) => controller.onEmailChanged(value),
@@ -157,14 +173,16 @@ class _Tablet extends StatelessWidget {
               Obx(() => Center(
                     child: CustomLoginField(
                       shouldAddBorder: true,
-                      enableBorder: !controller.validateVM.value.isPhoneNumberValidate,
+                      enableBorder:
+                          !controller.validateVM.value.isPhoneNumberValidate,
                       type: const TextInputType.numberWithOptions(),
                       label: 'phone_number'.tr,
                       enableLabelAsterisk: true,
                       controller: controller
                           .textControllerVM.value.phoneNumberFieldController,
                       hintText: 'phone_number_placeholder'.tr,
-                      onTapInside: () => controller.validateVM.value.updateFirstTimePhoneNumber(false),
+                      onTapInside: () => controller.validateVM.value
+                          .updateFirstTimePhoneNumber(false),
                       onTapOutside: () => controller.onPhoneNumberChanged(
                           controller.submitInfoVM.value.phoneNumber),
                       onTextChange: (value) =>
@@ -184,8 +202,10 @@ class _Tablet extends StatelessWidget {
                           width: 360.w,
                           child: CustomLoginField(
                             shouldAddBorder: true,
-                            enableBorder: !controller.validateVM.value.isPasswordValidate,
-                            onTapInside: () => controller.validateVM.value.updateFirstTimePassword(false),
+                            enableBorder:
+                                !controller.validateVM.value.isPasswordValidate,
+                            onTapInside: () => controller.validateVM.value
+                                .updateFirstTimePassword(false),
                             shouldHaveTrailingIcon: true,
                             controller: controller
                                 .textControllerVM.value.passwordFieldController,

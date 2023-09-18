@@ -3,7 +3,6 @@ import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
-import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_status_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_type_uc.dart';
@@ -15,7 +14,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_inf
 import 'package:get/get.dart';
 
 import '../../../../aitriage_core/entity/param_type.dart';
-import '../../../../aitriage_core/service/hivi_service/response/get_param_type_response.dart';
 import '../register_account_status/register_account_status_vm.dart';
 
 class SignUpController extends GetxController{
@@ -34,15 +32,19 @@ class SignUpController extends GetxController{
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
   final apiService = Get.find<HiviService>();
   var listCountry = <Country>[].obs;
+  final GetListCountryUC _getListCountryUC = GetListCountryUC();
 
   SignUpController(this._registerUseCase, this._getRegisterAccountStatusUC, this._getRegisterAccountTypeUC);
 
   @override
-  void onReady() {
+  void onReady() async{
     _getAccountStatusParam();
     _getAccountTypeParam();
+    final listCountryResponse = await _getListCountryUC.execute();
+    listCountry.value = listCountryResponse.data;
+    listCountry.refresh();
     text.value = apiService.countries.first.emoji!;
-    submitInfoVM.value.updateVM(listCountry: apiService.countries);
+    submitInfoVM.value.updateVM(listCountry: listCountry);
     submitInfoVM.refresh();
     super.onReady();
   }

@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
+import 'package:flutter_aitriage/aitriage_module_main/config/main_module_page_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/user_info.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
@@ -15,6 +16,7 @@ class SignInController extends GetxController{
   var isValidPassword = false.obs;
   var isValidated = false.obs;
   var isCheck = false.obs;
+  var isSecured = true.obs;
   final SignInUseCaseImpl _useCase;
   final hiviService = Get.find<HiviService>();
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
@@ -103,19 +105,7 @@ class SignInController extends GetxController{
     return passwordRegex.hasMatch(password);
   }
 
-  // void _handleError(dynamic e){
-  //   if (e is! AppError){
-  //     return;
-  //   } else {
-  //     if(e.statusMessage == HandleNetworkError.requestVerifiedEmail){
-  //       _useCase.genCodeForSignIn(vm.value.username);
-  //       Get.toNamed(AuthModulePageRoute.verifyEmail, arguments: {
-  //         'userName' : vm.value.username,
-  //         'password': vm.value.password
-  //       });
-  //     } else{
-  //       HandleNetworkError.handleNetworkError(e, (message, _, __) => Get.snackbar('Error', message));
-  //     }
-  //   }
-  // }
+  void onSwitchPasswordView() {
+    isSecured.value = !isSecured.value;
+  }
 }
