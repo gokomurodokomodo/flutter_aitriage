@@ -31,21 +31,22 @@ class AddNewPatientController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    final countryId = Get.isRegistered<HomeMainController>()
-        ? Get.find<HomeMainController>().countryId
-        : '0';
+    final location = Get.isRegistered<HomeMainController>()
+        ? Get.find<HomeMainController>().location
+        : null;
+    final locationId = location?.id;
     final genders = _getGenderUC.execute();
     final races = _getRaceUC.execute();
     final nationalities = await _getNationalityUC.execute();
-    final cities = _getCityUC.execute(countryId);
-    final states = _getStateUC.execute(countryId);
+    final cities = _getCityUC.execute(locationId.toString());
+    final states = _getStateUC.execute(locationId.toString());
     vm.value.update(
         genders: genders,
         races: races,
         nationalities: nationalities,
         cities: cities,
         states: states,
-        countryId: countryId
+        locationId: locationId
     );
     vm.refresh();
   }
@@ -53,11 +54,42 @@ class AddNewPatientController extends GetxController {
   void addPatient() async {
     try {
       final patient = Patient.fromJson(null);
-      final request = AddPatientRequest(patient);
+      final request = vm.value.getAddPatientRequest;
       final accountId = '2';
       await _addPatientUC.execute(request, accountId);
     } catch (e) {
 
     }
+  }
+
+  void onInfoChange({
+    String? mrn,
+    String? patientName,
+    String? dob,
+    int? genderIndex,
+    int? raceIndex,
+    String? phoneNumber,
+    String? email,
+    int? nationalityIndex,
+    int? stateIndex,
+    int? cityIndex,
+    String? address,
+    String? description
+  }) {
+    // update value for request only, not change view
+    vm.value.update(
+      mrn: mrn,
+      patientName: patientName,
+      dob: dob,
+      genderIndex: genderIndex,
+      raceIndex: raceIndex,
+      phoneNumber: phoneNumber,
+      email: email,
+      nationalityIndex: nationalityIndex,
+      stateIndex: stateIndex,
+      cityIndex: cityIndex,
+      address: address,
+      description: description
+    );
   }
 }

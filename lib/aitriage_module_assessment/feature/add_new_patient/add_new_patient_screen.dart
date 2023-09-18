@@ -63,7 +63,13 @@ class _Tablet extends GetView<AddNewPatientController> {
               LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
+                  Expanded(child: CustomLoginField(
+                      hintText: 'MRN*',
+                      textFieldWidth:
+                      double.maxFinite,
+                      textFieldHeight: 56.h,
+                      onTextChange: (value) => controller.onInfoChange(mrn: value),
+                  )),
                   SizedBox(width: 24.w),
                   Expanded(
                       child: LayoutBuilder(
@@ -73,6 +79,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             width: constraints.maxWidth,
                             height: 56.h,
                             dropDownHeight: 200,
+                            onTapChildren: (index) => controller.onInfoChange(nationalityIndex: index),
                             children: controller.vm.value.nationalities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -86,7 +93,12 @@ class _Tablet extends GetView<AddNewPatientController> {
               SizedBox(height: 24.h),
               Row(
                 children: [
-                  Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
+                  Expanded(child: CustomLoginField(
+                      hintText: 'Patient name*',
+                      textFieldWidth: double.maxFinite,
+                      textFieldHeight: 56.h,
+                      onTextChange: (value) => controller.onInfoChange(patientName: value),
+                  )),
                   SizedBox(width: 24.w),
                   Expanded(
                       child: LayoutBuilder(
@@ -96,6 +108,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             width: constraints.maxWidth,
                             height: 56.h,
                             dropDownHeight: 200,
+                            onTapChildren: (index) => controller.onInfoChange(stateIndex: index),
                             children: controller.vm.value.states.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -114,7 +127,9 @@ class _Tablet extends GetView<AddNewPatientController> {
                       textInputFormatter: DateTextFormatter(),
                       hintText: 'dd/mm/yyyy*',
                       textFieldWidth: double.maxFinite,
-                      textFieldHeight: 56.h)),
+                      textFieldHeight: 56.h,
+                      onTextChange: (value) => controller.onInfoChange(dob: value),
+                  )),
                   SizedBox(width: 24.w),
                   Expanded(
                       child: LayoutBuilder(
@@ -124,6 +139,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             width: constraints.maxWidth,
                             height: 56.h,
                             dropDownHeight: 200,
+                            onTapChildren: (index) => controller.onInfoChange(cityIndex: index),
                             children: controller.vm.value.cities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -148,6 +164,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                                     width: constraints.maxWidth,
                                     height: 56.h,
                                     dropDownHeight: 100,
+                                    onTapChildren: (index) => controller.onInfoChange(genderIndex: index),
                                     children: controller.vm.value.genders.map((e) => SizedBox(
                                         width: constraints.maxWidth,
                                         height: 50.h,
@@ -168,6 +185,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                                         width: constraints.maxWidth,
                                         height: 50.h,
                                         child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                                    onTapChildren: (index) => controller.onInfoChange(raceIndex: index),
                                   ));
                                 },
                               )
@@ -175,7 +193,13 @@ class _Tablet extends GetView<AddNewPatientController> {
                         ],
                       )),
                   SizedBox(width: 24.w),
-                  Expanded(child: CustomLoginField(hintText: 'Address', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
+                  Expanded(
+                      child: CustomLoginField(
+                          hintText: 'Address',
+                          textFieldWidth: double.maxFinite,
+                          textFieldHeight: 56.h,
+                          onTextChange: (value) => controller.onInfoChange(address: value),
+                      )),
                 ],
               ),
               SizedBox(height: 24.h),
@@ -186,9 +210,19 @@ class _Tablet extends GetView<AddNewPatientController> {
                     Expanded(
                       child: Column(
                         children: [
-                          CustomLoginField(hintText: 'Phone number', textFieldWidth: double.maxFinite, textFieldHeight: 56.h),
+                          CustomLoginField(
+                              hintText: 'Phone number',
+                              textFieldWidth: double.maxFinite,
+                              textFieldHeight: 56.h,
+                              onTextChange: (value) => controller.onInfoChange(phoneNumber: value),
+                          ),
                           const Spacer(),
-                          CustomLoginField(hintText: 'Email', textFieldWidth: double.maxFinite, textFieldHeight: 56.h),
+                          CustomLoginField(
+                              hintText: 'Email',
+                              textFieldWidth: double.maxFinite,
+                              textFieldHeight: 56.h,
+                              onTextChange: (value) => controller.onInfoChange(email: value),
+                          ),
                         ],
                       ),
                     ),
@@ -199,6 +233,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             textFieldWidth: double.maxFinite,
                             textFieldHeight: constraints.maxHeight - 2.5,
                             hintText: 'Description',
+                            onTextChange: (value) => controller.onInfoChange(description: value),
                           )))
                   ],
                 ),

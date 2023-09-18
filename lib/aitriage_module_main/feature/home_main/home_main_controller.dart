@@ -42,5 +42,5 @@ class HomeMainController extends GetxController {
     currentIndex.value = index;
   }
 
-  String get countryId => _location.countryId.toString();
+  Location get location => _location;
 }
