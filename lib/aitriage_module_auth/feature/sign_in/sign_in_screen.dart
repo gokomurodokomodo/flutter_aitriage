@@ -130,11 +130,6 @@ class _Tablet extends GetView<SignInController> {
                     width: 200.w,
                     title: '',
                     shouldIncludeAsterisk: false,
-                    placeHolder: CountryWidget(
-                      isNetworkIcon: true,
-                      leftIconName: controller.vm.value.countryList[controller.countryIndex.value].emoji,
-                      contentText: controller.vm.value.countryList[controller.countryIndex.value].name,
-                    ),
                     children: controller.vm.value.countryList
                         .map((e) => CountryWidget(
                               isNetworkIcon: true,

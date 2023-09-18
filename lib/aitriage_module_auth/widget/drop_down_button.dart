@@ -30,7 +30,7 @@ class DropDownButton extends StatefulWidget {
     this.children,
     this.onTapChildren,
     this.placeHolder,
-    this.chooseIndex = 0
+    this.chooseIndex = 0,
   });
 
   @override
@@ -89,7 +89,12 @@ class _DropDownButtonState extends State<DropDownButton> {
               height: widget.height ?? 44.h,
               child: Stack(
                 children: [
-                  widget.placeHolder ?? const SizedBox(),
+                  Container(
+                    child: (enablePlaceHolder)
+                  ? widget.placeHolder
+                  : widget.children?[index] ?? const SizedBox(),
+                  ),
+                  
                   Positioned(
                       bottom: 13.h,
                       right: 14.w,
@@ -125,17 +130,20 @@ class _DropDownButtonState extends State<DropDownButton> {
                   width: widget.width,
                   height: 200,
                   child: ListView(
-                    children: widget.children?.map((e) => GestureDetector(
-                        onTap: () {
-                          enablePlaceHolder = false;
-                          final newIndex = widget.children?.indexOf(e);
-                          widget.onTapChildren?.call(newIndex!);
-                          _hideOverLay();
-                          setState(() {
-                            index = newIndex!;
-                          });
-                        },
-                        child: e)).toList() ?? [],
+                    children: widget.children?.map((e) => Container(
+                      color: widget.children?.indexOf(e) == index ? Colors.red : Colors.transparent,
+                      child: GestureDetector(
+                          onTap: () {
+                            enablePlaceHolder = false;
+                            final newIndex = widget.children?.indexOf(e);
+                            widget.onTapChildren?.call(newIndex!);
+                            _hideOverLay();
+                            setState(() {
+                              index = newIndex!;
+                            });
+                          },
+                          child: e),
+                    )).toList() ?? [],
                   ),
                 ),
               ),
@@ -164,7 +172,6 @@ class CountryWidget extends StatelessWidget {
   final TextStyle? contentTextStyle;
   final double? width;
   final double? height;
-  final bool isChoosed;
 
   const CountryWidget({
     super.key,
@@ -173,14 +180,13 @@ class CountryWidget extends StatelessWidget {
     this.contentText,
     this.contentTextStyle,
     this.width,
-    this.height,
-    this.isChoosed = false
+    this.height
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: isChoosed ? AppColor.colorLineSeparated : Colors.white,
+      color: Colors.white,
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
       width: width ?? 360.w,
       height: height ?? 44.h,

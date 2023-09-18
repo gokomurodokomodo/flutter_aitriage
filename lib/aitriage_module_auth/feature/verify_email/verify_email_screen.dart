@@ -65,11 +65,11 @@ class _Tablet extends GetView<VerifyEmailController> {
                 title: 'verify_email_title'.tr,
                 onTap: () {
                   onLoginSuccess() {
-                    Get.toNamed(MainModulePageRoute.main);
+                    Get.back();
+                    Get.offNamed(MainModulePageRoute.main);
                   }
                   onRegisterSuccess(message) async {
                     Get.back();
-                    Get.snackbar('Success', message);
                     await Get.offNamed(MainModulePageRoute.gettingStartedMain);
                   }
                   onError(message) {

@@ -43,7 +43,7 @@ class SignUpController extends GetxController{
     final listCountryResponse = await _getListCountryUC.execute();
     listCountry.value = listCountryResponse.data;
     listCountry.refresh();
-    text.value = apiService.countries.first.emoji!;
+    text.value = listCountry.first.emoji ?? '';
     submitInfoVM.value.updateVM(listCountry: listCountry);
     submitInfoVM.refresh();
     super.onReady();

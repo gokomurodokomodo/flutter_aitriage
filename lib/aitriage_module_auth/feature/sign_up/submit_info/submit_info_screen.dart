@@ -71,33 +71,21 @@ class _Tablet extends StatelessWidget {
                     ),
                   )),
               SizedBox(height: 10.h),
-              Obx(() => DropDownButton(
+              DropDownButton(
                     chooseIndex: controller.chooseIndex.value,
                     title: 'country'.tr,
                     shouldIncludeAsterisk: true,
                     dropDownWidth: 360.w,
                     onTapChildren: (index) =>
                         controller.onCountryChanged(index),
-                    placeHolder: CountryWidget(
-                      isNetworkIcon: true,
-                      leftIconName: controller
-                          .listCountry[controller.chooseIndex.value].emoji,
-                      contentText: controller
-                          .listCountry[controller.chooseIndex.value].name,
-                      isChoosed: false,
-                    ),
                     children: controller.listCountry
-                        .map((e) => Obx(() => CountryWidget(
+                        .map((e) => CountryWidget(
                               isNetworkIcon: true,
                               leftIconName: e.emoji,
                               contentText: e.name,
-                              isChoosed: e.name ==
-                                  controller
-                                      .listCountry[controller.chooseIndex.value]
-                                      .name,
-                            )))
+                            ))
                         .toList(),
-                  )),
+                  ),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 110.h,

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/user_info.dart';
 import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/repository/active_user_repository.dart';
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/download_and_parsing_json_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_app_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_table_sync_date_uc.dart';
@@ -51,14 +51,15 @@ class HiviService extends GetxService {
         _systemParam = appParam.systemParam;
         _races.addAll(appParam.races);
         _paramTypes.addAll(appParam.paramTypes);
-        _roles.addAll(appParam.roles);
+        // _roles.addAll(appParam.roles);
         compute(_downloadAndParsingData, appParam).then((result) => _handleParsingData(result));
       } else {
-        _loadDb();
+        await _loadDb();
       }
 
       // onSuccess?.call();
     } catch (e) {
+      print(e.toString());
       onError?.call(e);
     }
   }
@@ -104,7 +105,7 @@ class HiviService extends GetxService {
     appEventChannel.addEvent(FinishSyncData(true));
   }
 
-  void _loadDb() async {
+  Future<void> _loadDb() async {
     log('------LOAD DB-------');
     final countries = await loadCollectionUC.execute<Country>();
     final cities = await loadCollectionUC.execute<City>();

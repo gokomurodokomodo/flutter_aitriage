@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_use_case.dart';
+import 'package:flutter_aitriage/aitriage_core/local_storage/flutter_secured_storage/response/active_user_info_enum.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
 import '../common/base_response.dart';
