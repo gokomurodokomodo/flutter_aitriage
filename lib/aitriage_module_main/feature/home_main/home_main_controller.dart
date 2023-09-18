@@ -5,9 +5,13 @@ import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_l
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_navigator.dart';
 import 'package:get/get.dart';
 
+import '../../domain/entity/location.dart';
+
 class HomeMainController extends GetxController {
   // Use case
   final GetListLocationUseCase _getListLocationUC;
+  // Data
+  var _location = Location.fromJson(null);
   //
   final modules = <Widget>[
     const KeepAliveWrapper(child: AssessmentModuleNavigator()),
@@ -21,11 +25,22 @@ class HomeMainController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getListLocationUC.execute('2');
+    _getListLocation();
+  }
+
+  void _getListLocation() async {
+    try {
+      final resp = await _getListLocationUC.execute('2');
+      _location = resp.data.first;
+    } catch (e) {
+
+    }
   }
 
   void updateTabBarViewIndex(int index) {
     pageController.jumpToPage(index);
     currentIndex.value = index;
   }
+
+  String get countryId => _location.countryId.toString();
 }

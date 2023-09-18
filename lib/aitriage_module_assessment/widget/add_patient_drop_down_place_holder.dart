@@ -15,19 +15,22 @@ class AddPatientDropDownPlaceHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      height: double.maxFinite,
-      padding: EdgeInsets.only(left: 16.w),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: Text(title, style: AppStyle.styleTextButtonBackToLogin.copyWith(decoration: TextDecoration.none))),
-          if (enableAsterisk) Text('*',
-              style: AppStyle.styleTextButtonBackToLogin.copyWith(
-                  color: AppColor.colorAsterisk))
-        ],
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        padding: EdgeInsets.only(left: 16.w),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(child: Text(title, style: AppStyle.styleTextButtonBackToLogin.copyWith(decoration: TextDecoration.none))),
+            if (enableAsterisk) Text('*',
+                style: AppStyle.styleTextButtonBackToLogin.copyWith(
+                    color: AppColor.colorAsterisk))
+          ],
+        ),
       ),
     );
   }

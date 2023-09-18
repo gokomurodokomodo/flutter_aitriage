@@ -69,7 +69,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
                             width: constraints.maxWidth,
                             height: 56.h,
-                            dropDownHeight: 100,
+                            dropDownHeight: 200,
                             children: controller.vm.value.nationalities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
                                 height: 50.h,
@@ -85,7 +85,22 @@ class _Tablet extends GetView<AddNewPatientController> {
                 children: [
                   Expanded(child: CustomLoginField(hintText: 'Patient name*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(placeHolder: AddPatientDropDownPlaceHolder(title: 'State*'), width: double.maxFinite, height: 56.h)),
+                  Expanded(
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          return Obx(() => DropDownButton(
+                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'State*'),
+                            width: constraints.maxWidth,
+                            height: 56.h,
+                            dropDownHeight: 200,
+                            children: controller.vm.value.states.map((e) => SizedBox(
+                                width: constraints.maxWidth,
+                                height: 50.h,
+                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                          ));
+                        },
+                      )
+                  ),
                 ],
               ),
               SizedBox(height: 24.h),
@@ -93,7 +108,22 @@ class _Tablet extends GetView<AddNewPatientController> {
                 children: [
                   Expanded(child: CustomLoginField(hintText: 'dd/mm/yyyy*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
-                  Expanded(child: DropDownButton(placeHolder: AddPatientDropDownPlaceHolder(title: 'City*'), width: double.maxFinite, height: 56.h)),
+                  Expanded(
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          return Obx(() => DropDownButton(
+                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'City*'),
+                            width: constraints.maxWidth,
+                            height: 56.h,
+                            dropDownHeight: 200,
+                            children: controller.vm.value.cities.map((e) => SizedBox(
+                                width: constraints.maxWidth,
+                                height: 50.h,
+                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                          ));
+                        },
+                      )
+                  ),
                 ],
               ),
               SizedBox(height: 24.h),

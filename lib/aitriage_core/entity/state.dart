@@ -25,9 +25,9 @@ class State {
   State.fromJson(dynamic json)
       : id = json?['id'],
         name = json?['name'],
-        countryId = json?['countryId'],
-        countryCode = json?['countryCode'],
-        countryName = json?['countryName'],
-        stateCode = json?['stateCode'],
+        countryId = json?['country_id'],
+        countryCode = json?['country_code'],
+        countryName = json?['country_name'],
+        stateCode = json?['state_code'],
         type = json?['type'];
 }
