@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../entity/city.dart';
@@ -23,6 +24,7 @@ class IsarProvider {
         RaceSchema,
         RoleSchema,
         StateSchema,
+        SystemParamSchema,
         TableSyncDateSchema
       ],
       directory: path.path,

@@ -25,4 +25,15 @@ class Role {
       this.accountId,
       this.accountNo
   );
+
+  Role.fromJson(dynamic json)
+      : id = json?['id'],
+        type = json?['type'],
+        name = json?['name'],
+        moduleCode = json?['moduleCode'],
+        moduleName = json?['moduleName'],
+        description = json?['description'],
+        isPublic = json?['isPublic'],
+        accountId = json?['accountId'],
+        accountNo = json?['accountNo'];
 }

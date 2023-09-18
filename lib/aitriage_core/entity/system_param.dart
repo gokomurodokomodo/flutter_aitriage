@@ -1,4 +1,9 @@
+import 'package:isar/isar.dart';
+part 'system_param.g.dart';
+
+@collection
 class SystemParam {
+  Id? isarId;
   final String? systemPathFileCountries;
   final String? systemAppBaseUrl;
   final String? systemAppColor;
@@ -11,6 +16,21 @@ class SystemParam {
   final String? systemUrlTerms;
   final String? systemPathFileCity;
   final String? systemPathFileStates;
+
+  SystemParam(
+      this.isarId,
+      this.systemPathFileCountries,
+      this.systemAppBaseUrl,
+      this.systemAppColor,
+      this.systemAppEmailMarketing,
+      this.systemUrlPrivacyPolicy,
+      this.systemAppName,
+      this.trialTime,
+      this.systemAppBackgroundColor,
+      this.systemAppEmailSupport,
+      this.systemUrlTerms,
+      this.systemPathFileCity,
+      this.systemPathFileStates);
 
   SystemParam.fromJson(dynamic json)
       : systemPathFileCountries = json?['system.path.file.countries'],

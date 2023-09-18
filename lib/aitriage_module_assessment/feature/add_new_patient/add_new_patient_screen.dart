@@ -7,13 +7,14 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_text_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/base_dialog_scaffold_tablet.dart';
 import '../../../aitriage_core/ui/widget/line_separated.dart';
 import '../../../aitriage_module_auth/widget/drop_down_button.dart';
-import '../../config/assessment_route.dart';
+import '../../config/assessment_module_page_route.dart';
 import '../../widget/add_patient_drop_down_place_holder.dart';
 
 class AddNewPatientScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class AddNewPatientScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends GetView<AddNewPatientController> {
   const _Tablet();
 
   @override
@@ -37,13 +38,14 @@ class _Tablet extends StatelessWidget {
       body: Center(
         child: Container(
           width: 960.w,
-          height: 656.h,
+          // height: 700.h,
           padding: EdgeInsets.all(24.r),
           decoration: BoxDecoration(
             color: AppColor.colorAppBackground,
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               // Dialog Header
               Row(
@@ -61,9 +63,19 @@ class _Tablet extends StatelessWidget {
                   Expanded(child: CustomLoginField(hintText: 'MRN*', textFieldWidth: double.maxFinite, textFieldHeight: 56.h)),
                   SizedBox(width: 24.w),
                   Expanded(
-                      child: DropDownButton(
-                          placeHolder: AddPatientDropDownPlaceHolder(title: 'Nationality*'),
-                          width: double.maxFinite, height: 56.h
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          return Obx(() => DropDownButton(
+                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
+                            width: constraints.maxWidth,
+                            height: 56.h,
+                            dropDownHeight: 100,
+                            children: controller.vm.value.nationalities.map((e) => SizedBox(
+                                width: constraints.maxWidth,
+                                height: 50.h,
+                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                          ));
+                        },
                       )
                   ),
                 ],
@@ -91,25 +103,35 @@ class _Tablet extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                              child: DropDownButton(
-                                  placeHolder: AddPatientDropDownPlaceHolder(title: 'Gender*'),
-                                  width: 200,
-                                  height: 56.h,
-                                  dropDownHeight: 200,
-                                  children: [
-                                    Container(width: 50, height: 50, color: Colors.red)
-                                  ],
+                              child: LayoutBuilder(
+                                builder: (_, constraints) {
+                                  return Obx(() => DropDownButton(
+                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Gender*'),
+                                    width: constraints.maxWidth,
+                                    height: 56.h,
+                                    dropDownHeight: 100,
+                                    children: controller.vm.value.genders.map((e) => SizedBox(
+                                        width: constraints.maxWidth,
+                                        height: 50.h,
+                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                                  ));
+                                },
                               )
                           ),
                           SizedBox(width: 24.w),
                           Expanded(
-                              child: DropDownButton(
-                                  placeHolder: AddPatientDropDownPlaceHolder(title: 'Race*'),
-                                  width: 200,
-                                  height: 56.h,
-                                  children: [
-                                    Container(width: 50, height: 50, color: Colors.red)
-                                  ],
+                              child: LayoutBuilder(
+                                builder: (_, constraints) {
+                                  return Obx(() => DropDownButton(
+                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
+                                    width: constraints.maxWidth,
+                                    height: 56.h,
+                                    children: controller.vm.value.races.map((e) => SizedBox(
+                                        width: constraints.maxWidth,
+                                        height: 50.h,
+                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
+                                  ));
+                                },
                               )
                           ),
                         ],
@@ -119,7 +141,8 @@ class _Tablet extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 24.h),
-              Expanded(
+              SizedBox(
+                height: 136.h,
                 child: Row(
                   children: [
                     Expanded(
@@ -136,7 +159,7 @@ class _Tablet extends StatelessWidget {
                         child: LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
                             textFieldWidth: double.maxFinite,
-                            textFieldHeight: constraints.maxHeight,
+                            textFieldHeight: constraints.maxHeight - 2.5,
                             hintText: 'Description',
                           )))
                   ],
@@ -204,11 +227,10 @@ class _Phone extends StatelessWidget {
                   title: 'Confirm',
                   shouldEnable: true,
                   onTap: () {
-
                     Get.to(() => AlertScreen(
                         onTapPrimaryButton: () {
                           Get.until((route) => route.isFirst);
-                          Get.until((route) => route.settings.name == AssessmentRoute.initialRoute, id: AssessmentRoute.nestedId);
+                          Get.until((route) => route.settings.name == AssessmentModulePageRoute.initialRoute, id: AssessmentModulePageRoute.nestedId);
                           },
                     ));
                   }))

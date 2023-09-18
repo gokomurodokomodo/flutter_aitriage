@@ -200,9 +200,9 @@ class _Tablet extends StatelessWidget {
                             isValidated:
                                 controller.validateVM.value.isPasswordValidate,
                             unvalidateText: 'un_validated_password'.tr,
-                            shouldSecured: controller.sercurePassword.value,
+                            shouldSecured: controller.securePassword.value,
                             onSwitchPasswordView: controller.onSwitchPassword,
-                            sercurePassword: controller.sercurePassword.value,
+                            sercurePassword: controller.securePassword.value,
                           ),
                         ),
                       ],

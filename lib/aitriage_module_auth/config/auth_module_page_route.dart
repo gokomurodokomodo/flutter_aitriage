@@ -1,27 +1,16 @@
-import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_in_repository.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/data/repository/forget_password_repository.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/data/repository/sign_up_repository.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/send_password_reset_verified_code.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/verify_email_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/check_your_email/check_your_email_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/forget_password/forget_password_binding.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/set_new_password/set_new_password_screen.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_binding.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in_with_pincode/sign_in_with_pincode_screen.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/controller/sign_up_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_status/register_account_status_screen.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_binding.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/verify_email/verify_email_screen.dart';
 import 'package:get/get.dart';
-import '../feature/check_your_email/check_your_email_controller.dart';
-import '../feature/forgot_password/forgot_password_controller.dart';
-import '../feature/forgot_password/forgot_password_screen.dart';
-import '../feature/sign_in/sign_in_controller.dart';
+import '../feature/check_your_email/check_your_email_binding.dart';
+import '../feature/forget_password/forget_password_screen.dart';
 import '../feature/sign_in/sign_in_screen.dart';
-import '../feature/sign_in_with_pincode/sign_in_with_pincode_controller.dart';
-import '../feature/sign_up/register_account_status/register_account_status_controller.dart';
+import '../feature/sign_in_with_pincode/sign_in_with_pincode_binding.dart';
 import '../feature/sign_up/register_account_type/register_account_type_screen.dart';
 import '../feature/sign_up/submit_info/submit_info_screen.dart';
 import '../feature/success_reset_password/success_reset_password_screen.dart';
@@ -45,33 +34,19 @@ class AuthModulePageRoute {
         GetPage(
             name: signIn,
             page: () => const SignInScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => SignInRepositoryImpl());
-              Get.lazyPut(() => SignInUseCaseImpl(Get.find(), Get.find()));
-              Get.lazyPut(() => SignInController(Get.find()));
-            })),
+            binding: SignInBinding()),
         GetPage(
             name: signInWithCode,
             page: () => const SignInWithPinCodeScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignInWithPinCodeController());
-            })),
+            binding: SignInWithPinCodeBinding()),
         GetPage(
             name: forgotPassword,
-            page: () => const ForgotPasswordScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => ForgetPasswordRepositoryImpl());
-              Get.lazyPut(() => SendPasswordResetVerifiedCodeUseCaseImpl(Get.find<ForgetPasswordRepositoryImpl>()));
-              Get.lazyPut(() => ForgotPasswordController(Get.find<SendPasswordResetVerifiedCodeUseCaseImpl>()));
-            })),
+            page: () => const ForgetPasswordScreen(),
+            binding: ForgetPasswordBinding()),
         GetPage(
             name: checkYourEmail,
             page: () => const CheckYourEmailScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => CheckYourEmailController(Get.find<SendPasswordResetVerifiedCodeUseCaseImpl>()));
-            })),
+            binding: CheckYourEmailBinding()),
         GetPage(
             name: successResetPassword,
             page: () => const SuccessResetPasswordScreen()),
@@ -79,31 +54,16 @@ class AuthModulePageRoute {
             page: () => const SetNewPasswordScreen()),
         GetPage(
             name: registerAccountType,
-            page: () => const RegisterAccountTypeScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => RegisterUseCaseImpl(Get.find<SignUpRepositoryImpl>()));
-              Get.lazyPut(() => SignUpController(Get.find<RegisterUseCaseImpl>()));
-            })),
+            page: () => const RegisterAccountTypeScreen()),
         GetPage(
             name: registerAccountStatus,
-            page: () => const RegisterAccountStatusScreen(),
-            binding: BindingsBuilder(() {
-            })),
+            page: () => const RegisterAccountStatusScreen()),
         GetPage(
             name: submitInfo,
-            page: () => const SubmitInfoScreen(),
-            binding: BindingsBuilder(() {
-            })),
+            page: () => const SubmitInfoScreen()),
         GetPage(
             name: verifyEmail,
             page: () => const VerifyEmailScreen(),
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => SignUpRepositoryImpl());
-              Get.lazyPut(() => SignInRepositoryImpl());
-              Get.lazyPut(() => VerifyEmailUseCaseImpl(Get.find<SignUpRepositoryImpl>(), Get.find()));
-              Get.lazyPut(() => VerifyEmailController(Get.find<VerifyEmailUseCaseImpl>()));
-            })
-        )
+            binding: VerifyEmailBinding())
       ];
 }

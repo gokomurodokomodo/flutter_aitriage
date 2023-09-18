@@ -79,6 +79,6 @@ Future _initService() async {
   final hiviService = Get.put(HiviService(), permanent: true);
   Get.put(SecuredBox(), permanent: true);
   // Calling api to get param for app
+  // Must put here to ensure data ready when going screen inside;
   await hiviService.getAppParam();
-  await hiviService.getParamType();
 }

@@ -23,7 +23,7 @@ class AddPatientDropDownPlaceHolder extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(title, style: AppStyle.styleTextButtonBackToLogin,),
+          Expanded(child: Text(title, style: AppStyle.styleTextButtonBackToLogin.copyWith(decoration: TextDecoration.none))),
           if (enableAsterisk) Text('*',
               style: AppStyle.styleTextButtonBackToLogin.copyWith(
                   color: AppColor.colorAsterisk))

@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 
@@ -89,11 +90,14 @@ class _DropDownButtonState extends State<DropDownButton> {
               height: widget.height ?? 44.h,
               child: Stack(
                 children: [
-                  (enablePlaceHolder)
-                      ? widget.placeHolder!
-                      : widget.children?[index] ?? const SizedBox(),
+                  Container(
+                    margin: EdgeInsets.only(right: 14.w),
+                    child: (enablePlaceHolder)
+                        ? widget.placeHolder!
+                        : shouldShowChildren ? widget.children![index] : const SizedBox(),
+                  ),
                   Positioned(
-                      bottom: 13.h,
+                      bottom: ((widget.height ?? 44.h) - 16.r) / 2,
                       right: 14.w,
                       child: Center(
                         child: SvgIconWidget(
@@ -115,7 +119,7 @@ class _DropDownButtonState extends State<DropDownButton> {
             width: widget.dropDownWidth ?? widget.width ?? 200,
             height: widget.dropDownHeight ?? 200,
             child: CompositedTransformFollower(
-              offset: Offset(0, 50 + 22.h),
+              offset: Offset(0, widget.height ?? 44.h / 2),
               link: layerLink,
               child: TapRegion(
                 onTapOutside: (_) {
@@ -157,6 +161,14 @@ class _DropDownButtonState extends State<DropDownButton> {
   }
 
   bool get overLayIsShown => overlayEntry!.mounted;
+
+  bool get shouldShowChildren {
+    if (widget.children != null) {
+      if (widget.children!.isNotEmpty) return true;
+    }
+
+    return false;
+  }
 }
 
 class CountryWidget extends StatelessWidget {

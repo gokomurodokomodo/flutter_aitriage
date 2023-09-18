@@ -5,6 +5,8 @@ import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get
 import 'package:flutter_aitriage/aitriage_core/util/crypto/crypto.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/data/api/request/register_request.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_status_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/get_register_account_type_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/register_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_validate_vm.dart';
@@ -17,39 +19,37 @@ import '../../../../aitriage_core/service/hivi_service/response/get_param_type_r
 import '../register_account_status/register_account_status_vm.dart';
 
 class SignUpController extends GetxController{
+  final RegisterUseCase _registerUseCase;
+  final GetRegisterAccountStatusUseCase _getRegisterAccountStatusUC;
+  final GetRegisterAccountTypeUseCase _getRegisterAccountTypeUC;
   final accountStatusVM = RegisterAccountStatusVM().obs;
   final accountTypeVM = RegisterAccountTypeVM().obs;
-  final RegisterUseCase _registerUseCase;
   final submitInfoVM = SubmitInfoVM().obs;
   final textControllerVM = TextControllerVM().obs;
   var text = ''.obs;
   var chooseIndex = 0.obs;
-  var sercurePassword = true.obs;
+  var securePassword = true.obs;
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
   final apiService = Get.find<HiviService>();
-  SignUpController(this._registerUseCase);
-  final GetListCountryUC _getListCountryUC = GetListCountryUC();
   var listCountry = <Country>[].obs;
-  
+
+  SignUpController(this._registerUseCase, this._getRegisterAccountStatusUC, this._getRegisterAccountTypeUC);
+
   @override
-  void onReady() async{
+  void onReady() {
     _getAccountStatusParam();
     _getAccountTypeParam();
-    final response = await _getListCountryUC.execute();
-    listCountry.value = response.data;
-    submitInfoVM.value.updateVM(listCountry: response.data);
-    text.value = listCountry.first.emoji!;
+    text.value = apiService.countries.first.emoji!;
+    submitInfoVM.value.updateVM(listCountry: apiService.countries);
     submitInfoVM.refresh();
     super.onReady();
   }
 
   // Account Status
   void _getAccountStatusParam(){
-    final list = paramTypes
-        .where((e) => e.groupType == ParamTypeGroupType.registerAccountStatus.stringValue)
-        .toList();
+    final list = _getRegisterAccountStatusUC.execute();
     _updateAccountStatusView(list: list);
   }
 
@@ -76,9 +76,7 @@ class SignUpController extends GetxController{
 
   //Account Type
   void _getAccountTypeParam() async {
-    final list = paramTypes
-        .where((e) => e.groupType == ParamTypeGroupType.registerAccountType.stringValue)
-        .toList();
+    final list = _getRegisterAccountTypeUC.execute();
     _updateAccountTypeView(list: list);
   }
 
@@ -123,7 +121,7 @@ class SignUpController extends GetxController{
   }
 
    void onSwitchPassword() {
-    sercurePassword.value = !sercurePassword.value;
+    securePassword.value = !securePassword.value;
   }
 
   void onOrganizationNameChanged(String? organizationName) {
