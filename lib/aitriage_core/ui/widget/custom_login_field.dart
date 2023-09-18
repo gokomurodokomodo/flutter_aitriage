@@ -90,10 +90,8 @@ class CustomLoginField extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10.w),
                 child: TextField(
                   controller: controller,
-                  inputFormatters: textInputRegex == null
-                      ? null
-                      : <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(textInputRegex!),
+                  inputFormatters: <TextInputFormatter>[
+                        if (textInputRegex != null) FilteringTextInputFormatter.allow(textInputRegex!),
                         if (textInputFormatter != null) textInputFormatter!,
                       ],
                   obscureText: shouldSecured ? true : false,
