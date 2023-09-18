@@ -135,7 +135,7 @@ class AddNewPatientVM {
 
   List<String> get genders => _genders.toList();
   List<String> get races => _races.map((e) => e.name ?? '').toList();
-  List<String> get nationalities => _nationalities.map((e) => e.name ?? '').toList();
+  List<String> get nationalities => _nationalities.map((e) => e.nationality ?? '').toList();
   List<String> get cities => _cities.map((e) => e.name ?? '').toList();
   List<String> get states => _states.map((e) => e.name ?? '').toList();
 

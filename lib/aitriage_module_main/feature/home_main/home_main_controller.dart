@@ -34,6 +34,7 @@ class HomeMainController extends GetxController {
     try {
       final user = await ActiveUserUtil.userInfo;
       final resp = await _getListLocationUC.execute(user.id.toString());
+      _locations.addAll(resp.data);
       _location = resp.data.where((element) => element.countryId == 240).first;
     } catch (e) {
 
