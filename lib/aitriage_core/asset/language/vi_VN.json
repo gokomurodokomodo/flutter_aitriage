@@ -51,5 +51,7 @@
   "un_validated_last_name" : "Please enter last name",
   "un_validated_email" : "Please enter your email",
   "un_validated_phone_number" : "Please enter your number phone",
-  "un_validated_password" : "Password must have at least 8 characters; 1 lowercase letter; 1 UPPERCASE letter; 1 number and 1 special character"
+  "un_validated_password" : "Password must have at least 8 characters; 1 lowercase letter; 1 UPPERCASE letter; 1 number and 1 special character",
+  "we_sent_verification_code" : "We sent a verification code",
+  "verify_email_title" : "Verify email"
 }
