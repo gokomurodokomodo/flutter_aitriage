@@ -47,7 +47,7 @@ class _Tablet extends GetView<SignInController> {
                 child: CustomLoginField(
                   onTextChange: (_) => controller.onTextEmailChange(_),
                   // isValidated: widget.controller.isValidEmail.value,
-                  label: 'email_label'.tr,
+                  label: 'email_label_sign_in'.tr,
                   hintText: 'email_hint'.tr,
                 ),
               ),

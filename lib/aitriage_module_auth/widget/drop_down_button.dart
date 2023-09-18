@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_border_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 
@@ -92,7 +93,11 @@ class _DropDownButtonState extends State<DropDownButton> {
                   Container(
                     child: (enablePlaceHolder)
                   ? widget.placeHolder
-                  : widget.children?[index] ?? const SizedBox(),
+                  : (widget.children == null) 
+                      ? const SizedBox() 
+                      : widget.children!.length <= index 
+                          ? const SizedBox() 
+                          : widget.children![index],
                   ),
                   
                   Positioned(
