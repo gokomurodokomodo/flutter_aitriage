@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/keep_alive_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
@@ -5,14 +7,13 @@ import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_mo
 import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_location_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_navigator.dart';
 import 'package:get/get.dart';
-
 import '../../domain/entity/location.dart';
 
 class HomeMainController extends GetxController {
   // Use case
   final GetListLocationUseCase _getListLocationUC;
   // Data
-  final _locations = <Location>[];
+  final locations = <Location>[].obs;
   var _location = Location.fromJson(null);
   //
   final modules = <Widget>[
@@ -34,10 +35,10 @@ class HomeMainController extends GetxController {
     try {
       final user = await ActiveUserUtil.userInfo;
       final resp = await _getListLocationUC.execute(user.id.toString());
-      _locations.addAll(resp.data);
-      _location = resp.data.where((element) => element.countryId == 240).first;
+      locations.addAll(resp.data);
+      _location = resp.data.first;
     } catch (e) {
-
+      log(e.toString());
     }
   }
 
@@ -45,6 +46,11 @@ class HomeMainController extends GetxController {
     pageController.jumpToPage(index);
     currentIndex.value = index;
   }
+
+  void changeLocation(int index) {
+    _location = locations[index];
+  }
+
 
   Location get location => _location;
 }

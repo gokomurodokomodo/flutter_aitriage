@@ -149,7 +149,8 @@ class CustomNavigationRailItem extends StatelessWidget {
       this.activeIcon,
       this.label,
       this.isActive = false,
-      this.iconSize = 30});
+      this.iconSize = 30,
+      });
 
   @override
   Widget build(BuildContext context) {

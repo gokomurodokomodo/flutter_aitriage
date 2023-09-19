@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,28 @@ class _Tablet extends GetView<HomeMainController> {
             SizedBox(
               width: 100.w,
               child: CustomNavigationRail(
-                leading: const CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 25,),
+                leading: Obx(() => DropDownWrapper(
+                  placeHolder: SizedBox(
+                      width: 60.r,
+                      height: 60.r,
+                      child: const CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 25)),
+                  dropDownAlign: DropDownAlign.horizontal,
+                  shouldReplacePlaceHolder: false,
+                  shouldShowBorderPlaceHolder: false,
+                  width: 60.r,
+                  height: 60.r,
+                  dropDownWidth: 400.w,
+                  dropDownHeight: 450.h,
+                  onTapChildren: (index) => controller.changeLocation(index),
+                  children: controller.locations.map((e) => Container(
+                    padding: EdgeInsets.only(top: 24.r, left: 24.w, right: 24.w),
+                    child: LocationWidget(
+                        name: e.name,
+                        address: e.address,
+                        avatar: e.avatar
+                    ),
+                  )).toList(),
+                )),
                 itemList: [
                   CustomNavigationRailItem(inactiveIcon: AppImage.svgOverviewInactive, activeIcon: AppImage.svgOverviewActive,),
                   CustomNavigationRailItem(inactiveIcon: AppImage.svgAssessmentInactive, activeIcon: AppImage.svgAssessmentActive,),

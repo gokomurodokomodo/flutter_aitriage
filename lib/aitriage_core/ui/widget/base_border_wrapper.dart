@@ -7,13 +7,15 @@ class BaseBorderWrapper extends StatelessWidget {
   final double? width;
   final double? height;
   final Color backgroundColor;
+  final bool shouldShowBorder;
 
   const BaseBorderWrapper({
     super.key,
     this.child,
     this.width,
     this.height,
-    this.backgroundColor = AppColor.colorAppBackground
+    this.backgroundColor = AppColor.colorAppBackground,
+    this.shouldShowBorder = true
   });
 
   @override
@@ -23,7 +25,7 @@ class BaseBorderWrapper extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
           color: backgroundColor,
-          border: Border.all(color: AppColor.colorTextFieldPlaceHolder),
+          border: shouldShowBorder ? Border.all(color: AppColor.colorTextFieldPlaceHolder) : null ,
           borderRadius: BorderRadius.circular(8.r)
       ),
       child: child,

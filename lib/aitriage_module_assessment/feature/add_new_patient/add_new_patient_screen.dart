@@ -71,7 +71,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                   Expanded(
                       child: LayoutBuilder(
                         builder: (_, constraints) {
-                          return Obx(() => DropDownButton(
+                          return Obx(() => DropDownWrapper(
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
                             width: constraints.maxWidth,
                             height: 56.h,
@@ -100,7 +100,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                   Expanded(
                       child: LayoutBuilder(
                         builder: (_, constraints) {
-                          return Obx(() => DropDownButton(
+                          return Obx(() => DropDownWrapper(
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'State*'),
                             width: constraints.maxWidth,
                             height: 56.h,
@@ -130,7 +130,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                   Expanded(
                       child: LayoutBuilder(
                         builder: (_, constraints) {
-                          return Obx(() => DropDownButton(
+                          return Obx(() => DropDownWrapper(
                             placeHolder: const AddPatientDropDownPlaceHolder(title: 'City*'),
                             width: constraints.maxWidth,
                             height: 56.h,
@@ -155,7 +155,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                           Expanded(
                               child: LayoutBuilder(
                                 builder: (_, constraints) {
-                                  return Obx(() => DropDownButton(
+                                  return Obx(() => DropDownWrapper(
                                     placeHolder: const AddPatientDropDownPlaceHolder(title: 'Gender*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
@@ -173,7 +173,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                           Expanded(
                               child: LayoutBuilder(
                                 builder: (_, constraints) {
-                                  return Obx(() => DropDownButton(
+                                  return Obx(() => DropDownWrapper(
                                     placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,

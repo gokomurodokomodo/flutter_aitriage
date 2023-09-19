@@ -124,11 +124,11 @@ class _Tablet extends GetView<SignInController> {
               SizedBox(
                 height: 80.h,
               ),
-              Obx(() => DropDownButton(
+              Obx(() => DropDownWrapper(
                     onTapChildren: (_) => controller.setIndex(_),
                     dropDownHeight: 150.h,
+                    height: 44.h,
                     width: 200.w,
-                    title: '',
                     shouldIncludeAsterisk: false,
                     children: controller.vm.value.countryList
                         .map((e) => CountryWidget(
