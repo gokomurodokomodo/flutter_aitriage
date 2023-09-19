@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 
 class HomeAssessmentController extends GetxController {
   final GetListPatientUseCase _getListPatientUC;
-  var totalPage = 1.obs;
+  var totalPage = 10.obs;
+  var selectedIndex = 0.obs;
 
   HomeAssessmentController(this._getListPatientUC);
 

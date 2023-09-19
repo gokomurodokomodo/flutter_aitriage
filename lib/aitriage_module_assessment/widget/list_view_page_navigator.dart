@@ -16,6 +16,23 @@ class ListViewPageNavigator extends StatefulWidget {
 }
 
 class _ListViewPageNavigatorState extends State<ListViewPageNavigator> {
+  var total = 1;
+  var selectedIndex = 0;
+  var listPageWidget = <_PageItemContent>[];
+
+  @override
+  void initState() {
+    super.initState();
+    total = widget.total;
+
+    for(int i = 0; i < total; i++) {
+      listPageWidget.add(
+          _PageItemContent(
+              value: (i + 1).toString(),
+              enable: i == selectedIndex));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -50,6 +67,7 @@ class _ListViewPageNavigatorState extends State<ListViewPageNavigator> {
       ],
     );
   }
+
 }
 
 class _PageItemWrapper extends StatelessWidget {

@@ -17,7 +17,7 @@ import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../config/assessment_module_page_route.dart';
 import '../../widget/dashboard_patient_viewer.dart';
 import '../../widget/gender_with_symbol.dart';
-import '../../widget/list_view_page_navigator.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 class HomeAssessmentScreen extends StatelessWidget {
   const HomeAssessmentScreen({super.key});
@@ -144,7 +144,27 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             child: PatientSummaryListView()
                         ),
                         LineSeparated(margin: 16.h),
-                        Obx(() => ListViewPageNavigator(total: controller.totalPage.value))
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: SizedBox(
+                            width: 400.w,
+                            child: StatefulBuilder(
+                              builder: (_,__) {
+                                return Obx(() => NumberPaginator(
+                                  numberPages: controller.totalPage.value,
+                                  onPageChange: (value) {
+                                    __((){});
+                                  },
+                                  config: NumberPaginatorUIConfig(
+                                      buttonShape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.r),
+                                      )
+                                  ),
+                                ));
+                              },
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   )),
