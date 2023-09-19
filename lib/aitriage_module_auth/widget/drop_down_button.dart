@@ -25,6 +25,7 @@ class DropDownWrapper extends StatefulWidget {
   // In case you just want open drop down like notification with static placeholder
   final bool shouldReplacePlaceHolder;
   final bool shouldShowBorderPlaceHolder;
+  final bool shouldEnableDropDown;
 
   const DropDownWrapper({
     super.key,
@@ -40,7 +41,8 @@ class DropDownWrapper extends StatefulWidget {
     this.chooseIndex = 0,
     this.dropDownAlign = DropDownAlign.vertical,
     this.shouldReplacePlaceHolder = true,
-    this.shouldShowBorderPlaceHolder = true
+    this.shouldShowBorderPlaceHolder = true,
+    this.shouldEnableDropDown = true
   });
 
   @override
@@ -98,6 +100,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
               width: widgetWidth,
               height: widgetHeight,
               shouldShowBorder: widget.shouldShowBorderPlaceHolder,
+              backgroundColor: !widget.shouldEnableDropDown ? AppColor.colorSelectedLocationBackground : null,
               child: Stack(
                 children: [
                   Container(
@@ -126,6 +129,8 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
   }
 
   void _showOverLay() async {
+    if (!widget.shouldEnableDropDown) return;
+
     overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
         builder: (_) => Positioned(

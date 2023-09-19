@@ -7,6 +7,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_pati
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/patient.dart';
+import '../../../aitriage_core/util/active_user/active_user.dart';
 import '../../domain/use_case/get_race_uc.dart';
 
 class AddNewPatientController extends GetxController {
@@ -52,10 +53,9 @@ class AddNewPatientController extends GetxController {
 
   void addPatient() async {
     try {
-      final patient = Patient.fromJson(null);
       final request = vm.value.getAddPatientRequest;
-      final accountId = '2';
-      await _addPatientUC.execute(request, accountId);
+      final user = await ActiveUserUtil.userInfo;
+      await _addPatientUC.execute(request, user.id.toString());
     } catch (e) {
 
     }
@@ -90,5 +90,6 @@ class AddNewPatientController extends GetxController {
       address: address,
       description: description
     );
+    vm.refresh();
   }
 }

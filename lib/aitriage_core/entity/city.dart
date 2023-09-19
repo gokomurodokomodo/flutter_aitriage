@@ -28,7 +28,7 @@ class City {
   City.fromJson(dynamic json)
       : id = json?['id'],
         name = json?['name'],
-        stateId = json?['stateId'],
+        stateId = json?['state_id'],
         stateCode = json?['state_code'],
         stateName = json?['state_name'],
         countryId = json?['country_id'],

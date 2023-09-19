@@ -6,7 +6,7 @@ class BaseBorderWrapper extends StatelessWidget {
   final Widget? child;
   final double? width;
   final double? height;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final bool shouldShowBorder;
 
   const BaseBorderWrapper({

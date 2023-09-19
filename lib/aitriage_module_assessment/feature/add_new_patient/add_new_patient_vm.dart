@@ -31,6 +31,8 @@ class AddNewPatientVM {
   int? _cityId;
   var _address = '';
   var _description = '';
+  // _stateIndex for filtering city
+  int? _stateIndex;
 
   void update({
     List<String>? genders,
@@ -97,7 +99,10 @@ class AddNewPatientVM {
     if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
     if (nationalityIndex != null && nationalityIndex < _nationalities.length) _nationalityId = _nationalities[nationalityIndex].id;
     if (cityIndex != null && cityIndex < _cities.length) _cityId = _cities[cityIndex].id;
-    if (stateIndex != null && stateIndex < _states.length) _stateId = _states[stateIndex].id;
+    if (stateIndex != null && stateIndex < _states.length) {
+      _stateId = _states[stateIndex].id;
+      _stateIndex = stateIndex;
+    }
     if (genderIndex != null && genderIndex < _genders.length) _gender = _genders[genderIndex];
 
     if (date != null) {
@@ -136,7 +141,19 @@ class AddNewPatientVM {
   List<String> get genders => _genders.toList();
   List<String> get races => _races.map((e) => e.name ?? '').toList();
   List<String> get nationalities => _nationalities.map((e) => e.nationality ?? '').toList();
-  List<String> get cities => _cities.map((e) => e.name ?? '').toList();
+
+  List<String> get cities {
+    if (_stateIndex != null) {
+      final stateId = _states[_stateIndex!].id;
+      return _cities.where((element) {
+        print('state ID ${element.stateId} $stateId');
+        return element.stateId == stateId;
+      }).map((e) => e.name ?? '').toList();
+    } else {
+      return [];
+    }
+  }
+
   List<String> get states => _states.map((e) => e.name ?? '').toList();
 
   AddPatientRequest get getAddPatientRequest {
@@ -159,4 +176,6 @@ class AddNewPatientVM {
 
     return AddPatientRequest(patient);
   }
+
+  bool get shouldEnableCityDropDown => _stateIndex != null;
 }

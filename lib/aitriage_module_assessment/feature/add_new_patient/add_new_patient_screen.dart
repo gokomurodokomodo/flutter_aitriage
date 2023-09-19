@@ -135,6 +135,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                             width: constraints.maxWidth,
                             height: 56.h,
                             dropDownHeight: 200,
+                            shouldEnableDropDown: controller.vm.value.shouldEnableCityDropDown,
                             onTapChildren: (index) => controller.onInfoChange(cityIndex: index),
                             children: controller.vm.value.cities.map((e) => SizedBox(
                                 width: constraints.maxWidth,
