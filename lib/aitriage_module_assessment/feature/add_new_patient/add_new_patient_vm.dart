@@ -146,7 +146,6 @@ class AddNewPatientVM {
     if (_stateIndex != null) {
       final stateId = _states[_stateIndex!].id;
       return _cities.where((element) {
-        print('state ID ${element.stateId} $stateId');
         return element.stateId == stateId;
       }).map((e) => e.name ?? '').toList();
     } else {
