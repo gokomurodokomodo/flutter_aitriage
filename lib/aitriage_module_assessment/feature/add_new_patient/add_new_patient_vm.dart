@@ -33,6 +33,7 @@ class AddNewPatientVM {
   var _description = '';
   // _stateIndex for filtering city
   int? _stateIndex;
+  var _phoneCode = '';
 
   void update({
     List<String>? genders,
@@ -54,6 +55,7 @@ class AddNewPatientVM {
     int? cityIndex,
     String? address,
     String? description,
+    String? phoneCode
   }) {
     // location id need to be first
 
@@ -95,6 +97,7 @@ class AddNewPatientVM {
     _address = address ?? _address;
     _description = description ?? _description;
     _phoneNumber = phoneNumber ?? _phoneNumber;
+    _phoneCode = phoneCode ?? _phoneCode;
 
     if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
     if (nationalityIndex != null && nationalityIndex < _nationalities.length) _nationalityId = _nationalities[nationalityIndex].id;
@@ -166,7 +169,7 @@ class AddNewPatientVM {
         _raceId,
         _address,
         _gender,
-        null,
+        _phoneCode,
         _phoneNumber,
         _email,
         _description,
