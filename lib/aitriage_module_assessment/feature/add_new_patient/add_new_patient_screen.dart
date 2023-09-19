@@ -178,6 +178,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                                     placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
+                                    dropDownHeight: 200,
                                     children: controller.vm.value.races.map((e) => SizedBox(
                                         width: constraints.maxWidth,
                                         height: 50.h,

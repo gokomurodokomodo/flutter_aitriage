@@ -149,11 +149,11 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           child: SizedBox(
                             width: 400.w,
                             child: StatefulBuilder(
-                              builder: (_,__) {
+                              builder: (_,setState) {
                                 return Obx(() => NumberPaginator(
                                   numberPages: controller.totalPage.value,
                                   onPageChange: (value) {
-                                    __((){});
+                                    setState((){});
                                   },
                                   config: NumberPaginatorUIConfig(
                                       buttonShape: RoundedRectangleBorder(
