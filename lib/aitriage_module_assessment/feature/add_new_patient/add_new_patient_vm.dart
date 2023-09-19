@@ -34,6 +34,7 @@ class AddNewPatientVM {
   // _stateIndex for filtering city
   int? _stateIndex;
   var _phoneCode = '';
+  int? _countryId;
 
   void update({
     List<String>? genders,
@@ -55,11 +56,13 @@ class AddNewPatientVM {
     int? cityIndex,
     String? address,
     String? description,
-    String? phoneCode
+    String? phoneCode,
+    int? countryId
   }) {
     // location id need to be first
 
     _locationId = locationId ?? _locationId;
+    _countryId = countryId ?? _countryId;
 
     if (genders != null) {
       final getCode = LocalizationService.currentLanguage.locale.languageCode;
@@ -80,13 +83,13 @@ class AddNewPatientVM {
 
     if (cities != null) {
       _cities.clear();
-      final list = cities.where((element) => element.countryId == _locationId).toList();
+      final list = cities.where((element) => element.countryId == _countryId).toList();
       _cities.addAll(list);
     }
 
     if (states != null) {
       _states.clear();
-      final list = states.where((element) => element.countryId == _locationId).toList();
+      final list = states.where((element) => element.countryId == _countryId).toList();
       _states.addAll(list);
     }
 

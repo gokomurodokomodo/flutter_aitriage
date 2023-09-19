@@ -35,7 +35,8 @@ class AddNewPatientController extends GetxController {
     final location = Get.isRegistered<HomeMainController>()
         ? Get.find<HomeMainController>().location
         : null;
-    final locationId = location?.countryId;
+    final locationId = location?.id;
+    final countryId = location?.countryId;
     final phoneCode = location?.countryCode;
     final genders = _getGenderUC.execute();
     final races = _getRaceUC.execute();
@@ -49,6 +50,7 @@ class AddNewPatientController extends GetxController {
         cities: cities,
         states: states,
         locationId: locationId,
+        countryId: countryId,
         phoneCode: phoneCode
     );
     vm.refresh();
