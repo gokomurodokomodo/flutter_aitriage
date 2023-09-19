@@ -239,14 +239,27 @@ class _Tablet extends GetView<AddNewPatientController> {
               Row(
                 children: [
                   const Spacer(),
-                  ColorButton(title: 'Cancel', width: 212.w, height: 48.h),
+                  ColorButton(
+                      title: 'Cancel',
+                      width: 212.w,
+                      height: 48.h,
+                      onTap: () => Get.back(),
+                  ),
                   SizedBox(width: 20.w),
                   ColorButton(
                       title: 'Save',
                       shouldEnable: true,
                       width: 212.w,
                       height: 48.h,
-                      onTap: () => controller.addPatient(),
+                      onTap: () {
+                        onSuccess() {
+                          Get.back();
+                        }
+                        onError(dynamic message) {
+                          Get.snackbar('Error', message);
+                        }
+                        controller.onTapSavePatient(onSuccess: onSuccess, onError: onError);
+                      },
                   )
                 ],
               )

@@ -7,6 +7,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_pati
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/patient.dart';
+import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/util/active_user/active_user.dart';
 import '../../domain/use_case/get_race_uc.dart';
 
@@ -51,13 +52,17 @@ class AddNewPatientController extends GetxController {
     vm.refresh();
   }
 
-  void addPatient() async {
+  void onTapSavePatient({
+    Function? onSuccess,
+    Function? onError
+  }) async {
     try {
       final request = vm.value.getAddPatientRequest;
       final user = await ActiveUserUtil.userInfo;
       await _addPatientUC.execute(request, user.id.toString());
+      onSuccess?.call();
     } catch (e) {
-
+      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
     }
   }
 
