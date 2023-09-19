@@ -1,13 +1,13 @@
 import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/add_patient_request.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../aitriage_core/entity/city.dart';
 import '../../../aitriage_core/entity/patient.dart';
 import '../../../aitriage_core/entity/race.dart';
 import '../../../aitriage_core/entity/state.dart';
 import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
-import 'package:intl/intl.dart';
 
 class AddNewPatientVM {
   // data for view
@@ -116,7 +116,7 @@ class AddNewPatientVM {
     var formatter = DateFormat('dd/MM/yyyy');
 
     try {
-      final dateTime = formatter.parse(string);
+      formatter.parse(string);
       return true;
     } catch (e) {
       return false;
@@ -156,6 +156,7 @@ class AddNewPatientVM {
         _description,
         _dob,
         _yearOfBirth);
+
     return AddPatientRequest(patient);
   }
 }

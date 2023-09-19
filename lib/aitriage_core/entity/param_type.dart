@@ -4,6 +4,7 @@ part 'param_type.g.dart';
 @collection
 class ParamType {
   Id? isarId;
+  final int? id;
   final String? groupType;
   final String? type;
   final String? key;
@@ -14,6 +15,7 @@ class ParamType {
   final String? scope;
 
   ParamType(
+      this.id,
       this.groupType,
       this.type,
       this.key,
@@ -25,7 +27,8 @@ class ParamType {
   );
 
   ParamType.fromJson(dynamic json)
-      : groupType = json?['groupType'],
+      : id = json?['id'],
+        groupType = json?['groupType'],
         type = json?['type'],
         key = json?['key'],
         value = json?['value'],

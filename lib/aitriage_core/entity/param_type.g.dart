@@ -27,33 +27,38 @@ const ParamTypeSchema = CollectionSchema(
       name: r'groupType',
       type: IsarType.string,
     ),
-    r'key': PropertySchema(
+    r'id': PropertySchema(
       id: 2,
+      name: r'id',
+      type: IsarType.long,
+    ),
+    r'key': PropertySchema(
+      id: 3,
       name: r'key',
       type: IsarType.string,
     ),
     r'mediaUrl': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'mediaUrl',
       type: IsarType.string,
     ),
     r'position': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'position',
       type: IsarType.long,
     ),
     r'scope': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'scope',
       type: IsarType.string,
     ),
     r'type': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'type',
       type: IsarType.string,
     ),
     r'value': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'value',
       type: IsarType.string,
     )
@@ -131,12 +136,13 @@ void _paramTypeSerialize(
 ) {
   writer.writeString(offsets[0], object.description);
   writer.writeString(offsets[1], object.groupType);
-  writer.writeString(offsets[2], object.key);
-  writer.writeString(offsets[3], object.mediaUrl);
-  writer.writeLong(offsets[4], object.position);
-  writer.writeString(offsets[5], object.scope);
-  writer.writeString(offsets[6], object.type);
-  writer.writeString(offsets[7], object.value);
+  writer.writeLong(offsets[2], object.id);
+  writer.writeString(offsets[3], object.key);
+  writer.writeString(offsets[4], object.mediaUrl);
+  writer.writeLong(offsets[5], object.position);
+  writer.writeString(offsets[6], object.scope);
+  writer.writeString(offsets[7], object.type);
+  writer.writeString(offsets[8], object.value);
 }
 
 ParamType _paramTypeDeserialize(
@@ -146,14 +152,15 @@ ParamType _paramTypeDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = ParamType(
+    reader.readLongOrNull(offsets[2]),
     reader.readStringOrNull(offsets[1]),
-    reader.readStringOrNull(offsets[6]),
-    reader.readStringOrNull(offsets[2]),
     reader.readStringOrNull(offsets[7]),
-    reader.readStringOrNull(offsets[0]),
     reader.readStringOrNull(offsets[3]),
-    reader.readLongOrNull(offsets[4]),
-    reader.readStringOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[8]),
+    reader.readStringOrNull(offsets[0]),
+    reader.readStringOrNull(offsets[4]),
+    reader.readLongOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[6]),
   );
   object.isarId = id;
   return object;
@@ -171,16 +178,18 @@ P _paramTypeDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readLongOrNull(offset)) as P;
-    case 5:
       return (reader.readStringOrNull(offset)) as P;
+    case 5:
+      return (reader.readLongOrNull(offset)) as P;
     case 6:
       return (reader.readStringOrNull(offset)) as P;
     case 7:
+      return (reader.readStringOrNull(offset)) as P;
+    case 8:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -579,6 +588,75 @@ extension ParamTypeQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'groupType',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterFilterCondition> idBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1486,6 +1564,18 @@ extension ParamTypeQuerySortBy on QueryBuilder<ParamType, ParamType, QSortBy> {
     });
   }
 
+  QueryBuilder<ParamType, ParamType, QAfterSortBy> sortById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterSortBy> sortByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
   QueryBuilder<ParamType, ParamType, QAfterSortBy> sortByKey() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'key', Sort.asc);
@@ -1582,6 +1672,18 @@ extension ParamTypeQuerySortThenBy
   QueryBuilder<ParamType, ParamType, QAfterSortBy> thenByGroupTypeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'groupType', Sort.desc);
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterSortBy> thenById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<ParamType, ParamType, QAfterSortBy> thenByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
     });
   }
 
@@ -1686,6 +1788,12 @@ extension ParamTypeQueryWhereDistinct
     });
   }
 
+  QueryBuilder<ParamType, ParamType, QDistinct> distinctById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id');
+    });
+  }
+
   QueryBuilder<ParamType, ParamType, QDistinct> distinctByKey(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1745,6 +1853,12 @@ extension ParamTypeQueryProperty
   QueryBuilder<ParamType, String?, QQueryOperations> groupTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'groupType');
+    });
+  }
+
+  QueryBuilder<ParamType, int?, QQueryOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id');
     });
   }
 

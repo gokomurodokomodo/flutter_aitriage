@@ -9,7 +9,9 @@ class GetGenderUseCaseImpl extends GetGenderUseCase {
   @override
   List<String> execute() {
     final hiviService = Get.find<HiviService>();
-    final list = hiviService.paramType
+    final sortList = hiviService.paramType;
+    sortList.sort((a, b) => (a.id ?? 0).compareTo(b.id ?? 0));
+    final list = sortList
         .where((element) => element.groupType == 'GENDER')
         .map((e) => e.value ?? '')
         .toList();
