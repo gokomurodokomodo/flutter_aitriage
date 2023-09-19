@@ -49,7 +49,7 @@ class _Tablet extends GetView<HomeMainController> {
                   dropDownHeight: 450.h,
                   onTapChildren: (index) => controller.changeLocation(index),
                   children: controller.locations.map((e) => Container(
-                    padding: EdgeInsets.only(top: 24.r, left: 24.w, right: 24.w),
+                    padding: EdgeInsets.only(top: 12.r, left: 24.w, right: 24.w, bottom: 12.r),
                     child: LocationWidget(
                         name: e.name,
                         address: e.address,

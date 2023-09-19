@@ -147,7 +147,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                     height: 200,
                     child: ListView(
                       children: widget.children?.map((e) => Container(
-                        color: widget.children?.indexOf(e) == index ? Colors.black12 : Colors.transparent,
+                        color: widget.children?.indexOf(e) == index ? AppColor.colorSelectedLocationBackground : Colors.transparent,
                         child: GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () {
@@ -279,9 +279,11 @@ class LocationWidget extends StatelessWidget {
         },),
         SizedBox(width: 8.w),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name ?? ''),
-            Text(address ?? '')
+            Text(name ?? '', style: AppStyle.styleTextLocationTitle),
+            Text(address ?? '', style: AppStyle.styleAssessmentItemLabel)
           ],
         )
       ],

@@ -42,4 +42,5 @@ class AppColor {
   static const colorSignUpIconWrapperBorder = Color(0xffEAECF0);
   static const colorAsterisk = Color(0xffFF4A4A);
   static const colorForgotPassword= Color(0xFF027BFE);
+  static const colorSelectedLocationBackground = Color(0xfff9f9f9);
 }
