@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 
 class ListViewPageNavigator extends StatefulWidget {
-  const ListViewPageNavigator({super.key});
+  final int total;
+
+  const ListViewPageNavigator({super.key, required this.total});
 
   @override
   State<ListViewPageNavigator> createState() => _ListViewPageNavigatorState();

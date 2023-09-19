@@ -6,4 +6,5 @@ import '../../../aitriage_core/network/common/base_response.dart';
 abstract class PatientRepository {
   Future<GetListCountryLanguageResponse> getNationality();
   Future<BaseResponse> addPatient(BaseRequest request, String accountId);
+  Future<PatientResponse> getListPatient(String accountId, int page, int limit);
 }

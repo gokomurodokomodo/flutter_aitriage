@@ -156,6 +156,7 @@ class _GenderCell extends StatelessWidget {
   }
 }
 
-
-
+class PatientSummaryVM {
+  
+}
 

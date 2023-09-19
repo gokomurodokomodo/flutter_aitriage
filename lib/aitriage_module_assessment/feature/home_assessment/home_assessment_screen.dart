@@ -144,7 +144,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             child: PatientSummaryListView()
                         ),
                         LineSeparated(margin: 16.h),
-                        const ListViewPageNavigator()
+                        Obx(() => ListViewPageNavigator(total: controller.totalPage.value))
                       ],
                     ),
                   )),
