@@ -104,7 +104,10 @@ class AddNewPatientVM {
 
     if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
     if (nationalityIndex != null && nationalityIndex < _nationalities.length) _nationalityId = _nationalities[nationalityIndex].id;
-    if (cityIndex != null && cityIndex < _cities.length) _cityId = cities?[cityIndex].id; // get id from mapped city
+    if (cityIndex != null && cityIndex < this.cities.length) {
+      final cityName = this.cities[cityIndex];
+      _cityId = _cities.firstWhereOrNull((element) => element.name == cityName)?.id;
+    }// get id from mapped city
     if (stateIndex != null && stateIndex < _states.length) {
       _stateId = _states[stateIndex].id;
       _stateIndex = stateIndex;
@@ -121,9 +124,9 @@ class AddNewPatientVM {
         _yearOfBirth = int.parse(date);
       }
     }
-    print('countryId $_countryId');
-    print('city index $cityIndex');
-    print('city id $_cityId');
+    // print('countryId $_countryId');
+    // print('city index $cityIndex');
+    // print('city id $_cityId');
   }
 
   bool isDdMmYyyy(String string) {
