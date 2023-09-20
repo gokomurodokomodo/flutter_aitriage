@@ -63,7 +63,7 @@ class AddNewPatientController extends GetxController {
     try {
       final request = vm.value.getAddPatientRequest;
       final user = await ActiveUserUtil.userInfo;
-      await _addPatientUC.execute(request, user.id.toString());
+      await _addPatientUC.execute(request, user.accountId.toString());
       onSuccess?.call();
     } catch (e) {
       HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));

@@ -119,7 +119,7 @@ class AddNewPatientVM {
       _yearOfBirth = null;
 
       if (isDdMmYyyy(date)) {
-        _dob = convertDdMmyyyyToYyyyMmDdHhMmSs(date);
+        _dob = convertDdMmYyyyToYyyyMmDdHhMmSs(date);
       } else if (date.length == 4 && date.isNumericOnly) {
         _yearOfBirth = int.parse(date);
       }
@@ -140,7 +140,7 @@ class AddNewPatientVM {
     }
   }
 
-  String convertDdMmyyyyToYyyyMmDdHhMmSs(String string) {
+  String convertDdMmYyyyToYyyyMmDdHhMmSs(String string) {
     var sourceFormatter = DateFormat('dd/MM/yyyy');
     var targetFormatter = DateFormat('yyyy-MM-dd HH:mm:ss');
     DateTime dateTime = sourceFormatter.parse(string);

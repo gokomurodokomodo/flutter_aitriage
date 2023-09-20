@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../aitriage_module_assessment/domain/entity/patient_param.dart';
 import '../../../aitriage_module_assessment/widget/gender_with_symbol.dart';
 import 'line_separated.dart';
 
@@ -15,7 +16,9 @@ const _lastAssessmentRatio = 10;
 final _blankWidth = 48.w;
 
 class PatientSummaryListView extends StatelessWidget {
-  const PatientSummaryListView({super.key});
+  final List<PatientSummaryVM> list;
+
+  const PatientSummaryListView({super.key, required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +160,8 @@ class _GenderCell extends StatelessWidget {
 }
 
 class PatientSummaryVM {
-  
+  Patient? patient;
+  var avatar = '';
+  var gender = '';
 }
 

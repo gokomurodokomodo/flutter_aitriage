@@ -141,7 +141,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                         ),
                         SizedBox(height: 20.h),
                         const Expanded(
-                            child: PatientSummaryListView()
+                            child: PatientSummaryListView(list: [],)
                         ),
                         LineSeparated(margin: 16.h),
                         Align(
