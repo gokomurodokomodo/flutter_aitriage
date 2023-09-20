@@ -140,8 +140,8 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        const Expanded(
-                            child: PatientSummaryListView(list: [],)
+                        Expanded(
+                            child: Obx(() => PatientSummaryListView(list: controller.vm.value.listPatientSummaryVM))
                         ),
                         LineSeparated(margin: 16.h),
                         Align(
@@ -154,6 +154,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                                   numberPages: controller.totalPage.value,
                                   onPageChange: (value) {
                                     setState((){});
+                                    controller.onTapNumberPaginator(value);
                                   },
                                   config: NumberPaginatorUIConfig(
                                       buttonShape: RoundedRectangleBorder(

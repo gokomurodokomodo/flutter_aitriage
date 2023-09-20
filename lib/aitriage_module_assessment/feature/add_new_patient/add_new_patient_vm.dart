@@ -169,21 +169,20 @@ class AddNewPatientVM {
 
   AddPatientRequest get getAddPatientRequest {
     final patient = Patient(
-        _mrn,
-        _patientName,
-        _nationalityId,
-        _locationId,
-        _stateId,
-        _cityId,
-        _raceId,
-        _address,
-        _gender,
-        _phoneCode,
-        _phoneNumber,
-        _email,
-        _description,
-        _dob,
-        _yearOfBirth);
+        code: _mrn,
+        fullName: _patientName,
+        nationalityId: _nationalityId,
+        locationId: _locationId,
+        stateId: _stateId,
+        cityId: _cityId,
+        raceId: _raceId,
+        address: _address,
+        gender: _gender,
+        phoneCode: _phoneCode,
+        email: _email,
+        description: _description,
+        birthday: _dob,
+        yearOfBirth: _yearOfBirth);
 
     return AddPatientRequest(patient);
   }

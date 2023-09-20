@@ -14,8 +14,12 @@ class Patient {
   final String? description;
   final dynamic birthday;
   final int? yearOfBirth;
+  final String? raceName;
+  final int? age;
+  final String? lastActivityDate;
+  final String? avatar;
 
-  Patient(
+  Patient({
       this.code,
       this.fullName,
       this.nationalityId,
@@ -30,7 +34,12 @@ class Patient {
       this.email,
       this.description,
       this.birthday,
-      this.yearOfBirth);
+      this.yearOfBirth,
+      this.avatar,
+      this.raceName,
+      this.age,
+      this.lastActivityDate
+  });
 
   Patient.fromJson(dynamic json)
       : code = json?['code'],
@@ -47,5 +56,10 @@ class Patient {
         email = json?['email'],
         description = json?['description'],
         birthday = json?['birthday'],
-        yearOfBirth = json?['yearOfBirth'];
+        yearOfBirth = json?['yearOfBirth'],
+        avatar = json?['avatar'],
+        raceName = json?['raceName'],
+        age = json?['age'],
+        lastActivityDate = json?['lastActivityDate'];
 }
+
