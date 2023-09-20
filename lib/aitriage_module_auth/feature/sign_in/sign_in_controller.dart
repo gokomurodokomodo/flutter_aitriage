@@ -30,6 +30,7 @@ class SignInController extends GetxController{
     final response = await _getListCountryUC.execute();
     vm.value.updateVM(countryList: response.data);
     vm.refresh();
+    _signInForDev();
   }
 
   void onSubmitSignIn({
@@ -112,5 +113,13 @@ class SignInController extends GetxController{
 
   void setIndex(int i) {
     countryIndex.value = i;
+  }
+
+  void _signInForDev() {
+    vm.value.updateVM(
+      username: 'huetransky@gmail.com',
+      password: 'Hue@12345'
+    );
+    isValidated.value = true;
   }
 }

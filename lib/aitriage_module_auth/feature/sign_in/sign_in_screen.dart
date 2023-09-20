@@ -28,6 +28,12 @@ class _Tablet extends GetView<SignInController> {
 
   @override
   Widget build(BuildContext context) {
+    // for dev
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    emailController.text = 'huetransky@gmail.com';
+    passwordController.text = 'Hue@12345';
+
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       resizeToAvoidBottomInset: true,
@@ -45,6 +51,7 @@ class _Tablet extends GetView<SignInController> {
               SizedBox(height: 14.h),
               SizedBox(
                 child: CustomLoginField(
+                  controller: emailController,
                   onTextChange: (_) => controller.onTextEmailChange(_),
                   // isValidated: widget.controller.isValidEmail.value,
                   label: 'email_label_sign_in'.tr,
@@ -53,6 +60,7 @@ class _Tablet extends GetView<SignInController> {
               ),
               SizedBox(height: 14.h),
               Obx(() => CustomLoginField(
+                    controller: passwordController,
                     shouldHaveTrailingIcon: true,
                     onSwitchPasswordView: () =>
                         controller.onSwitchPasswordView(),
