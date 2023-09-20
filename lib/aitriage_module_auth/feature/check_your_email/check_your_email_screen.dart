@@ -42,7 +42,7 @@ class _Tablet extends GetView<CheckYourEmailController> {
             )),
             SizedBox(height: 32.h,),
             ColorButton(
-              shouldEnable: true,
+              shouldEnableBackground: true,
               width: 360.w,
               title: 'open_email_app'.tr,
               onTap: (){

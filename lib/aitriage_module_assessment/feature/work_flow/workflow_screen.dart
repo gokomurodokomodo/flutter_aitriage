@@ -117,7 +117,7 @@ class _Tablet extends StatelessWidget {
                   SizedBox(height: 8.h),
                   ColorButton(
                       title: 'Add note',
-                      shouldEnable: true,
+                      shouldEnableBackground: true,
                       width: 130.w,
                       leftIcon: SvgIconWidget(
                           name: AppImage.svgPlus,
@@ -255,7 +255,7 @@ class _Tablet extends StatelessWidget {
                               Spacer(),
                               ColorButton(title: ''
                                   'Connect Device',
-                                  shouldEnable: true,
+                                  shouldEnableBackground: true,
                                   width: 160.w,
                                   height: 48.h,
                               )

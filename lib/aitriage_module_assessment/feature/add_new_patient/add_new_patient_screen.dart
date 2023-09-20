@@ -244,12 +244,13 @@ class _Tablet extends GetView<AddNewPatientController> {
                       title: 'Cancel',
                       width: 212.w,
                       height: 48.h,
+                      shouldTapAble: true,
                       onTap: () => Get.back(),
                   ),
                   SizedBox(width: 20.w),
                   ColorButton(
                       title: 'Save',
-                      shouldEnable: true,
+                      shouldEnableBackground: true,
                       width: 212.w,
                       height: 48.h,
                       onTap: () {
@@ -315,7 +316,7 @@ class _Phone extends StatelessWidget {
                 const SizedBox(width: 5),
                 Expanded(child: ColorButton(
                   title: 'Confirm',
-                  shouldEnable: true,
+                  shouldEnableBackground: true,
                   onTap: () {
                     Get.to(() => AlertScreen(
                         onTapPrimaryButton: () {

@@ -82,7 +82,7 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
                     height: 40.w,
                     child: ColorButton(
                       title: 'sign_in'.tr,
-                      shouldEnable: true,
+                      shouldEnableBackground: true,
                     ),
                   ),
               ],

@@ -227,7 +227,7 @@ class _Tablet extends StatelessWidget {
               SizedBox(height: 32.h),
               Obx(() => ColorButton(
                   title: 'submit'.tr,
-                  shouldEnable: controller.shouldEnableSubmitButton.value,
+                  shouldEnableBackground: controller.shouldEnableSubmitButton.value,
                   width: 360.w,
                   onTap: () {
                     controller.submit(

@@ -71,7 +71,7 @@ class _Tablet extends StatelessWidget {
                   ColorButton(
                       title: 'reset_password'.tr, 
                       width: 360.w, 
-                      shouldEnable: true,
+                      shouldEnableBackground: true,
                       onTap: () => Get.toNamed(AuthModulePageRoute.successResetPassword),
                   ),
                   SizedBox(height: 32.h),

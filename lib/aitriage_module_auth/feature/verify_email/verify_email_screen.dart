@@ -60,7 +60,7 @@ class _Tablet extends GetView<VerifyEmailController> {
               ),
               SizedBox(height: 32.h),
               ColorButton(
-                shouldEnable: true,
+                shouldEnableBackground: true,
                 width: 360.w,
                 title: 'verify_email_title'.tr,
                 onTap: () {

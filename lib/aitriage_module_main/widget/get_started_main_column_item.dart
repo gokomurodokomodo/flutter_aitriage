@@ -34,7 +34,7 @@ class GetStartedMainColumnItem extends StatelessWidget {
             SizedBox(width: 14.w),
             Text(title, style: _titleStyle),
             const Spacer(),
-            ColorButton(title: buttonTitle, width: 120.w, shouldEnable: true)
+            ColorButton(title: buttonTitle, width: 120.w, shouldEnableBackground: true)
           ],
         ),
         if (state == GetStartedItemState.running) Padding(

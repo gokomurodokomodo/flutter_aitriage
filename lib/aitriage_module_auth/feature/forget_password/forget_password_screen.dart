@@ -65,7 +65,7 @@ class _Tablet extends GetView<ForgetPasswordController> {
                     controller.sendCode(onSuccess: onSuccess, onError: onError);
                   },
                   title: 'reset_password'.tr,
-                  shouldEnable: true,
+                  shouldEnableBackground: true,
                   width: 360.w,
                 ),
               SizedBox(height: 32.h,),

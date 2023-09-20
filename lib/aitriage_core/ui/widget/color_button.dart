@@ -4,7 +4,8 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ColorButton extends StatelessWidget {
-  final bool shouldEnable;
+  final bool shouldEnableBackground;
+  final bool shouldTapAble;
   final double? height;
   final double? width;
   final String title;
@@ -16,7 +17,7 @@ class ColorButton extends StatelessWidget {
 
   const ColorButton({
     super.key,
-    this.shouldEnable = false,
+    this.shouldEnableBackground = false,
     this.height,
     this.width,
     this.onTap,
@@ -24,14 +25,16 @@ class ColorButton extends StatelessWidget {
     this.textStyle,
     this.colorActive,
     required this.title,
-    this.leftIcon
+    this.leftIcon,
+    this.shouldTapAble = false
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        shouldEnable ? onTap?.call() : {};
+        // shouldTapAble for button disable but still can tap
+        (shouldEnableBackground || shouldTapAble) ? onTap?.call() : {};
       } ,
       behavior: HitTestBehavior.translucent,
       child: Container(
@@ -51,11 +54,11 @@ class ColorButton extends StatelessWidget {
     );
   }
 
-  BoxBorder? get _border => !shouldEnable ? Border.all(color: AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid) : Border.all(color: colorActive == null ? Colors.transparent : AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid);
+  BoxBorder? get _border => !shouldEnableBackground ? Border.all(color: AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid) : Border.all(color: colorActive == null ? Colors.transparent : AppColor.colorBorderDisable, width: 1.w, style: BorderStyle.solid);
 
-  Color get _borderColor => shouldEnable ? AppColor.colorButtonBackgroundEnable : AppColor.colorAppBackground;
+  Color get _borderColor => shouldEnableBackground ? AppColor.colorButtonBackgroundEnable : AppColor.colorAppBackground;
 
-  TextStyle get titleStyle => shouldEnable ? AppStyle.styleTextColorButtonEnable: AppStyle.styleTextColorButtonDisable;
+  TextStyle get titleStyle => shouldEnableBackground ? AppStyle.styleTextColorButtonEnable: AppStyle.styleTextColorButtonDisable;
 
   double get _height => height != null ?  height! : 48.h;
 

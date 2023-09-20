@@ -53,7 +53,7 @@ class _Tablet extends StatelessWidget {
                 ColorButton(
                     title: 'Get started',
                     onTap: () => _navigateToIntro(),
-                    shouldEnable: true,
+                    shouldEnableBackground: true,
                     width: 140.w,
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -90,7 +90,7 @@ class _Phone extends StatelessWidget {
                 ColorButton(
                   title: 'Get started',
                   onTap: () => _navigateToIntro(),
-                  shouldEnable: true,
+                  shouldEnableBackground: true,
                   width: 140.w,
                   decoration: BoxDecoration(
                       border: Border.all(

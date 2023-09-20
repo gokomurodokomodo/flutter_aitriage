@@ -29,7 +29,7 @@ class SuccessResetPasswordScreen extends StatelessWidget{
               width: 450.w,
               child: ColorButton(
                   title: 'sign_in'.tr,
-                  shouldEnable: true,
+                  shouldEnableBackground: true,
                   onTap: () => Get.toNamed(AuthModulePageRoute.signIn),
               ),
             ),

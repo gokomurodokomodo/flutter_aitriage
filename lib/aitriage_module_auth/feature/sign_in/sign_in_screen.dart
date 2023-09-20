@@ -89,7 +89,7 @@ class _Tablet extends GetView<SignInController> {
                   width: 360.w,
                   child: ColorButton(
                     title: 'sign_in'.tr,
-                    shouldEnable: controller.isValidated.value,
+                    shouldEnableBackground: controller.isValidated.value,
                     onTap: () async {
                       onSuccess(value) {
                         Get.back();

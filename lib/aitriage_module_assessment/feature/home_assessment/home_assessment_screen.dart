@@ -132,7 +132,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             const Spacer(),
                             ColorButton(
                               title: 'Add new',
-                              shouldEnable: true,
+                              shouldEnableBackground: true,
                               // onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
                               onTap: () => Get.toNamed(AssessmentModulePageRoute.addNewPatients),
                               width: 102.w,

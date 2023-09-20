@@ -96,7 +96,7 @@ class _TabletState extends State<_Tablet> {
               ),
               title: 'sign_up_title'.tr, 
               width: 360.w, 
-              shouldEnable: true,
+              shouldEnableBackground: true,
           ),
           SizedBox(height: 34.h),
           GestureDetector(

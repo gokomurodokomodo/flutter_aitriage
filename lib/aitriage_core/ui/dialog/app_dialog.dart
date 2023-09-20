@@ -51,7 +51,7 @@ class AppDialog extends StatelessWidget {
           shouldShowPrimaryButton
               ? ColorButton(
                 title: primaryButtonTitle!,
-                shouldEnable: true,
+                shouldEnableBackground: true,
                 onTap: () => primaryButtonCallback?.call()).paddingSymmetric(horizontal: 16.w)
               : const SizedBox(),
           shouldShowSecondaryButton
