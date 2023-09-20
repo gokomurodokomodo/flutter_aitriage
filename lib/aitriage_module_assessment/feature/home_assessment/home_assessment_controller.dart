@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 class HomeAssessmentController extends GetxController {
   final GetListPatientUseCase _getListPatientUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
-  var totalPage = 10.obs;
   final vm = HomeAssessmentVM().obs;
 
   HomeAssessmentController(this._getListPatientUC, this._getGenderParamTypeUC);
@@ -25,7 +24,10 @@ class HomeAssessmentController extends GetxController {
     final listPatient = resp.patient;
     vm.value.update(
         listPatient: listPatient,
-        genderParamType: genderParamType
+        genderParamType: genderParamType,
+        totalMale: resp.totalMale,
+        totalFemale: resp.totalFemale,
+        totalPage: resp.totalPage
     );
     vm.refresh();
   }

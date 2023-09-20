@@ -7,11 +7,21 @@ import '../../../aitriage_core/util/language_string_from_json/language_string_fr
 class HomeAssessmentVM {
   final _listPatient = <Patient>[];
   final _genderParamType = <ParamType>[];
+  var _totalMale = 0;
+  var _totalFemale = 0;
+  var _totalPage = 1;
 
   void update({
     List<Patient>? listPatient,
-    List<ParamType>? genderParamType
+    List<ParamType>? genderParamType,
+    int? totalMale,
+    int? totalFemale,
+    int? totalPage
   }) {
+    _totalMale = totalMale ?? _totalMale;
+    _totalFemale = totalFemale ?? _totalFemale;
+    _totalPage = totalPage ?? _totalPage;
+
     if (listPatient != null) {
       _listPatient.clear();
       _listPatient.addAll(listPatient);
@@ -37,4 +47,12 @@ class HomeAssessmentVM {
       );
     }).toList();
   }
+
+  int get totalMale => _totalMale;
+
+  int get totalFemale => _totalFemale;
+
+  int get totalPatient => _totalMale + _totalFemale;
+
+  int get totalPage => _totalPage;
 }

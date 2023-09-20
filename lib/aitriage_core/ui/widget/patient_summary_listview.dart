@@ -56,7 +56,7 @@ class _Label extends StatelessWidget {
             child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
         Expanded(
             flex: _raceRatio,
-            child: Text('RACE', style: AppStyle.styleTextAllPatientCategory)),
+            child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
         Expanded(
             flex: _ageRatio,
             child: Align(
@@ -94,7 +94,7 @@ class _PatientSummaryItem extends StatelessWidget {
             child: _GenderCell(vm: vm)),
         Expanded(
             flex: _raceRatio,
-            child: Text(vm.race, style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.city, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _ageRatio,
             child: Align(
@@ -134,7 +134,7 @@ class _PatientCell extends StatelessWidget {
           child: CircleAvatar(
             child: CachedNetworkImage(
               imageUrl: vm.avatar,
-              errorWidget: (_, __, ___) => const SizedBox()
+              errorWidget: (_, __, ___) => Image.asset(vm.avatar)
             ),
           ),
         ),
@@ -191,9 +191,9 @@ class PatientSummaryVM {
     if (_patient.avatar != null) {
       return _patient.avatar!;
     } else if (_patient.gender == 'MALE') {
-      return '';
+      return AppImage.icDefaultAvatarMale;
     } else if (_patient.gender == 'FEMALE') {
-      return '';
+      return AppImage.icDefaultAvatarFemale;
     }
 
     return '';
@@ -203,7 +203,7 @@ class PatientSummaryVM {
 
   String get genderText => _genderColumnValue;
 
-  String get race => _patient.raceName ?? '';
+  String get city => _patient.cityName ?? '';
 
   String get age => _patient.age?.toString() ?? '';
 

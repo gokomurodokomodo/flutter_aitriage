@@ -81,32 +81,32 @@ class _Tablet extends GetView<HomeAssessmentController> {
                       final itemWidth = (constraints.maxWidth - 48.w) / 3;
                       return Row(
                         children: [
-                          DashboardPatientViewer(
+                          Obx(() => DashboardPatientViewer(
                             gender: Gender.patients,
                             width: itemWidth,
                             label: 'Patient',
-                            amount: '10,000',
+                            amount: controller.vm.value.totalPatient.toString(),
                             percent: '0.05',
                             isGrowing: true,
-                          ),
+                          )),
                           SizedBox(width: 24.w),
-                          DashboardPatientViewer(
+                          Obx(() => DashboardPatientViewer(
                             gender: Gender.male,
                             width: itemWidth,
                             label: 'Male',
-                            amount: '5,600',
+                            amount: controller.vm.value.totalMale.toString(),
                             percent: '0.05',
                             isGrowing: true,
-                          ),
+                          )),
                           SizedBox(width: 24.w),
-                          DashboardPatientViewer(
+                          Obx(() => DashboardPatientViewer(
                             gender: Gender.female,
                             width: itemWidth,
                             label: 'Female',
-                            amount: '4,400',
+                            amount: controller.vm.value.totalFemale.toString(),
                             percent: '0.05',
                             isGrowing: false,
-                          ),
+                          )),
                         ],
                       );
                     },
@@ -151,7 +151,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             child: StatefulBuilder(
                               builder: (_,setState) {
                                 return Obx(() => NumberPaginator(
-                                  numberPages: controller.totalPage.value,
+                                  numberPages: controller.vm.value.totalPage,
                                   onPageChange: (value) {
                                     setState((){});
                                     controller.onTapNumberPaginator(value);
