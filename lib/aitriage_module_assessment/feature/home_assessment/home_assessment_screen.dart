@@ -84,7 +84,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           Obx(() => DashboardPatientViewer(
                             gender: Gender.patients,
                             width: itemWidth,
-                            label: 'Patient',
+                            label: 'Patients',
                             amount: controller.vm.value.totalPatient.toString(),
                             percent: '0.05',
                             isGrowing: true,
