@@ -32,6 +32,8 @@ class CustomLoginField extends StatelessWidget {
   final bool shouldAddBorder;
   final bool enableBorder;
   final TextInputFormatter? textInputFormatter;
+  final Widget? prefixIcon;
+  final bool shouldHavePrefixIcon;
 
   const CustomLoginField({
     super.key,
@@ -58,7 +60,9 @@ class CustomLoginField extends StatelessWidget {
     this.onTapInside,
     this.shouldAddBorder = false,
     this.enableBorder = false,
-    this.textInputFormatter
+    this.textInputFormatter,
+    this.shouldHavePrefixIcon = false,
+    this.prefixIcon
   });
 
   @override
@@ -86,32 +90,40 @@ class CustomLoginField extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(8.w),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: TextField(
-                  controller: controller,
-                  inputFormatters: <TextInputFormatter>[
-                        if (textInputRegex != null) FilteringTextInputFormatter.allow(textInputRegex!),
-                        if (textInputFormatter != null) textInputFormatter!,
-                      ],
-                  obscureText: shouldSecured ? true : false,
-                  enableSuggestions: shouldSecured ? false : true,
-                  autocorrect: shouldSecured ? false : true,
-                  keyboardType: type ?? TextInputType.text,
-                  onChanged: (_) {
-                    onTextChange?.call(_);
-                  },
-                  onTap: (){
-                    onTapInside?.call();
-                  },
-                  onTapOutside: (_) {
-                    onTapOutside?.call();
-                    Get.focusScope?.unfocus();
-                  },
-                  decoration: InputDecoration(
-                      hintText: hintText,
-                      hintStyle: AppStyle.styleCustomTextFieldHintText,
-                      border: InputBorder.none
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.only(left: (shouldHavePrefixIcon && prefixIcon != null) ? 0.w : 16.w),
+                  child: TextField(
+                    controller: controller,
+                    inputFormatters: <TextInputFormatter>[
+                          if (textInputRegex != null) FilteringTextInputFormatter.allow(textInputRegex!),
+                          if (textInputFormatter != null) textInputFormatter!,
+                        ],
+                    obscureText: shouldSecured ? true : false,
+                    enableSuggestions: shouldSecured ? false : true,
+                    autocorrect: shouldSecured ? false : true,
+                    keyboardType: type ?? TextInputType.text,
+                    textAlignVertical: TextAlignVertical.center,
+                    textAlign: TextAlign.left,
+                    
+                    onChanged: (_) {
+                      onTextChange?.call(_);
+                    },
+                    onTap: (){
+                      onTapInside?.call();
+                    },
+                    onTapOutside: (_) {
+                      onTapOutside?.call();
+                      Get.focusScope?.unfocus();
+                    },
+                    decoration: InputDecoration(
+                      //nếu có prefix icon hoặc trailing icon, thêm thuộc tính dưới nếu không textfield bị đẩy xuống dưới.
+                        isCollapsed: true,
+                        prefixIcon: (shouldHavePrefixIcon && prefixIcon != null) ? Padding(padding: EdgeInsetsDirectional.only(end: 16.w) ,child: prefixIcon) : null,
+                        hintText: hintText,
+                        hintStyle: AppStyle.styleCustomTextFieldHintText,
+                        border: InputBorder.none
+                    ),
                   ),
                 ),
               ),

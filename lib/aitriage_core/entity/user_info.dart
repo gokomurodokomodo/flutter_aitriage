@@ -14,7 +14,7 @@ class UserInfo {
   String? avatar;
   String? gender;
   String? birthday;
-  String? yearOfBirth;
+  int? yearOfBirth;
   String? nationalityCode;
   String? nationality;
   String? phone;
@@ -45,9 +45,9 @@ class UserInfo {
   int? transaction2FaEnabled;
   int? numOfLogin;
   String? lastTimeLogin;
-  String? createdBy;
+  num? createdBy;
   String? createdAt;
-  String? updatedBy;
+  num? updatedBy;
   String? updatedAt;
   String? accessToken;
   int? accountId;
@@ -227,7 +227,7 @@ class Locations {
   int? id;
   String? name;
   int? parentId;
-  String? levelDepth;
+  int? levelDepth;
   String? treePath;
   num? position;
   String? avatar;
@@ -256,8 +256,8 @@ class Locations {
   String? numOfLogin;
   int? accountId;
   String? accountNo;
-  String? createdBy;
-  String? updatedBy;
+  int? createdBy;
+  int? updatedBy;
   String? createdAt;
   String? updatedAt;
 

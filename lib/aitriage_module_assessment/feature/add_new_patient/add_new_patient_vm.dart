@@ -36,6 +36,7 @@ class AddNewPatientVM {
   var _phoneCode = '';
   int? _countryId;
 
+
   void update({
     List<String>? genders,
     List<Race>? races,
@@ -129,6 +130,26 @@ class AddNewPatientVM {
     // print('city id $_cityId');
   }
 
+  bool get isMRNVerify => _verifyStringNotNull(_mrn);
+  bool get isNameVerify => _verifyStringNotNull(_patientName);
+  bool get isNationalityVerify => _nationalityId != null;
+  bool get isStateVerify => _stateId != null;
+  bool get isDateVerify {
+    return (_dob != null || _yearOfBirth != null) ? true : false;
+    }
+  bool get isCityVerify => _cityId != null;
+  bool get isGenderVerify => _gender != '';
+  bool get isRaceVerify => _raceId != null;
+
+
+  bool _verifyStringNotNull(String infomation){
+    if(infomation == '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   bool isDdMmYyyy(String string) {
     var formatter = DateFormat('dd/MM/yyyy');
 
@@ -138,7 +159,7 @@ class AddNewPatientVM {
     } catch (e) {
       return false;
     }
-  }
+  } 
 
   String convertDdMmYyyyToYyyyMmDdHhMmSs(String string) {
     var sourceFormatter = DateFormat('dd/MM/yyyy');
@@ -188,4 +209,5 @@ class AddNewPatientVM {
   }
 
   bool get shouldEnableCityDropDown => _stateIndex != null;
+  String get phoneCode => _phoneCode;
 }

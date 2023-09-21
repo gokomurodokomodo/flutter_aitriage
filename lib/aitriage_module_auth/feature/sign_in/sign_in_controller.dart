@@ -50,7 +50,7 @@ class SignInController extends GetxController{
       onSuccess?.call(userInfo);
     } catch (e) {
       Get.back();
-      HandleNetworkError.handleNetworkError(e, (message, statusMessage, errorCode) {
+      HandleNetworkError.handleNetworkError(e,callFrom: CallFrom.signInScreen, (message, statusMessage, errorCode) {
         if(statusMessage == HandleNetworkError.requestVerifiedEmail){
           _onRequestVerify();
       } else{

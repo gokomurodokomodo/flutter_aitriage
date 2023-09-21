@@ -22,10 +22,7 @@ class AddNewPatientScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(
-        tablet: _Tablet(),
-        phone: _Phone()
-    );
+    return const DeviceDetector(tablet: _Tablet(), phone: _Phone());
   }
 }
 
@@ -44,211 +41,276 @@ class _Tablet extends GetView<AddNewPatientController> {
             color: AppColor.colorAppBackground,
             borderRadius: BorderRadius.circular(12.r),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Dialog Header
-              Row(
-                children: [
-                  Text('ADD PATIENT', style: AppStyle.styleTextDialogHeaderTitle),
-                  const Spacer(),
-                  GestureDetector(
-                      onTap: () => Get.back(),
-                      child: SvgIconWidget(name: AppImage.svgDialogClose, size: 24.r))
-                ],
-              ),
-              LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(
-                      hintText: 'MRN*',
-                      textFieldWidth:
-                      double.maxFinite,
-                      textFieldHeight: 56.h,
-                      onTextChange: (value) => controller.onInfoChange(mrn: value),
-                  )),
-                  SizedBox(width: 24.w),
-                  Expanded(
-                      child: LayoutBuilder(
-                        builder: (_, constraints) {
-                          return Obx(() => DropDownWrapper(
-                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
-                            width: constraints.maxWidth,
-                            height: 56.h,
-                            dropDownHeight: 200,
-                            onTapChildren: (index) => controller.onInfoChange(nationalityIndex: index),
-                            children: controller.vm.value.nationalities.map((e) => SizedBox(
-                                width: constraints.maxWidth,
-                                height: 50.h,
-                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                          ));
-                        },
-                      )
-                  ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(
+          child: SingleChildScrollView(
+            reverse: true,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Dialog Header
+                Row(
+                  children: [
+                    Text('ADD PATIENT',
+                        style: AppStyle.styleTextDialogHeaderTitle),
+                    const Spacer(),
+                    GestureDetector(
+                        onTap: () => Get.back(),
+                        child: SvgIconWidget(
+                            name: AppImage.svgDialogClose, size: 24.w))
+                  ],
+                ),
+                LineSeparated(
+                    margin: 20.h, color: AppColor.colorInactiveFillColor),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Center(
+                      child: Obx(() => CustomLoginField(
+                            hintText: 'MRN*',
+                            textFieldWidth: double.maxFinite,
+                            textFieldHeight: 56.h,
+                            onTextChange: (value) =>
+                                controller.onInfoChange(mrn: value),
+                            isValidated: controller.vm.value.isMRNVerify,
+                            unvalidateText: 'Please provide MRN',
+                          )),
+                    )),
+                    SizedBox(width: 24.w),
+                    Expanded(child: LayoutBuilder(
+                      builder: (_, constraints) {
+                        return Obx(() => Column(
+                          children: [
+                            DropDownWrapper(
+                                  placeHolder: const AddPatientDropDownPlaceHolder(
+                                      title: 'Nationality*'),
+                                  width: constraints.maxWidth,
+                                  height: 56.h,
+                                  dropDownHeight: 200,
+                                  onTapChildren: (index) => controller.onInfoChange(
+                                      nationalityIndex: index),
+                                  children: controller.vm.value.nationalities
+                                      .map((e) => SizedBox(
+                                          width: constraints.maxWidth,
+                                          height: 50.h,
+                                          child: AddPatientDropDownPlaceHolder(
+                                              title: e)))
+                                      .toList(),
+                                ),
+                                Obx(() => Visibility(
+                                  visible: !controller.vm.value.isNationalityVerify,
+                                  child: Text('Please select your patient nationality')
+                                  )),
+                          ],
+                        ));
+                      },
+                    )),
+                  ],
+                ),
+                SizedBox(height: 12.h),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomLoginField(
                       hintText: 'Patient name*',
                       textFieldWidth: double.maxFinite,
                       textFieldHeight: 56.h,
-                      onTextChange: (value) => controller.onInfoChange(patientName: value),
-                  )),
-                  SizedBox(width: 24.w),
-                  Expanded(
-                      child: LayoutBuilder(
-                        builder: (_, constraints) {
-                          return Obx(() => DropDownWrapper(
-                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'State*'),
-                            width: constraints.maxWidth,
-                            height: 56.h,
-                            dropDownHeight: 200,
-                            onTapChildren: (index) => controller.onInfoChange(stateIndex: index),
-                            children: controller.vm.value.states.map((e) => SizedBox(
-                                width: constraints.maxWidth,
-                                height: 50.h,
-                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                          ));
-                        },
-                      )
-                  ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(child: CustomLoginField(
+                      isValidated: controller.vm.value.isNameVerify,
+                      unvalidateText: 'Please provide patient name',
+                      onTextChange: (value) =>
+                          controller.onInfoChange(patientName: value),
+                    )),
+                    SizedBox(width: 24.w),
+                    Expanded(child: LayoutBuilder(
+                      builder: (_, constraints) {
+                        return Obx(() => DropDownWrapper(
+                              placeHolder: const AddPatientDropDownPlaceHolder(
+                                  title: 'State*'),
+                              width: constraints.maxWidth,
+                              height: 56.h,
+                              dropDownHeight: 200,
+                              onTapChildren: (index) =>
+                                  controller.onInfoChange(stateIndex: index),
+                              children: controller.vm.value.states
+                                  .map((e) => SizedBox(
+                                      width: constraints.maxWidth,
+                                      height: 50.h,
+                                      child: AddPatientDropDownPlaceHolder(
+                                          title: e)))
+                                  .toList(),
+                            ));
+                      },
+                    )),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomLoginField(
                       type: TextInputType.datetime,
                       hintText: 'dd/mm/yyyy*',
                       textFieldWidth: double.maxFinite,
                       textFieldHeight: 56.h,
-                      onTextChange: (value) => controller.onInfoChange(date: value),
-                  )),
-                  SizedBox(width: 24.w),
-                  Expanded(
-                      child: LayoutBuilder(
-                        builder: (_, constraints) {
-                          return Obx(() => DropDownWrapper(
-                            placeHolder: const AddPatientDropDownPlaceHolder(title: 'City*'),
-                            width: constraints.maxWidth,
-                            height: 56.h,
-                            dropDownHeight: 200,
-                            shouldEnableDropDown: controller.vm.value.shouldEnableCityDropDown,
-                            onTapChildren: (index) => controller.onInfoChange(cityIndex: index),
-                            children: controller.vm.value.cities.map((e) => SizedBox(
-                                width: constraints.maxWidth,
-                                height: 50.h,
-                                child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                          ));
-                        },
-                      )
-                  ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              Row(
-                children: [
-                  Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: LayoutBuilder(
-                                builder: (_, constraints) {
-                                  return Obx(() => DropDownWrapper(
-                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Gender*'),
-                                    width: constraints.maxWidth,
-                                    height: 56.h,
-                                    dropDownHeight: 100,
-                                    onTapChildren: (index) => controller.onInfoChange(genderIndex: index),
-                                    children: controller.vm.value.genders.map((e) => SizedBox(
-                                        width: constraints.maxWidth,
-                                        height: 50.h,
-                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                                  ));
-                                },
-                              )
-                          ),
-                          SizedBox(width: 24.w),
-                          Expanded(
-                              child: LayoutBuilder(
-                                builder: (_, constraints) {
-                                  return Obx(() => DropDownWrapper(
-                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Race*'),
-                                    width: constraints.maxWidth,
-                                    height: 56.h,
-                                    dropDownHeight: 200,
-                                    children: controller.vm.value.races.map((e) => SizedBox(
-                                        width: constraints.maxWidth,
-                                        height: 50.h,
-                                        child: AddPatientDropDownPlaceHolder(title: e))).toList(),
-                                    onTapChildren: (index) => controller.onInfoChange(raceIndex: index),
-                                  ));
-                                },
-                              )
-                          ),
-                        ],
-                      )),
-                  SizedBox(width: 24.w),
-                  Expanded(
-                      child: CustomLoginField(
-                          hintText: 'Address',
-                          textFieldWidth: double.maxFinite,
-                          textFieldHeight: 56.h,
-                          onTextChange: (value) => controller.onInfoChange(address: value),
-                      )),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              SizedBox(
-                height: 136.h,
-                child: Row(
+                      isValidated: controller.vm.value.isDateVerify,
+                      unvalidateText: 'Please provide patient ',
+                      onTextChange: (value) =>
+                          controller.onInfoChange(date: value),
+                    )),
+                    SizedBox(width: 24.w),
+                    Expanded(child: LayoutBuilder(
+                      builder: (_, constraints) {
+                        return Obx(() => DropDownWrapper(
+                              placeHolder: const AddPatientDropDownPlaceHolder(
+                                  title: 'City*'),
+                              width: constraints.maxWidth,
+                              height: 56.h,
+                              dropDownHeight: 200,
+                              shouldEnableDropDown:
+                                  controller.vm.value.shouldEnableCityDropDown,
+                              onTapChildren: (index) =>
+                                  controller.onInfoChange(cityIndex: index),
+                              children: controller.vm.value.cities
+                                  .map((e) => SizedBox(
+                                      width: constraints.maxWidth,
+                                      height: 50.h,
+                                      child: AddPatientDropDownPlaceHolder(
+                                          title: e)))
+                                  .toList(),
+                            ));
+                      },
+                    )),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        children: [
-                          CustomLoginField(
+                        child: Row(
+                      children: [
+                        Expanded(child: LayoutBuilder(
+                          builder: (_, constraints) {
+                            return Obx(() => DropDownWrapper(
+                                  placeHolder:
+                                      const AddPatientDropDownPlaceHolder(
+                                          title: 'Gender*'),
+                                  width: constraints.maxWidth,
+                                  height: 56.h,
+                                  dropDownHeight: 100,
+                                  onTapChildren: (index) => controller
+                                      .onInfoChange(genderIndex: index),
+                                  children: controller.vm.value.genders
+                                      .map((e) => SizedBox(
+                                          width: constraints.maxWidth,
+                                          height: 50.h,
+                                          child: AddPatientDropDownPlaceHolder(
+                                              title: e)))
+                                      .toList(),
+                                ));
+                          },
+                        )),
+                        SizedBox(width: 24.w),
+                        Expanded(child: LayoutBuilder(
+                          builder: (_, constraints) {
+                            return Obx(() => DropDownWrapper(
+                                  placeHolder:
+                                      const AddPatientDropDownPlaceHolder(
+                                          title: 'Race*'),
+                                  width: constraints.maxWidth,
+                                  height: 56.h,
+                                  dropDownHeight: 200,
+                                  children: controller.vm.value.races
+                                      .map((e) => SizedBox(
+                                          width: constraints.maxWidth,
+                                          height: 50.h,
+                                          child: AddPatientDropDownPlaceHolder(
+                                              title: e)))
+                                      .toList(),
+                                  onTapChildren: (index) =>
+                                      controller.onInfoChange(raceIndex: index),
+                                ));
+                          },
+                        )),
+                      ],
+                    )),
+                    SizedBox(width: 24.w),
+                    Expanded(
+                        child: CustomLoginField(
+                      hintText: 'Address',
+                      textFieldWidth: double.maxFinite,
+                      textFieldHeight: 56.h,
+                      onTextChange: (value) =>
+                          controller.onInfoChange(address: value),
+                    )),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                SizedBox(
+                  height: 136.h,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CustomLoginField(
+                              prefixIcon: Container(
+                                width: 64.w,
+                                decoration: const BoxDecoration(
+                                    color: AppColor.colorBorderDisable),
+                                child: Center(
+                                    child: Obx(() => Text(
+                                          controller.vm.value.phoneCode,
+                                          style: AppStyle
+                                              .styleTextColorButtonDisable,
+                                        ))),
+                              ),
+                              shouldHavePrefixIcon: true,
+                              type: TextInputType.number,
                               hintText: 'Phone number',
                               textFieldWidth: double.maxFinite,
                               textFieldHeight: 56.h,
-                              onTextChange: (value) => controller.onInfoChange(phoneNumber: value),
-                          ),
-                          const Spacer(),
-                          CustomLoginField(
+                              onTextChange: (value) =>
+                                  controller.onInfoChange(phoneNumber: value),
+                            ),
+                            const Spacer(),
+                            CustomLoginField(
                               hintText: 'Email',
                               textFieldWidth: double.maxFinite,
                               textFieldHeight: 56.h,
-                              onTextChange: (value) => controller.onInfoChange(email: value),
-                          ),
-                        ],
+                              onTextChange: (value) =>
+                                  controller.onInfoChange(email: value),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 24.w),
-                    Expanded(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context, BoxConstraints constraints) =>  CustomLoginField(
-                            textFieldWidth: double.maxFinite,
-                            textFieldHeight: constraints.maxHeight - 2.5,
-                            hintText: 'Description',
-                            onTextChange: (value) => controller.onInfoChange(description: value),
-                          )))
-                  ],
+                      SizedBox(width: 24.w),
+                      Expanded(
+                          child: LayoutBuilder(
+                              builder: (BuildContext context,
+                                      BoxConstraints constraints) =>
+                                  CustomLoginField(
+                                    textFieldWidth: double.maxFinite,
+                                    textFieldHeight:
+                                        constraints.maxHeight - 2.5,
+                                    hintText: 'Description',
+                                    onTextChange: (value) => controller
+                                        .onInfoChange(description: value),
+                                  )))
+                    ],
+                  ),
                 ),
-              ),
-              LineSeparated(margin: 20.h, color: AppColor.colorInactiveFillColor),
-              Row(
-                children: [
-                  const Spacer(),
-                  ColorButton(
+                LineSeparated(
+                    margin: 20.h, color: AppColor.colorInactiveFillColor),
+                Row(
+                  children: [
+                    const Spacer(),
+                    ColorButton(
                       title: 'Cancel',
                       width: 212.w,
                       height: 48.h,
                       shouldTapAble: true,
                       onTap: () => Get.back(),
-                  ),
-                  SizedBox(width: 20.w),
-                  ColorButton(
+                    ),
+                    SizedBox(width: 20.w),
+                    ColorButton(
                       title: 'Save',
                       shouldEnableBackground: true,
                       width: 212.w,
@@ -257,15 +319,19 @@ class _Tablet extends GetView<AddNewPatientController> {
                         onSuccess() {
                           Get.back();
                         }
+
                         onError(dynamic message) {
                           Get.snackbar('Error', message);
                         }
-                        controller.onTapSavePatient(onSuccess: onSuccess, onError: onError);
+
+                        controller.onTapSavePatient(
+                            onSuccess: onSuccess, onError: onError);
                       },
-                  )
-                ],
-              )
-            ],
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -279,58 +345,69 @@ class _Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.colorAppBackground,
-      appBar: AppBar(
-        title: const Text('ADD NEW PATIENT'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('MRN'),
-                    CustomTextField(hintText: 'Patient999'),
-                    Text('Patient name'),
-                    CustomTextField(hintText: 'Patient name'),
-                    Text('Phone number'),
-                    CustomTextField(hintText: 'Phone number'),
-                    Text('Email'),
-                    CustomTextField(hintText: 'Email'),
-                    Text('Date of Birth'),
-                    CustomTextField(hintText: '13/06/2023', rightIcon: Icon(Icons.date_range_sharp)),
-                    Text('Gender'),
-                    CustomTextField(hintText: 'Select Gender', rightIcon: Icon(Icons.arrow_drop_down)),
-                    Text('Race'),
-                    CustomTextField(hintText: 'Select Race', rightIcon: Icon(Icons.arrow_drop_down)),
-                  ],
+        backgroundColor: AppColor.colorAppBackground,
+        appBar: AppBar(
+          title: const Text('ADD NEW PATIENT'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('MRN'),
+                      CustomTextField(hintText: 'Patient999'),
+                      Text('Patient name'),
+                      CustomTextField(hintText: 'Patient name'),
+                      Text('Phone number'),
+                      CustomTextField(hintText: 'Phone number'),
+                      Text('Email'),
+                      CustomTextField(hintText: 'Email'),
+                      Text('Date of Birth'),
+                      CustomTextField(
+                          hintText: '13/06/2023',
+                          rightIcon: Icon(Icons.date_range_sharp)),
+                      Text('Gender'),
+                      CustomTextField(
+                          hintText: 'Select Gender',
+                          rightIcon: Icon(Icons.arrow_drop_down)),
+                      Text('Race'),
+                      CustomTextField(
+                          hintText: 'Select Race',
+                          rightIcon: Icon(Icons.arrow_drop_down)),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Row(
-              children: [
-                const Expanded(child: ColorButton(title: 'Cancel')),
-                const SizedBox(width: 5),
-                Expanded(child: ColorButton(
-                  title: 'Confirm',
-                  shouldEnableBackground: true,
-                  onTap: () {
-                    Get.to(() => AlertScreen(
-                        onTapPrimaryButton: () {
-                          Get.until((route) => route.isFirst);
-                          Get.until((route) => route.settings.name == AssessmentModulePageRoute.initialRoute, id: AssessmentModulePageRoute.nestedId);
-                          },
-                    ));
-                  }))
-              ],
-            ),
-            const SizedBox(height: 20)
-          ],
-        ),
-      )
-    );
+              Row(
+                children: [
+                  const Expanded(child: ColorButton(title: 'Cancel')),
+                  const SizedBox(width: 5),
+                  Expanded(
+                      child: ColorButton(
+                          title: 'Confirm',
+                          shouldEnableBackground: true,
+                          onTap: () {
+                            Get.to(() => AlertScreen(
+                                  onTapPrimaryButton: () {
+                                    Get.until((route) => route.isFirst);
+                                    Get.until(
+                                        (route) =>
+                                            route.settings.name ==
+                                            AssessmentModulePageRoute
+                                                .initialRoute,
+                                        id: AssessmentModulePageRoute.nestedId);
+                                  },
+                                ));
+                          }))
+                ],
+              ),
+              const SizedBox(height: 20)
+            ],
+          ),
+        ));
   }
 }
