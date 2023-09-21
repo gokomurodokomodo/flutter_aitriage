@@ -39,7 +39,6 @@ class SignInController extends GetxController{
   }) async{
     try {
       final checkNetwork = await NetworkCheckUtil().isConnectedToInternet();
-      AlertUtil.showLoadingIndicator();
       late UserInfo userInfo;
       final request = await vm.value.signInRequest;
 
@@ -49,7 +48,6 @@ class SignInController extends GetxController{
 
       onSuccess?.call(userInfo);
     } catch (e) {
-      Get.back();
       HandleNetworkError.handleNetworkError(e,callFrom: CallFrom.signInScreen, (message, statusMessage, errorCode) {
         if(statusMessage == HandleNetworkError.requestVerifiedEmail){
           _onRequestVerify();

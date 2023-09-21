@@ -32,11 +32,11 @@ class TableSyncDate {
         systemParam = time;
 
   TableSyncDate.fromJson(dynamic json)
-      : city = json?['city'],
-        country = json?['country'],
-        paramType = json?['paramType'],
-        race = json?['race'],
-        role = json?['role'],
-        state = json?['state'],
-        systemParam = json?['systemParam'];
+      : city = json?['cities'],
+        country = json?['countries'],
+        paramType = json?['param-types'],
+        race = json?['races'],
+        role = json?['roles'],
+        state = json?['states'],
+        systemParam = json?['system-params'];
 }
