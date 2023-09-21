@@ -33,7 +33,7 @@ class AddNewPatientController extends GetxController {
   void onInit() async {
     super.onInit();
     final location = Get.isRegistered<HomeMainController>()
-        ? Get.find<HomeMainController>().location
+        ? Get.find<HomeMainController>().location.value
         : null;
     final locationId = location?.id;
     final countryId = location?.countryId;
