@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/keep_alive_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_navigator.dart';
@@ -29,6 +30,11 @@ class HomeMainController extends GetxController {
   void onInit() {
     super.onInit();
     _getListLocation();
+
+    final hiviService = Get.find<HiviService>();
+    hiviService.getFirebaseSyncDate.execute().listen((event) {
+      print('Firebase sync date $event');
+    });
   }
 
   void _getListLocation() async {

@@ -15,7 +15,6 @@ class FirebaseProvider {
   static final _provider = GetConnectBaseProvider(url: AppEnvironment.baseUrl, apiVersion: AppEnvironment.apiVersion);
 
   FirebaseProvider._();
-
   static Future<AuthFirebaseResponse> _getFirebaseToken(AuthFirebaseRequest authRequest) async {
     final response = await _provider.post('/firebase/auth', authRequest.toJson());
     return _provider.convertResponse(response, (json) => AuthFirebaseResponse.fromJson(json));
@@ -37,6 +36,28 @@ class FirebaseProvider {
     return RetryWhenStream(() => stream, (_, __) {
       return Stream.fromFuture(_signInWithCustomToken());
     });
+  }
+
+  static Stream<T> getOneItemOn<T>(String path, T Function(dynamic result) itemHandler) {
+    final stream = _database.ref().child(path).onValue.map((event) {
+      final item = event.snapshot.value;
+      return itemHandler(item);
+    });
+
+    return RetryWhenStream(() => stream, (_, __) {
+      return Stream.fromFuture(_signInWithCustomToken());
+    });
+  }
+}
+
+enum FirebaseCollection { syncs }
+
+extension FirebaseCollectionX on FirebaseCollection {
+  String get path {
+    switch (this) {
+      case FirebaseCollection.syncs:
+        return '/syncs';
+    }
   }
 }
 
