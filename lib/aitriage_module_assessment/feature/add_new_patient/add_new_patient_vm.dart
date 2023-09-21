@@ -37,6 +37,17 @@ class AddNewPatientVM {
   var _phoneCode = '';
   int? _countryId;
 
+  //check first time
+  bool isFirstTimeMRN = true;
+  bool isFirstTimeNationality = true;
+  bool isFirstTimePatientName = true;
+  bool isFirstTimePatientState = true;
+  bool isFirstTimeDateOfBirth = true;
+  bool isFirstTimePatientCity = true;
+  bool isFirstTimeGender = true;
+  bool isFirstTimeRace = true;
+  
+
 
   void update({
     List<ParamType>? genders,
@@ -134,11 +145,22 @@ class AddNewPatientVM {
   bool get isNationalityVerify => _nationalityId != null;
   bool get isStateVerify => _stateId != null;
   bool get isDateVerify {
-    return (_dob != null || _yearOfBirth != null) ? true : false;
+    return ((_dob != null || _yearOfBirth != null)) ? true : false;
     }
   bool get isCityVerify => _cityId != null;
   bool get isGenderVerify => _genderKey != '';
   bool get isRaceVerify => _raceId != null;
+
+  bool get shouldShowMRNMessage {
+    return isMRNVerify || isFirstTimeMRN;
+  } 
+  bool get shouldShowNameMessage => isNameVerify || isFirstTimePatientName;
+  bool get shouldShowNationalityMessage => isNationalityVerify || isFirstTimeNationality;
+  bool get shouldShowStateMessage => isStateVerify || isFirstTimePatientState;
+  bool get shouldShowDateMessage => isDateVerify || isFirstTimeDateOfBirth;
+  bool get shouldShowCityMessage => isCityVerify || isFirstTimePatientCity;
+  bool get shouldShowGenderMessage => isGenderVerify || isFirstTimeGender;
+  bool get shouldShowRaceMessage => isRaceVerify || isFirstTimeRace;
 
 
   bool _verifyStringNotNull(String infomation){
@@ -215,4 +237,57 @@ class AddNewPatientVM {
 
   bool get shouldEnableCityDropDown => _stateIndex != null;
   String get phoneCode => _phoneCode;
+
+  void setFirstTimeMRN(){
+    isFirstTimeMRN = false;
+  }
+
+  void setFirstTimeNationality(){
+    isFirstTimeNationality = false;
+  }
+
+  void setFirstTimePatientName(){
+    isFirstTimePatientName = false;
+  }
+
+  void setFirstTimePatientState(){
+    isFirstTimePatientState = false;
+  }
+
+  void setFirstTimeDateOfBirth(){
+    isFirstTimeDateOfBirth = false;
+  }
+
+  void setFirstTImePatientCity(){
+    isFirstTimePatientCity = false;
+  }
+
+  void setFirstTimePatientGender(){
+    isFirstTimeGender = false;
+  }
+
+  void setFirstTImePatientRace(){
+    isFirstTimeRace = false;
+  }
+
+  bool get shouldEnableSaveButton {
+    final result = isCityVerify 
+                    && isDateVerify 
+                    && isGenderVerify
+                    && isMRNVerify
+                    && isNameVerify
+                    && isNationalityVerify
+                    && isRaceVerify
+                    && isStateVerify
+                    && !isFirstTimeDateOfBirth
+                    && !isFirstTimeGender
+                    && !isFirstTimeMRN
+                    && !isFirstTimeNationality
+                    && !isFirstTimePatientCity
+                    && !isFirstTimePatientName
+                    && !isFirstTimePatientState
+                    && !isFirstTimeRace;
+    print('here i am $result');
+    return result;
+  }                              
 }
