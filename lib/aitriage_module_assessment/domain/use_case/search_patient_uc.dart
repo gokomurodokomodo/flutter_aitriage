@@ -7,6 +7,7 @@ abstract class SearchPatientUseCase {
 class SearchPatientUseCaseImpl extends SearchPatientUseCase {
   // if network on, search by api
   // if network off, search local db
+  // network off case implement later
   @override
   Future<List<Patient>> execute() {
     // TODO: implement execute
