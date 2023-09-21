@@ -65,7 +65,7 @@ class AppStyle {
     color: AppColor.colorDialogTitleText,
   );
   static final styleCustomTextFieldHintText = TextStyle(
-    fontSize: fontSizeSM,
+    fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextFieldPlaceHolder,
   );

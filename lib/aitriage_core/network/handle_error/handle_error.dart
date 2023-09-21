@@ -1,5 +1,7 @@
 import '../../common/app_error.dart';
 
+enum CallFrom {signInScreen, signUpScreen, defaultLocation}
+
 class HandleNetworkError {
   static const userNotExists = 'USER_NOT_EXISTS';
   static const countryNotExists = 'COUNTRY_NOT_EXISTS';
@@ -31,6 +33,7 @@ class HandleNetworkError {
   static void handleNetworkError(
     dynamic error,
     Function(String, String, dynamic) handlerStatusMessage,
+    {CallFrom callFrom = CallFrom.defaultLocation}
   ) {
     var appErrorMessage = '';
 
@@ -47,10 +50,14 @@ class HandleNetworkError {
           appErrorMessage = 'Your access has expired. Please renew your subscription.';
         break;
         case invalidUserPassword:
-          appErrorMessage = 'Invalid email or password';
+          appErrorMessage = 'Invalid username or password';
         break;
         case userNotExists:
-          appErrorMessage = 'Account does not exist, please check your email address';
+          if(callFrom == CallFrom.signInScreen){
+            appErrorMessage = 'Invalid username or password';
+          } else {
+            appErrorMessage = 'Account does not exist, please check your email address';
+          }
           break;
         case countryNotExists:
           appErrorMessage = 'Invalid country';

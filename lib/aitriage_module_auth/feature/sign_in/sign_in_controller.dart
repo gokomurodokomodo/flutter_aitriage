@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_list_country_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_util.dart';
@@ -41,6 +39,7 @@ class SignInController extends GetxController{
   }) async{
     try {
       final checkNetwork = await NetworkCheckUtil().isConnectedToInternet();
+      AlertUtil.showLoadingIndicator();
       late UserInfo userInfo;
       final request = await vm.value.signInRequest;
 
@@ -50,10 +49,10 @@ class SignInController extends GetxController{
 
       onSuccess?.call(userInfo);
     } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message, statusMessage, errorCode) {
+      Get.back();
+      HandleNetworkError.handleNetworkError(e,callFrom: CallFrom.signInScreen, (message, statusMessage, errorCode) {
         if(statusMessage == HandleNetworkError.requestVerifiedEmail){
           _onRequestVerify();
-          onError?.call(message);
       } else{
         onError?.call(message);
       }
