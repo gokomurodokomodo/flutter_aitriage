@@ -13,7 +13,7 @@ class GetGenderParamUseCaseImpl extends GetGenderParamTypeUseCase {
         .paramType
         .where((element) => element.groupType == 'GENDER')
         .toList();
-
+    list.sort((a, b) => (a.position ?? 0).compareTo(b.position ?? 0));
     return list;
   }
 }
