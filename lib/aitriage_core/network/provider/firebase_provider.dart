@@ -28,25 +28,29 @@ class FirebaseProvider {
   }
 
   static Stream<List<T>> getItemsOn<T>(String path, T Function(dynamic result) itemHandler) {
-    final stream = _database.ref().child(path).onValue.map((event) {
+    streamBuilder() => _database.ref().child(path).onValue.map((event) {
       final list = event.snapshot.value as List;
       return list.map((e) => itemHandler(e)).toList();
     });
 
-    return RetryWhenStream(() => stream, (_, __) {
-      return Stream.fromFuture(_signInWithCustomToken());
-    });
+    return _retryStreamWhenFirebaseUnauthorized(streamBuilder);
   }
 
   static Stream<T> getOneItemOn<T>(String path, T Function(dynamic result) itemHandler) {
-    final stream = _database.ref().child(path).onValue.map((event) {
+     streamBuilder() => _database.ref().child(path).onValue.map((event) {
       final item = event.snapshot.value;
       return itemHandler(item);
     });
 
-    return RetryWhenStream(() => stream, (_, __) {
-      return Stream.fromFuture(_signInWithCustomToken());
-    });
+    return _retryStreamWhenFirebaseUnauthorized(streamBuilder);
+  }
+
+  // need to be stream builder or else get stream already listen
+  static Stream<T> _retryStreamWhenFirebaseUnauthorized<T>(Stream<T> Function() sourceStream) {
+    return RetryWhenStream(
+        sourceStream,
+        // the second stream will run first, and then run the source stream
+        (error, stackTrace) => Stream.fromFuture(_signInWithCustomToken()));
   }
 }
 
