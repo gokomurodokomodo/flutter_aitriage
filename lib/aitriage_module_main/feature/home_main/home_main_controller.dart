@@ -33,7 +33,7 @@ class HomeMainController extends GetxController {
 
     final hiviService = Get.find<HiviService>();
     hiviService.getFirebaseSyncDate.execute().listen((event) {
-      print('Firebase sync date $event');
+      print('Firebase sync date ${event.city}');
     });
   }
 
