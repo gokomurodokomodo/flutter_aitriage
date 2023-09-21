@@ -78,6 +78,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                     Expanded(child: LayoutBuilder(
                       builder: (_, constraints) {
                         return Obx(() => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DropDownWrapper(
                                   placeHolder: const AddPatientDropDownPlaceHolder(
@@ -97,7 +98,9 @@ class _Tablet extends GetView<AddNewPatientController> {
                                 ),
                                 Obx(() => Visibility(
                                   visible: !controller.vm.value.isNationalityVerify,
-                                  child: Text('Please select your patient nationality')
+                                  child: SizedBox(
+                                    height: 20.h,
+                                    child: Text('Please select your patient nationality', style: AppStyle.styleErrorText,))
                                   )),
                           ],
                         ));
@@ -151,7 +154,7 @@ class _Tablet extends GetView<AddNewPatientController> {
                       textFieldWidth: double.maxFinite,
                       textFieldHeight: 56.h,
                       isValidated: controller.vm.value.isDateVerify,
-                      unvalidateText: 'Please provide patient ',
+                      unvalidateText: 'Please provide patient\'s date of birth',
                       onTextChange: (value) =>
                           controller.onInfoChange(date: value),
                     )),

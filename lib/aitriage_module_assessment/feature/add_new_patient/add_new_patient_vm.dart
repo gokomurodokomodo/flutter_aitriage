@@ -137,7 +137,7 @@ class AddNewPatientVM {
     return (_dob != null || _yearOfBirth != null) ? true : false;
     }
   bool get isCityVerify => _cityId != null;
-  bool get isGenderVerify => _gender != '';
+  bool get isGenderVerify => _genderKey != '';
   bool get isRaceVerify => _raceId != null;
 
 
