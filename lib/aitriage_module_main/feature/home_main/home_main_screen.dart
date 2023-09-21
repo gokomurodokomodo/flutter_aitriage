@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
@@ -39,7 +40,9 @@ class _Tablet extends GetView<HomeMainController> {
                   placeHolder: SizedBox(
                       width: 60.r,
                       height: 60.r,
-                      child: const CircleAvatar(backgroundImage: AssetImage(AppImage.bgSplashScreen),radius: 25)),
+                      child: CircleAvatar(radius: 25, child: CachedNetworkImage(
+                        imageUrl: controller.location.value.avatar ?? '',
+                      ))),
                   dropDownAlign: DropDownAlign.horizontal,
                   shouldReplacePlaceHolder: false,
                   shouldShowBorderPlaceHolder: false,

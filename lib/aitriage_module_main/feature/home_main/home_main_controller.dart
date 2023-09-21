@@ -14,7 +14,7 @@ class HomeMainController extends GetxController {
   final GetListLocationUseCase _getListLocationUC;
   // Data
   final locations = <Location>[].obs;
-  var _location = Location.fromJson(null);
+  var location = Location.fromJson(null).obs;
   //
   final modules = <Widget>[
     const KeepAliveWrapper(child: AssessmentModuleNavigator()),
@@ -36,7 +36,7 @@ class HomeMainController extends GetxController {
       final user = await ActiveUserUtil.userInfo;
       final resp = await _getListLocationUC.execute(user.id.toString());
       locations.addAll(resp.data);
-      _location = resp.data.first;
+      location.value = resp.data.first;
     } catch (e) {
       log(e.toString());
     }
@@ -48,9 +48,6 @@ class HomeMainController extends GetxController {
   }
 
   void changeLocation(int index) {
-    _location = locations[index];
+    location.value = locations[index];
   }
-
-
-  Location get location => _location;
 }

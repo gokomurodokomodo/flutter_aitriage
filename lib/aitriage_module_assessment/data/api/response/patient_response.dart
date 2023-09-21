@@ -15,7 +15,7 @@ class PatientResponse extends BaseResponse{
 
     totalMale = json?['data']?['totalMale'] ?? 0;
     totalFemale = json?['data']?['totalFemale'] ?? 0;
-    totalPage = json?['data']?['totalPages'] ?? 1;
+    totalPage = json?['data']?['customers']?['totalPages'] ?? 1;
     totalElement = json?['data']?['totalElements'] ?? 0;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
+import 'package:flutter_aitriage/aitriage_core/entity/param_type.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/add_patient_request.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ import '../../../aitriage_core/util/language_string_from_json/language_string_fr
 
 class AddNewPatientVM {
   // data for view
-  final _genders = <String>[];
+  final _genders = <ParamType>[];
   final _races = <Race>[];
   final _nationalities = <Country>[];
   final _cities = <City>[];
@@ -21,7 +22,7 @@ class AddNewPatientVM {
   var _patientName = '';
   String? _dob;
   int? _yearOfBirth;
-  var _gender = '';
+  var _genderKey = '';
   int? _raceId;
   var _phoneNumber = '';
   var _email = '';
@@ -38,7 +39,7 @@ class AddNewPatientVM {
 
 
   void update({
-    List<String>? genders,
+    List<ParamType>? genders,
     List<Race>? races,
     List<Country>? nationalities,
     List<City>? cities,
@@ -66,10 +67,8 @@ class AddNewPatientVM {
     _countryId = countryId ?? _countryId;
 
     if (genders != null) {
-      final getCode = LocalizationService.currentLanguage.locale.languageCode;
-      final list = genders.map((e) => LanguageStringFromJson.extractString(e, getCode)).toList();
       _genders.clear();
-      _genders.addAll(list);
+      _genders.addAll(genders);
     }
 
     if (races != null) {
@@ -113,7 +112,7 @@ class AddNewPatientVM {
       _stateId = _states[stateIndex].id;
       _stateIndex = stateIndex;
     }
-    if (genderIndex != null && genderIndex < _genders.length) _gender = _genders[genderIndex];
+    if (genderIndex != null && genderIndex < _genders.length) _genderKey = _genders[genderIndex].key ?? _genderKey;
 
     if (date != null) {
       _dob = null;
@@ -171,9 +170,15 @@ class AddNewPatientVM {
     return formattedString;
   }
 
-  List<String> get genders => _genders.toList();
   List<String> get races => _races.map((e) => e.name ?? '').toList();
+
   List<String> get nationalities => _nationalities.map((e) => e.nationality ?? '').toList();
+
+  List<String> get genders {
+    final getCode = LocalizationService.currentLanguage.locale.languageCode;
+    final list = _genders.map((e) => LanguageStringFromJson.extractString(e.value ?? '', getCode)).toList();
+    return list;
+  }
 
   List<String> get cities {
     if (_stateIndex != null) {
@@ -198,7 +203,7 @@ class AddNewPatientVM {
         cityId: _cityId,
         raceId: _raceId,
         address: _address,
-        gender: _gender,
+        gender: _genderKey,
         phoneCode: _phoneCode,
         email: _email,
         description: _description,
