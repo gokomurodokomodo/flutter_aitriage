@@ -8,6 +8,10 @@ import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_mai
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
+import '../../../aitriage_core/common/app_style.dart';
+import '../../../aitriage_core/ui/widget/base_search_bar_tablet.dart';
+import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
+import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
 
 class HomeMainScreen extends StatelessWidget {
   const HomeMainScreen({super.key});
@@ -77,14 +81,44 @@ class _TabletState extends State<_Tablet> {
                 onNavigationItemClick: (index) => pageController.jumpToPage(index),
               ),
             ),
-            SizedBox(
-              width: Get.width - 100.w,
-              child: PageView(
-                controller: pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: modules,
-              ),
-            ),
+            Column(
+                children: [
+                  SizedBox(
+                    width: Get.width - 100.w,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+                      child: Row(
+                        children: [
+                          Text('PATIENT', style: AppStyle.styleTextDashboardTitle),
+                          const Spacer(),
+                          CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification, size: 24.r)),
+                          SizedBox(width: 20.w),
+                          CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
+                          SizedBox(width: 20.w),
+                          Container(
+                            height: 40.r,
+                            width: 40.r,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: Get.width - 100.w,
+                      child: PageView(
+                        controller: pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: modules,
+                      ),
+                    ),
+                  ),
+                ]
+            )
           ],
         ),
       ),

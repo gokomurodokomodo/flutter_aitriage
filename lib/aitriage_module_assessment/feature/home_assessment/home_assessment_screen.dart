@@ -38,35 +38,6 @@ class _Tablet extends GetView<HomeAssessmentController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
-      appBar: CustomAppBar(
-        title: 'PATIENT',
-        searchBar: BaseSearchBarTablet(
-          hintText: 'Search type or keyword',
-          width: 350.w,
-        ),
-        trailing: Row(
-          children: [
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification, size: 24.r)),
-            SizedBox(width: 20.w),
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
-            SizedBox(width: 20.w),
-            // CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
-            GestureDetector(
-              onTapDown:(details) {
-                _showPopUp(details.globalPosition);
-              },
-              child: Container(
-                height: 40.r,
-                width: 40.r,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: Container(
         color: AppColor.colorBackgroundSearch,
         child: Padding(
