@@ -43,7 +43,7 @@ class AssessmentModulePageRoute {
         return GetPageRoute(
             settings: settings,
             page: () => const AddNewPatientScreen(),
-            binding: AddNewPatientBinding(),
+            // binding: AddNewPatientBinding(),
             opaque: false);
       case recordVitalSigns:
         return GetPageRoute(

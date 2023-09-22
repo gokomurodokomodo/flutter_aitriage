@@ -26,13 +26,13 @@ class HomeMainController extends GetxController {
 
   HomeMainController(this._getListLocationUC);
 
-  @override
+  @override                                   
   void onInit() {
     super.onInit();
     _getListLocation();
 
     final hiviService = Get.find<HiviService>();
-    hiviService.getFirebaseSyncDate.execute().listen((event) {
+    hiviService.getFirebaseSyncDate.execute().listen((event) {                        
       print('Firebase sync date ${event.city}');
     });
   }
