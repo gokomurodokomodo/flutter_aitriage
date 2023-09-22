@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,8 +21,16 @@ class HomeMainScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<HomeMainController> {
+class _Tablet extends StatefulWidget {
   const _Tablet();
+
+  @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  final controller = Get.find<HomeMainController>();
+  final pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class _Tablet extends GetView<HomeMainController> {
                       width: 60.r,
                       height: 60.r,
                       child: CircleAvatar(radius: 25, child: CachedNetworkImage(
-                        imageUrl: controller.location.value.avatar ?? '',
+                        imageUrl: controller.vm.value.currentLocationAvatar,
                       ))),
                   dropDownAlign: DropDownAlign.horizontal,
                   shouldReplacePlaceHolder: false,
@@ -67,15 +74,15 @@ class _Tablet extends GetView<HomeMainController> {
                   CustomNavigationRailItem(inactiveIcon:  AppImage.svgInfoInactive, activeIcon: AppImage.svgInfoActive,),
                   CustomNavigationRailItem(inactiveIcon:  AppImage.svgSettingInactive, activeIcon: AppImage.svgSettingActive,),
                 ],
-                onNavigationItemClick: (index) => controller.updateTabBarViewIndex(index),
+                onNavigationItemClick: (index) => pageController.jumpToPage(index),
               ),
             ),
             SizedBox(
               width: Get.width - 100.w,
               child: PageView(
-                controller: controller.pageController,
+                controller: pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: controller.modules,
+                children: modules,
               ),
             ),
           ],
@@ -90,34 +97,35 @@ class _Phone extends GetView<HomeMainController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.colorAppBackground,
-      body: PageView(
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: controller.modules,
-      ),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-        currentIndex: controller.currentIndex.value,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: (index) => controller.updateTabBarViewIndex(index),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              label: 'Overview',
-              icon: SvgIconWidget(name: AppImage.svgOverviewInactive),
-              activeIcon: SvgIconWidget(name: AppImage.svgOverviewActive)),
-          BottomNavigationBarItem(
-              label: 'Assessment',
-              icon: SvgIconWidget(name: AppImage.svgAssessmentInactive),
-              activeIcon: SvgIconWidget(name: AppImage.svgAssessmentActive)),
-          BottomNavigationBarItem(
-              label: 'Setting',
-              icon: SvgIconWidget(name: AppImage.svgSettingInactive),
-              activeIcon: SvgIconWidget(name: AppImage.svgSettingActive)),
-        ],
-      )),
-    );
+    return const SizedBox();
+    // return Scaffold(
+    //   backgroundColor: AppColor.colorAppBackground,
+    //   body: PageView(
+    //     controller: controller.pageController,
+    //     physics: const NeverScrollableScrollPhysics(),
+    //     children: controller.modules,
+    //   ),
+    //   bottomNavigationBar: Obx(() => BottomNavigationBar(
+    //     currentIndex: controller.currentIndex.value,
+    //     showSelectedLabels: false,
+    //     showUnselectedLabels: false,
+    //     onTap: (index) => controller.updateTabBarViewIndex(index),
+    //     items: <BottomNavigationBarItem>[
+    //       BottomNavigationBarItem(
+    //           label: 'Overview',
+    //           icon: SvgIconWidget(name: AppImage.svgOverviewInactive),
+    //           activeIcon: SvgIconWidget(name: AppImage.svgOverviewActive)),
+    //       BottomNavigationBarItem(
+    //           label: 'Assessment',
+    //           icon: SvgIconWidget(name: AppImage.svgAssessmentInactive),
+    //           activeIcon: SvgIconWidget(name: AppImage.svgAssessmentActive)),
+    //       BottomNavigationBarItem(
+    //           label: 'Setting',
+    //           icon: SvgIconWidget(name: AppImage.svgSettingInactive),
+    //           activeIcon: SvgIconWidget(name: AppImage.svgSettingActive)),
+    //     ],
+    //   )),
+    // );
   }
 }
 
