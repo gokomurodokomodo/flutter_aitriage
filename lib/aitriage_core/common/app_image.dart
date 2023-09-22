@@ -72,4 +72,5 @@ class AppImage {
   static const svgUserChoiceLogOut = './lib/aitriage_core/asset/image/svg_user_choice_log_out.svg';
   static const svgUserChoiceSwitchAccount = './lib/aitriage_core/asset/image/svg_user_choice_switch_account.svg';
   static const svgUserChoiceUserAvatar = './lib/aitriage_core/asset/image/svg_user_choice_user_avatar.svg';
+  static const svgWifi = './lib/aitriage_core/asset/image/svg_wifi.svg';
 }

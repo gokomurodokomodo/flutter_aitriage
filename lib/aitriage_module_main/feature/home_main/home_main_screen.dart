@@ -90,6 +90,8 @@ class _TabletState extends State<_Tablet> {
                         children: [
                           Text('PATIENT', style: AppStyle.styleTextDashboardTitle),
                           const Spacer(),
+                          CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgWifi, size: 24.r)),
+                          SizedBox(width: 20.w),
                           CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification, size: 24.r)),
                           SizedBox(width: 20.w),
                           CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
