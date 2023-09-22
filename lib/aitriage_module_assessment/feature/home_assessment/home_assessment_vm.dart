@@ -10,17 +10,23 @@ class HomeAssessmentVM {
   var _totalMale = 0;
   var _totalFemale = 0;
   var _totalPage = 1;
+  var _currentPage = 0;
+  var _pageLimit = 0;
 
   void update({
     List<Patient>? listPatient,
     List<ParamType>? genderParamType,
     int? totalMale,
     int? totalFemale,
-    int? totalPage
+    int? totalPage,
+    int? currentPage,
+    int? pageLimit
   }) {
     _totalMale = totalMale ?? _totalMale;
     _totalFemale = totalFemale ?? _totalFemale;
     _totalPage = totalPage ?? _totalPage;
+    _currentPage = currentPage ?? _currentPage;
+    _pageLimit = pageLimit ?? _pageLimit;
 
     if (listPatient != null) {
       _listPatient.clear();
@@ -39,8 +45,10 @@ class HomeAssessmentVM {
     return _listPatient.map((e) {
       final paramType = _genderParamType.firstWhere((element) => element.key == e.gender);
       final genderColumnValue = LanguageStringFromJson.extractString(paramType.value ?? '', getCode);
+      final id = (_currentPage) * _pageLimit + _listPatient.indexOf(e) + 1;
 
       return PatientSummaryVM(
+          id: id.toString(),
           patient: e,
           genderColumnMediaUrl: paramType.mediaUrl ?? '',
           genderColumnValue: genderColumnValue

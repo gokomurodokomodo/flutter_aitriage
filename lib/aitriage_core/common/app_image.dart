@@ -18,6 +18,7 @@ class AppImage {
   static const icRoundVietNam = './lib/aitriage_core/asset/image/ic_round_viet_nam.png';
   static const icDefaultAvatarMale = './lib/aitriage_core/asset/image/ic_default_avatar_male.png';
   static const icDefaultAvatarFemale = './lib/aitriage_core/asset/image/ic_default_avatar_female.png';
+  static const icListViewNoData = './lib/aitriage_core/asset/image/ic_listview_no_data.png';
   // Svg
   static const svgAppLogo = './lib/aitriage_core/asset/image/svg_app_logo.svg';
   static const svgSuccessAlert = './lib/aitriage_core/asset/image/svg_success_alert.svg';

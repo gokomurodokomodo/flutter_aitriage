@@ -16,10 +16,24 @@ const _ageRatio = 2;
 const _lastAssessmentRatio = 10;
 final _blankWidth = 48.w;
 
-class PatientSummaryListView extends StatelessWidget {
+class PatientSummaryListView extends StatefulWidget {
   final List<PatientSummaryVM> list;
 
   const PatientSummaryListView({super.key, required this.list});
+
+  @override
+  State<PatientSummaryListView> createState() => _PatientSummaryListViewState();
+}
+
+class _PatientSummaryListViewState extends State<PatientSummaryListView> {
+  final scrollController = ScrollController();
+
+  @override
+  void didUpdateWidget(covariant oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (scrollController.hasClients) scrollController.jumpTo(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +42,22 @@ class PatientSummaryListView extends StatelessWidget {
         const _Label(),
         LineSeparated(margin: 8.h),
         Expanded(
-            child: ListView.separated(
-              itemBuilder: (BuildContext context, int index) => _PatientSummaryItem(vm: list[index]),
-              separatorBuilder: (BuildContext context, int index) => const LineSeparated(),
-              itemCount: list.length,
-        ))
+            child: widget.list.isNotEmpty
+                ? ListView.separated(
+                    itemBuilder: (BuildContext context, int index) => _PatientSummaryItem(vm: widget.list[index]),
+                    separatorBuilder: (BuildContext context, int index) => const LineSeparated(),
+                    itemCount: widget.list.length,
+                    controller: scrollController)
+                : Center(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(AppImage.icListViewNoData),
+                          SizedBox(height: 8.h),
+                          Text('No data', style: AppStyle.styleTextAllPatientCategory)
+                        ],
+                  ))
+        )
       ],
     );
   }
@@ -85,7 +110,7 @@ class _PatientSummaryItem extends StatelessWidget {
       children: [
         Expanded(
             flex: _orderRatio,
-            child: Text('1', style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.id, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _patientRatio,
             child: _PatientCell(vm: vm)),
@@ -175,11 +200,13 @@ class _GenderCell extends StatelessWidget {
 }
 
 class PatientSummaryVM {
+  final String id;
   final Patient _patient;
   final String _genderColumnMediaUrl;
   final String _genderColumnValue;
 
   PatientSummaryVM({
+    required this.id,
     required Patient patient,
     required String genderColumnMediaUrl,
     required String genderColumnValue
