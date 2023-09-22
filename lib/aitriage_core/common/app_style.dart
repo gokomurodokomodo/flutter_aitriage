@@ -203,4 +203,9 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorDialogTitleText,
   );
+  static final styleTextUserChoice = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorRememberMeText,
+  );
 }

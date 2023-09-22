@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_style.dart';
-import '../../../aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
 
@@ -54,7 +53,7 @@ class _TabletState extends State<_Tablet> {
                       child: CircleAvatar(radius: 25, child: CachedNetworkImage(
                         imageUrl: controller.vm.value.currentLocationAvatar,
                       ))),
-                  dropDownAlign: DropDownAlign.horizontal,
+                  dropDownAlign: DropDownAlign.topRightToRight,
                   shouldReplacePlaceHolder: false,
                   shouldShowBorderPlaceHolder: false,
                   width: 60.r,
@@ -95,13 +94,32 @@ class _TabletState extends State<_Tablet> {
                           SizedBox(width: 20.w),
                           CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
                           SizedBox(width: 20.w),
-                          Container(
-                            height: 40.r,
+                          DropDownWrapper(
+                            shouldReplacePlaceHolder: false,
+                            shouldShowBorderPlaceHolder: false,
+                            dropDownAlign: DropDownAlign.bottomRightToLeft,
                             width: 40.r,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue,
+                            height: 40.r,
+                            dropDownWidth: 205.w,
+                            dropDownHeight: 176.h,
+                            shouldColorItemSelected: false,
+                            placeHolder: SizedBox(
+                              height: 40.r,
+                              width: 40.r,
+                              child: Obx(() => CachedNetworkImage(
+                                imageUrl: controller.vm.value.userAvatar,
+                                errorWidget: (_, __, ___) =>  Image.asset(AppImage.icDefaultUserAvatar),
+                              )),
                             ),
+                            children: [
+                              SizedBox(height: 20.h),
+                              Obx(() => UserChoiceWidget(
+                                  image: AppImage.svgUserChoiceUserAvatar,
+                                  title: controller.vm.value.userDisplayName).marginOnly(bottom: 24.h, left: 20.w)),
+                              const UserChoiceWidget(image: AppImage.svgUserChoiceSwitchAccount, title: 'Switch account').marginOnly(bottom: 24.h, left: 20.w),
+                              const UserChoiceWidget(image: AppImage.svgUserChoiceLogOut, title: 'Log out').marginOnly(left: 20.w),
+                              SizedBox(height: 20.h),
+                            ],
                           )
                         ],
                       ),

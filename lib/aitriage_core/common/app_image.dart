@@ -19,6 +19,7 @@ class AppImage {
   static const icDefaultAvatarMale = './lib/aitriage_core/asset/image/ic_default_avatar_male.png';
   static const icDefaultAvatarFemale = './lib/aitriage_core/asset/image/ic_default_avatar_female.png';
   static const icListViewNoData = './lib/aitriage_core/asset/image/ic_listview_no_data.png';
+  static const icDefaultUserAvatar = './lib/aitriage_core/asset/image/ic_default_user_avatar.png';
   // Svg
   static const svgAppLogo = './lib/aitriage_core/asset/image/svg_app_logo.svg';
   static const svgSuccessAlert = './lib/aitriage_core/asset/image/svg_success_alert.svg';
@@ -68,4 +69,7 @@ class AppImage {
   static const svgArrowRight = './lib/aitriage_core/asset/image/svg_arrow_right.svg';
   static const svgArrowLeft = './lib/aitriage_core/asset/image/svg_arrow_left.svg';
   static const svgDialogClose = './lib/aitriage_core/asset/image/svg_dialog_close.svg';
+  static const svgUserChoiceLogOut = './lib/aitriage_core/asset/image/svg_user_choice_log_out.svg';
+  static const svgUserChoiceSwitchAccount = './lib/aitriage_core/asset/image/svg_user_choice_switch_account.svg';
+  static const svgUserChoiceUserAvatar = './lib/aitriage_core/asset/image/svg_user_choice_user_avatar.svg';
 }
