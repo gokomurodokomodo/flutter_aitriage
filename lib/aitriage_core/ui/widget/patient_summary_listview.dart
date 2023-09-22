@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
@@ -68,32 +69,33 @@ class _Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            flex: _orderRatio,
-            child: Text('#', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _patientRatio,
-            child: Text('PATIENT', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _genderRatio,
-            child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _raceRatio,
-            child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _ageRatio,
-            child: Align(
-                alignment: Alignment.topRight,
-                child: Text('AGE', style: AppStyle.styleTextAllPatientCategory))),
-        Expanded(
-            flex: _lastAssessmentRatio,
-            child: Align(
-                alignment: Alignment.topRight,
-                child: Text('LAST ASSESSMENT DATE', style: AppStyle.styleTextAllPatientCategory))),
-        SizedBox(width: _blankWidth)
-      ],
+    return Container(
+      color: AppColor.colorSummaryViewLabel,
+      height: 44.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+              flex: _orderRatio,
+              child: Text('#', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _patientRatio,
+              child: Text('PATIENT', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _genderRatio,
+              child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _raceRatio,
+              child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _ageRatio,
+              child: Text('AGE', style: AppStyle.styleTextAllPatientCategory, textAlign: TextAlign.right,)),
+          Expanded(
+              flex: _lastAssessmentRatio,
+              child: Text('LAST ASSESSMENT DATE', style: AppStyle.styleTextAllPatientCategory, textAlign: TextAlign.right,)),
+          SizedBox(width: _blankWidth)
+        ],
+      ),
     );
   }
 }
