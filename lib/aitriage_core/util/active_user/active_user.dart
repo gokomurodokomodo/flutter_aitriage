@@ -24,6 +24,11 @@ class ActiveUserUtil {
   static Future<void> setUserInfo(UserInfo userInfo) async {
     await _repository.setUserInfo(_userInfoKey, userInfo);
   }
+
+  static Future<void> userLogOut() async {
+    await _repository.delete(_userInfoKey);
+    await _repository.delete(_accessTokenKey);
+  }
 }
 
 // enum ActiveUserUtil {accessToken, refreshToken, userInfo}

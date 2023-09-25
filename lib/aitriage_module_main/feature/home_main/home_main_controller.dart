@@ -52,4 +52,12 @@ class HomeMainController extends GetxController {
   List<Location> get locations => vm.value.locations;
 
   Location get currentLocation => vm.value.currentLocation;
+
+  Future<void> onTapUserButton(int index) async {
+    switch (index) {
+      case 3:
+        await ActiveUserUtil.userLogOut();
+      default:
+    }
+  }
 }

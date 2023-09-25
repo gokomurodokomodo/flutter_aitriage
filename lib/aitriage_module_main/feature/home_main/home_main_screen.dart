@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_api_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
+import 'package:flutter_aitriage/aitriage_module_main/config/main_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -113,6 +116,17 @@ class _TabletState extends State<_Tablet> {
                                 errorWidget: (_, __, ___) =>  Image.asset(AppImage.icDefaultUserAvatar),
                               )),
                             ),
+                            onTapChildren: (index) async {
+                              await controller.onTapUserButton(index);
+
+                              switch (index) {
+                                case 3:
+                                  Get.offAllNamed(AuthModulePageRoute.signIn, predicate: (route) => false);
+                                  break;
+                                default:
+                                  break;
+                              }
+                            },
                             children: [
                               SizedBox(height: 20.h),
                               Obx(() => UserChoiceWidget(
