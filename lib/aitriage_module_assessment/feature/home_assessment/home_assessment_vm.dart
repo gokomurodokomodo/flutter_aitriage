@@ -12,6 +12,7 @@ class HomeAssessmentVM {
   var _totalPage = 1;
   var _currentPage = 0;
   var _pageLimit = 0;
+  String? _searchParam;
 
   void update({
     List<Patient>? listPatient,
@@ -20,7 +21,7 @@ class HomeAssessmentVM {
     int? totalFemale,
     int? totalPage,
     int? currentPage,
-    int? pageLimit
+    int? pageLimit,
   }) {
     _totalMale = totalMale ?? _totalMale;
     _totalFemale = totalFemale ?? _totalFemale;
@@ -38,6 +39,8 @@ class HomeAssessmentVM {
       _genderParamType.addAll(genderParamType);
     }
   }
+
+  void updateSearchParam(String? searchParam) => _searchParam = searchParam;
 
   List<PatientSummaryVM> get listPatientSummaryVM {
     final getCode = LocalizationService.currentLanguage.locale.languageCode;
@@ -63,4 +66,6 @@ class HomeAssessmentVM {
   int get totalPatient => _totalMale + _totalFemale;
 
   int get totalPage => _totalPage;
+
+  String? get searchParam => _searchParam;
 }

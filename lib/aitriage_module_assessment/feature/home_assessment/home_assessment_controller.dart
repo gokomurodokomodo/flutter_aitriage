@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
+import 'package:flutter_aitriage/aitriage_core/util/debounce/debounce_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_type_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_vm.dart';
@@ -9,6 +10,7 @@ class HomeAssessmentController extends GetxController {
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
   final vm = HomeAssessmentVM().obs;
   static const _pageLimit = 20;
+  final _debounce = DebounceUtil();
 
   HomeAssessmentController(this._getListPatientUC, this._getGenderParamTypeUC);
 
@@ -21,7 +23,13 @@ class HomeAssessmentController extends GetxController {
   void onTapNumberPaginator(int page) async {
     final genderParamType = _getGenderParamTypeUC.execute();
     final user = await ActiveUserUtil.userInfo;
-    final resp = await _getListPatientUC.execute(user.id.toString(), page + 1, _pageLimit);
+    final searchParam = vm.value.searchParam;
+    final resp = await _getListPatientUC.execute(
+        user.id.toString(),
+        page + 1,
+        _pageLimit,
+        searchParam: searchParam
+    );
     final listPatient = resp.patient;
     vm.value.update(
         listPatient: listPatient,
@@ -33,5 +41,14 @@ class HomeAssessmentController extends GetxController {
         currentPage: page
     );
     vm.refresh();
+  }
+
+  void onSearchTextFieldChanged(String? text) {
+    // reset current page + pass text to api param
+    vm.value.updateSearchParam(text);
+    _debounce.run(
+            () => onTapNumberPaginator(0),
+            duration: const Duration(seconds: 2)
+    );
   }
 }

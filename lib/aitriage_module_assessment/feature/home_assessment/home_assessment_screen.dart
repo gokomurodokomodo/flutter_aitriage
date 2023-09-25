@@ -97,7 +97,9 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           children: [
                             BaseSearchBarTablet(
                                 width: 320.w,
-                                hintText: 'Search type or keyword'),
+                                hintText: 'Search type or keyword',
+                                onTextChange: (text) => controller.onSearchTextFieldChanged(text),
+                            ),
                             SizedBox(width: 16.w),
                             CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
                             const Spacer(),
@@ -145,10 +147,6 @@ class _Tablet extends GetView<HomeAssessmentController> {
         ),
       )
     );
-  }
-  
-  void _showPopUp(Offset globalPosition) {
-    
   }
 }
 

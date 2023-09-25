@@ -1,4 +1,3 @@
-import 'package:flutter_aitriage/aitriage_core/network/common/base_query.dart';
 import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/response/get_list_country_language_response.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_api_route.dart';
@@ -25,8 +24,8 @@ class PatientRepositoryImpl extends PatientRepository {
   }
 
   @override
-  Future<PatientResponse> getListPatient(String accountId, int page, int limit) async {
-    final query = ListPatientQuery(page, limit, 'ACTIVE');
+  Future<PatientResponse> getListPatient(String accountId, int page, int limit, {String? searchParam}) async {
+    final query = ListPatientQuery(page, limit, 'ACTIVE', search: searchParam);
     final resp = await _provider.get(AssessmentModuleApiRoute.getAllPatient.replaceFirst('%s', accountId), query: query.toQuery);
     return _provider.convertResponse(resp, (json) => PatientResponse.fromJson(json));
   }
