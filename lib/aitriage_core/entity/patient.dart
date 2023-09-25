@@ -1,4 +1,5 @@
 class Patient {
+  final int? id;
   final String? code;
   final String? fullName;
   final int? nationalityId;
@@ -21,6 +22,7 @@ class Patient {
   final String? cityName;
 
   Patient({
+      this.id,
       this.code,
       this.fullName,
       this.nationalityId,
@@ -44,7 +46,8 @@ class Patient {
   });
 
   Patient.fromJson(dynamic json)
-      : code = json?['code'],
+      : id = json?['id'],
+        code = json?['code'],
         fullName = json?['fullName'],
         nationalityId = json?['nationalityId'],
         locationId = json?['locationId'],

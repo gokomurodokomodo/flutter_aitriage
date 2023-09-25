@@ -129,7 +129,12 @@ class _TabletState extends State<_Tablet> {
                         ),
                         SizedBox(height: 20.h),
                         Expanded(
-                            child: Obx(() => PatientSummaryListView(list: controller.vm.value.listPatientSummaryVM))
+                            child: Obx(() => PatientSummaryListView(
+                                onTapPatient: (patientId) => Get.toNamed(
+                                    AssessmentModulePageRoute.patientDetail,
+                                    id: AssessmentModulePageRoute.nestedId,
+                                    arguments: {'patientId': patientId}),
+                                list: controller.vm.value.listPatientSummaryVM))
                         ),
                         LineSeparated(margin: 16.h),
                         Align(
@@ -137,7 +142,7 @@ class _TabletState extends State<_Tablet> {
                           child: SizedBox(
                             width: 400.w,
                             child: StatefulBuilder(
-                              builder: (_,setState) {
+                              builder: (_, setState) {
                                 return Obx(() => NumberPaginator(
                                   numberPages: controller.vm.value.totalPage,
                                   onPageChange: (value) {

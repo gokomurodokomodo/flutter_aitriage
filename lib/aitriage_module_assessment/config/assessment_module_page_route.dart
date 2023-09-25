@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_binding.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/work_flow/workflow_screen.dart';
 import 'package:get/get.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
@@ -27,6 +29,7 @@ class AssessmentModulePageRoute {
   static const addNewNote = '$_root/add_new_note';
   static const connectingDevice = '$_root/connecting_device';
   static const workflow = '$_root/workflow';
+  static const patientDetail = '$_root/patient_detail';
   // When navigate with id - nested navigation
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -65,6 +68,11 @@ class AssessmentModulePageRoute {
         return GetPageRoute(
             settings: settings,
             page: () => const WorkflowScreen());
+      case patientDetail:
+        return GetPageRoute(
+            settings: settings,
+            binding: PatientDetailBinding(),
+            page: () => const PatientDetailScreen());
       default:
         return null;
     }

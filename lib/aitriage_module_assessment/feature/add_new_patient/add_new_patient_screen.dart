@@ -440,12 +440,12 @@ class _Tablet extends StatelessWidget {
                       title: 'Cancel',
                       width: 212.w,
                       height: 48.h,
-                      shouldTapAble: true,
+                      shouldTapAbleWhenDisable: true,
                       onTap: () => Get.back(),
                     ),
                     SizedBox(width: 20.w),
                     Obx(() => ColorButton(
-                          shouldTapAble:
+                          shouldTapAbleWhenDisable:
                               controller.vm.value.shouldEnableSaveButton,
                           title: 'Save',
                           shouldEnableBackground:

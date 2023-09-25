@@ -19,8 +19,8 @@ final _blankWidth = 48.w;
 
 class PatientSummaryListView extends StatefulWidget {
   final List<PatientSummaryVM> list;
-
-  const PatientSummaryListView({super.key, required this.list});
+  final Function(int)? onTapPatient;
+  const PatientSummaryListView({super.key, required this.list, this.onTapPatient});
 
   @override
   State<PatientSummaryListView> createState() => _PatientSummaryListViewState();
@@ -45,7 +45,10 @@ class _PatientSummaryListViewState extends State<PatientSummaryListView> {
         Expanded(
             child: widget.list.isNotEmpty
                 ? ListView.separated(
-                    itemBuilder: (BuildContext context, int index) => _PatientSummaryItem(vm: widget.list[index]),
+                    itemBuilder: (BuildContext context, int index) => GestureDetector(
+                        onTap: () => widget.onTapPatient?.call(widget.list[index].patientId),
+                        behavior: HitTestBehavior.translucent,
+                        child: _PatientSummaryItem(vm: widget.list[index])),
                     separatorBuilder: (BuildContext context, int index) => const LineSeparated(),
                     itemCount: widget.list.length,
                     controller: scrollController)
@@ -241,5 +244,7 @@ class PatientSummaryVM {
   String get patientName => _patient.fullName ?? '';
 
   String get mrn => _patient.code ?? '';
+
+  int get patientId => _patient.id ?? 0;
 }
 

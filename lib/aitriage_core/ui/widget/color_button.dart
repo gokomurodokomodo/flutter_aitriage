@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ColorButton extends StatelessWidget {
   final bool shouldEnableBackground;
-  final bool shouldTapAble;
+  final bool shouldTapAbleWhenDisable;
   final double? height;
   final double? width;
   final String title;
@@ -26,7 +26,7 @@ class ColorButton extends StatelessWidget {
     this.colorActive,
     required this.title,
     this.leftIcon,
-    this.shouldTapAble = false
+    this.shouldTapAbleWhenDisable = false
   });
 
   @override
@@ -34,7 +34,7 @@ class ColorButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // shouldTapAble for button disable but still can tap
-        (shouldEnableBackground || shouldTapAble) ? onTap?.call() : {};
+        (shouldEnableBackground || shouldTapAbleWhenDisable) ? onTap?.call() : {};
       } ,
       behavior: HitTestBehavior.translucent,
       child: Container(
