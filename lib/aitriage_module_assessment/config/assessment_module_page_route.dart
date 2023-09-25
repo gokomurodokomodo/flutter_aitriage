@@ -71,7 +71,7 @@ class AssessmentModulePageRoute {
       case patientDetail:
         return GetPageRoute(
             settings: settings,
-            binding: PatientDetailBinding(),
+            binding: PatientDetailBinding(settings.arguments),
             page: () => const PatientDetailScreen());
       default:
         return null;

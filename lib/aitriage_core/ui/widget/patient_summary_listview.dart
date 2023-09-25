@@ -20,7 +20,12 @@ final _blankWidth = 48.w;
 class PatientSummaryListView extends StatefulWidget {
   final List<PatientSummaryVM> list;
   final Function(int)? onTapPatient;
-  const PatientSummaryListView({super.key, required this.list, this.onTapPatient});
+
+  const PatientSummaryListView({
+    super.key,
+    required this.list,
+    this.onTapPatient
+  });
 
   @override
   State<PatientSummaryListView> createState() => _PatientSummaryListViewState();
@@ -162,10 +167,11 @@ class _PatientCell extends StatelessWidget {
           //   color: Colors.blue,
           // ),
           child: CircleAvatar(
-            child: CachedNetworkImage(
-              imageUrl: vm.avatar,
-              errorWidget: (_, __, ___) => Image.asset(vm.avatar)
-            ),
+            child: vm.avatar.isNotEmpty
+                ? CachedNetworkImage(
+                    imageUrl: vm.avatar,
+                    errorWidget: (_, __, ___) => Image.asset(vm.defaultAvatar))
+                : Image.asset(vm.defaultAvatar),
           ),
         ),
         SizedBox(width: 8.w),
@@ -219,10 +225,10 @@ class PatientSummaryVM {
         _genderColumnMediaUrl = genderColumnMediaUrl,
         _genderColumnValue = genderColumnValue;
 
-  String get avatar {
-    if (_patient.avatar != null) {
-      return _patient.avatar!;
-    } else if (_patient.gender == 'MALE') {
+  String get avatar => _patient.avatar ?? '';
+
+  String get defaultAvatar {
+    if (_patient.gender == 'MALE') {
       return AppImage.icDefaultAvatarMale;
     } else if (_patient.gender == 'FEMALE') {
       return AppImage.icDefaultAvatarFemale;

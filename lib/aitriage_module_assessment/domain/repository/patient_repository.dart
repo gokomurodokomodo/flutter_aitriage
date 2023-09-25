@@ -7,4 +7,5 @@ abstract class PatientRepository {
   Future<GetListCountryLanguageResponse> getNationality();
   Future<BaseResponse> addPatient(BaseRequest request, String accountId);
   Future<PatientResponse> getListPatient(String accountId, int page, int limit, {String? searchParam});
+  Future<BaseResponse> getPatientDetail(String accountId, String customerId);
 }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_widget.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_detail_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import '../../../aitriage_core/common/app_color.dart';
+import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../config/assessment_module_page_route.dart';
+import '../../widget/patient_detail_widget.dart';
 
 class PatientDetailScreen extends StatelessWidget {
   const PatientDetailScreen({super.key});
@@ -29,14 +34,27 @@ class _Tablet extends GetView<PatientDetailController> {
       backgroundColor: AppColor.colorBackgroundSearch,
       body: Column(
         children: [
-          SizedBox(
+          Container(
               height: 80.h,
+              margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                     Radius.circular(12.r)),
+                color: AppColor.colorAppBackground,
+              ),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     GestureDetector(
                         onTap: () => Get.back(id: AssessmentModulePageRoute.nestedId),
-                        child: Text('Back')),
+                        child: Row(
+                          children: [
+                            SvgIconWidget(name: AppImage.svgArrowLeft),
+                            SizedBox(width: 8.w),
+                            Text('Back', style: AppStyle.styleTextUserChoice),
+                          ],
+                        )),
                     Spacer(),
                     ColorButton(title: 'Add assessment', width: 150.w, shouldEnableBackground: true),
                     SizedBox(width: 16.w),
@@ -44,11 +62,26 @@ class _Tablet extends GetView<PatientDetailController> {
                     SizedBox(width: 16.w),
                     ColorButton(title: 'Edit', width: 80.w, shouldTapAbleWhenDisable: true),
                   ])),
-          Row(
-            children: [
-              PatientDetailWidget(),
-
-            ],
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: 24.w),
+                const PatientDetailWidget(),
+                Expanded(
+                  child: Container(
+                    // height: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 24.w),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(12.r)),
+                      color: AppColor.colorAppBackground,
+                    ),
+                  ),
+                )
+              ],
+            ),
           )
         ],
       )

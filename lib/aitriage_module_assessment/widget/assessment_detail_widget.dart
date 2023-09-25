@@ -8,17 +8,17 @@ import '../../aitriage_core/ui/widget/color_button.dart';
 import '../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../aitriage_core/ui/widget/svg_icon_widget.dart';
 
-class PatientDetailWidget extends StatefulWidget {
+class AssessmentDetailWidget extends StatefulWidget {
   final Function(int)? onTap;
   final Function? onTapPrimaryButton;
 
-  const PatientDetailWidget({super.key, this.onTap, this.onTapPrimaryButton});
+  const AssessmentDetailWidget({super.key, this.onTap, this.onTapPrimaryButton});
 
   @override
-  State<PatientDetailWidget> createState() => _PatientDetailWidgetState();
+  State<AssessmentDetailWidget> createState() => _AssessmentDetailWidgetState();
 }
 
-class _PatientDetailWidgetState extends State<PatientDetailWidget> {
+class _AssessmentDetailWidgetState extends State<AssessmentDetailWidget> {
   var selectedIndex = 0;
 
   @override
