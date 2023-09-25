@@ -31,11 +31,22 @@ class HomeAssessmentScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<HomeAssessmentController> {
+
+
+class _Tablet extends StatefulWidget {
   const _Tablet();
 
   @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  final _pageController = NumberPaginatorController();
+  final controller = Get.find<HomeAssessmentController>();
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       body: Container(
@@ -98,7 +109,11 @@ class _Tablet extends GetView<HomeAssessmentController> {
                             BaseSearchBarTablet(
                                 width: 320.w,
                                 hintText: 'Search type or keyword',
-                                onTextChange: (text) => controller.onSearchTextFieldChanged(text),
+                                onTextChange: (text) {
+                                  controller.onSearchTextFieldChanged(
+                                      text,
+                                      onSuccess: () => _pageController.currentPage = 0);
+                                },
                             ),
                             SizedBox(width: 16.w),
                             CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
@@ -129,6 +144,7 @@ class _Tablet extends GetView<HomeAssessmentController> {
                                     setState((){});
                                     controller.onTapNumberPaginator(value);
                                   },
+                                  controller: _pageController,
                                   config: NumberPaginatorUIConfig(
                                       buttonShape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.r),

@@ -65,7 +65,9 @@ class HomeAssessmentVM {
 
   int get totalPatient => _totalMale + _totalFemale;
 
-  int get totalPage => _totalPage;
+  int get totalPage => _totalPage == 0 ? 1 : _totalPage;
 
   String? get searchParam => _searchParam;
+
+  int get currentPage => _currentPage;
 }
