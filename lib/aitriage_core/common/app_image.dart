@@ -73,4 +73,8 @@ class AppImage {
   static const svgUserChoiceSwitchAccount = './lib/aitriage_core/asset/image/svg_user_choice_switch_account.svg';
   static const svgUserChoiceUserAvatar = './lib/aitriage_core/asset/image/svg_user_choice_user_avatar.svg';
   static const svgWifi = './lib/aitriage_core/asset/image/svg_wifi.svg';
+  static const svgCamera = './lib/aitriage_core/asset/image/svg_camera.svg';
+  static const svgPatientDetailInformation = './lib/aitriage_core/asset/image/svg_patient_detail_information.svg';
+  static const svgPatientDetailNote = './lib/aitriage_core/asset/image/svg_patient_detail_note.svg';
+  static const svgPatientDetailAssessment = './lib/aitriage_core/asset/image/svg_patient_detail_assessment.svg';
 }

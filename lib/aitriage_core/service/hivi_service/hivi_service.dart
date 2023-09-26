@@ -42,7 +42,6 @@ class HiviService extends GetxService {
   final _roles = <Role>[];
   final _paramTypes = <ParamType>[];
   late SystemParam _systemParam;
-
   // country, city, state are json file, need parsing
   // race
   Future<void> getAppParam({

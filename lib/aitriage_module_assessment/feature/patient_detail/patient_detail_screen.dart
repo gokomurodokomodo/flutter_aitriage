@@ -3,10 +3,8 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_detail_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
@@ -67,7 +65,7 @@ class _Tablet extends GetView<PatientDetailController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(width: 24.w),
-                const PatientDetailWidget(),
+                Obx(() => PatientDetailWidget(vm: controller.vm.value)),
                 Expanded(
                   child: Container(
                     // height: double.infinity,
