@@ -3,6 +3,9 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_assessment.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_information.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_note.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
@@ -81,10 +84,11 @@ class _Tablet extends GetView<PatientDetailController> {
                     ),
                     child: PageView(
                       controller: pageViewController,
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _Information(),
-                        _Assessment(),
-                        _Note()
+                        Obx(() => PatientDetailInformation(vm: controller.vm.value)),
+                        PatientDetailAssessment(),
+                        PatientDetailNote()
                       ],
                     ),
                   ),
@@ -98,32 +102,7 @@ class _Tablet extends GetView<PatientDetailController> {
   }
 }
 
-class _Information extends StatelessWidget {
-  const _Information({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Text('Information');
-  }
-}
-
-class _Assessment extends StatelessWidget {
-  const _Assessment({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('Assessment');
-  }
-}
-
-class _Note extends StatelessWidget {
-  const _Note({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('Note');
-  }
-}
 
 
 
