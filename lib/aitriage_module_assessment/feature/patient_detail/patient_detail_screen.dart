@@ -25,9 +25,10 @@ class PatientDetailScreen extends StatelessWidget {
 
 class _Tablet extends GetView<PatientDetailController> {
   const _Tablet({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    final pageViewController = PageController();
     return Scaffold(
       backgroundColor: AppColor.colorBackgroundSearch,
       body: Column(
@@ -65,16 +66,26 @@ class _Tablet extends GetView<PatientDetailController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(width: 24.w),
-                Obx(() => PatientDetailWidget(vm: controller.vm.value)),
+                Obx(() => PatientDetailWidget(
+                    vm: controller.vm.value,
+                    onTap: (index) => pageViewController.jumpToPage(index),
+                )),
                 Expanded(
                   child: Container(
-                    // height: double.infinity,
                     margin: EdgeInsets.symmetric(horizontal: 24.w),
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                           Radius.circular(12.r)),
                       color: AppColor.colorAppBackground,
+                    ),
+                    child: PageView(
+                      controller: pageViewController,
+                      children: [
+                        _Information(),
+                        _Assessment(),
+                        _Note()
+                      ],
                     ),
                   ),
                 )
@@ -86,4 +97,34 @@ class _Tablet extends GetView<PatientDetailController> {
     );
   }
 }
+
+class _Information extends StatelessWidget {
+  const _Information({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Information');
+  }
+}
+
+class _Assessment extends StatelessWidget {
+  const _Assessment({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Assessment');
+  }
+}
+
+class _Note extends StatelessWidget {
+  const _Note({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Note');
+  }
+}
+
+
+
 
