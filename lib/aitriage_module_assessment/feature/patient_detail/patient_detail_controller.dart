@@ -4,6 +4,7 @@ import '../../../aitriage_core/util/active_user/active_user.dart';
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
+  // Nested navigation doesn't support dynamic argument, need to get argument from onGenerateRoute
   final dynamic _argument;
 
   PatientDetailController(this._argument, this._getPatientDetailUC);

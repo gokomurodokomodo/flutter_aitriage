@@ -7,21 +7,17 @@ enum LanguageType { vietnamese, english }
 
 extension LanguageTypeX on LanguageType {
   Locale get locale {
-    switch (this) {
-      case LanguageType.vietnamese:
-        return const Locale('vi', 'VN');
-      case LanguageType.english:
-        return const Locale('en', 'US');
-    }
+    return switch (this) {
+      LanguageType.vietnamese => const Locale('vi', 'VN'),
+      LanguageType.english => const Locale('en', 'US')
+    };
   }
 
   static LanguageType fromLanguage(String code) {
-    switch (code) {
-      case 'vi':
-        return LanguageType.vietnamese;
-      default:
-        return LanguageType.english;
-    }
+    return switch (code) {
+      'vi' => LanguageType.vietnamese,
+      _ => LanguageType.english
+    };
   }
 }
 

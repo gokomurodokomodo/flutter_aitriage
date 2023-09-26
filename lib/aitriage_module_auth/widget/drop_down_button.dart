@@ -204,16 +204,12 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
   double get dropDownWidth => widget.dropDownWidth ?? widgetWidth;
 
   Offset get dropDownOffSet {
-    switch (widget.dropDownAlign) {
-      case DropDownAlign.bottomLeftToRight:
-        return Offset(0, widgetHeight);
-      case DropDownAlign.topRightToRight:
-        return Offset(widgetWidth + 20, 0);
-      case DropDownAlign.topLeftToRight:
-        return Offset(-20 - dropDownWidth, 0);
-      case DropDownAlign.bottomRightToLeft:
-        return Offset(- dropDownWidth + widgetWidth, widgetHeight + 20);
-    }
+    return switch (widget.dropDownAlign) {
+      DropDownAlign.bottomLeftToRight => Offset(0, widgetHeight),
+      DropDownAlign.topRightToRight => Offset(widgetWidth + 20, 0),
+      DropDownAlign.topLeftToRight => Offset(-20 - dropDownWidth, 0),
+      DropDownAlign.bottomRightToLeft => Offset(- dropDownWidth + widgetWidth, widgetHeight + 20)
+    };
   }
 }
 

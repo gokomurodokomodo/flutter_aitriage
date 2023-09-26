@@ -57,12 +57,7 @@ class FirebaseProvider {
 enum FirebaseCollection { syncs }
 
 extension FirebaseCollectionX on FirebaseCollection {
-  String get path {
-    switch (this) {
-      case FirebaseCollection.syncs:
-        return '/syncs';
-    }
-  }
+  String get path => switch (this) { FirebaseCollection.syncs => '/syncs' };
 }
 
 class AuthFirebaseResponse extends BaseResponse {

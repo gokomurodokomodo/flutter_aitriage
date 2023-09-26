@@ -32,50 +32,40 @@ class AssessmentModulePageRoute {
   static const patientDetail = '$_root/patient_detail';
   // When navigate with id - nested navigation
   static Route? onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case initialRoute:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const HomeAssessmentScreen(),
-            binding: HomeAssessmentBinding());
-      case allPatients:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const AllPatientsScreen());
-      case addNewPatients:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const AddNewPatientScreen(),
-            // binding: AddNewPatientBinding(),
-            opaque: false);
-      case recordVitalSigns:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const RecordVitalSignsScreen());
-      case assessmentResult:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const AssessmentResultScreen());
-      case note:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const NoteScreen());
-      case addNewNote:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const AddNewNoteScreen());
-      case workflow:
-        return GetPageRoute(
-            settings: settings,
-            page: () => const WorkflowScreen());
-      case patientDetail:
-        return GetPageRoute(
-            settings: settings,
-            binding: PatientDetailBinding(settings.arguments),
-            page: () => const PatientDetailScreen());
-      default:
-        return null;
-    }
+    return switch (settings.name) {
+      initialRoute => GetPageRoute(
+          settings: settings,
+          page: () => const HomeAssessmentScreen(),
+          binding: HomeAssessmentBinding()),
+      allPatients => GetPageRoute(
+          settings: settings,
+          page: () => const AllPatientsScreen()),
+      addNewPatients => GetPageRoute(
+          settings: settings,
+          page: () => const AddNewPatientScreen(),
+          // binding: AddNewPatientBinding(),
+          opaque: false),
+      recordVitalSigns => GetPageRoute(
+          settings: settings,
+          page: () => const RecordVitalSignsScreen()),
+      assessmentResult => GetPageRoute(
+          settings: settings,
+          page: () => const AssessmentResultScreen()),
+      note => GetPageRoute(
+          settings: settings,
+          page: () => const NoteScreen()),
+      addNewNote => GetPageRoute(
+          settings: settings,
+          page: () => const AddNewNoteScreen()),
+      workflow => GetPageRoute(
+          settings: settings,
+          page: () => const WorkflowScreen()),
+      patientDetail => GetPageRoute(
+          settings: settings,
+          binding: PatientDetailBinding(settings.arguments),
+          page: () => const PatientDetailScreen()),
+      _ => null
+    };
   }
 
   // when navigate without id
