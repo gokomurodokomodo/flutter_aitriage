@@ -33,6 +33,9 @@ class CustomLoginField extends StatelessWidget {
   final TextInputFormatter? textInputFormatter;
   final Widget? prefixIcon;
   final bool shouldHavePrefixIcon;
+  final TextAlignVertical textAlignVertical;
+  final int maxLines;
+  final EdgeInsets? multiLineContentPadding;
 
   const CustomLoginField({
     super.key,
@@ -61,7 +64,10 @@ class CustomLoginField extends StatelessWidget {
     this.enableBorder = false,
     this.textInputFormatter,
     this.shouldHavePrefixIcon = false,
-    this.prefixIcon
+    this.prefixIcon,
+    this.textAlignVertical = TextAlignVertical.center,
+    this.maxLines = 1,
+    this.multiLineContentPadding
   });
 
   @override
@@ -93,6 +99,8 @@ class CustomLoginField extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: (shouldHavePrefixIcon && prefixIcon != null) ? 0.w : 16.w),
                   child: TextField(
+                    //if somethings prevent push textfield align fron center to top, set maxline > 1 do the trick.
+                    maxLines: maxLines,
                     controller: controller,
                     inputFormatters: <TextInputFormatter>[
                           if (textInputRegex != null) FilteringTextInputFormatter.allow(textInputRegex!),
@@ -102,7 +110,7 @@ class CustomLoginField extends StatelessWidget {
                     enableSuggestions: shouldSecured ? false : true,
                     autocorrect: shouldSecured ? false : true,
                     keyboardType: type ?? TextInputType.text,
-                    textAlignVertical: TextAlignVertical.center,
+                    textAlignVertical: textAlignVertical,
                     textAlign: TextAlign.left,
                     
                     onChanged: (_) {
@@ -121,7 +129,8 @@ class CustomLoginField extends StatelessWidget {
                         prefixIcon: (shouldHavePrefixIcon && prefixIcon != null) ? Padding(padding: EdgeInsetsDirectional.only(end: 16.w) ,child: prefixIcon) : null,
                         hintText: hintText,
                         hintStyle: AppStyle.styleCustomTextFieldHintText,
-                        border: InputBorder.none
+                        border: InputBorder.none,
+                        contentPadding: multiLineContentPadding
                     ),
                   ),
                 ),

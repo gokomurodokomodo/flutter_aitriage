@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/screen/alert_screen.dart';
@@ -30,6 +31,7 @@ class AddNewPatientScreen extends StatelessWidget {
 }
 
 class _Tablet extends StatelessWidget {
+
   _Tablet();
   final controller = Get.find<AddNewPatientController>();
 
@@ -208,6 +210,7 @@ class _Tablet extends StatelessWidget {
                                   controller.vm.value.setFirstTimeDateOfBirth();
                                   controller.vm.refresh();
                                 },
+                                textInputRegex: RegExp(r'[0-9/]'),
                                 textFieldWidth: double.maxFinite,
                                 textFieldHeight: 56.h,
                                 isValidated:
@@ -376,9 +379,9 @@ class _Tablet extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 12.h),
                 SizedBox(
-                  height: 136.h,
+                  height: 155.h,
                   child: Row(
                     children: [
                       Expanded(
@@ -400,18 +403,26 @@ class _Tablet extends StatelessWidget {
                               type: TextInputType.number,
                               hintText: 'Phone number',
                               textFieldWidth: double.maxFinite,
+                              textInputRegex: RegExp(r'[0-9]'),
                               textFieldHeight: 56.h,
                               onTextChange: (value) =>
                                   controller.onInfoChange(phoneNumber: value),
                             ),
-                            const Spacer(),
-                            CustomLoginField(
-                              hintText: 'Email',
-                              textFieldWidth: double.maxFinite,
-                              textFieldHeight: 56.h,
-                              onTextChange: (value) =>
-                                  controller.onInfoChange(email: value),
-                            ),
+                            SizedBox(height: 16.h,),
+                            Obx(() => SizedBox(
+                              height: 80.h,
+                              child: CustomLoginField(
+                                    hintText: 'Email',
+                                    isValidated:
+                                        controller.vm.value.isEmailVerify,
+                                    unvalidateText:
+                                        'Please provide correct email',
+                                    textFieldWidth: double.maxFinite,
+                                    textFieldHeight: 56.h,
+                                    onTextChange: (value) =>
+                                        controller.onInfoChange(email: value),
+                                  ),
+                            )),
                           ],
                         ),
                       ),
@@ -423,8 +434,11 @@ class _Tablet extends StatelessWidget {
                                   CustomLoginField(
                                     textFieldWidth: double.maxFinite,
                                     textFieldHeight:
-                                        constraints.maxHeight - 2.5,
+                                        constraints.maxHeight - 22.5,
+                                    textAlignVertical: TextAlignVertical.top,
+                                    maxLines: 15,
                                     hintText: 'Description',
+                                    multiLineContentPadding: const EdgeInsets.only(top: 8, right: 8, bottom: 2),
                                     onTextChange: (value) => controller
                                         .onInfoChange(description: value),
                                   )))

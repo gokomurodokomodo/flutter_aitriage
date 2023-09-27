@@ -115,7 +115,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                                 : widget.children![index],
                   ),
                   if (widget.shouldReplacePlaceHolder) Positioned(
-                      bottom: 13.h,
+                      bottom: widgetHeight / 2 - 9.r,
                       right: 14.w,
                       child: Center(
                         child: SvgIconWidget(
