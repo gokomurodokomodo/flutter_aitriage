@@ -28,4 +28,8 @@ class ActiveUserRepository{
     final encodeJson = jsonEncode(jsonData);
     await securedBox.write(key: key,data: encodeJson);
   }
+
+  Future<void> delete(String key) async {
+    await securedBox.delete(key);
+  }
 }

@@ -208,4 +208,19 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorDialogTitleText,
   );
+  static final styleTextUserChoice = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorRememberMeText,
+  );
+  static final styleTextPatientInformation = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorPatientInformationText,
+  );
+  static final styleTextPatientInformation2 = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorForgotPassword,
+  );
 }

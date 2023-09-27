@@ -31,42 +31,24 @@ class HomeAssessmentScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<HomeAssessmentController> {
+
+
+class _Tablet extends StatefulWidget {
   const _Tablet();
 
   @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  final _pageController = NumberPaginatorController();
+  final controller = Get.find<HomeAssessmentController>();
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
-      appBar: CustomAppBar(
-        title: 'PATIENT',
-        searchBar: BaseSearchBarTablet(
-          hintText: 'Search type or keyword',
-          width: 350.w,
-        ),
-        trailing: Row(
-          children: [
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgNotification, size: 24.r)),
-            SizedBox(width: 20.w),
-            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgGift, size: 24.r)),
-            SizedBox(width: 20.w),
-            // CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgShare)),
-            GestureDetector(
-              onTapDown:(details) {
-                _showPopUp(details.globalPosition);
-              },
-              child: Container(
-                height: 40.r,
-                width: 40.r,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: Container(
         color: AppColor.colorBackgroundSearch,
         child: Padding(
@@ -126,7 +108,13 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           children: [
                             BaseSearchBarTablet(
                                 width: 320.w,
-                                hintText: 'Search type or keyword'),
+                                hintText: 'Search type or keyword',
+                                onTextChange: (text) {
+                                  controller.onSearchTextFieldChanged(
+                                      text,
+                                      onSuccess: () => _pageController.currentPage = 0);
+                                },
+                            ),
                             SizedBox(width: 16.w),
                             CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
                             const Spacer(),
@@ -141,7 +129,12 @@ class _Tablet extends GetView<HomeAssessmentController> {
                         ),
                         SizedBox(height: 20.h),
                         Expanded(
-                            child: Obx(() => PatientSummaryListView(list: controller.vm.value.listPatientSummaryVM))
+                            child: Obx(() => PatientSummaryListView(
+                                onTapPatient: (patientId) => Get.toNamed(
+                                    AssessmentModulePageRoute.patientDetail,
+                                    id: AssessmentModulePageRoute.nestedId,
+                                    arguments: {'patientId': patientId}),
+                                list: controller.vm.value.listPatientSummaryVM))
                         ),
                         LineSeparated(margin: 16.h),
                         Align(
@@ -149,13 +142,14 @@ class _Tablet extends GetView<HomeAssessmentController> {
                           child: SizedBox(
                             width: 400.w,
                             child: StatefulBuilder(
-                              builder: (_,setState) {
+                              builder: (_, setState) {
                                 return Obx(() => NumberPaginator(
                                   numberPages: controller.vm.value.totalPage,
                                   onPageChange: (value) {
                                     setState((){});
                                     controller.onTapNumberPaginator(value);
                                   },
+                                  controller: _pageController,
                                   config: NumberPaginatorUIConfig(
                                       buttonShape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8.r),
@@ -174,10 +168,6 @@ class _Tablet extends GetView<HomeAssessmentController> {
         ),
       )
     );
-  }
-  
-  void _showPopUp(Offset globalPosition) {
-    
   }
 }
 

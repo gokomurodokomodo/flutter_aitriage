@@ -1,4 +1,3 @@
-import 'package:flutter_aitriage/aitriage_core/network/common/base_query.dart';
 import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/response/get_list_country_language_response.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_api_route.dart';
@@ -7,6 +6,8 @@ import '../../../aitriage_core/common/app_env.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../../aitriage_core/network/provider/get_base_provider.dart';
 import '../../domain/repository/patient_repository.dart';
+import '../api/query/patient_detail_query.dart';
+import '../api/response/patient_detail_response.dart';
 import '../api/response/patient_response.dart';
 
 class PatientRepositoryImpl extends PatientRepository {
@@ -25,9 +26,16 @@ class PatientRepositoryImpl extends PatientRepository {
   }
 
   @override
-  Future<PatientResponse> getListPatient(String accountId, int page, int limit) async {
-    final query = ListPatientQuery(page, limit, 'ACTIVE');
+  Future<PatientResponse> getListPatient(String accountId, int page, int limit, {String? searchParam}) async {
+    final query = ListPatientQuery(page, limit, 'ACTIVE', search: searchParam);
     final resp = await _provider.get(AssessmentModuleApiRoute.getAllPatient.replaceFirst('%s', accountId), query: query.toQuery);
     return _provider.convertResponse(resp, (json) => PatientResponse.fromJson(json));
+  }
+
+  @override
+  Future<PatientDetailResponse> getPatientDetail(String accountId, String customerId) async {
+    final query = PatientDetailQuery(customerId);
+    final resp = await _provider.get(AssessmentModuleApiRoute.getPatientDetail.replaceFirst('%s', accountId), query: query.toQuery);
+    return _provider.convertResponse(resp, (json) => PatientDetailResponse.fromJson(json));
   }
 }

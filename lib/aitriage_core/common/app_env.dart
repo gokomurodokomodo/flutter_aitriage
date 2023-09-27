@@ -9,28 +9,26 @@ class AppEnvironment {
   static void setEnvironment(AppEnvironmentType env) {
     _env = env;
 
-    switch (env) {
-      case AppEnvironmentType.dev:
-        _config = {
+    _config = switch (env) {
+      AppEnvironmentType.dev =>
+        {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
           'apiPrefix': '',
           'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem',
           'firebase-rtdb-url': 'https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app',
           'firebase-auth-key': '@!AITriage#230906',
-        };
-        break;
-      case AppEnvironmentType.pro:
-        _config = {
+        },
+      AppEnvironmentType.pro =>
+        {
           'baseUrl': 'https://test-aitriage-api.beedu.vn',
           'apiVersion': '/v1',
           'apiPrefix': '',
           'publicPem': './lib/aitriage_core/asset/key/public_pem_dev.pem',
           'firebase-rtdb-url': 'https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app',
           'firebase-auth-key': '@!AITriage#230906',
-        };
-        break;
-    }
+        }
+    };
   }
 
   static AppEnvironmentType get environment => _env;

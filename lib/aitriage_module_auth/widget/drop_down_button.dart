@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 
-enum DropDownAlign { horizontal, vertical }
+enum DropDownAlign { topRightToRight, bottomLeftToRight , topLeftToRight, bottomRightToLeft}
 
 class DropDownWrapper extends StatefulWidget {
   final double? width;
@@ -26,6 +26,7 @@ class DropDownWrapper extends StatefulWidget {
   final bool shouldReplacePlaceHolder;
   final bool shouldShowBorderPlaceHolder;
   final bool shouldEnableDropDown;
+  final bool shouldColorItemSelected;
 
   const DropDownWrapper({
     super.key,
@@ -39,10 +40,11 @@ class DropDownWrapper extends StatefulWidget {
     this.onTapChildren,
     this.placeHolder,
     this.chooseIndex = 0,
-    this.dropDownAlign = DropDownAlign.vertical,
+    this.dropDownAlign = DropDownAlign.bottomLeftToRight,
     this.shouldReplacePlaceHolder = true,
     this.shouldShowBorderPlaceHolder = true,
-    this.shouldEnableDropDown = true
+    this.shouldEnableDropDown = true,
+    this.shouldColorItemSelected = true
   });
 
   @override
@@ -152,7 +154,9 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                     height: 200,
                     child: ListView(
                       children: widget.children?.map((e) => Container(
-                        color: widget.children?.indexOf(e) == index ? AppColor.colorSelectedLocationBackground : Colors.transparent,
+                        color: widget.children?.indexOf(e) == index && widget.shouldColorItemSelected
+                            ? AppColor.colorSelectedLocationBackground
+                            : Colors.transparent,
                         child: GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () {
@@ -200,12 +204,12 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
   double get dropDownWidth => widget.dropDownWidth ?? widgetWidth;
 
   Offset get dropDownOffSet {
-    switch (widget.dropDownAlign) {
-      case DropDownAlign.vertical:
-        return Offset(0, widgetHeight);
-      case DropDownAlign.horizontal:
-        return Offset(widgetWidth + 20, 0);
-    }
+    return switch (widget.dropDownAlign) {
+      DropDownAlign.bottomLeftToRight => Offset(0, widgetHeight),
+      DropDownAlign.topRightToRight => Offset(widgetWidth + 20, 0),
+      DropDownAlign.topLeftToRight => Offset(-20 - dropDownWidth, 0),
+      DropDownAlign.bottomRightToLeft => Offset(- dropDownWidth + widgetWidth, widgetHeight + 20)
+    };
   }
 }
 
@@ -295,4 +299,23 @@ class LocationWidget extends StatelessWidget {
     );
   }
 }
+
+class UserChoiceWidget extends StatelessWidget {
+  final String image;
+  final String title;
+  
+  const UserChoiceWidget({super.key, required this.image, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SvgIconWidget(name: image, size: 24.r),
+        SizedBox(width: 16.w),
+        Text(title, style: AppStyle.styleTextUserChoice)
+      ],
+    );
+  }
+}
+
 

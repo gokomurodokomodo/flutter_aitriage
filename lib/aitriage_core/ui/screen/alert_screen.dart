@@ -11,14 +11,11 @@ enum AlertStatus { success, warning, error }
 
 extension AlertExtension on AlertStatus {
   String get icon {
-    switch (this) {
-      case AlertStatus.success:
-        return AppImage.svgSuccessAlert;
-      case AlertStatus.warning:
-        return AppImage.svgWarningAlert;
-      case AlertStatus.error:
-        return 'Error';
-    }
+    return switch (this) {
+      AlertStatus.success => AppImage.svgSuccessAlert,
+      AlertStatus.warning => AppImage.svgWarningAlert,
+      AlertStatus.error => 'Error'
+    };
   }
 }
 

@@ -16,30 +16,26 @@ class SettingRoute {
   static const aboutUs = '$_root/about_us';
 
   static Route? onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case initialRoute:
-        return GetPageRoute(
+    return switch (settings.name) {
+      initialRoute => GetPageRoute(
             settings: settings,
             page: () => const HomeSettingScreen(),
             binding: BindingsBuilder(() {})
-        );
-      case supportCenter:
-        return GetPageRoute(
+        ),
+      supportCenter => GetPageRoute(
             settings: settings,
             page: () => const SupportCenterScreen(),
             binding: BindingsBuilder(() {})
-        );
-      case aboutUs:
-        return GetPageRoute(
+        ),
+      aboutUs => GetPageRoute(
             settings: settings,
             page: () => const AboutUsScreen(),
             binding: BindingsBuilder(() {})
-        );
-      default:
-        return GetPageRoute(
+        ),
+      _ => GetPageRoute(
             settings: settings,
-            page: () => const Scaffold());
-    }
+            page: () => const Scaffold())
+    };
   }
 
   static List<GetPage> createRoutes() => [

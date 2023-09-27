@@ -9,7 +9,7 @@ class PatientResponse extends BaseResponse{
   var totalElement = 0;
   
   PatientResponse.fromJson(dynamic json) : super.fromJson(json){
-    for (var element in json['data']['customers']['content'] as List<dynamic>) {
+    for (var element in json?['data']?['customers']?['content'] as List<dynamic>) {
       patient.add(Patient.fromJson(element));
     }
 

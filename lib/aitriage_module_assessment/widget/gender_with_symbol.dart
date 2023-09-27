@@ -32,24 +32,18 @@ class GenderWithSymbol extends StatelessWidget {
   }
 
   String get _svgIconName {
-    switch (gender) {
-      case Gender.patients:
-        return AppImage.svgProfileUser;
-      case Gender.male:
-        return AppImage.svgProfileMale;
-      case Gender.female:
-        return AppImage.svgProfileFemale;
-    }
+    return switch (gender) {
+      Gender.patients => AppImage.svgProfileUser,
+      Gender.male => AppImage.svgProfileMale,
+      Gender.female => AppImage.svgProfileFemale
+    };
   }
 
   Color get _backgroundColor {
-    switch (gender) {
-      case Gender.patients:
-        return AppColor.colorUserProfileBackground;
-      case Gender.male:
-        return AppColor.colorRailHover;
-      case Gender.female:
-        return AppColor.colorFemaleProfileBackground;
-    }
+    return switch (gender) {
+      Gender.patients => AppColor.colorUserProfileBackground,
+      Gender.male => AppColor.colorRailHover,
+      Gender.female => AppColor.colorFemaleProfileBackground
+    };
   }
 }

@@ -43,4 +43,6 @@ class AppColor {
   static const colorAsterisk = Color(0xffFF4A4A);
   static const colorForgotPassword= Color(0xFF027BFE);
   static const colorSelectedLocationBackground = Color(0xfff9f9f9);
+  static const colorSummaryViewLabel = Color(0xfffafafa);
+  static const colorPatientInformationText = Color(0xff686868);
 }

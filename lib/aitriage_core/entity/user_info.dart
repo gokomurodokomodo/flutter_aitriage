@@ -54,6 +54,8 @@ class UserInfo {
   List<Roles>? roles;
   List<Locations>? locations;
 
+  UserInfo();
+
   UserInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];

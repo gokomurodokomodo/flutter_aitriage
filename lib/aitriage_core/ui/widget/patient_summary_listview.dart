@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
@@ -16,10 +17,29 @@ const _ageRatio = 2;
 const _lastAssessmentRatio = 10;
 final _blankWidth = 48.w;
 
-class PatientSummaryListView extends StatelessWidget {
+class PatientSummaryListView extends StatefulWidget {
   final List<PatientSummaryVM> list;
+  final Function(int)? onTapPatient;
 
-  const PatientSummaryListView({super.key, required this.list});
+  const PatientSummaryListView({
+    super.key,
+    required this.list,
+    this.onTapPatient
+  });
+
+  @override
+  State<PatientSummaryListView> createState() => _PatientSummaryListViewState();
+}
+
+class _PatientSummaryListViewState extends State<PatientSummaryListView> {
+  final scrollController = ScrollController();
+
+  @override
+  void didUpdateWidget(covariant oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (scrollController.hasClients) scrollController.jumpTo(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +48,25 @@ class PatientSummaryListView extends StatelessWidget {
         const _Label(),
         LineSeparated(margin: 8.h),
         Expanded(
-            child: ListView.separated(
-              itemBuilder: (BuildContext context, int index) => _PatientSummaryItem(vm: list[index]),
-              separatorBuilder: (BuildContext context, int index) => const LineSeparated(),
-              itemCount: list.length,
-        ))
+            child: widget.list.isNotEmpty
+                ? ListView.separated(
+                    itemBuilder: (BuildContext context, int index) => GestureDetector(
+                        onTap: () => widget.onTapPatient?.call(widget.list[index].patientId),
+                        behavior: HitTestBehavior.translucent,
+                        child: _PatientSummaryItem(vm: widget.list[index])),
+                    separatorBuilder: (BuildContext context, int index) => const LineSeparated(),
+                    itemCount: widget.list.length,
+                    controller: scrollController)
+                : Center(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(AppImage.icListViewNoData),
+                          SizedBox(height: 8.h),
+                          Text('No data', style: AppStyle.styleTextAllPatientCategory)
+                        ],
+                  ))
+        )
       ],
     );
   }
@@ -43,32 +77,33 @@ class _Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            flex: _orderRatio,
-            child: Text('#', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _patientRatio,
-            child: Text('PATIENT', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _genderRatio,
-            child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _raceRatio,
-            child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
-        Expanded(
-            flex: _ageRatio,
-            child: Align(
-                alignment: Alignment.topRight,
-                child: Text('AGE', style: AppStyle.styleTextAllPatientCategory))),
-        Expanded(
-            flex: _lastAssessmentRatio,
-            child: Align(
-                alignment: Alignment.topRight,
-                child: Text('LAST ASSESSMENT DATE', style: AppStyle.styleTextAllPatientCategory))),
-        SizedBox(width: _blankWidth)
-      ],
+    return Container(
+      color: AppColor.colorSummaryViewLabel,
+      height: 44.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+              flex: _orderRatio,
+              child: Text('#', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _patientRatio,
+              child: Text('PATIENT', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _genderRatio,
+              child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _raceRatio,
+              child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _ageRatio,
+              child: Text('AGE', style: AppStyle.styleTextAllPatientCategory, textAlign: TextAlign.right,)),
+          Expanded(
+              flex: _lastAssessmentRatio,
+              child: Text('LAST ASSESSMENT DATE', style: AppStyle.styleTextAllPatientCategory, textAlign: TextAlign.right,)),
+          SizedBox(width: _blankWidth)
+        ],
+      ),
     );
   }
 }
@@ -85,7 +120,7 @@ class _PatientSummaryItem extends StatelessWidget {
       children: [
         Expanded(
             flex: _orderRatio,
-            child: Text('1', style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.id, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _patientRatio,
             child: _PatientCell(vm: vm)),
@@ -132,10 +167,11 @@ class _PatientCell extends StatelessWidget {
           //   color: Colors.blue,
           // ),
           child: CircleAvatar(
-            child: CachedNetworkImage(
-              imageUrl: vm.avatar,
-              errorWidget: (_, __, ___) => Image.asset(vm.avatar)
-            ),
+            child: vm.avatar.isNotEmpty
+                ? CachedNetworkImage(
+                    imageUrl: vm.avatar,
+                    errorWidget: (_, __, ___) => Image.asset(vm.defaultAvatar))
+                : Image.asset(vm.defaultAvatar),
           ),
         ),
         SizedBox(width: 8.w),
@@ -175,11 +211,13 @@ class _GenderCell extends StatelessWidget {
 }
 
 class PatientSummaryVM {
+  final String id;
   final Patient _patient;
   final String _genderColumnMediaUrl;
   final String _genderColumnValue;
 
   PatientSummaryVM({
+    required this.id,
     required Patient patient,
     required String genderColumnMediaUrl,
     required String genderColumnValue
@@ -187,10 +225,10 @@ class PatientSummaryVM {
         _genderColumnMediaUrl = genderColumnMediaUrl,
         _genderColumnValue = genderColumnValue;
 
-  String get avatar {
-    if (_patient.avatar != null) {
-      return _patient.avatar!;
-    } else if (_patient.gender == 'MALE') {
+  String get avatar => _patient.avatar ?? '';
+
+  String get defaultAvatar {
+    if (_patient.gender == 'MALE') {
       return AppImage.icDefaultAvatarMale;
     } else if (_patient.gender == 'FEMALE') {
       return AppImage.icDefaultAvatarFemale;
@@ -212,5 +250,7 @@ class PatientSummaryVM {
   String get patientName => _patient.fullName ?? '';
 
   String get mrn => _patient.code ?? '';
+
+  int get patientId => _patient.id ?? 0;
 }
 

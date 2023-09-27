@@ -20,7 +20,7 @@ class SecuredBox{
       required String data}
     ) async{
     try {
-      await _securedBox.write(key: key, value: data); 
+      await _securedBox.write(key: key, value: data);
     } catch (e) {
       log(e.toString());
     }
@@ -35,5 +35,9 @@ class SecuredBox{
         log(e.toString());
       }
     return '';
+  }
+
+  Future<void> delete(String key) async {
+    await _securedBox.delete(key: key);
   }
 }

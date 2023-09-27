@@ -48,8 +48,6 @@ class AddNewPatientVM {
   bool isFirstTimePatientCity = true;
   bool isFirstTimeGender = true;
   bool isFirstTimeRace = true;
-  
-
 
   void update({
     List<ParamType>? genders,

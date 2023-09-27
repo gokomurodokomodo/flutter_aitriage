@@ -19,6 +19,12 @@ import '../../entity/role.dart';
 import '../../entity/state.dart';
 import '../../entity/table_sync_date.dart';
 
+typedef ParsingData = ({
+  List<Country> countries,
+  List<City> cities,
+  List<State> states
+});
+
 class HiviService extends GetxService {
   // UseCase
   final getAppParamUC = GetAppParamUseCase();
@@ -36,7 +42,6 @@ class HiviService extends GetxService {
   final _roles = <Role>[];
   final _paramTypes = <ParamType>[];
   late SystemParam _systemParam;
-
   // country, city, state are json file, need parsing
   // race
   Future<void> getAppParam({
@@ -64,7 +69,7 @@ class HiviService extends GetxService {
   }
 
   // MUST BE STATIC OR GLOBAL FUNCTION OR ELSE GETTING POINTER ERROR IN ISOLATE
-  static Future<List<dynamic>> _downloadAndParsingData(AppParam param) async {
+  static Future<ParsingData> _downloadAndParsingData(AppParam param) async {
     try {
       final downloadAndParsingJsonUC = DownloadAndParsingJsonUseCase();
       final countries = await downloadAndParsingJsonUC
@@ -73,17 +78,21 @@ class HiviService extends GetxService {
           .execute<City>(param.systemParam.systemPathFileCity ?? '', (json) => City.fromJson(json));
       final states = await downloadAndParsingJsonUC
           .execute<State>(param.systemParam.systemPathFileStates ?? '', (json) => State.fromJson(json));
-      return [countries, cities, states];
+      return (
+        countries: countries,
+        cities: cities,
+        states: states
+      );
     } catch (e) {
       return Future.error(e);
     }
   }
 
-  void _handleParsingData(List<dynamic> list) {
+  void _handleParsingData(ParsingData parsingData) {
     // must the same order in _downloadAndParsingData returning value
-    _countries.addAll(list[0] as List<Country>);
-    _cities.addAll(list[1] as List<City>);
-    _states.addAll(list[2] as List<State>);
+    _countries.addAll(parsingData.countries);
+    _cities.addAll(parsingData.cities);
+    _states.addAll(parsingData.states);
     _saveDb();
   }
 

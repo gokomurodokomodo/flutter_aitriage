@@ -37,86 +37,33 @@ class HandleNetworkError {
   ) {
     var appErrorMessage = '';
 
-    if (error is AppError
-        && error.errorType == AppErrorType.networkError) {
-      switch (error.statusMessage) {
-        case requestVerifiedEmail:
-          appErrorMessage = error.body['data'];
-          break;
-        case deviceNotRegistered:
-          appErrorMessage = 'The device is unregistered';
-        break;
-        case locationExpired:
-          appErrorMessage = 'Your access has expired. Please renew your subscription.';
-        break;
-        case invalidUserPassword:
-          appErrorMessage = 'Invalid username or password';
-        break;
-        case userNotExists:
-          if(callFrom == CallFrom.signInScreen){
-            appErrorMessage = 'Invalid username or password';
-          } else {
-            appErrorMessage = 'Account does not exist, please check your email address';
-          }
-          break;
-        case countryNotExists:
-          appErrorMessage = 'Invalid country';
-          break;
-        case weakPassword:
-          appErrorMessage = 'Invalid password';
-          break;
-        case emailAlreadyExists:
-          appErrorMessage = 'Email has already been registered by another account';
-          break;
-        case phoneAlreadyExists:
-          appErrorMessage = 'Phone number has already been registered by another account';
-          break;
-        case invalidVerification:
-          appErrorMessage = 'Invalid verification code';
-          break;
-        case expiredVerification:
-          appErrorMessage = 'Expired verification code';
-          break;
-        case userLocked:
-          appErrorMessage = 'Account has been locked';
-          break;
-        case existsPatientCode:
-          appErrorMessage = 'MRN already exists';
-          break;
-        case invalidCountryStateCity:
-          appErrorMessage = 'Invalid nationality, state or city';
-          break;
-        case blankCountryCode:
-          appErrorMessage = 'The phone number is required';
-          break;
-        case blankPatientCode:
-          appErrorMessage = 'MRN is required';
-          break;
-        case blankPatientName:
-          appErrorMessage = 'Patient name is required';
-          break;
-        case blankPatientCountry:
-          appErrorMessage = 'Nationality is required';
-          break;
-        case blankPatientState:
-          appErrorMessage = 'State is required';
-          break;
-        case blankPatientCity:
-          appErrorMessage = 'City is required';
-          break;
-        case blankPatientRace:
-          appErrorMessage = 'Race is required';
-          break;
-        case blankPatientBirthday:
-          appErrorMessage = 'Date of birth is required';
-          break;
-        case blankPatientGender:
-          appErrorMessage = 'Gender is required';
-          break;
-        default:
-          appErrorMessage = error.message;
-          break;
-      }
+    if (error is AppError && error.errorType == AppErrorType.networkError) {
+      appErrorMessage = switch (error.statusMessage) {
+        requestVerifiedEmail => error.body['data'],
+        deviceNotRegistered => 'The device is unregistered',
+        locationExpired => 'Your access has expired. Please renew your subscription.',
+        invalidUserPassword when callFrom == CallFrom.signInScreen => 'Invalid username or password',
+        invalidUserPassword when callFrom != CallFrom.signInScreen => 'Account does not exist, please check your email address',
+        countryNotExists => 'Invalid country',
+        weakPassword => 'Invalid password',
+        emailAlreadyExists => 'Email has already been registered by another account',
+        phoneAlreadyExists => 'Phone number has already been registered by another account',
+        invalidVerification => 'Invalid verification code',
+        expiredVerification => 'Expired verification code',
+        userLocked => 'Account has been locked',
+        existsPatientCode => 'MRN already exists',
+        invalidCountryStateCity => 'Invalid nationality, state or city',
+        blankCountryCode => 'The phone number is required',
+        blankPatientCode => 'MRN is required',
+        blankPatientName => 'Patient name is required',
+        blankPatientCountry => 'Nationality is required',
+        blankPatientState => 'State is required',
+        blankPatientCity => 'City is required',
+        blankPatientRace => 'Race is required',
+        blankPatientBirthday => 'Date of birth is required',
+        blankPatientGender => 'Gender is required',
+        _ => error.message
+      };
 
       handlerStatusMessage.call(appErrorMessage, error.statusMessage, error.body);
     }
