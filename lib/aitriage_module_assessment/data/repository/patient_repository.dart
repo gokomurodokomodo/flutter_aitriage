@@ -1,3 +1,4 @@
+import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
 import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/response/get_list_country_language_response.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_api_route.dart';
@@ -36,6 +37,12 @@ class PatientRepositoryImpl extends PatientRepository {
   Future<PatientDetailResponse> getPatientDetail(String accountId, String customerId) async {
     final query = PatientDetailQuery(customerId);
     final resp = await _provider.get(AssessmentModuleApiRoute.getPatientDetail.replaceFirst('%s', accountId), query: query.toQuery);
+    return _provider.convertResponse(resp, (json) => PatientDetailResponse.fromJson(json));
+  }
+
+  @override
+  Future<PatientDetailResponse> updatePatient(Patient patient, String accountId) async {
+    final resp = await _provider.put(AssessmentModuleApiRoute.updatePatient.replaceAll('%s', accountId), patient.toJson());
     return _provider.convertResponse(resp, (json) => PatientDetailResponse.fromJson(json));
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_assessment.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_information.dart';
@@ -72,7 +73,16 @@ class _Tablet extends GetView<PatientDetailController> {
                 Obx(() => PatientDetailWidget(
                     vm: controller.vm.value,
                     onTap: (index) => pageViewController.jumpToPage(index),
-                    onTapAvatar: () => controller.onTapAvatar(),
+                    onTapAvatar: () {
+                      onSuccess() {
+                        Get.snackbar('Message', 'Avatar upload success');
+                      }
+                      onError(message) {
+                        Get.snackbar('Error', message);
+                      }
+                      Get.snackbar('Message', 'Avatar is uploading');
+                      controller.onTapAvatar(onSuccess: onSuccess(), onError: onError);
+                    },
                 )),
                 Expanded(
                   child: Container(
