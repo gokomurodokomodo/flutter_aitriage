@@ -1,5 +1,7 @@
 import 'package:flutter_aitriage/aitriage_core/entity/country.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/param_type.dart';
+import 'package:flutter_aitriage/aitriage_core/util/date_time_checker/date_time_checker_util.dart';
+import 'package:flutter_aitriage/aitriage_core/util/regrex_constant/app_regrex.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/add_patient_request.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -128,11 +130,14 @@ class AddNewPatientVM {
     if (date != null) {
       _dob = null;
       _yearOfBirth = null;
-
-      if (isDdMmYyyy(date)) {
-        _dob = convertDdMmYyyyToYyyyMmDdHhMmSs(date);
-      } else if (date.length == 4 && date.isNumericOnly) {
+      if (date.length == 4 && date.isNumericOnly){
         _yearOfBirth = int.parse(date);
+      } else {
+        final isValidDate = DateTimeCheckerUtil().checkDate(date);
+        if(isValidDate){
+          _dob = convertDdMmYyyyToYyyyMmDdHhMmSs(date);
+        } else {
+        }
       }
     }
     // print('countryId $_countryId');
@@ -150,6 +155,17 @@ class AddNewPatientVM {
   bool get isCityVerify => _cityId != null;
   bool get isGenderVerify => _genderKey != '';
   bool get isRaceVerify => _raceId != null;
+  bool get isEmailVerify {
+    if(_email == '') {
+      return true;
+    } else{
+      if(AppRegrex.emailRegrex.hasMatch(_email)){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
   bool get shouldShowMRNMessage {
     return isMRNVerify || isFirstTimeMRN;
@@ -161,6 +177,7 @@ class AddNewPatientVM {
   bool get shouldShowCityMessage => isCityVerify || isFirstTimePatientCity;
   bool get shouldShowGenderMessage => isGenderVerify || isFirstTimeGender;
   bool get shouldShowRaceMessage => isRaceVerify || isFirstTimeRace;
+
 
 
   bool _verifyStringNotNull(String infomation){
@@ -279,6 +296,7 @@ class AddNewPatientVM {
                     && isNationalityVerify
                     && isRaceVerify
                     && isStateVerify
+                    && isEmailVerify
                     && !isFirstTimeDateOfBirth
                     && !isFirstTimeGender
                     && !isFirstTimeMRN

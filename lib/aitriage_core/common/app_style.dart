@@ -34,6 +34,11 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorButtonTextDisable,
   );
+  static final styleTextColorPhonePlaceholder = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorBorderDisable,
+  );
   static final styleTextDialogTitle = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
