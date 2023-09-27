@@ -1,13 +1,24 @@
+import 'package:intl/intl.dart';
 import '../../../aitriage_core/common/app_image.dart';
+import '../../../aitriage_core/entity/param_type.dart';
 import '../../../aitriage_core/entity/patient.dart';
+import '../../../aitriage_core/service/localization_service/localization_service.dart';
+import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 
 class PatientDetailVM {
   var _patient = Patient();
+  final _genderParamType = <ParamType>[];
 
   void update({
-    Patient? patient
+    Patient? patient,
+    List<ParamType>? genderParamType
   }) {
     _patient = patient ?? _patient;
+
+    if (genderParamType != null) {
+      _genderParamType.clear();
+      _genderParamType.addAll(genderParamType);
+    }
   }
 
   String get patientAvatar => _patient.avatar ?? '';
@@ -22,21 +33,60 @@ class PatientDetailVM {
 
   String get patientRaceName => _patient.raceName ?? '';
 
-  String get patientAge => '${_patient.age?.toString() ?? ''} years old';
+  String get patientAge => '${_patient.age?.toString() ?? ''} ${_patient.age != null ? 'years old' : ''}';
 
   String get patientCode => _patient.code ?? '';
 
-  String get patientYearOfBirth => _patient.yearOfBirth?.toString() ?? '';
+  String get patientYearOfBirth {
+    if (_patient.birthday == null) return _patient.yearOfBirth?.toString() ?? '';
+    
+    return _formatDate(_patient.birthday);
+  }
 
-  String get patientGender => _patient.gender ?? '';
+  String _formatDate(String inputDate) {
+    final inputDateFormat = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS+00:00');
+    final outputDateFormat = DateFormat('dd/MM/yyyy');
+    final inputDateTime = inputDateFormat.parse(inputDate);
+    final outputDateTime = outputDateFormat.format(inputDateTime);
 
-  String get patientPhoneCode => _patient.phoneCode ?? '';
+    return outputDateTime;
+  }
+
+  String get patientGender {
+    if (_genderParamType.isEmpty) return '';
+
+    final getCode = LocalizationService.currentLanguage.locale.languageCode;
+    final paramType = _genderParamType.firstWhere((element) => element.key == _patient.gender);
+    return LanguageStringFromJson.extractString(paramType.value ?? '', getCode);
+  }
+
+  String get patientPhoneNumber {
+    var phone = _patient.phone ?? '';
+
+    if (phone.isNotEmpty) {
+      final formatter = NumberFormat('#,###');
+      final formatPhone =  formatter.format(int.parse(phone)).replaceAll(',', ' ');
+
+      return '${_patient.phoneCode ?? ''} $formatPhone';
+    }
+
+    return _patient.phoneCode ?? '';
+  }
+
+  String get patientGenderImageUrl {
+    if (_genderParamType.isNotEmpty) {
+      final paramType = _genderParamType.firstWhere((element) => element.key == _patient.gender);
+      return paramType.mediaUrl ?? '';
+    }
+
+    return '';
+  }
 
   String get patientEmail => _patient.email ?? '';
 
-  String get patientNationalityName => _patient.nationalityId.toString() ?? '';
+  String get patientNationalityName => _patient.nationalityName ?? '';
 
-  String get patientStateName => _patient.stateId.toString() ?? '';
+  String get patientStateName => _patient.stateName ?? '';
 
   String get patientCityName => _patient.cityName ?? '';
 
