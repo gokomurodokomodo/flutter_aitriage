@@ -67,7 +67,12 @@ class SignInController extends GetxController{
   }
 
   void onTextEmailChange(String email){
-    isValidEmail.value = _validateEmail(email);
+    if(email.isNumericOnly) {
+      isValidEmail.value = true;
+    } else {
+      isValidEmail.value = _validateEmail(email);
+    }
+    print('here i am ${isValidEmail.value}');
     if(isValidEmail.value) vm.value.updateVM(username: email);
     _validate();
   }
@@ -114,10 +119,12 @@ class SignInController extends GetxController{
   }
 
   void _signInForDev() {
-    vm.value.updateVM(
-      username: 'huetransky@gmail.com',
-      password: 'Hue@12345'
-    );
+    onTextEmailChange('huetransky@gmail.com');
+    onTextPasswordChange('Hue@12345');
+    // vm.value.updateVM(
+    //   username: 'huetransky@gmail.com',
+    //   password: 'Hue@12345'
+    // );
     isValidated.value = true;
   }
 }
