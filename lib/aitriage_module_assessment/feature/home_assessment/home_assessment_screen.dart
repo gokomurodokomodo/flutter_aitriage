@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
+import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
@@ -24,14 +25,9 @@ class HomeAssessmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DeviceDetector(
-        tablet: _Tablet(),
-        phone: _Phone()
-    );
+    return const DeviceDetector(tablet: _Tablet(), phone: _Phone());
   }
 }
-
-
 
 class _Tablet extends StatefulWidget {
   const _Tablet();
@@ -46,57 +42,60 @@ class _TabletState extends State<_Tablet> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: AppColor.colorAppBackground,
-      body: Container(
-        color: AppColor.colorBackgroundSearch,
-        child: Padding(
-          padding: EdgeInsets.all(24.w),
-          child: Column(
-            children: [
-              SizedBox(
-                  width: double.infinity,
-                  height: 150.h,
-                  child: LayoutBuilder(
-                    builder: (_, constraints) {
-                      final itemWidth = (constraints.maxWidth - 48.w) / 3;
-                      return Row(
-                        children: [
-                          Obx(() => DashboardPatientViewer(
-                            gender: Gender.patients,
-                            width: itemWidth,
-                            label: 'Patients',
-                            amount: controller.vm.value.totalPatient.toString(),
-                            percent: '0.05',
-                            isGrowing: true,
-                          )),
-                          SizedBox(width: 24.w),
-                          Obx(() => DashboardPatientViewer(
-                            gender: Gender.male,
-                            width: itemWidth,
-                            label: 'Male',
-                            amount: controller.vm.value.totalMale.toString(),
-                            percent: '0.05',
-                            isGrowing: true,
-                          )),
-                          SizedBox(width: 24.w),
-                          Obx(() => DashboardPatientViewer(
-                            gender: Gender.female,
-                            width: itemWidth,
-                            label: 'Female',
-                            amount: controller.vm.value.totalFemale.toString(),
-                            percent: '0.05',
-                            isGrowing: false,
-                          )),
-                        ],
-                      );
-                    },
-                  )
-              ),
-              SizedBox(height: 24.h,),
-              Expanded(
-                  child: Container(
+        backgroundColor: AppColor.colorAppBackground,
+        body: Container(
+          color: AppColor.colorBackgroundSearch,
+          child: Padding(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                children: [
+                  SizedBox(
+                      width: double.infinity,
+                      height: 150.h,
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          final itemWidth = (constraints.maxWidth - 48.w) / 3;
+                          return Row(
+                            children: [
+                              Obx(() => DashboardPatientViewer(
+                                    gender: Gender.patients,
+                                    width: itemWidth,
+                                    label: 'Patients',
+                                    amount: controller.vm.value.totalPatient
+                                        .toString(),
+                                    percent: '0.05',
+                                    isGrowing: true,
+                                  )),
+                              SizedBox(width: 24.w),
+                              Obx(() => DashboardPatientViewer(
+                                    gender: Gender.male,
+                                    width: itemWidth,
+                                    label: 'Male',
+                                    amount: controller.vm.value.totalMale
+                                        .toString(),
+                                    percent: '0.05',
+                                    isGrowing: true,
+                                  )),
+                              SizedBox(width: 24.w),
+                              Obx(() => DashboardPatientViewer(
+                                    gender: Gender.female,
+                                    width: itemWidth,
+                                    label: 'Female',
+                                    amount: controller.vm.value.totalFemale
+                                        .toString(),
+                                    percent: '0.05',
+                                    isGrowing: false,
+                                  )),
+                            ],
+                          );
+                        },
+                      )),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  Expanded(
+                      child: Container(
                     padding: EdgeInsets.all(20.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
@@ -107,22 +106,25 @@ class _TabletState extends State<_Tablet> {
                         Row(
                           children: [
                             BaseSearchBarTablet(
-                                width: 320.w,
-                                hintText: 'Search type or keyword',
-                                onTextChange: (text) {
-                                  controller.onSearchTextFieldChanged(
-                                      text,
-                                      onSuccess: () => _pageController.currentPage = 0);
-                                },
+                              width: 320.w,
+                              hintText: 'Search type or keyword',
+                              onTextChange: (text) {
+                                controller.onSearchTextFieldChanged(text,
+                                    onSuccess: () =>
+                                        _pageController.currentPage = 0);
+                              },
                             ),
                             SizedBox(width: 16.w),
-                            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
+                            CustomTrailingWidget(
+                                child: SvgIconWidget(
+                                    name: AppImage.svgFilter, size: 24.r)),
                             const Spacer(),
                             ColorButton(
                               title: 'Add new',
                               shouldEnableBackground: true,
                               // onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
-                              onTap: () => Get.toNamed(AssessmentModulePageRoute.addNewPatients),
+                              onTap: () => Get.toNamed(
+                                  AssessmentModulePageRoute.addNewPatients),
                               width: 102.w,
                             ) // SizedBox(width: 16.w)
                           ],
@@ -134,40 +136,72 @@ class _TabletState extends State<_Tablet> {
                                     AssessmentModulePageRoute.patientDetail,
                                     id: AssessmentModulePageRoute.nestedId,
                                     arguments: {'patientId': patientId}),
-                                list: controller.vm.value.listPatientSummaryVM))
-                        ),
+                                list:
+                                    controller.vm.value.listPatientSummaryVM))),
                         LineSeparated(margin: 16.h),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: SizedBox(
-                            width: 400.w,
-                            child: StatefulBuilder(
-                              builder: (_, setState) {
-                                return Obx(() => NumberPaginator(
-                                  numberPages: controller.vm.value.totalPage,
-                                  onPageChange: (value) {
-                                    setState((){});
-                                    controller.onTapNumberPaginator(value);
-                                  },
-                                  controller: _pageController,
-                                  config: NumberPaginatorUIConfig(
-                                      buttonShape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.r),
-                                      )
+                        Row(
+                          children: [
+                            Obx(() => Container(
+                                  child: Text(
+                                    controller.showCountPatient.value,
+                                    style: AppStyle.styleRememberMeText,
                                   ),
-                                ));
-                              },
-                            ),
-                          ),
+                                )),
+                            const Spacer(),
+                            Obx(() => Align(
+                                  alignment: Alignment.topRight,
+                                  child: SizedBox(
+                                    height: 50.w,
+
+                                    ///Tính chiều rộng động. 20 là tổng padding giữa 2 dấu mũi tên.
+                                    ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
+                                    ///nên set cứng height là 50.w để lấy khoảng cách.
+                                    ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
+                                    width: (50 * controller.vm.value.totalPage)
+                                            .toDouble()
+                                            .w +
+                                        20.w +
+                                        100.w,
+                                    child: StatefulBuilder(
+                                      builder: (_, setState) {
+                                        return Obx(() {
+                                          if (controller.vm.value.totalPage <
+                                              1) {
+                                            return const CircularProgressIndicator();
+                                          } else {
+                                            return NumberPaginator(
+                                              numberPages:
+                                                  controller.vm.value.totalPage,
+                                              onPageChange: (value) {
+                                                setState(() {});
+                                                controller.onTapNumberPaginator(
+                                                    value);
+                                              },
+                                              controller: _pageController,
+                                              config: NumberPaginatorUIConfig(
+                                                  contentPadding:
+                                                      EdgeInsets.all(0),
+                                                  buttonShape:
+                                                      RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.r),
+                                                  )),
+                                            );
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                )),
+                          ],
                         )
                       ],
                     ),
                   )),
-            ],
-          )
-        ),
-      )
-    );
+                ],
+              )),
+        ));
   }
 }
 
@@ -179,76 +213,77 @@ class _Phone extends GetView<HomeAssessmentController> {
     return const VitalSignChart(title: 'Test chart');
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            Text('Dashboard'),
-            Spacer(),
-            Icon(Icons.search),
-            Icon(Icons.notification_important)
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 128.w,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                for (int i = 0; i< 10; i++) Container(
-                  width: 280.w,
-                  color: Colors.cyanAccent,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Row(
-                        children: [
-                          Text('Patients'),
-                          Spacer(),
-                          Icon(Icons.people)
-                        ],
-                      ),
-                      const Text('10,000'),
-                      Container(
-                        width: 71.w,
-                        height: 24.w,
-                        child: const Row(
-                          children: [
-                            Text('+0.05'),
-                            Icon(Icons.arrow_upward_sharp)
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ).paddingOnly(right: 16.w)
-              ],
-            ),
-          ),
-          SizedBox(height: 10.w),
-          Row(
+        appBar: AppBar(
+          title: const Row(
             children: [
-              const Text('All Patients'),
-              const Spacer(),
-              GestureDetector(
-                  onTap: () => Get.toNamed(AssessmentModulePageRoute.allPatients, id: AssessmentModulePageRoute.nestedId),
-                  child: const Text('See all'))
+              Text('Dashboard'),
+              Spacer(),
+              Icon(Icons.search),
+              Icon(Icons.notification_important)
             ],
           ),
-          Expanded(
-            child: ListView(
+        ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 128.w,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  for (int i = 0; i < 10; i++)
+                    Container(
+                      width: 280.w,
+                      color: Colors.cyanAccent,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Row(
+                            children: [
+                              Text('Patients'),
+                              Spacer(),
+                              Icon(Icons.people)
+                            ],
+                          ),
+                          const Text('10,000'),
+                          Container(
+                            width: 71.w,
+                            height: 24.w,
+                            child: const Row(
+                              children: [
+                                Text('+0.05'),
+                                Icon(Icons.arrow_upward_sharp)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ).paddingOnly(right: 16.w)
+                ],
+              ),
+            ),
+            SizedBox(height: 10.w),
+            Row(
               children: [
-                for (int i = 0; i < 10; i++) const CustomExpansionTilePhone().marginOnly(bottom: 10.w)
+                const Text('All Patients'),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () => Get.toNamed(
+                        AssessmentModulePageRoute.allPatients,
+                        id: AssessmentModulePageRoute.nestedId),
+                    child: const Text('See all'))
               ],
             ),
-          )
-        ],
-      )
-    );
+            Expanded(
+              child: ListView(
+                children: [
+                  for (int i = 0; i < 10; i++)
+                    const CustomExpansionTilePhone().marginOnly(bottom: 10.w)
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
-
-

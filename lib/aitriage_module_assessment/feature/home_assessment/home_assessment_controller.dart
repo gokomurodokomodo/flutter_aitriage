@@ -13,6 +13,7 @@ class HomeAssessmentController extends GetxController {
   final vm = HomeAssessmentVM().obs;
   static const _pageLimit = 20;
   final _debounce = DebounceUtil();
+  var showCountPatient = ''.obs;
 
   HomeAssessmentController(this._getListPatientUC, this._getGenderParamTypeUC);
 
@@ -20,6 +21,20 @@ class HomeAssessmentController extends GetxController {
   void onInit() async {
     super.onInit();
     onTapNumberPaginator(0);
+    countPatient(1);
+  }
+
+  void countPatient(int page){
+    showCountPatient.value = 'Showing $page - ${_getCurrentPatientInPage(page)}/${vm.value.totalPatient}';
+  }
+
+  int _getCurrentPatientInPage(int page){
+    if(vm.value.totalPatient - _pageLimit * page >= 0){
+      return 20 * page;
+    } else {
+      final result = vm.value.totalPatient;
+      return result;
+    }
   }
 
   void onTapNumberPaginator(int page, {Function? onSuccess}) async {
@@ -44,6 +59,7 @@ class HomeAssessmentController extends GetxController {
           currentPage: page
       );
       vm.refresh();
+      countPatient(page + 1);
       onSuccess?.call();
     } catch (e) {
       log(e.toString());
