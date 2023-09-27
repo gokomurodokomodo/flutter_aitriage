@@ -81,7 +81,7 @@ class _Tablet extends GetView<PatientDetailController> {
                         Get.snackbar('Error', message);
                       }
                       Get.snackbar('Message', 'Avatar is uploading');
-                      controller.onTapAvatar(onSuccess: onSuccess(), onError: onError);
+                      controller.onTapAvatar(onSuccess: onSuccess, onError: onError);
                     },
                 )),
                 Expanded(

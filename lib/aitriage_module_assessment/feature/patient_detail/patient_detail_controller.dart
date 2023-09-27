@@ -44,14 +44,13 @@ class PatientDetailController extends GetxController {
    Function(String)? onError
   }) async {
     try {
-      final hiviService = HiviService.instance;
-      final resp = await hiviService.uploadImageUC.execute();
+      final resp = await HiviService.instance.uploadImageUC.execute();
       final userInfo = await ActiveUserUtil.userInfo;
       final updatedPatientInfo = vm.value.patientEntity.copyWith(avatar: resp.data);
       final resp1 = await _updatePatientUC.execute(updatedPatientInfo, userInfo.accountId.toString());
-      onSuccess?.call();
       vm.value.update(patient: resp1.data);
       vm.refresh();
+      onSuccess?.call();
     } catch (error) {
       HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
     }
