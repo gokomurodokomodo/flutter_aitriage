@@ -33,9 +33,7 @@ class DioBaseProvider with ShowLog {
 
     if (statusCode >= 200 && statusCode <= 299) {
       showResponse(response.realUri.toString(),response.data);
-      return mapper.call(response.data)
-        ..statusCode = response.statusCode
-        ..message = response.statusMessage;
+      return mapper.call(response.data);
     } else {
       throw AppError(
           errorType: AppErrorType.networkError,

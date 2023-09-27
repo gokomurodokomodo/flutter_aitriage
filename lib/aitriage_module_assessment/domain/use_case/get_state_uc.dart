@@ -10,7 +10,7 @@ abstract class GetStateUseCase {
 class GetStateUseCaseImpl extends GetStateUseCase {
   @override
   List<State> execute(String id) {
-    final hiviService = Get.find<HiviService>();
+    final hiviService = HiviService.instance;
     final list = hiviService.states;
 
     return list;

@@ -30,7 +30,7 @@ class SignUpController extends GetxController{
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
   final Rx<SubmitInfoValidateVM> validateVM = SubmitInfoValidateVM().obs;
-  final apiService = Get.find<HiviService>();
+  final apiService = HiviService.instance;
   var listCountry = <Country>[].obs;
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
 

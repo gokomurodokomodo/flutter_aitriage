@@ -20,7 +20,7 @@ class SubmitInfoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final hiviService = Get.find<HiviService>();
+    final hiviService = HiviService.instance;
     vm.value.updateVM(listCountry: hiviService.countries);
     text.value = vm.value.listCountry.first.emoji!;
     vm.refresh();

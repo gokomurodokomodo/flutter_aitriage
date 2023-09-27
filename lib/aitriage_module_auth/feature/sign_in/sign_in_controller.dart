@@ -19,7 +19,7 @@ class SignInController extends GetxController{
   var isSecured = true.obs;
   var countryIndex = 0.obs;
   final SignInUseCaseImpl _useCase;
-  final hiviService = Get.find<HiviService>();
+  final hiviService = HiviService.instance;
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
 
   SignInController(this._useCase);

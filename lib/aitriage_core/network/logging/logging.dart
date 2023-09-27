@@ -26,11 +26,15 @@ mixin ShowLog {
   }
 
   String jsonToPrettyString(dynamic json) {
-    const encoder = JsonEncoder.withIndent('  ');
-    const fromStr = '\n';
-    const replaceStr = '\n    ';
-    final logStr = encoder.convert(json).replaceAll(fromStr, replaceStr);
-    return logStr;
+    try {
+      const encoder = JsonEncoder.withIndent('  ');
+      const fromStr = '\n';
+      const replaceStr = '\n    ';
+      final logStr = encoder.convert(json).replaceAll(fromStr, replaceStr);
+      return logStr;
+    } catch(_) {
+      return json.toString();
+    }
   }
 
   String queryToString(Map<String, dynamic>? map) {

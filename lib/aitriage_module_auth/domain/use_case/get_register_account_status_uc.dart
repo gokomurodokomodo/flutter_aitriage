@@ -10,7 +10,7 @@ abstract class GetRegisterAccountStatusUseCase {
 class GetRegisterAccountStatusUseCaseImpl extends GetRegisterAccountStatusUseCase {
   @override
   List<ParamType> execute() {
-    final list = Get.find<HiviService>().paramType
+    final list = HiviService.instance.paramType
         .where((e) => e.groupType == ParamTypeGroupType.registerAccountStatus.stringValue)
         .toList();
 

@@ -9,7 +9,7 @@ abstract class GetGenderParamTypeUseCase {
 class GetGenderParamUseCaseImpl extends GetGenderParamTypeUseCase {
   @override
   List<ParamType> execute() {
-    final list = Get.find<HiviService>()
+    final list = HiviService.instance
         .paramType
         .where((element) => element.groupType == 'GENDER')
         .toList();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 import '../../aitriage_core/common/app_style.dart';
@@ -13,11 +12,13 @@ class PatientDetailWidget extends StatelessWidget {
   final Function(int)? onTap;
   final Function? onTapPrimaryButton;
   final PatientDetailVM vm;
+  final Function? onTapAvatar;
 
   const PatientDetailWidget({
     super.key,
     this.onTap,
     this.onTapPrimaryButton,
+    this.onTapAvatar,
     required this.vm
   });
 
@@ -34,36 +35,39 @@ class PatientDetailWidget extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 20.h),
-          SizedBox(
-            width: 136.r,
-            height: 136.r,
-            child: Stack(
-              children: [
-                ClipOval(
-                  child: SizedBox(
-                    width: 136.r,
-                    height: 136.r,
-                    child: Image.network(
-                        vm.patientAvatar,
-                        errorBuilder: (_, __, ___) => Image.asset(vm.patientErrorAvatar)),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 5.r,
-                  child: ClipOval(
-                    child: Container(
-                      width: 32.r,
-                      height: 32.r,
-                      color: AppColor.colorButtonBackgroundEnable,
-                      child: Center(
-                          child: SvgIconWidget(
-                              name: AppImage.svgCamera,
-                              size: 16.r)),
+          GestureDetector(
+            onTap: () => onTapAvatar?.call(),
+            child: SizedBox(
+              width: 136.r,
+              height: 136.r,
+              child: Stack(
+                children: [
+                  ClipOval(
+                    child: SizedBox(
+                      width: 136.r,
+                      height: 136.r,
+                      child: Image.network(
+                          vm.patientAvatar,
+                          errorBuilder: (_, __, ___) => Image.asset(vm.patientErrorAvatar)),
                     ),
                   ),
-                )
-              ],
+                  Positioned(
+                    bottom: 0,
+                    right: 5.r,
+                    child: ClipOval(
+                      child: Container(
+                        width: 32.r,
+                        height: 32.r,
+                        color: AppColor.colorButtonBackgroundEnable,
+                        child: Center(
+                            child: SvgIconWidget(
+                                name: AppImage.svgCamera,
+                                size: 16.r)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(height: 12.h),

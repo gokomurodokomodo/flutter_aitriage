@@ -9,7 +9,7 @@ abstract class GetRaceUseCase {
 class GetRaceUseCaseImpl extends GetRaceUseCase {
   @override
   List<Race> execute() {
-    final hiviService = Get.find<HiviService>();
+    final hiviService = HiviService.instance;
     final list = hiviService.races;
 
     return list;

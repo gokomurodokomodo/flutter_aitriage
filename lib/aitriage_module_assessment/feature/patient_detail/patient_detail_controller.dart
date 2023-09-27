@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_patient_detail_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
 import 'package:get/get.dart';
@@ -24,8 +27,12 @@ class PatientDetailController extends GetxController {
       final resp = await _getPatientDetailUC.execute(userInfo.accountId.toString(), patientId.toString());
       vm.value.update(patient: resp.data, genderParamType: genderParamTypes);
       vm.refresh();
-    } catch (e) {
+    } catch (_) {}
+  }
 
-    }
+  void onTapAvatar() async {
+    final hiviService = HiviService.instance;
+    final resp = await hiviService.uploadImageUC.execute();
+    log('url123 : ${resp.data}');
   }
 }

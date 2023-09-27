@@ -10,7 +10,7 @@ abstract class GetCityUseCase {
 class GetCityUseCaseImpl extends GetCityUseCase {
   @override
   List<City> execute(String id) {
-    final hiviService = Get.find<HiviService>();
+    final hiviService = HiviService.instance;
     final list = hiviService.cities;
     return list;
   }

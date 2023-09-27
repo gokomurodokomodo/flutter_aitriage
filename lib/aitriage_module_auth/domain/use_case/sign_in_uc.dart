@@ -22,7 +22,7 @@ abstract class SignInUseCase {
 class SignInUseCaseImpl extends SignInUseCase {
   final SignInRepositoryImpl _repository;
   final SignUpRepositoryImpl _genCodeRepository;
-  final hiviService = Get.find<HiviService>();
+  final hiviService = HiviService.instance;
 
   SignInUseCaseImpl(this._repository, this._genCodeRepository);
 

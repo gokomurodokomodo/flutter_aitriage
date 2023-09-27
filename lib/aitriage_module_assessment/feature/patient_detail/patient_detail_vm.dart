@@ -70,7 +70,7 @@ class PatientDetailVM {
       return '${_patient.phoneCode ?? ''} $formatPhone';
     }
 
-    return _patient.phoneCode ?? '';
+    return '';
   }
 
   String get patientGenderImageUrl {

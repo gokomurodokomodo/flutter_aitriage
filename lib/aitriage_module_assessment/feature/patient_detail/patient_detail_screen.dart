@@ -72,6 +72,7 @@ class _Tablet extends GetView<PatientDetailController> {
                 Obx(() => PatientDetailWidget(
                     vm: controller.vm.value,
                     onTap: (index) => pageViewController.jumpToPage(index),
+                    onTapAvatar: () => controller.onTapAvatar(),
                 )),
                 Expanded(
                   child: Container(

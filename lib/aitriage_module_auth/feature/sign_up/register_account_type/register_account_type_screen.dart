@@ -50,7 +50,7 @@ class _Tablet extends StatelessWidget{
   _Tablet();
 
   final SignUpController controller = Get.find();
-  final hiviService = Get.find<HiviService>();
+  final hiviService = HiviService.instance;
 
   @override
   Widget build(BuildContext context) {

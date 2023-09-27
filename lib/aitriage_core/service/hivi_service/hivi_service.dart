@@ -8,6 +8,7 @@ import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/get_user_info_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/load_collection_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/save_collection_uc.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/use_case/upload_image_uc.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/finish_sync_data.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,8 @@ class HiviService extends GetxService {
   final loadCollectionUC = LoadCollectionUseCase();
   // Firebase listener use case
   final getFirebaseSyncDate = GetFirebaseSyncs();
+  // Upload file
+  final uploadImageUC = UploadImageUseCase();
   // Data
   final _countries = <Country>[];
   final _cities = <City>[];
@@ -42,6 +45,12 @@ class HiviService extends GetxService {
   final _roles = <Role>[];
   final _paramTypes = <ParamType>[];
   late SystemParam _systemParam;
+
+  static final _instance = HiviService._();
+
+  HiviService._();
+
+  static HiviService get instance => _instance;
   // country, city, state are json file, need parsing
   // race
   Future<void> getAppParam({

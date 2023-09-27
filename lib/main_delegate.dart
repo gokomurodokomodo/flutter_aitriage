@@ -75,7 +75,7 @@ Future _initService() async {
   // api service using database
   // wait until database finish init
   await _initDataBase();
-  final hiviService = Get.put(HiviService(), permanent: true);
+  final hiviService = HiviService.instance;
   // Calling api to get param for app
   // Must put here to ensure data ready when going screen inside;
   await hiviService.getAppParam();
