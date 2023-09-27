@@ -93,4 +93,6 @@ class PatientDetailVM {
   String get patientAddress => _patient.address ?? '';
 
   String get patientDescription => _patient.description ?? '';
+
+  Patient get patientEntity => _patient.copyWith();
 }
