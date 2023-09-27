@@ -20,6 +20,8 @@ class Patient {
   final String? lastActivityDate;
   final String? avatar;
   final String? cityName;
+  final String? nationalityName;
+  final String? stateName;
 
   Patient({
       this.id,
@@ -42,7 +44,9 @@ class Patient {
       this.raceName,
       this.age,
       this.lastActivityDate,
-      this.cityName
+      this.cityName,
+      this.nationalityName,
+      this.stateName
   });
 
   Patient.fromJson(dynamic json)
@@ -66,6 +70,8 @@ class Patient {
         raceName = json?['raceName'],
         age = json?['age'],
         lastActivityDate = json?['lastActivityDate'],
-        cityName = json?['cityName'];
+        cityName = json?['cityName'],
+        nationalityName = json?['nationalityName'],
+        stateName = json?['stateName'];
 }
 
