@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../aitriage_module_assessment/widget/gender_with_symbol.dart';
 import 'line_separated.dart';
@@ -94,7 +95,7 @@ class _Label extends StatelessWidget {
               child: Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
               flex: _raceRatio,
-              child: Text('City', style: AppStyle.styleTextAllPatientCategory)),
+              child: Text('CITY', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
               flex: _ageRatio,
               child: Text('AGE', style: AppStyle.styleTextAllPatientCategory, textAlign: TextAlign.right,)),
@@ -245,12 +246,20 @@ class PatientSummaryVM {
 
   String get age => _patient.age?.toString() ?? '';
 
-  String get lastAssessmentDate => _patient.lastActivityDate ?? '';
+  String get lastAssessmentDate {
+    if(_patient.lastActivityDate == null) {
+      return 'No recent assessment';
+    } else {
+      return DateTimeParserUtil().parseDateWithHour(_patient.lastActivityDate!);
+    }
+  }
 
   String get patientName => _patient.fullName ?? '';
 
   String get mrn => _patient.code ?? '';
 
   int get patientId => _patient.id ?? 0;
+
+  
 }
 

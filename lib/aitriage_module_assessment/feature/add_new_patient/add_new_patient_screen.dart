@@ -467,7 +467,8 @@ class _Tablet extends StatelessWidget {
                           width: 212.w,
                           height: 48.h,
                           onTap: () {
-                            onSuccess() {
+                            onSuccess() async{
+                              await Get.forceAppUpdate();
                               Get.back();
                             }
 
