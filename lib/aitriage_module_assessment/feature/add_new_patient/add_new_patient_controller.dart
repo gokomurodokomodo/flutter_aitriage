@@ -110,6 +110,10 @@ class AddNewPatientController extends GetxController {
         mrn: argument.code,
         patientName: argument.fullName,
         dob: dob,
+        phoneNumber: argument.phone ?? '',
+        email: argument.email ?? '',
+        address: argument.address ?? '',
+        description: argument.description ?? '',
       );
 
       // state is a dependency of city
