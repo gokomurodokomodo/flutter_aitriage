@@ -12,6 +12,8 @@ import '../../../aitriage_core/entity/state.dart';
 import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 
+enum PatientScreenType { add, edit, unknown }
+
 class AddNewPatientVM {
   // data for view
   final _genders = <ParamType>[];
@@ -48,6 +50,7 @@ class AddNewPatientVM {
   bool isFirstTimePatientCity = true;
   bool isFirstTimeGender = true;
   bool isFirstTimeRace = true;
+  PatientScreenType _patientScreenType = PatientScreenType.unknown;
 
   void update({
     List<ParamType>? genders,
@@ -70,12 +73,14 @@ class AddNewPatientVM {
     String? address,
     String? description,
     String? phoneCode,
-    int? countryId
+    int? countryId,
+    PatientScreenType? patientScreenType
   }) {
     // location id need to be first
 
     _locationId = locationId ?? _locationId;
     _countryId = countryId ?? _countryId;
+    _patientScreenType = patientScreenType ?? _patientScreenType;
 
     if (genders != null) {
       _genders.clear();
@@ -273,7 +278,7 @@ class AddNewPatientVM {
     isFirstTimeDateOfBirth = false;
   }
 
-  void setFirstTImePatientCity(){
+  void setFirstTimePatientCity(){
     isFirstTimePatientCity = false;
   }
 
@@ -303,7 +308,37 @@ class AddNewPatientVM {
                     && !isFirstTimePatientName
                     && !isFirstTimePatientState
                     && !isFirstTimeRace;
-    print('here i am $result');
     return result;
-  }                              
+  }
+
+  int getNationalityIndex(String? nationalityName) {
+    final index = nationalities.indexOf(nationalityName ?? '');
+    return index;
+  }
+
+  int getStateIndex(String? stateName) {
+    final index = states.indexOf(stateName ?? '');
+    return index;
+  }
+
+  int getCityIndex(String? cityName) {
+    final index = states.indexOf(cityName ?? '');
+    return index;
+  }
+
+  int getRaceIndex(String? raceName) {
+    final index = races.indexOf(raceName ?? '');
+    return index;
+  }
+
+  int getGenderIndex(String? key) {
+    final index = _genders.map((e) => e.key).toList().indexOf(key);
+    return index;
+  }
+
+  String get patientScreenTitle => switch (_patientScreenType) {
+    PatientScreenType.add => 'ADD PATIENT',
+    PatientScreenType.edit => 'EDIT PATIENT',
+    _ => ''
+  };
 }

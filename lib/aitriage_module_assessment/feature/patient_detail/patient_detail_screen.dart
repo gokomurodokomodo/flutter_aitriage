@@ -63,7 +63,11 @@ class _Tablet extends GetView<PatientDetailController> {
                     SizedBox(width: 16.w),
                     ColorButton(title: 'Add note', width: 100.w, shouldTapAbleWhenDisable: true),
                     SizedBox(width: 16.w),
-                    ColorButton(title: 'Edit', width: 80.w, shouldTapAbleWhenDisable: true),
+                    ColorButton(
+                        title: 'Edit',
+                        width: 80.w,
+                        shouldTapAbleWhenDisable: true,
+                        onTap: () => Get.toNamed(AssessmentModulePageRoute.addNewPatients, arguments: controller.vm.value.patientEntity)),
                   ])),
           Expanded(
             child: Row(

@@ -55,8 +55,9 @@ class _Tablet extends StatelessWidget {
                 // Dialog Header
                 Row(
                   children: [
-                    Text('ADD PATIENT',
-                        style: AppStyle.styleTextDialogHeaderTitle),
+                    Obx(() => Text(
+                        controller.vm.value.patientScreenTitle,
+                        style: AppStyle.styleTextDialogHeaderTitle)),
                     const Spacer(),
                     GestureDetector(
                         onTap: () => Get.back(),
@@ -74,6 +75,7 @@ class _Tablet extends StatelessWidget {
                           child: Center(
                         child: Obx(() => CustomLoginField(
                               hintText: 'MRN*',
+                              controller: controller.mrnController,
                               onTapInside: () {
                                 controller.vm.value.setFirstTimeMRN();
                                 controller.vm.refresh();
@@ -94,19 +96,12 @@ class _Tablet extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   DropDownWrapper(
-                                    placeHolder:
-                                        const AddPatientDropDownPlaceHolder(
-                                            title: 'Nationality*'),
+                                    controller: controller.nationalityController,
+                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
                                     dropDownHeight: 200,
-                                    onTapChildren: (index) {
-                                      controller.vm.value
-                                          .setFirstTimeNationality();
-                                      controller.vm.refresh();
-                                      controller.onInfoChange(
-                                          nationalityIndex: index);
-                                    },
+                                    onTapChildren: (index) => controller.onTapNationality(index),
                                     children: controller.vm.value.nationalities
                                         .map((e) => SizedBox(
                                             width: constraints.maxWidth,
@@ -139,6 +134,7 @@ class _Tablet extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Obx(() => CustomLoginField(
+                                controller: controller.patientNameController,
                                 hintText: 'Patient name*',
                                 textFieldWidth: double.maxFinite,
                                 textFieldHeight: 56.h,
@@ -159,19 +155,14 @@ class _Tablet extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   DropDownWrapper(
+                                    controller: controller.stateController,
                                     placeHolder:
                                         const AddPatientDropDownPlaceHolder(
                                             title: 'State*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
                                     dropDownHeight: 200,
-                                    onTapChildren: (index) {
-                                      controller.vm.value
-                                          .setFirstTimePatientState();
-                                      controller.vm.refresh();
-                                      controller.onInfoChange(
-                                          stateIndex: index);
-                                    },
+                                    onTapChildren: (index) => controller.onTapState(index),
                                     children: controller.vm.value.states
                                         .map((e) => SizedBox(
                                             width: constraints.maxWidth,
@@ -204,6 +195,7 @@ class _Tablet extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Obx(() => CustomLoginField(
+                                controller: controller.dobController,
                                 type: TextInputType.datetime,
                                 hintText: 'dd/mm/yyyy*',
                                 onTapInside: () {
@@ -218,7 +210,7 @@ class _Tablet extends StatelessWidget {
                                 unvalidateText:
                                     'Please provide patient\'s date of birth',
                                 onTextChange: (value) =>
-                                    controller.onInfoChange(date: value),
+                                    controller.onInfoChange(dob: value),
                               ))),
                       SizedBox(width: 24.w),
                       Expanded(child: LayoutBuilder(
@@ -227,6 +219,7 @@ class _Tablet extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     DropDownWrapper(
+                                      controller: controller.cityController,
                                       placeHolder:
                                           const AddPatientDropDownPlaceHolder(
                                               title: 'City*'),
@@ -235,13 +228,7 @@ class _Tablet extends StatelessWidget {
                                       dropDownHeight: 200,
                                       shouldEnableDropDown: controller
                                           .vm.value.shouldEnableCityDropDown,
-                                      onTapChildren: (index) {
-                                        controller.vm.value
-                                            .setFirstTImePatientCity();
-                                        controller.vm.refresh();
-                                        controller.onInfoChange(
-                                            cityIndex: index);
-                                      },
+                                      onTapChildren: (index) => controller.onTapCity(index),
                                       children: controller.vm.value.cities
                                           .map((e) => SizedBox(
                                               width: constraints.maxWidth,
@@ -281,19 +268,14 @@ class _Tablet extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       DropDownWrapper(
+                                        controller: controller.genderController,
                                         placeHolder:
                                             const AddPatientDropDownPlaceHolder(
                                                 title: 'Gender*'),
                                         width: constraints.maxWidth,
                                         height: 56.h,
                                         dropDownHeight: 100,
-                                        onTapChildren: (index) {
-                                          controller.vm.value
-                                              .setFirstTimePatientGender();
-                                          controller.vm.refresh();
-                                          controller.onInfoChange(
-                                              genderIndex: index);
-                                        },
+                                        onTapChildren: (index) => controller.onTapGender(index),
                                         children: controller.vm.value.genders
                                             .map((e) => SizedBox(
                                                 width: constraints.maxWidth,
@@ -327,6 +309,7 @@ class _Tablet extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       DropDownWrapper(
+                                        controller: controller.raceController,
                                         placeHolder:
                                             const AddPatientDropDownPlaceHolder(
                                                 title: 'Race*'),
@@ -341,13 +324,7 @@ class _Tablet extends StatelessWidget {
                                                     AddPatientDropDownPlaceHolder(
                                                         title: e)))
                                             .toList(),
-                                        onTapChildren: (index) {
-                                          controller.vm.value
-                                              .setFirstTImePatientRace();
-                                          controller.vm.refresh();
-                                          controller.onInfoChange(
-                                              raceIndex: index);
-                                        },
+                                          onTapChildren: (index) => controller.onTapRace(index),
                                       ),
                                       SizedBox(
                                         height: 5.h,
@@ -370,6 +347,7 @@ class _Tablet extends StatelessWidget {
                       SizedBox(width: 24.w),
                       Expanded(
                           child: CustomLoginField(
+                        controller: controller.addressController,
                         hintText: 'Address',
                         textFieldWidth: double.maxFinite,
                         textFieldHeight: 56.h,
@@ -399,6 +377,7 @@ class _Tablet extends StatelessWidget {
                                               .styleTextColorButtonDisable,
                                         ))),
                               ),
+                              controller: controller.phoneController,
                               shouldHavePrefixIcon: true,
                               type: TextInputType.number,
                               hintText: 'Phone number',
@@ -412,6 +391,7 @@ class _Tablet extends StatelessWidget {
                             Obx(() => SizedBox(
                               height: 80.h,
                               child: CustomLoginField(
+                                    controller: controller.emailController,
                                     hintText: 'Email',
                                     isValidated:
                                         controller.vm.value.isEmailVerify,
@@ -432,6 +412,7 @@ class _Tablet extends StatelessWidget {
                               builder: (BuildContext context,
                                       BoxConstraints constraints) =>
                                   CustomLoginField(
+                                    controller: controller.descriptionController,
                                     textFieldWidth: double.maxFinite,
                                     textFieldHeight:
                                         constraints.maxHeight - 22.5,

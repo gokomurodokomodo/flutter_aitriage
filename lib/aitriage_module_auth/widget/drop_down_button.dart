@@ -9,6 +9,8 @@ import '../../aitriage_core/common/app_image.dart';
 
 enum DropDownAlign { topRightToRight, bottomLeftToRight , topLeftToRight, bottomRightToLeft}
 
+const _controllerIndexDefaultValue = -1;
+
 class DropDownWrapper extends StatefulWidget {
   final double? width;
   final double? height;
@@ -27,6 +29,7 @@ class DropDownWrapper extends StatefulWidget {
   final bool shouldShowBorderPlaceHolder;
   final bool shouldEnableDropDown;
   final bool shouldColorItemSelected;
+  final DropDownWrapperController? controller;
 
   const DropDownWrapper({
     super.key,
@@ -44,7 +47,8 @@ class DropDownWrapper extends StatefulWidget {
     this.shouldReplacePlaceHolder = true,
     this.shouldShowBorderPlaceHolder = true,
     this.shouldEnableDropDown = true,
-    this.shouldColorItemSelected = true
+    this.shouldColorItemSelected = true,
+    this.controller
   });
 
   @override
@@ -52,13 +56,18 @@ class DropDownWrapper extends StatefulWidget {
 }
 
 class _DropDownWrapperState extends State<DropDownWrapper> {
+  // state of dropdown
   OverlayEntry? overlayEntry;
   GlobalKey globalKey = GlobalKey();
   OverlayState? overlayState;
   final layerLink = LayerLink();
   var tapOutSideAndHideOverlay = false;
   var tapOutSideView = false;
+  // current index
   var index = 0;
+  // old state to compare with controller state
+  late DropDownWrapperController controller;
+  var oldValue = 0;
   var enablePlaceHolder = false;
 
   @override
@@ -66,6 +75,13 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
     super.initState();
     if (widget.placeHolder != null) enablePlaceHolder = true;
     index = widget.chooseIndex;
+    controller = widget.controller ?? DropDownWrapperController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -105,14 +121,24 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
               backgroundColor: !widget.shouldEnableDropDown ? AppColor.colorSelectedLocationBackground : null,
               child: Stack(
                 children: [
-                  Container(
-                    child: (enablePlaceHolder || !widget.shouldReplacePlaceHolder)
-                        ? widget.placeHolder
-                        : (widget.children == null)
-                            ? const SizedBox()
-                            : widget.children!.length <= index
-                                ? const SizedBox()
-                                : widget.children![index],
+                  ValueListenableBuilder<int>(
+                      valueListenable: controller,
+                      builder: (_, value, widgets) {
+                        if (value != _controllerIndexDefaultValue && value != oldValue) {
+                          index = value;
+                          oldValue = value;
+                        }
+
+                        return Container(
+                          child: ((enablePlaceHolder || !widget.shouldReplacePlaceHolder) && value == _controllerIndexDefaultValue)
+                              ? widget.placeHolder
+                              : (widget.children == null)
+                              ? const SizedBox()
+                              : widget.children!.length <= index
+                              ? const SizedBox()
+                              : widget.children![index],
+                        );
+                      }
                   ),
                   if (widget.shouldReplacePlaceHolder) Positioned(
                       bottom: widgetHeight / 2 - 9.r,
@@ -211,6 +237,10 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
       DropDownAlign.bottomRightToLeft => Offset(- dropDownWidth + widgetWidth, widgetHeight + 20)
     };
   }
+}
+
+class DropDownWrapperController extends ValueNotifier<int> {
+  DropDownWrapperController() : super(-1) ;
 }
 
 class CountryWidget extends StatelessWidget {
