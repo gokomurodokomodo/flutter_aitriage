@@ -27,18 +27,18 @@ class AddNewPatientVM {
   var _patientName = '';
   String? _dob;
   int? _yearOfBirth;
-  var _genderKey = '';
-  int? _raceId;
+  int? _raceIndex;
+  int? _nationalityIndex;
+  int? _stateIndex;
+  int? _cityIndex;
+  int? _genderIndex;
   var _phone = '';
   var _email = '';
-  int? _nationalityId;
   int? _locationId;
-  int? _stateId;
-  int? _cityId;
   var _address = '';
   var _description = '';
   // _stateIndex for filtering city
-  int? _stateIndex;
+
   var _phoneCode = '';
   int? _countryId;
   // patient for edit screen
@@ -81,7 +81,6 @@ class AddNewPatientVM {
     Patient? patient
   }) {
     // location id need to be first
-
     _locationId = locationId ?? _locationId;
     _countryId = countryId ?? _countryId;
     _patientScreenType = patientScreenType ?? _patientScreenType;
@@ -122,18 +121,11 @@ class AddNewPatientVM {
     _description = description ?? _description;
     _phone = phone ?? _phone;
     _phoneCode = phoneCode ?? _phoneCode;
-
-    if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
-    if (nationalityIndex != null && nationalityIndex < _nationalities.length) _nationalityId = _nationalities[nationalityIndex].id;
-    if (stateIndex != null && stateIndex < _states.length) {
-      _stateId = _states[stateIndex].id;
-      _stateIndex = stateIndex;
-    }
-    if (cityIndex != null && cityIndex < this.cities.length) {
-      final cityName = this.cities[cityIndex];
-      _cityId = _cities.firstWhereOrNull((element) => element.name == cityName && _stateId == element.stateId)?.id;
-    }// get id from mapped city
-    if (genderIndex != null && genderIndex < _genders.length) _genderKey = _genders[genderIndex].key ?? _genderKey;
+    _genderIndex = genderIndex ?? _genderIndex;
+    _raceIndex = raceIndex ?? _raceIndex;
+    _nationalityIndex = nationalityIndex ?? _nationalityIndex;
+    _stateIndex = stateIndex ?? _stateIndex;
+    _cityIndex = cityIndex ?? _cityIndex;
 
     if (date != null) {
       _dob = null;
@@ -142,15 +134,15 @@ class AddNewPatientVM {
         _yearOfBirth = int.parse(date);
       } else {
         final isValidDate = DateTimeCheckerUtil().checkDate(date);
+        print(isValidDate);
         if(isValidDate){
           _dob = DateTimeParserUtil().appFormatToBackendFormat(date);
         } else {
         }
       }
+      print(_dob);
+      print(_yearOfBirth);
     }
-    // print('countryId $_countryId');
-    // print('city index $cityIndex');
-    // print('city id $_cityId');
   }
 
   bool get isMRNVerify => _verifyStringNotNull(_mrn);
@@ -324,6 +316,7 @@ class AddNewPatientVM {
     return index;
   }
 
+
   int getStateIndex(String? stateName) {
     final index = states.indexOf(stateName ?? '');
     return index;
@@ -349,6 +342,23 @@ class AddNewPatientVM {
     PatientScreenType.edit => 'EDIT PATIENT',
     _ => ''
   };
+
+  String get _genderKey {
+    return _genders.elementAtOrNull(_genderIndex ?? 0)?.key ?? '';
+  }
+
+  int? get _raceId => _races.elementAtOrNull(_raceIndex ?? 0)?.id;
+
+  int? get _nationalityId => _nationalities.elementAtOrNull(_nationalityIndex ?? 0)?.id;
+
+  int? get _stateId {
+    return _states.elementAtOrNull(_stateIndex ?? 0)?.id;
+  }
+
+  int? get _cityId {
+    final cityName = cities.elementAtOrNull(_cityIndex ?? 0);
+    return _cities.firstWhereOrNull((element) => element.name == cityName && _stateId == element.stateId)?.id;
+  }
 
   PatientScreenType get patientScreenType => _patientScreenType;
 }

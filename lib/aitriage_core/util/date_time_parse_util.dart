@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeParserUtil{
@@ -22,16 +23,21 @@ class DateTimeParserUtil{
   }
 
   String appFormatToBackendFormat(String str) {
+    if (str.isNumericOnly && str.length == 4) return str;
+
     var sourceFormatter = DateFormat('dd/MM/yyyy');
     var targetFormatter = DateFormat('yyyy-MM-dd HH:mm:ss');
     DateTime dateTime = sourceFormatter.parse(str);
     // Set the hour, minute, and second to 0.
     dateTime = dateTime.copyWith(hour: 0, minute: 0, second: 0);
     String formattedString = targetFormatter.format(dateTime);
+
     return formattedString;
   }
 
   String backendFormatToAppFormat(String str) {
+    if (str.isNumericOnly && str.length == 4) return str;
+
     final inputFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss.mmmZ");
     final outputFormatter = DateFormat("dd/MM/yyyy");
     final date = inputFormatter.parse(str);
