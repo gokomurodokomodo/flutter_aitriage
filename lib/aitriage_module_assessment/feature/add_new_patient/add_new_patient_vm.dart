@@ -322,7 +322,13 @@ class AddNewPatientVM {
   }
 
   int getCityIndex(String? cityName) {
-    final index = states.indexOf(cityName ?? '');
+    final index = cities.indexOf(cityName ?? '');
+
+    print('in function ${cities.length}');
+    for (var item in cities) {
+      print(item);
+    }
+
     return index;
   }
 

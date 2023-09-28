@@ -85,9 +85,10 @@ class AddNewPatientController extends GetxController {
       vm.value.update(patientScreenType: PatientScreenType.edit);
       vm.refresh();
       // Set value for text field
+      final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';
       mrnController.text = argument.code ?? '';
       patientNameController.text = argument.fullName ?? '';
-      dobController.text = argument.birthday ?? '';
+      dobController.text = dob;
       phoneController.text = argument.phone ?? '';
       emailController.text = argument.email ?? '';
       addressController.text = argument.address ?? '';
@@ -97,35 +98,37 @@ class AddNewPatientController extends GetxController {
       onInfoChange(
         mrn: argument.code,
         patientName: argument.fullName,
-        dob: argument.birthday,
+        dob: dob,
       );
 
+      // state is a dependency of city
+      // need to update state before city       // order of running matter
+      // don't change
       final nationalityIndex = vm.value.getNationalityIndex(argument.nationalityName);
-      final stateIndex = vm.value.getStateIndex(argument.stateName);
-      final cityIndex = vm.value.getCityIndex(argument.cityName ?? '');
-      final genderIndex = vm.value.getGenderIndex(argument.gender);
-      final raceIndex = vm.value.getRaceIndex(argument.raceName ?? '');
-
       if (nationalityIndex != -1) {
         onTapNationality(nationalityIndex);
         nationalityController.value = nationalityIndex;
       }
 
+      final stateIndex = vm.value.getStateIndex(argument.stateName);
       if (stateIndex != -1) {
         onTapState(stateIndex);
         stateController.value = stateIndex;
       }
 
+      final cityIndex = vm.value.getCityIndex(argument.cityName ?? '');
       if (cityIndex != -1) {
         onTapCity(cityIndex);
         cityController.value = cityIndex;
       }
 
+      final genderIndex = vm.value.getGenderIndex(argument.gender);
       if (genderIndex != -1) {
         onTapGender(genderIndex);
         genderController.value = genderIndex;
       }
 
+      final raceIndex = vm.value.getRaceIndex(argument.raceName ?? '');
       if (raceIndex != -1) {
         onTapRace(raceIndex);
         raceController.value = raceIndex;
