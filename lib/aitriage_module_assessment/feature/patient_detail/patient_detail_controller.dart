@@ -1,5 +1,6 @@
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_patient_detail_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
@@ -47,7 +48,8 @@ class PatientDetailController extends GetxController {
       final resp = await HiviService.instance.uploadImageUC.execute();
       final userInfo = await ActiveUserUtil.userInfo;
       final updatedPatientInfo = vm.value.patientEntity.copyWith(avatar: resp.data);
-      final resp1 = await _updatePatientUC.execute(updatedPatientInfo, userInfo.accountId.toString());
+      final request = UpdatePatientRequest(updatedPatientInfo);
+      final resp1 = await _updatePatientUC.execute(request, userInfo.accountId.toString());
       vm.value.update(patient: resp1.data);
       vm.refresh();
       onSuccess?.call();

@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart'
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/response/get_list_country_language_response.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_api_route.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/query/list_patient_query.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
 import '../../../aitriage_core/common/app_env.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../../aitriage_core/network/provider/get_base_provider.dart';
@@ -41,8 +42,8 @@ class PatientRepositoryImpl extends PatientRepository {
   }
 
   @override
-  Future<PatientDetailResponse> updatePatient(Patient patient, String accountId) async {
-    final resp = await _provider.put(AssessmentModuleApiRoute.updatePatient.replaceAll('%s', accountId), patient.toJson());
+  Future<PatientDetailResponse> updatePatient(UpdatePatientRequest request, String accountId) async {
+    final resp = await _provider.put(AssessmentModuleApiRoute.updatePatient.replaceAll('%s', accountId), request.toRequest());
     return _provider.convertResponse(resp, (json) => PatientDetailResponse.fromJson(json));
   }
 }

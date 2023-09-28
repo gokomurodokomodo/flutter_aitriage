@@ -174,7 +174,6 @@ class AddNewPatientController extends GetxController {
       }
     } else {
       try {
-
         final patient = vm.value.getEditPatient;
         final user = await ActiveUserUtil.userInfo;
         await _updatePatientUC.execute(patient, user.accountId.toString());
@@ -225,7 +224,7 @@ class AddNewPatientController extends GetxController {
   void onTapState(int index) {
     vm.value.setFirstTimePatientState();
     cityController.value = 0;
-    onInfoChange(stateIndex: index);
+    onInfoChange(stateIndex: index, cityIndex: 0);
   }
 
   void onTapCity(int index) {

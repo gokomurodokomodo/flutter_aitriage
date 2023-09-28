@@ -23,6 +23,6 @@ class AddPatientRequest extends BaseRequest {
     "description": patient.description,
     "birthday": patient.birthday,
     "yearOfBirth": patient.yearOfBirth,
-    "responseDetail": patient.responseDetail
+    "responseDetail": true
   };
 }

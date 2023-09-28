@@ -4,7 +4,6 @@ import 'package:flutter_aitriage/aitriage_core/util/date_time_checker/date_time_
 import 'package:flutter_aitriage/aitriage_core/util/regrex_constant/app_regrex.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/add_patient_request.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../../aitriage_core/entity/city.dart';
 import '../../../aitriage_core/entity/patient.dart';
 import '../../../aitriage_core/entity/race.dart';
@@ -12,6 +11,7 @@ import '../../../aitriage_core/entity/state.dart';
 import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/date_time_parse_util.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
+import '../../data/api/request/update_patient_request.dart';
 
 enum PatientScreenType { add, edit, unknown }
 
@@ -125,14 +125,14 @@ class AddNewPatientVM {
 
     if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
     if (nationalityIndex != null && nationalityIndex < _nationalities.length) _nationalityId = _nationalities[nationalityIndex].id;
-    if (cityIndex != null && cityIndex < this.cities.length) {
-      final cityName = this.cities[cityIndex];
-      _cityId = _cities.firstWhereOrNull((element) => element.name == cityName)?.id;
-    }// get id from mapped city
     if (stateIndex != null && stateIndex < _states.length) {
       _stateId = _states[stateIndex].id;
       _stateIndex = stateIndex;
     }
+    if (cityIndex != null && cityIndex < this.cities.length) {
+      final cityName = this.cities[cityIndex];
+      _cityId = _cities.firstWhereOrNull((element) => element.name == cityName && _stateId == element.stateId)?.id;
+    }// get id from mapped city
     if (genderIndex != null && genderIndex < _genders.length) _genderKey = _genders[genderIndex].key ?? _genderKey;
 
     if (date != null) {
@@ -236,13 +236,12 @@ class AddNewPatientVM {
         description: _description,
         birthday: _dob,
         yearOfBirth: _yearOfBirth,
-        responseDetail: true
     );
 
     return AddPatientRequest(patient);
   }
 
-  Patient get getEditPatient {
+  UpdatePatientRequest get getEditPatient {
     final patient = _patient!.copyWith(
         code: _mrn,
         fullName: _patientName,
@@ -261,7 +260,7 @@ class AddNewPatientVM {
         yearOfBirth: _yearOfBirth
     );
 
-    return patient;
+    return UpdatePatientRequest(patient);
   }
 
   bool get shouldEnableCityDropDown => _stateIndex != null;

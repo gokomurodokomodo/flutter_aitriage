@@ -22,7 +22,6 @@ class Patient {
   final String? cityName;
   final String? nationalityName;
   final String? stateName;
-  final bool? responseDetail;
 
   Patient({
       this.id,
@@ -48,7 +47,6 @@ class Patient {
       this.cityName,
       this.nationalityName,
       this.stateName,
-      this.responseDetail
   });
 
   Patient.fromJson(dynamic json)
@@ -74,8 +72,7 @@ class Patient {
         lastActivityDate = json?['lastActivityDate'],
         cityName = json?['cityName'],
         nationalityName = json?['nationalityName'],
-        stateName = json?['stateName'],
-        responseDetail = json?['responseDetail'];
+        stateName = json?['stateName'];
 
   Patient copyWith({
     int? id,
@@ -101,7 +98,6 @@ class Patient {
     String? cityName,
     String? nationalityName,
     String? stateName,
-    bool? responseDetail
   }) =>
       Patient(
         id: id ?? this.id,
@@ -126,35 +122,6 @@ class Patient {
         lastActivityDate: lastActivityDate ?? this.lastActivityDate,
         cityName: cityName ?? this.cityName,
         nationalityName: nationalityName ?? this.nationalityName,
-        stateName: stateName ?? this.stateName,
-        responseDetail: responseDetail ?? this.responseDetail
-      );
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'code': code,
-    'fullName': fullName,
-    'nationalityId': nationalityId,
-    'locationId': locationId,
-    'stateId': stateId,
-    'cityId': cityId,
-    'raceId': raceId,
-    'address': address,
-    'gender': gender,
-    'phoneCode': phoneCode,
-    'phone': phone,
-    'email': email,
-    'description': description,
-    'birthday': birthday,
-    'yearOfBirth': yearOfBirth,
-    'avatar': avatar,
-    'raceName': raceName,
-    'age': age,
-    'lastActivityDate': lastActivityDate,
-    'cityName': cityName,
-    'nationalityName': nationalityName,
-    'stateName': stateName,
-    'responseDetail': responseDetail
-  };
+        stateName: stateName ?? this.stateName);
 }
 
