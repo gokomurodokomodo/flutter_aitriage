@@ -11,6 +11,7 @@ import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_a
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_validate_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/submit_info_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/submit_info/text_controller_vm.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:get/get.dart';
 
 import '../../../../aitriage_core/entity/param_type.dart';
@@ -25,7 +26,7 @@ class SignUpController extends GetxController{
   final submitInfoVM = SubmitInfoVM().obs;
   final textControllerVM = TextControllerVM().obs;
   var text = ''.obs;
-  var chooseIndex = 0.obs;
+  // var chooseIndex = 0.obs;
   var securePassword = true.obs;
   var shouldEnableSubmitButton = false.obs;
   var checkedTermAndPrivacy = false.obs;
@@ -33,6 +34,7 @@ class SignUpController extends GetxController{
   final apiService = HiviService.instance;
   var listCountry = <Country>[].obs;
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
+  final countryController = DropDownWrapperController();
 
   SignUpController(this._registerUseCase, this._getRegisterAccountStatusUC, this._getRegisterAccountTypeUC);
 
@@ -187,7 +189,7 @@ class SignUpController extends GetxController{
   }
 
   void onCountryChanged(int index) {
-    chooseIndex.value = index;
+    countryController.value = 0;
     submitInfoVM.value.updateVM(index: index);
     submitInfoVM.refresh();
     _shouldEnableSubmitButton();

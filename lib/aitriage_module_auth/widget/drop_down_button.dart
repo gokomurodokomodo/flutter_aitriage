@@ -21,7 +21,7 @@ class DropDownWrapper extends StatefulWidget {
   final List<Widget>? children;
   final Function(int)? onTapChildren;
   final Widget? placeHolder;
-  final int chooseIndex;
+  // final int chooseIndex;
   // Change drop down align
   final DropDownAlign dropDownAlign;
   // In case you just want open drop down like notification with static placeholder
@@ -42,7 +42,7 @@ class DropDownWrapper extends StatefulWidget {
     this.children,
     this.onTapChildren,
     this.placeHolder,
-    this.chooseIndex = 0,
+    // this.chooseIndex = 0,
     this.dropDownAlign = DropDownAlign.bottomLeftToRight,
     this.shouldReplacePlaceHolder = true,
     this.shouldShowBorderPlaceHolder = true,
@@ -64,7 +64,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
   var tapOutSideAndHideOverlay = false;
   var tapOutSideView = false;
   // current index
-  var index = 0;
+  // var index = 0;
   // old state to compare with controller state
   late DropDownWrapperController controller;
   var oldValue = 0;
@@ -74,7 +74,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
   void initState() {
     super.initState();
     if (widget.placeHolder != null) enablePlaceHolder = true;
-    index = widget.chooseIndex;
+    // index = widget.chooseIndex;
     controller = widget.controller ?? DropDownWrapperController();
   }
 
@@ -124,19 +124,14 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                   ValueListenableBuilder<int>(
                       valueListenable: controller,
                       builder: (_, value, widgets) {
-                        if (value != _controllerIndexDefaultValue && value != oldValue) {
-                          index = value;
-                          oldValue = value;
-                        }
-
                         return Container(
                           child: ((enablePlaceHolder || !widget.shouldReplacePlaceHolder) && value == _controllerIndexDefaultValue)
                               ? widget.placeHolder
                               : (widget.children == null)
-                              ? const SizedBox()
-                              : widget.children!.length <= index
-                              ? const SizedBox()
-                              : widget.children![index],
+                                  ? const SizedBox()
+                                  : value < widget.children!.length && value >= 0
+                                      ? widget.children![value]
+                                      : const SizedBox(),
                         );
                       }
                   ),
@@ -180,7 +175,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                     height: 200,
                     child: ListView(
                       children: widget.children?.map((e) => Container(
-                        color: widget.children?.indexOf(e) == index && widget.shouldColorItemSelected
+                        color: widget.children?.indexOf(e) == controller.value && widget.shouldColorItemSelected
                             ? AppColor.colorSelectedLocationBackground
                             : Colors.transparent,
                         child: GestureDetector(
@@ -191,7 +186,7 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                               widget.onTapChildren?.call(newIndex!);
                               _hideOverLay();
                               setState(() {
-                                index = newIndex!;
+                                controller.value = newIndex!;
                               });
                             },
                             child: e),

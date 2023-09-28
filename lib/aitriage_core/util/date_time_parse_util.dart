@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class DateTimeParserUtil{
   DateTimeParserUtil();
 
@@ -17,6 +19,23 @@ class DateTimeParserUtil{
 
   String _monthParser(int month){
     return _prefixForLessThanTen(month);
+  }
+
+  String appFormatToBackendFormat(String str) {
+    var sourceFormatter = DateFormat('dd/MM/yyyy');
+    var targetFormatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    DateTime dateTime = sourceFormatter.parse(str);
+    // Set the hour, minute, and second to 0.
+    dateTime = dateTime.copyWith(hour: 0, minute: 0, second: 0);
+    String formattedString = targetFormatter.format(dateTime);
+    return formattedString;
+  }
+
+  String backendFormatToAppFormat(String str) {
+    final inputFormatter = DateFormat("yyyy-MM-ddTHH:mm:ss.mmmZ");
+    final outputFormatter = DateFormat("dd/MM/yyyy");
+    final date = inputFormatter.parse(str);
+    return outputFormatter.format(date);
   }
 
   String _hourParser(int hour, int minutes, {bool should12Hours = false}){

@@ -72,7 +72,7 @@ class _Tablet extends StatelessWidget {
                   )),
               SizedBox(height: 10.h),
               DropDownWrapper(
-                    chooseIndex: controller.chooseIndex.value,
+                    controller: controller.countryController,
                     title: 'country'.tr,
                     shouldIncludeAsterisk: true,
                     dropDownWidth: 360.w,

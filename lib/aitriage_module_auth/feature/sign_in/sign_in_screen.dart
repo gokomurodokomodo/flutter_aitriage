@@ -134,6 +134,7 @@ class _Tablet extends GetView<SignInController> {
                 height: 80.h,
               ),
               Obx(() => DropDownWrapper(
+                    controller: controller.countryController,
                     onTapChildren: (_) => controller.setIndex(_),
                     dropDownHeight: 150.h,
                     height: 44.h,

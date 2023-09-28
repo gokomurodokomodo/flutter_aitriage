@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/util/network_check/network_check_
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_in_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_in/sign_in_vm.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_aitriage/aitriage_module_main/config/main_module_page_route.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/user_info.dart';
@@ -21,6 +22,7 @@ class SignInController extends GetxController{
   final SignInUseCaseImpl _useCase;
   final hiviService = HiviService.instance;
   final GetListCountryUC _getListCountryUC = GetListCountryUC();
+  final countryController = DropDownWrapperController();
 
   SignInController(this._useCase);
 
@@ -29,6 +31,7 @@ class SignInController extends GetxController{
     super.onInit();
     final response = await _getListCountryUC.execute();
     vm.value.updateVM(countryList: response.data);
+    countryController.value = 0;
     vm.refresh();
     _signInForDev();
   }

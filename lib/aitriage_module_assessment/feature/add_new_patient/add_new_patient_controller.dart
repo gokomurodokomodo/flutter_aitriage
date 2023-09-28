@@ -11,6 +11,7 @@ import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_mai
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/util/active_user/active_user.dart';
+import '../../../aitriage_core/util/date_time_parse_util.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 import '../../domain/use_case/get_race_uc.dart';
 
@@ -88,7 +89,9 @@ class AddNewPatientController extends GetxController {
       vm.value.update(patientScreenType: PatientScreenType.edit, patient: argument);
       vm.refresh();
       // Set value for text field
-      final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';
+      // final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';
+      final dob = DateTimeParserUtil().backendFormatToAppFormat(
+          argument.birthday ?? argument.yearOfBirth?.toString() ?? '');
       mrnController.text = argument.code ?? '';
       patientNameController.text = argument.fullName ?? '';
       dobController.text = dob;
@@ -110,7 +113,7 @@ class AddNewPatientController extends GetxController {
         mrn: argument.code,
         patientName: argument.fullName,
         dob: dob,
-        phoneNumber: argument.phone ?? '',
+        phone: argument.phone ?? '',
         email: argument.email ?? '',
         address: argument.address ?? '',
         description: argument.description ?? '',
@@ -188,7 +191,7 @@ class AddNewPatientController extends GetxController {
     String? dob,
     int? genderIndex,
     int? raceIndex,
-    String? phoneNumber,
+    String? phone,
     String? email,
     int? nationalityIndex,
     int? stateIndex,
@@ -203,7 +206,7 @@ class AddNewPatientController extends GetxController {
         date: dob,
         genderIndex: genderIndex,
         raceIndex: raceIndex,
-        phoneNumber: phoneNumber,
+        phone: phone,
         email: email,
         nationalityIndex: nationalityIndex,
         stateIndex: stateIndex,
@@ -221,6 +224,7 @@ class AddNewPatientController extends GetxController {
 
   void onTapState(int index) {
     vm.value.setFirstTimePatientState();
+    cityController.value = 0;
     onInfoChange(stateIndex: index);
   }
 

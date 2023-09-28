@@ -385,7 +385,7 @@ class _Tablet extends StatelessWidget {
                               textInputRegex: RegExp(r'[0-9]'),
                               textFieldHeight: 56.h,
                               onTextChange: (value) =>
-                                  controller.onInfoChange(phoneNumber: value),
+                                  controller.onInfoChange(phone: value),
                             ),
                             SizedBox(height: 16.h,),
                             Obx(() => SizedBox(

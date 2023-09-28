@@ -10,6 +10,7 @@ import '../../../aitriage_core/entity/patient.dart';
 import '../../../aitriage_core/entity/race.dart';
 import '../../../aitriage_core/entity/state.dart';
 import '../../../aitriage_core/service/localization_service/localization_service.dart';
+import '../../../aitriage_core/util/date_time_parse_util.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 
 enum PatientScreenType { add, edit, unknown }
@@ -28,7 +29,7 @@ class AddNewPatientVM {
   int? _yearOfBirth;
   var _genderKey = '';
   int? _raceId;
-  var _phoneNumber = '';
+  var _phone = '';
   var _email = '';
   int? _nationalityId;
   int? _locationId;
@@ -67,7 +68,7 @@ class AddNewPatientVM {
     String? date,
     int? genderIndex,
     int? raceIndex,
-    String? phoneNumber,
+    String? phone,
     String? email,
     int? nationalityIndex,
     int? stateIndex,
@@ -119,7 +120,7 @@ class AddNewPatientVM {
     _email = email ?? _email;
     _address = address ?? _address;
     _description = description ?? _description;
-    _phoneNumber = phoneNumber ?? _phoneNumber;
+    _phone = phone ?? _phone;
     _phoneCode = phoneCode ?? _phoneCode;
 
     if (raceIndex != null && raceIndex < _races.length) _raceId = _races[raceIndex].id;
@@ -142,7 +143,7 @@ class AddNewPatientVM {
       } else {
         final isValidDate = DateTimeCheckerUtil().checkDate(date);
         if(isValidDate){
-          _dob = convertDdMmYyyyToYyyyMmDdHhMmSs(date);
+          _dob = DateTimeParserUtil().appFormatToBackendFormat(date);
         } else {
         }
       }
@@ -195,27 +196,6 @@ class AddNewPatientVM {
     }
   }
 
-  bool isDdMmYyyy(String string) {
-    var formatter = DateFormat('dd/MM/yyyy');
-
-    try {
-      formatter.parse(string);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  } 
-
-  String convertDdMmYyyyToYyyyMmDdHhMmSs(String string) {
-    var sourceFormatter = DateFormat('dd/MM/yyyy');
-    var targetFormatter = DateFormat('yyyy-MM-dd HH:mm:ss');
-    DateTime dateTime = sourceFormatter.parse(string);
-    // Set the hour, minute, and second to 0.
-    dateTime = dateTime.copyWith(hour: 0, minute: 0, second: 0);
-    String formattedString = targetFormatter.format(dateTime);
-    return formattedString;
-  }
-
   List<String> get races => _races.map((e) => e.name ?? '').toList();
 
   List<String> get nationalities => _nationalities.map((e) => e.nationality ?? '').toList();
@@ -251,6 +231,7 @@ class AddNewPatientVM {
         address: _address,
         gender: _genderKey,
         phoneCode: _phoneCode,
+        phone: _phone,
         email: _email,
         description: _description,
         birthday: _dob,
@@ -273,6 +254,7 @@ class AddNewPatientVM {
         address: _address,
         gender: _genderKey,
         phoneCode: _phoneCode,
+        phone: _phone,
         email: _email,
         description: _description,
         birthday: _dob,
