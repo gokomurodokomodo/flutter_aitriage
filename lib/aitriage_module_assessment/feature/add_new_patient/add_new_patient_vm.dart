@@ -254,7 +254,8 @@ class AddNewPatientVM {
         email: _email,
         description: _description,
         birthday: _dob,
-        yearOfBirth: _yearOfBirth
+        yearOfBirth: _yearOfBirth,
+        responseDetail: true
     );
 
     return AddPatientRequest(patient);
