@@ -40,6 +40,8 @@ class AddNewPatientVM {
   int? _stateIndex;
   var _phoneCode = '';
   int? _countryId;
+  // patient for edit screen
+  Patient? _patient;
 
   //check first time
   bool isFirstTimeMRN = true;
@@ -74,13 +76,15 @@ class AddNewPatientVM {
     String? description,
     String? phoneCode,
     int? countryId,
-    PatientScreenType? patientScreenType
+    PatientScreenType? patientScreenType,
+    Patient? patient
   }) {
     // location id need to be first
 
     _locationId = locationId ?? _locationId;
     _countryId = countryId ?? _countryId;
     _patientScreenType = patientScreenType ?? _patientScreenType;
+    _patient = patient ?? _patient;
 
     if (genders != null) {
       _genders.clear();
@@ -250,9 +254,31 @@ class AddNewPatientVM {
         email: _email,
         description: _description,
         birthday: _dob,
-        yearOfBirth: _yearOfBirth);
+        yearOfBirth: _yearOfBirth
+    );
 
     return AddPatientRequest(patient);
+  }
+
+  Patient get getEditPatient {
+    final patient = _patient!.copyWith(
+        code: _mrn,
+        fullName: _patientName,
+        nationalityId: _nationalityId,
+        locationId: _locationId,
+        stateId: _stateId,
+        cityId: _cityId,
+        raceId: _raceId,
+        address: _address,
+        gender: _genderKey,
+        phoneCode: _phoneCode,
+        email: _email,
+        description: _description,
+        birthday: _dob,
+        yearOfBirth: _yearOfBirth
+    );
+
+    return patient;
   }
 
   bool get shouldEnableCityDropDown => _stateIndex != null;
@@ -323,12 +349,6 @@ class AddNewPatientVM {
 
   int getCityIndex(String? cityName) {
     final index = cities.indexOf(cityName ?? '');
-
-    print('in function ${cities.length}');
-    for (var item in cities) {
-      print(item);
-    }
-
     return index;
   }
 
@@ -347,4 +367,6 @@ class AddNewPatientVM {
     PatientScreenType.edit => 'EDIT PATIENT',
     _ => ''
   };
+
+  PatientScreenType get patientScreenType => _patientScreenType;
 }

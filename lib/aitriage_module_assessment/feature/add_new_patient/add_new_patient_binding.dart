@@ -1,5 +1,6 @@
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_type_param_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:get/get.dart';
 import '../../data/repository/patient_repository.dart';
 import '../../domain/use_case/get_city_uc.dart';
@@ -17,6 +18,7 @@ class AddNewPatientBinding extends Bindings {
     Get.lazyPut(() => GetStateUseCaseImpl());
     Get.lazyPut(() => PatientRepositoryImpl());
     Get.lazyPut(() => AddPatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
+    Get.lazyPut(() => UpdatePatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => GetNationalityUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => AddNewPatientController(
         Get.find<GetGenderParamUseCaseImpl>(),
@@ -24,7 +26,8 @@ class AddNewPatientBinding extends Bindings {
         Get.find<GetNationalityUseCaseImpl>(),
         Get.find<GetCityUseCaseImpl>(),
         Get.find<GetStateUseCaseImpl>(),
-        Get.find<AddPatientUseCaseImpl>()
+        Get.find<AddPatientUseCaseImpl>(),
+        Get.find<UpdatePatientUseCaseImpl>(),
     ));
   }
 }

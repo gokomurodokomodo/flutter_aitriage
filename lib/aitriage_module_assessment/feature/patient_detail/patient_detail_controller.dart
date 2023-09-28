@@ -25,10 +25,10 @@ class PatientDetailController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    _getUserDetailInfo();
+    getUserDetailInfo();
   }
 
-  void _getUserDetailInfo() async {
+  void getUserDetailInfo() async {
     try {
       final patientId = _argument['patientId'];
       final genderParamTypes = _getGenderParamTypeUC.execute();

@@ -450,7 +450,7 @@ class _Tablet extends StatelessWidget {
                           onTap: () {
                             onSuccess() async{
                               await Get.forceAppUpdate();
-                              Get.back();
+                              Get.back(result: true);
                             }
 
                             onError(dynamic message) {

@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_city_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_nationality_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_state_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
@@ -20,6 +21,7 @@ class AddNewPatientController extends GetxController {
   final GetCityUseCase _getCityUC;
   final GetStateUseCase _getStateUC;
   final AddPatientUseCase _addPatientUC;
+  final UpdatePatientUseCase _updatePatientUC;
   final vm = AddNewPatientVM().obs;
   // Text Field controller
   final mrnController = TextEditingController();
@@ -42,7 +44,8 @@ class AddNewPatientController extends GetxController {
       this._getNationalityUC,
       this._getCityUC,
       this._getStateUC,
-      this._addPatientUC
+      this._addPatientUC,
+      this._updatePatientUC
       );
 
   @override
@@ -82,7 +85,7 @@ class AddNewPatientController extends GetxController {
 
     // Edit patient will have argument
     if (argument is Patient) {
-      vm.value.update(patientScreenType: PatientScreenType.edit);
+      vm.value.update(patientScreenType: PatientScreenType.edit, patient: argument);
       vm.refresh();
       // Set value for text field
       final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';
@@ -93,7 +96,15 @@ class AddNewPatientController extends GetxController {
       emailController.text = argument.email ?? '';
       addressController.text = argument.address ?? '';
       descriptionController.text = argument.description ?? '';
-
+      // NEED TO REFACTOR LOGIC
+      vm.value.setFirstTimeMRN();
+      vm.value.setFirstTimeNationality();
+      vm.value.setFirstTimeDateOfBirth();
+      vm.value.setFirstTimePatientCity();
+      vm.value.setFirstTimePatientGender();
+      vm.value.setFirstTImePatientRace();
+      vm.value.setFirstTimePatientState();
+      vm.value.setFirstTimePatientName();
       // update vm
       onInfoChange(
         mrn: argument.code,
@@ -102,7 +113,7 @@ class AddNewPatientController extends GetxController {
       );
 
       // state is a dependency of city
-      // need to update state before city       // order of running matter
+      // need to update state before city, order of running matter
       // don't change
       final nationalityIndex = vm.value.getNationalityIndex(argument.nationalityName);
       if (nationalityIndex != -1) {
@@ -143,13 +154,27 @@ class AddNewPatientController extends GetxController {
     Function? onSuccess,
     Function? onError
   }) async {
-    try {
-      final request = vm.value.getAddPatientRequest;
-      final user = await ActiveUserUtil.userInfo;
-      await _addPatientUC.execute(request, user.accountId.toString());
-      onSuccess?.call();
-    } catch (e) {
-      HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
+    final type = vm.value.patientScreenType;
+
+    if (type == PatientScreenType.add) {
+      try {
+        final request = vm.value.getAddPatientRequest;
+        final user = await ActiveUserUtil.userInfo;
+        await _addPatientUC.execute(request, user.accountId.toString());
+        onSuccess?.call();
+      } catch (e) {
+        HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
+      }
+    } else {
+      try {
+
+        final patient = vm.value.getEditPatient;
+        final user = await ActiveUserUtil.userInfo;
+        await _updatePatientUC.execute(patient, user.accountId.toString());
+        onSuccess?.call();
+      } catch (e) {
+        HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
+      }
     }
   }
 

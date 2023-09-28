@@ -14,6 +14,6 @@ class UpdatePatientUseCaseImpl extends UpdatePatientUseCase {
 
   @override
   Future<PatientDetailResponse> execute(Patient patient, String accountId) async {
-    return await _repository.updatePatient(patient, accountId);
+    return await _repository.updatePatient(patient.copyWith(responseDetail: true), accountId);
   }
 }

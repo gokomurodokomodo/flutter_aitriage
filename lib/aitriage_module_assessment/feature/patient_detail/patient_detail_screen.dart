@@ -67,7 +67,14 @@ class _Tablet extends GetView<PatientDetailController> {
                         title: 'Edit',
                         width: 80.w,
                         shouldTapAbleWhenDisable: true,
-                        onTap: () => Get.toNamed(AssessmentModulePageRoute.addNewPatients, arguments: controller.vm.value.patientEntity)),
+                        onTap: () async {
+                          final result = await Get.toNamed(
+                              AssessmentModulePageRoute.addNewPatients,
+                              arguments: controller.vm.value.patientEntity
+                          );
+
+                          if (result == true) controller.getUserDetailInfo();
+                        }),
                   ])),
           Expanded(
             child: Row(
