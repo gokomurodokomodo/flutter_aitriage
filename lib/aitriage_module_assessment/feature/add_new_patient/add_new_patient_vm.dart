@@ -234,7 +234,9 @@ class AddNewPatientVM {
   }
 
   UpdatePatientRequest get getEditPatient {
-    final patient = _patient!.copyWith(
+    final patient = Patient(
+        id: _patient?.id,
+        avatar: _patient?.avatar,
         code: _mrn,
         fullName: _patientName,
         nationalityId: _nationalityId,
@@ -249,7 +251,7 @@ class AddNewPatientVM {
         email: _email,
         description: _description,
         birthday: _dob,
-        yearOfBirth: _yearOfBirth
+        yearOfBirth: _yearOfBirth,
     );
 
     return UpdatePatientRequest(patient);

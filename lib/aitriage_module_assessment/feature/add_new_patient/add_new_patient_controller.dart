@@ -224,6 +224,7 @@ class AddNewPatientController extends GetxController {
   void onTapState(int index) {
     vm.value.setFirstTimePatientState();
     cityController.value = 0;
+    vm.value.setFirstTimePatientCity();
     onInfoChange(stateIndex: index, cityIndex: 0);
   }
 
