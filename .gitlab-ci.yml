@@ -1,3 +1,7 @@
+# Đổi slack webhook khi token expired.
+# add app vào channel cần notify, app Icoming Webhook. Add xong trả ra URL Webhook.!reference:
+# Vào thư mục fastlane của từng project android và ios, đổi link webhook slack của từng project rồi chạy lại.
+
 variables:
   LC_ALL: "en_US.UTF-8"
   LANG: "en_US.UTF-8"

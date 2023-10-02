@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/dialog/app_dialog.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
@@ -106,7 +107,7 @@ class _TabletState extends State<_Tablet> {
                           children: [
                             BaseSearchBarTablet(
                               width: 320.w,
-                              hintText: 'Search type or keyword',
+                              hintText: 'Search...',
                               onTextChange: (text) {
                                 controller.onSearchTextFieldChanged(text,
                                     onSuccess: () =>
@@ -121,9 +122,15 @@ class _TabletState extends State<_Tablet> {
                             ColorButton(
                               title: 'Add new',
                               shouldEnableBackground: true,
-                              // onTap: () => Get.toNamed(AssessmentRoute.workflow, id: AssessmentRoute.nestedId),
-                              onTap: () => Get.toNamed(
-                                  AssessmentModulePageRoute.addNewPatients),
+                              onTap: () async {
+                                bool isAddSuccess = false;
+                                isAddSuccess = await Get.toNamed(
+                                    AssessmentModulePageRoute.addNewPatients);
+                                if (isAddSuccess) {
+                                  _showDialog();
+                                  controller.reloadCurrentPage();
+                                }
+                              },
                               width: 102.w,
                             ) // SizedBox(width: 16.w)
                           ],
@@ -136,8 +143,9 @@ class _TabletState extends State<_Tablet> {
                                       AssessmentModulePageRoute.patientDetail,
                                       id: AssessmentModulePageRoute.nestedId,
                                       arguments: {'patientId': patientId});
-
-                                  if (result == true) controller.reloadCurrentPage();
+                                  if (result == true) {
+                                    controller.reloadCurrentPage();
+                                  }
                                 },
                                 list:
                                     controller.vm.value.listPatientSummaryVM))),
@@ -175,15 +183,16 @@ class _TabletState extends State<_Tablet> {
                                                   controller.vm.value.totalPage,
                                               onPageChange: (value) {
                                                 setState(() {});
-                                                AlertUtil.showLoadingIndicator();
+                                                AlertUtil
+                                                    .showLoadingIndicator();
                                                 controller.onTapNumberPaginator(
                                                     value,
                                                     onSuccess: () => Get.back(),
                                                     onError: (message) {
                                                       Get.back();
-                                                      Get.snackbar('Error', message);
-                                                    }
-                                                );
+                                                      Get.snackbar(
+                                                          'Error', message);
+                                                    });
                                               },
                                               controller: _pageController,
                                               config: NumberPaginatorUIConfig(
@@ -294,4 +303,30 @@ class _Phone extends GetView<HomeAssessmentController> {
     //       ],
     //     ));
   }
+}
+
+void _showDialog() {
+  Get.dialog(
+    AppDialog(
+      content: Column(
+        children: [
+          SizedBox(height: 20.h),
+          const Divider(
+            color: AppColor.colorInactiveFillColor,
+          ),
+          SizedBox(height: 20.h),
+          SvgIconWidget(size: 64.r, name: AppImage.svgIconSuccessDialog),
+          SizedBox(height: 20.h),
+          Text('Patient Added Successfully.',
+              style: AppStyle.styleTextColorButtonDisable),
+          SizedBox(
+            height: 20.h,
+          )
+        ],
+      ),
+      title: 'CONGRATULATIONS',
+      primaryButtonCallback: () => Get.back(),
+      primaryButtonTitle: 'Continue',
+    ),
+  );
 }

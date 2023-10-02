@@ -7,7 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 
-enum DropDownAlign { topRightToRight, bottomLeftToRight , topLeftToRight, bottomRightToLeft}
+enum DropDownAlign {
+  topRightToRight,
+  bottomLeftToRight,
+  topLeftToRight,
+  bottomRightToLeft
+}
 
 const _controllerIndexDefaultValue = -1;
 
@@ -30,26 +35,27 @@ class DropDownWrapper extends StatefulWidget {
   final bool shouldEnableDropDown;
   final bool shouldColorItemSelected;
   final DropDownWrapperController? controller;
+  final bool shouldChangePlaceholder;
 
-  const DropDownWrapper({
-    super.key,
-    this.width,
-    this.height,
-    this.title,
-    this.shouldIncludeAsterisk,
-    this.dropDownWidth,
-    this.dropDownHeight,
-    this.children,
-    this.onTapChildren,
-    this.placeHolder,
-    // this.chooseIndex = 0,
-    this.dropDownAlign = DropDownAlign.bottomLeftToRight,
-    this.shouldReplacePlaceHolder = true,
-    this.shouldShowBorderPlaceHolder = true,
-    this.shouldEnableDropDown = true,
-    this.shouldColorItemSelected = true,
-    this.controller
-  });
+  const DropDownWrapper(
+      {super.key,
+      this.width,
+      this.height,
+      this.title,
+      this.shouldIncludeAsterisk,
+      this.dropDownWidth,
+      this.dropDownHeight,
+      this.children,
+      this.onTapChildren,
+      this.placeHolder,
+      // this.chooseIndex = 0,
+      this.dropDownAlign = DropDownAlign.bottomLeftToRight,
+      this.shouldReplacePlaceHolder = true,
+      this.shouldShowBorderPlaceHolder = true,
+      this.shouldEnableDropDown = true,
+      this.shouldColorItemSelected = true,
+      this.shouldChangePlaceholder = true,
+      this.controller});
 
   @override
   State<DropDownWrapper> createState() => _DropDownWrapperState();
@@ -93,8 +99,12 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (widget.title != null) Text(widget.title!, style: AppStyle.styleTextButtonBackToLogin),
-            if (widget.shouldIncludeAsterisk == true) Text('*', style: AppStyle.styleTextButtonBackToLogin.copyWith(color: AppColor.colorAsterisk))
+            if (widget.title != null)
+              Text(widget.title!, style: AppStyle.styleTextButtonBackToLogin),
+            if (widget.shouldIncludeAsterisk == true)
+              Text('*',
+                  style: AppStyle.styleTextButtonBackToLogin
+                      .copyWith(color: AppColor.colorAsterisk))
           ],
         ),
         if (widget.title != null) SizedBox(height: 14.h),
@@ -118,30 +128,38 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
               width: widgetWidth,
               height: widgetHeight,
               shouldShowBorder: widget.shouldShowBorderPlaceHolder,
-              backgroundColor: !widget.shouldEnableDropDown ? AppColor.colorSelectedLocationBackground : null,
+              backgroundColor: !widget.shouldEnableDropDown
+                  ? AppColor.colorSelectedLocationBackground
+                  : null,
               child: Stack(
                 children: [
                   ValueListenableBuilder<int>(
                       valueListenable: controller,
                       builder: (_, value, widgets) {
                         return Container(
-                          child: ((enablePlaceHolder || !widget.shouldReplacePlaceHolder) && value == _controllerIndexDefaultValue)
+                          child: ((enablePlaceHolder ||
+                                      !widget.shouldReplacePlaceHolder) &&
+                                  (!widget.shouldChangePlaceholder ||
+                                      (widget.shouldChangePlaceholder &&
+                                          value ==
+                                              _controllerIndexDefaultValue)))
                               ? widget.placeHolder
                               : (widget.children == null)
                                   ? const SizedBox()
-                                  : value < widget.children!.length && value >= 0
+                                  : value < widget.children!.length &&
+                                          value >= 0
                                       ? widget.children![value]
                                       : const SizedBox(),
                         );
-                      }
-                  ),
-                  if (widget.shouldReplacePlaceHolder) Positioned(
-                      bottom: widgetHeight / 2 - 9.r,
-                      right: 14.w,
-                      child: Center(
-                        child: SvgIconWidget(
-                            name: AppImage.svgDropDownArrow, size: 16.r),
-                      ))
+                      }),
+                  if (widget.shouldReplacePlaceHolder)
+                    Positioned(
+                        bottom: widgetHeight / 2 - 9.r,
+                        right: 14.w,
+                        child: Center(
+                          child: SvgIconWidget(
+                              name: AppImage.svgDropDownArrow, size: 16.r),
+                        ))
                 ],
               ),
             ),
@@ -174,33 +192,37 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
                     width: widget.width,
                     height: 200,
                     child: ListView(
-                      children: widget.children?.map((e) => Container(
-                        color: widget.children?.indexOf(e) == controller.value && widget.shouldColorItemSelected
-                            ? AppColor.colorSelectedLocationBackground
-                            : Colors.transparent,
-                        child: GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {
-                              enablePlaceHolder = false;
-                              final newIndex = widget.children?.indexOf(e);
-                              widget.onTapChildren?.call(newIndex!);
-                              _hideOverLay();
-                              setState(() {
-                                controller.value = newIndex!;
-                              });
-                            },
-                            child: e),
-                      )).toList() ?? [],
+                      children: widget.children
+                              ?.map((e) => Container(
+                                    color: widget.children?.indexOf(e) ==
+                                                controller.value &&
+                                            widget.shouldColorItemSelected
+                                        ? AppColor
+                                            .colorSelectedLocationBackground
+                                        : Colors.transparent,
+                                    child: GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () {
+                                          enablePlaceHolder = false;
+                                          final newIndex =
+                                              widget.children?.indexOf(e);
+                                          widget.onTapChildren?.call(newIndex!);
+                                          _hideOverLay();
+                                          setState(() {
+                                            controller.value = newIndex!;
+                                          });
+                                        },
+                                        child: e),
+                                  ))
+                              .toList() ??
+                          [],
                     ),
                   ),
                 ),
               ),
-            )
-        )
-    );
+            )));
 
     if (!overLayIsShown) overlayState?.insert(overlayEntry!);
-
   }
 
   void _hideOverLay() {
@@ -229,13 +251,14 @@ class _DropDownWrapperState extends State<DropDownWrapper> {
       DropDownAlign.bottomLeftToRight => Offset(0, widgetHeight),
       DropDownAlign.topRightToRight => Offset(widgetWidth + 20, 0),
       DropDownAlign.topLeftToRight => Offset(-20 - dropDownWidth, 0),
-      DropDownAlign.bottomRightToLeft => Offset(- dropDownWidth + widgetWidth, widgetHeight + 20)
+      DropDownAlign.bottomRightToLeft =>
+        Offset(-dropDownWidth + widgetWidth, widgetHeight + 20)
     };
   }
 }
 
 class DropDownWrapperController extends ValueNotifier<int> {
-  DropDownWrapperController() : super(-1) ;
+  DropDownWrapperController() : super(-1);
 }
 
 class CountryWidget extends StatelessWidget {
@@ -246,15 +269,14 @@ class CountryWidget extends StatelessWidget {
   final double? width;
   final double? height;
 
-  const CountryWidget({
-    super.key,
-    this.isNetworkIcon,
-    this.leftIconName,
-    this.contentText,
-    this.contentTextStyle,
-    this.width,
-    this.height
-  });
+  const CountryWidget(
+      {super.key,
+      this.isNetworkIcon,
+      this.leftIconName,
+      this.contentText,
+      this.contentTextStyle,
+      this.width,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -265,22 +287,26 @@ class CountryWidget extends StatelessWidget {
       height: height ?? 44.h,
       child: Row(
         children: [
-          if (isNetworkIcon == true) CachedNetworkImage(
-            imageUrl: leftIconName!,
-            placeholder: (_, __) => SizedBox(width: 24.r),
-            errorWidget: (_, __, ___) => SizedBox(width: 24.r),
-            fadeInDuration: Duration.zero,
-            fadeOutDuration: Duration.zero,
-          ),
-          if (_isSvg == true && isNetworkIcon == false) SvgIconWidget(name: leftIconName!, size: 24.r),
-          if (_isSvg == false && isNetworkIcon == false) Image.asset(leftIconName!, width: 24.r, height: 24.r),
+          if (isNetworkIcon == true)
+            CachedNetworkImage(
+              imageUrl: leftIconName!,
+              placeholder: (_, __) => SizedBox(width: 24.r),
+              errorWidget: (_, __, ___) => SizedBox(width: 24.r),
+              fadeInDuration: Duration.zero,
+              fadeOutDuration: Duration.zero,
+            ),
+          if (_isSvg == true && isNetworkIcon == false)
+            SvgIconWidget(name: leftIconName!, size: 24.r),
+          if (_isSvg == false && isNetworkIcon == false)
+            Image.asset(leftIconName!, width: 24.r, height: 24.r),
           if (leftIconName != null) SizedBox(width: 8.w),
           Expanded(
             child: Text(
-                contentText ?? '',
-                style: (contentTextStyle ?? AppStyle.styleTextDropDownButton).copyWith(decoration: TextDecoration.none),
-                // overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+              contentText ?? '',
+              style: (contentTextStyle ?? AppStyle.styleTextDropDownButton)
+                  .copyWith(decoration: TextDecoration.none),
+              // overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
           SizedBox(width: 16.r, height: 16.r)
@@ -296,21 +322,21 @@ class LocationWidget extends StatelessWidget {
   final String? name;
   final String? address;
   final String? avatar;
-  
-  const LocationWidget({
-    super.key,
-    required this.name,
-    required this.address,
-    required this.avatar
-  });
+
+  const LocationWidget(
+      {super.key,
+      required this.name,
+      required this.address,
+      required this.avatar});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.network(avatar ?? '', width: 48.r, height: 48.r, errorBuilder: (_, __, ___) {
-          return SizedBox(width: 48.r, height: 48.r);
-        },),
+        CircleAvatar(
+          radius: 32.r,
+          foregroundImage: NetworkImage(avatar ?? ''),
+        ),
         SizedBox(width: 8.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +354,7 @@ class LocationWidget extends StatelessWidget {
 class UserChoiceWidget extends StatelessWidget {
   final String image;
   final String title;
-  
+
   const UserChoiceWidget({super.key, required this.image, required this.title});
 
   @override
@@ -342,5 +368,3 @@ class UserChoiceWidget extends StatelessWidget {
     );
   }
 }
-
-

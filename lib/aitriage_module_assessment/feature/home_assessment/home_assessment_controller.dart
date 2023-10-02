@@ -26,12 +26,13 @@ class HomeAssessmentController extends GetxController {
     countPatient(1);
   }
 
-  void countPatient(int page){
-    showCountPatient.value = 'Showing $page - ${_getCurrentPatientInPage(page)}/${vm.value.totalPatient}';
+  void countPatient(int page) {
+    showCountPatient.value =
+        'Showing ${(page - 1) * _pageLimit + 1} - ${_getCurrentPatientInPage(page)}/${vm.value.totalPatient}';
   }
 
-  int _getCurrentPatientInPage(int page){
-    if(vm.value.totalPatient - _pageLimit * page >= 0){
+  int _getCurrentPatientInPage(int page) {
+    if (vm.value.totalPatient - _pageLimit * page >= 0) {
       return 20 * page;
     } else {
       final result = vm.value.totalPatient;
@@ -44,20 +45,15 @@ class HomeAssessmentController extends GetxController {
     onTapNumberPaginator(currentPage);
   }
 
-  void onTapNumberPaginator(int page, {
-    Function? onSuccess,
-    Function(String)? onError
-  }) async {
+  void onTapNumberPaginator(int page,
+      {Function? onSuccess, Function(String)? onError}) async {
     try {
       final genderParamType = _getGenderParamTypeUC.execute();
       final user = await ActiveUserUtil.userInfo;
       final searchParam = vm.value.searchParam;
       final resp = await _getListPatientUC.execute(
-          user.id.toString(),
-          page + 1,
-          _pageLimit,
-          searchParam: searchParam
-      );
+          user.id.toString(), page + 1, _pageLimit,
+          searchParam: searchParam);
       final listPatient = resp.patient;
       vm.value.update(
           listPatient: listPatient,
@@ -66,24 +62,21 @@ class HomeAssessmentController extends GetxController {
           totalFemale: resp.totalFemale,
           totalPage: resp.totalPage,
           pageLimit: _pageLimit,
-          currentPage: page
-      );
+          currentPage: page);
       vm.refresh();
       countPatient(page + 1);
       onSuccess?.call();
     } catch (error) {
       log(error.toString());
-      HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
+      HandleNetworkError.handleNetworkError(
+          error, (message, _, __) => onError?.call(message));
     }
-
   }
 
   void onSearchTextFieldChanged(String? text, {Function? onSuccess}) {
     // reset current page + pass text to api param
     vm.value.updateSearchParam(text);
-    _debounce.run(
-            () => onTapNumberPaginator(0, onSuccess: onSuccess),
-            duration: const Duration(seconds: 2)
-    );
+    _debounce.run(() => onTapNumberPaginator(0, onSuccess: onSuccess),
+        duration: const Duration(seconds: 2));
   }
 }
