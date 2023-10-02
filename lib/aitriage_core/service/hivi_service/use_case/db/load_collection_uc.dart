@@ -1,4 +1,4 @@
-import '../repository/isar_database_repository.dart';
+import '../../repository/isar_database_repository.dart';
 
 class LoadCollectionUseCase {
   Future<List<T>> execute<T>() async {

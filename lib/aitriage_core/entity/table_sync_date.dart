@@ -39,4 +39,8 @@ class TableSyncDate {
         role = json?['roles'],
         state = json?['states'],
         systemParam = json?['system-params'];
+
+  printDebug() {
+    print('\ncity:$city\ncountry:$country\nparamType:$paramType\nrace:$race\nrole:$role\nstate:$state\nsystemParam:$systemParam');
+  }
 }

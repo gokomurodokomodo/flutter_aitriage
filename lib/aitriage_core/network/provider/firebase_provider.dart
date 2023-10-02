@@ -12,11 +12,13 @@ class FirebaseProvider {
   static final _databaseURL = AppEnvironment.firebaseRTDBUrl;
   static final _database = FirebaseDatabase.instanceFor(app: _app, databaseURL: _databaseURL);
   static final _firebaseAuth = FirebaseAuth.instanceFor(app: _app);
-  static final _provider = GetConnectBaseProvider(url: AppEnvironment.baseUrl, apiVersion: AppEnvironment.apiVersion);
+  static final _provider = GetConnectBaseProvider(url: AppEnvironment.baseUrl, apiVersion: AppEnvironment.apiVersion, apiPrefix: '/authen');
 
   FirebaseProvider._();
+
   static Future<AuthFirebaseResponse> _getFirebaseToken(AuthFirebaseRequest authRequest) async {
     final response = await _provider.post('/firebase/auth', authRequest.toJson());
+    print('something ${response.body}');
     return _provider.convertResponse(response, (json) => AuthFirebaseResponse.fromJson(json));
   }
 

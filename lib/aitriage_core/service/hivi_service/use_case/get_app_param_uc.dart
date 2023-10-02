@@ -1,7 +1,6 @@
 import 'package:flutter_aitriage/aitriage_core/entity/system_param.dart';
 import '../../../entity/param_type.dart';
 import '../../../entity/race.dart';
-import '../../../entity/role.dart';
 import '../repository/get_app_param_repository.dart';
 
 typedef AppParam = ({

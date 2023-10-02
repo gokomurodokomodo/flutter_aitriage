@@ -28,7 +28,7 @@ class PatientDetailScreen extends StatelessWidget {
 }
 
 class _Tablet extends GetView<PatientDetailController> {
-  const _Tablet({super.key});
+  const _Tablet();
   
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _Tablet extends GetView<PatientDetailController> {
                             Text('Back', style: AppStyle.styleTextUserChoice),
                           ],
                         )),
-                    Spacer(),
+                    const Spacer(),
                     ColorButton(title: 'Add assessment', width: 150.w, shouldEnableBackground: true),
                     SizedBox(width: 16.w),
                     ColorButton(title: 'Add note', width: 100.w, shouldTapAbleWhenDisable: true),
@@ -124,8 +124,8 @@ class _Tablet extends GetView<PatientDetailController> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         Obx(() => PatientDetailInformation(vm: controller.vm.value)),
-                        PatientDetailAssessment(),
-                        PatientDetailNote()
+                        const PatientDetailAssessment(),
+                        const PatientDetailNote()
                       ],
                     ),
                   ),

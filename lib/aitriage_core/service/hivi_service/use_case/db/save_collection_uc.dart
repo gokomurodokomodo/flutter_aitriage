@@ -1,4 +1,4 @@
-import '../repository/isar_database_repository.dart';
+import '../../repository/isar_database_repository.dart';
 
 class SaveCollectionUseCase {
   execute<T>({T? object, List<T>? list}) async {
