@@ -14,58 +14,69 @@ class AppDialog extends StatelessWidget {
   final String? secondaryButtonTitle;
   final Function? primaryButtonCallback;
   final Function? secondaryButtonCallback;
+  final double? dialogWidth;
+  final double? dialogHeight;
 
-  const AppDialog({
-    super.key,
-    required this.content,
-    required this.title,
-    this.primaryButtonCallback,
-    this.secondaryButtonCallback,
-    this.primaryButtonTitle,
-    this.secondaryButtonTitle
-  });
+  const AppDialog(
+      {super.key,
+      required this.content,
+      required this.title,
+      this.primaryButtonCallback,
+      this.secondaryButtonCallback,
+      this.primaryButtonTitle,
+      this.secondaryButtonTitle,
+      this.dialogHeight,
+      this.dialogWidth});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      elevation: 0,
-      insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 10.h),
-          Row(
+        elevation: 0,
+        insetPadding: EdgeInsets.symmetric(horizontal: 24.w),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: SizedBox(
+          width: dialogWidth ?? 400.w,
+          height: dialogHeight ?? 320.h,
+          child: Column(
             children: [
-              SizedBox(width: 48.w),
-              Expanded(child: Center(child: Text(title, style: AppStyle.styleTextDialogTitle))),
-              GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Image.asset(AppImage.icCloseDialog, width: 24.w, height: 24.w)),
-              SizedBox(width: 24.w)
+              SizedBox(height: 24.h),
+              Row(
+                children: [
+                  SizedBox(width: 24.w),
+                  Expanded(
+                      child: Text(title, style: AppStyle.styleTextDialogTitle)),
+                  GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Image.asset(AppImage.icCloseDialog,
+                          width: 24.w, height: 24.w)),
+                  SizedBox(width: 24.w)
+                ],
+              ),
+              content,
+              shouldShowPrimaryButton
+                  ? ColorButton(
+                          title: primaryButtonTitle!,
+                          shouldEnableBackground: true,
+                          onTap: () => primaryButtonCallback?.call())
+                      .paddingSymmetric(horizontal: 16.w)
+                  : const SizedBox(),
+              shouldShowSecondaryButton
+                  ? ColorButton(
+                          title: secondaryButtonTitle!,
+                          onTap: () => secondaryButtonCallback?.call())
+                      .paddingOnly(top: 8.h, left: 16.w, right: 16.w)
+                  : const SizedBox(),
+              SizedBox(height: 24.h)
             ],
           ),
-          content,
-          shouldShowPrimaryButton
-              ? ColorButton(
-                title: primaryButtonTitle!,
-                shouldEnableBackground: true,
-                onTap: () => primaryButtonCallback?.call()).paddingSymmetric(horizontal: 16.w)
-              : const SizedBox(),
-          shouldShowSecondaryButton
-              ? ColorButton(
-                title: secondaryButtonTitle!,
-                onTap: () => secondaryButtonCallback?.call()).paddingOnly(top: 8.h, left: 16.w, right: 16.w)
-              : const SizedBox(),
-          SizedBox(height: 24.h)
-        ],
-      )
-    );
+        ));
   }
 
-  bool get shouldShowPrimaryButton => primaryButtonTitle != null && primaryButtonTitle != '';
+  bool get shouldShowPrimaryButton =>
+      primaryButtonTitle != null && primaryButtonTitle != '';
 
-  bool get shouldShowSecondaryButton => secondaryButtonTitle != null && secondaryButtonTitle != '';
+  bool get shouldShowSecondaryButton =>
+      secondaryButtonTitle != null && secondaryButtonTitle != '';
 }

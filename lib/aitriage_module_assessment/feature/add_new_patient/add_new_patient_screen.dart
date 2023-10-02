@@ -31,7 +31,6 @@ class AddNewPatientScreen extends StatelessWidget {
 }
 
 class _Tablet extends StatelessWidget {
-
   _Tablet();
   final controller = Get.find<AddNewPatientController>();
 
@@ -55,12 +54,11 @@ class _Tablet extends StatelessWidget {
                 // Dialog Header
                 Row(
                   children: [
-                    Obx(() => Text(
-                        controller.vm.value.patientScreenTitle,
+                    Obx(() => Text(controller.vm.value.patientScreenTitle,
                         style: AppStyle.styleTextDialogHeaderTitle)),
                     const Spacer(),
                     GestureDetector(
-                        onTap: () => Get.back(),
+                        onTap: () => Get.back(result: false),
                         child: SvgIconWidget(
                             name: AppImage.svgDialogClose, size: 24.w))
                   ],
@@ -96,12 +94,16 @@ class _Tablet extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   DropDownWrapper(
-                                    controller: controller.nationalityController,
-                                    placeHolder: const AddPatientDropDownPlaceHolder(title: 'Nationality*'),
+                                    controller:
+                                        controller.nationalityController,
+                                    placeHolder:
+                                        const AddPatientDropDownPlaceHolder(
+                                            title: 'Nationality*'),
                                     width: constraints.maxWidth,
                                     height: 56.h,
                                     dropDownHeight: 200,
-                                    onTapChildren: (index) => controller.onTapNationality(index),
+                                    onTapChildren: (index) =>
+                                        controller.onTapNationality(index),
                                     children: controller.vm.value.nationalities
                                         .map((e) => SizedBox(
                                             width: constraints.maxWidth,
@@ -162,7 +164,8 @@ class _Tablet extends StatelessWidget {
                                     width: constraints.maxWidth,
                                     height: 56.h,
                                     dropDownHeight: 200,
-                                    onTapChildren: (index) => controller.onTapState(index),
+                                    onTapChildren: (index) =>
+                                        controller.onTapState(index),
                                     children: controller.vm.value.states
                                         .map((e) => SizedBox(
                                             width: constraints.maxWidth,
@@ -228,7 +231,8 @@ class _Tablet extends StatelessWidget {
                                       dropDownHeight: 200,
                                       shouldEnableDropDown: controller
                                           .vm.value.shouldEnableCityDropDown,
-                                      onTapChildren: (index) => controller.onTapCity(index),
+                                      onTapChildren: (index) =>
+                                          controller.onTapCity(index),
                                       children: controller.vm.value.cities
                                           .map((e) => SizedBox(
                                               width: constraints.maxWidth,
@@ -275,7 +279,8 @@ class _Tablet extends StatelessWidget {
                                         width: constraints.maxWidth,
                                         height: 56.h,
                                         dropDownHeight: 100,
-                                        onTapChildren: (index) => controller.onTapGender(index),
+                                        onTapChildren: (index) =>
+                                            controller.onTapGender(index),
                                         children: controller.vm.value.genders
                                             .map((e) => SizedBox(
                                                 width: constraints.maxWidth,
@@ -324,7 +329,8 @@ class _Tablet extends StatelessWidget {
                                                     AddPatientDropDownPlaceHolder(
                                                         title: e)))
                                             .toList(),
-                                          onTapChildren: (index) => controller.onTapRace(index),
+                                        onTapChildren: (index) =>
+                                            controller.onTapRace(index),
                                       ),
                                       SizedBox(
                                         height: 5.h,
@@ -387,10 +393,12 @@ class _Tablet extends StatelessWidget {
                               onTextChange: (value) =>
                                   controller.onInfoChange(phone: value),
                             ),
-                            SizedBox(height: 16.h,),
+                            SizedBox(
+                              height: 16.h,
+                            ),
                             Obx(() => SizedBox(
-                              height: 80.h,
-                              child: CustomLoginField(
+                                  height: 80.h,
+                                  child: CustomLoginField(
                                     controller: controller.emailController,
                                     hintText: 'Email',
                                     isValidated:
@@ -402,7 +410,7 @@ class _Tablet extends StatelessWidget {
                                     onTextChange: (value) =>
                                         controller.onInfoChange(email: value),
                                   ),
-                            )),
+                                )),
                           ],
                         ),
                       ),
@@ -412,14 +420,17 @@ class _Tablet extends StatelessWidget {
                               builder: (BuildContext context,
                                       BoxConstraints constraints) =>
                                   CustomLoginField(
-                                    controller: controller.descriptionController,
+                                    controller:
+                                        controller.descriptionController,
                                     textFieldWidth: double.maxFinite,
                                     textFieldHeight:
                                         constraints.maxHeight - 22.5,
                                     textAlignVertical: TextAlignVertical.top,
                                     maxLines: 15,
                                     hintText: 'Description',
-                                    multiLineContentPadding: const EdgeInsets.only(top: 8, right: 8, bottom: 2),
+                                    multiLineContentPadding:
+                                        const EdgeInsets.only(
+                                            top: 8, right: 8, bottom: 2),
                                     onTextChange: (value) => controller
                                         .onInfoChange(description: value),
                                   )))
@@ -436,7 +447,7 @@ class _Tablet extends StatelessWidget {
                       width: 212.w,
                       height: 48.h,
                       shouldTapAbleWhenDisable: true,
-                      onTap: () => Get.back(),
+                      onTap: () => Get.back(result: false),
                     ),
                     SizedBox(width: 20.w),
                     Obx(() => ColorButton(
@@ -448,7 +459,7 @@ class _Tablet extends StatelessWidget {
                           width: 212.w,
                           height: 48.h,
                           onTap: () {
-                            onSuccess() async{
+                            onSuccess() async {
                               await Get.forceAppUpdate();
                               Get.back(result: true);
                             }
