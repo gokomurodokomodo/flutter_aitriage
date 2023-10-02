@@ -8,12 +8,15 @@ import '../../../aitriage_core/util/language_string_from_json/language_string_fr
 class PatientDetailVM {
   var _patient = Patient();
   final _genderParamType = <ParamType>[];
+  var _shouldReloadData = false;
 
   void update({
     Patient? patient,
-    List<ParamType>? genderParamType
+    List<ParamType>? genderParamType,
+    bool? shouldReloadData
   }) {
     _patient = patient ?? _patient;
+    _shouldReloadData = shouldReloadData ?? _shouldReloadData;
 
     if (genderParamType != null) {
       _genderParamType.clear();
@@ -95,4 +98,6 @@ class PatientDetailVM {
   String get patientDescription => _patient.description ?? '';
 
   Patient get patientEntity => _patient.copyWith();
+
+  bool get shouldReloadData => _shouldReloadData;
 }

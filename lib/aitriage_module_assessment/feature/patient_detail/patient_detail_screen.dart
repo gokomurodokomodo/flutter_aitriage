@@ -97,7 +97,10 @@ class _Tablet extends GetView<PatientDetailController> {
                     onTapPrimaryButton: () {
                       onSuccess() {
                         Get.back();
-                        Get.back(id: AssessmentModulePageRoute.nestedId, result: true);
+                        Get.back(
+                            id: AssessmentModulePageRoute.nestedId,
+                            result: controller.vm.value.shouldReloadData
+                        );
                       }
                       onError(message) {
                         Get.back();

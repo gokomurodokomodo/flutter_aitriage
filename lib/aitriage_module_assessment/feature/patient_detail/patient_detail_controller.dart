@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
@@ -55,7 +54,7 @@ class PatientDetailController extends GetxController {
       final updatedPatientInfo = vm.value.patientEntity.copyWith(avatar: resp.data);
       final request = UpdatePatientRequest(updatedPatientInfo);
       final resp1 = await _updatePatientUC.execute(request, userInfo.accountId.toString());
-      vm.value.update(patient: resp1.data);
+      vm.value.update(patient: resp1.data, shouldReloadData: true);
       vm.refresh();
       onSuccess?.call();
     } catch (error) {
@@ -70,7 +69,8 @@ class PatientDetailController extends GetxController {
     try {
       final userInfo = await ActiveUserUtil.userInfo;
       final patientId = _argument['patientId'];
-      final resp = await _deletePatientUC.execute(userInfo.accountId.toString(), patientId.toString());
+      await _deletePatientUC.execute(userInfo.accountId.toString(), patientId.toString());
+      vm.value.update(shouldReloadData: true);
       onSuccess?.call();
     } catch (error) {
       log(error.toString());
