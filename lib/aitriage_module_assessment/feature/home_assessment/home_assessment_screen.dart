@@ -10,6 +10,7 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/line_separated.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/patient_summary_listview.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/vital_sign_chart.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -178,8 +179,15 @@ class _TabletState extends State<_Tablet> {
                                                   controller.vm.value.totalPage,
                                               onPageChange: (value) {
                                                 setState(() {});
+                                                AlertUtil.showLoadingIndicator();
                                                 controller.onTapNumberPaginator(
-                                                    value);
+                                                    value,
+                                                    onSuccess: () => Get.back(),
+                                                    onError: (message) {
+                                                      Get.back();
+                                                      Get.snackbar('Error', message);
+                                                    }
+                                                );
                                               },
                                               controller: _pageController,
                                               config: NumberPaginatorUIConfig(

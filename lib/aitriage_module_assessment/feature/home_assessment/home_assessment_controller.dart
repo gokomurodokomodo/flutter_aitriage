@@ -7,6 +7,8 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home_assessment/home_assessment_vm.dart';
 import 'package:get/get.dart';
 
+import '../../../aitriage_core/network/handle_error/handle_error.dart';
+
 class HomeAssessmentController extends GetxController {
   final GetListPatientUseCase _getListPatientUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
@@ -42,7 +44,10 @@ class HomeAssessmentController extends GetxController {
     onTapNumberPaginator(currentPage);
   }
 
-  void onTapNumberPaginator(int page, {Function? onSuccess}) async {
+  void onTapNumberPaginator(int page, {
+    Function? onSuccess,
+    Function(String)? onError
+  }) async {
     try {
       final genderParamType = _getGenderParamTypeUC.execute();
       final user = await ActiveUserUtil.userInfo;
@@ -66,8 +71,9 @@ class HomeAssessmentController extends GetxController {
       vm.refresh();
       countPatient(page + 1);
       onSuccess?.call();
-    } catch (e) {
-      log(e.toString());
+    } catch (error) {
+      log(error.toString());
+      HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
     }
 
   }
