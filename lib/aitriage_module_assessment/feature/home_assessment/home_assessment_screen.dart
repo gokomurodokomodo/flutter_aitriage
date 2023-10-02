@@ -143,6 +143,7 @@ class _TabletState extends State<_Tablet> {
                                       AssessmentModulePageRoute.patientDetail,
                                       id: AssessmentModulePageRoute.nestedId,
                                       arguments: {'patientId': patientId});
+
                                   if (result == true) {
                                     controller.reloadCurrentPage();
                                   }

@@ -101,6 +101,7 @@ class _Tablet extends GetView<PatientDetailController> {
                             id: AssessmentModulePageRoute.nestedId,
                             result: controller.vm.value.shouldReloadData
                         );
+                        Get.snackbar('Success', 'Successfully deleted patient');
                       }
                       onError(message) {
                         Get.back();

@@ -109,10 +109,6 @@ class HiviService extends GetxService {
     try {
       _localSyncDate = await getTableSyncDateUC.execute();
       _firebaseSyncDate = firebaseSyncDate;
-      print('FIREBASE');
-      _firebaseSyncDate!.printDebug();
-      print('LOCAL');
-      _localSyncDate!.printDebug();
       // Update data to session
       if (_shouldUpdateParamType) await _updateParamType();
       if (_shouldUpdateRaces) await _updateRaces();
