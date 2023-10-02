@@ -132,10 +132,14 @@ class _TabletState extends State<_Tablet> {
                         SizedBox(height: 20.h),
                         Expanded(
                             child: Obx(() => PatientSummaryListView(
-                                onTapPatient: (patientId) => Get.toNamed(
-                                    AssessmentModulePageRoute.patientDetail,
-                                    id: AssessmentModulePageRoute.nestedId,
-                                    arguments: {'patientId': patientId}),
+                                onTapPatient: (patientId) async {
+                                  final result = await Get.toNamed(
+                                      AssessmentModulePageRoute.patientDetail,
+                                      id: AssessmentModulePageRoute.nestedId,
+                                      arguments: {'patientId': patientId});
+
+                                  if (result == true) controller.reloadCurrentPage();
+                                },
                                 list:
                                     controller.vm.value.listPatientSummaryVM))),
                         LineSeparated(margin: 16.h),

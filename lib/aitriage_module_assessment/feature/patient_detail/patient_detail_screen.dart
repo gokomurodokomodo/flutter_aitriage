@@ -94,6 +94,18 @@ class _Tablet extends GetView<PatientDetailController> {
                       Get.snackbar('Message', 'Avatar is uploading');
                       controller.onTapAvatar(onSuccess: onSuccess, onError: onError);
                     },
+                    onTapPrimaryButton: () {
+                      onSuccess() {
+                        Get.back();
+                        Get.back(id: AssessmentModulePageRoute.nestedId, result: true);
+                      }
+                      onError(message) {
+                        Get.back();
+                        Get.snackbar('Error', message);
+                      }
+                      AlertUtil.showLoadingIndicator();
+                      controller.onTapDeleteButton(onSuccess: onSuccess, onError: onError);
+                    }
                 )),
                 Expanded(
                   child: Container(

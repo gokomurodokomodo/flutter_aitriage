@@ -11,4 +11,5 @@ abstract class PatientRepository {
   Future<PatientResponse> getListPatient(String accountId, int page, int limit, {String? searchParam});
   Future<PatientDetailResponse> getPatientDetail(String accountId, String customerId);
   Future<PatientDetailResponse> updatePatient(UpdatePatientRequest request, String accountId);
+  Future<BaseResponse> deletePatient(String accountId, String patientId);
 }

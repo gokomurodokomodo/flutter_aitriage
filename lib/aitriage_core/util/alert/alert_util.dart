@@ -25,12 +25,12 @@ class AlertUtil {
       };
     });
   }
-
-  static void showLoadingIndicatorWithText() {
-    // hideLoading();
-  }
-
-  static void showCustomDialog() {
-    // hideLoading();
-  }
+  //
+  // static void showLoadingIndicatorWithText() {
+  //   // hideLoading();
+  // }
+  //
+  // static void showCustomDialog() {
+  //   // hideLoading();
+  // }
 }

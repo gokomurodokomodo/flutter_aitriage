@@ -46,4 +46,10 @@ class PatientRepositoryImpl extends PatientRepository {
     final resp = await _provider.put(AssessmentModuleApiRoute.updatePatient.replaceAll('%s', accountId), request.toRequest());
     return _provider.convertResponse(resp, (json) => PatientDetailResponse.fromJson(json));
   }
+
+  @override
+  Future<BaseResponse> deletePatient(String accountId, String patientId) async {
+    final resp = await _provider.delete(AssessmentModuleApiRoute.deletePatient.replaceAll('%s', accountId), query: {'customerId' : patientId});
+    return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
+  }
 }

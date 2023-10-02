@@ -26,6 +26,7 @@ class HandleNetworkError {
   static const blankPatientRace = 'BLANK_PATIENT_RACE';
   static const blankPatientBirthday = 'BLANK_PATIENT_BIRTHDAY';
   static const blankPatientGender = 'BLANK_PATIENT_GENDER';
+  static const patientHasAssessment = 'PATIENT_HAS_ASSESSMENT';
 
   HandleNetworkError._();
 
@@ -62,6 +63,7 @@ class HandleNetworkError {
         blankPatientRace => 'Race is required',
         blankPatientBirthday => 'Date of birth is required',
         blankPatientGender => 'Gender is required',
+        patientHasAssessment => 'Can\'t delete patient with assessment history',
         _ => error.message
       };
 

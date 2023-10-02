@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
 import 'package:get/get.dart';
+import '../../domain/use_case/delete_patient_uc.dart';
 import '../../domain/use_case/get_patient_detail_uc.dart';
 
 class PatientDetailBinding extends Bindings {
@@ -16,11 +17,13 @@ class PatientDetailBinding extends Bindings {
     Get.lazyPut(() => GetPatientDetailUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => GetGenderParamUseCaseImpl());
     Get.lazyPut(() => UpdatePatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
+    Get.lazyPut(() => DeletePatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => PatientDetailController(
         argument,
         Get.find<GetPatientDetailUseCaseImpl>(),
         Get.find<GetGenderParamUseCaseImpl>(),
         Get.find<UpdatePatientUseCaseImpl>(),
+        Get.find<DeletePatientUseCaseImpl>()
     ));
   }
 }

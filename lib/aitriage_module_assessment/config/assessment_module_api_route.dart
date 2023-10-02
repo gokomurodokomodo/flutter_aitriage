@@ -6,4 +6,5 @@ class AssessmentModuleApiRoute {
   static const getAllPatient = '/main/v1/customer/account/%s/list';
   static const getPatientDetail = '/main/v1/customer/account/%s/detail';
   static const updatePatient = '/main/v1/customer/account/%s/update';
+  static const deletePatient = '/main/v1/customer/account/%s/delete';
 }

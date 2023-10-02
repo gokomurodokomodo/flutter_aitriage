@@ -37,6 +37,11 @@ class HomeAssessmentController extends GetxController {
     }
   }
 
+  void reloadCurrentPage() {
+    final currentPage = vm.value.currentPage;
+    onTapNumberPaginator(currentPage);
+  }
+
   void onTapNumberPaginator(int page, {Function? onSuccess}) async {
     try {
       final genderParamType = _getGenderParamTypeUC.execute();
