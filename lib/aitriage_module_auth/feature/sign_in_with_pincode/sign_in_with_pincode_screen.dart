@@ -10,8 +10,6 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
-import '../../config/auth_route.dart';
-import '../../widget/sign_in_divider.dart';
 
 class SignInWithPinCodeScreen extends StatelessWidget {
   const SignInWithPinCodeScreen({super.key});
@@ -84,37 +82,9 @@ class _Tablet extends GetView<SignInWithPinCodeController> {
                     height: 40.w,
                     child: ColorButton(
                       title: 'sign_in'.tr,
-                      shouldEnable: true,
+                      shouldEnableBackground: true,
                     ),
                   ),
-                SizedBox(height: 20.h,),
-                const SignInDivider(),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SizedBox(
-                  width: 340.w,
-                  child: ColorButton(
-                    title: 'sign_in_with_email'.tr,
-                    textStyle: const TextStyle(color: AppColor.colorRememberMeText),
-                    shouldEnable: true,
-                    colorActive: AppColor.colorAppBackground,
-                    onTap: () => Get.offNamed(AuthRoute.signIn),
-                  ),
-                ),
-                SizedBox(
-                  width: 450.w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
-                      TextButton(
-                          onPressed: (){},
-                          child: Text('sign_up'.tr)),
-                    ],
-                  ),
-                )
               ],
             ),
           ),

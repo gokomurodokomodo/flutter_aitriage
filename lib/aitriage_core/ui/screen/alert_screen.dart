@@ -11,14 +11,11 @@ enum AlertStatus { success, warning, error }
 
 extension AlertExtension on AlertStatus {
   String get icon {
-    switch (this) {
-      case AlertStatus.success:
-        return AppImage.svgSuccessAlert;
-      case AlertStatus.warning:
-        return AppImage.svgWarningAlert;
-      case AlertStatus.error:
-        return 'Error';
-    }
+    return switch (this) {
+      AlertStatus.success => AppImage.svgSuccessAlert,
+      AlertStatus.warning => AppImage.svgWarningAlert,
+      AlertStatus.error => 'Error'
+    };
   }
 }
 
@@ -115,7 +112,7 @@ class _Phone extends StatelessWidget {
             SvgIconWidget(name: alertStatus.icon, size: 96,),
             const Text('Patient Added Successfully'),
             const Spacer(),
-            ColorButton(title: 'Confirm', shouldEnable: true, onTap: () => onTapPrimaryButton?.call()),
+            ColorButton(title: 'Confirm', shouldEnableBackground: true, onTap: () => onTapPrimaryButton?.call()),
             const SizedBox(height: 5),
             ColorButton(title: 'Dismiss', onTap: () => onTapSecondaryButton?.call()),
             const SizedBox(height: 10)

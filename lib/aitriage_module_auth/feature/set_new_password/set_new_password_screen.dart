@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/check_box_with_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -71,8 +71,8 @@ class _Tablet extends StatelessWidget {
                   ColorButton(
                       title: 'reset_password'.tr, 
                       width: 360.w, 
-                      shouldEnable: true,
-                      onTap: () => Get.toNamed(AuthRoute.successResetPassword),
+                      shouldEnableBackground: true,
+                      onTap: () => Get.toNamed(AuthModulePageRoute.successResetPassword),
                   ),
                   SizedBox(height: 32.h),
                   const BackToLoginTextButton()

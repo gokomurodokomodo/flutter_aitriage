@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../aitriage_core/common/app_image.dart';
-import '../../../aitriage_core/service/localization_service.dart';
+import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../../aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import '../../../aitriage_core/util/device_util.dart';
 import '../../../aitriage_core/util/subscription_collector/subscription_collector.dart';
-import '../../config/main_route.dart';
+import '../../config/main_module_page_route.dart';
 import '../splash_screen/splash_screen.dart';
 
 class App extends StatefulWidget {
@@ -29,7 +28,7 @@ class _AppState extends State<App> with SubscriptionCollector {
   var finishInit = false;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
     final appEventChannel = AppEventChannel();
     final lastEvent = appEventChannel.getLastEvent<FinishInitEvent>();
@@ -87,8 +86,8 @@ class _AppState extends State<App> with SubscriptionCollector {
   bool get shouldLaunchIntroScreen => true;
 
   String get initialRoute => shouldLaunchIntroScreen
-      ? MainRoute.intro
-      : MainRoute.main;
+      ? MainModulePageRoute.intro
+      : MainModulePageRoute.main;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +106,9 @@ class _AppState extends State<App> with SubscriptionCollector {
                 // Init page route
                 initialRoute: initialRoute,
                 getPages: widget.pages,
-                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+                theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme(
+                  
+                )),
                 // Init localize
                 translations: LocalizationService(),
                 locale: LocalizationService.currentLocale,

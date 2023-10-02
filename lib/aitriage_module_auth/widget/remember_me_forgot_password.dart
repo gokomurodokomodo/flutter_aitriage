@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../aitriage_core/common/app_style.dart';
-import '../config/auth_route.dart';
 
 class RememberAndForgotPassword extends StatelessWidget {
   final bool isChecked;
@@ -47,7 +46,7 @@ class RememberAndForgotPassword extends StatelessWidget {
               style: TextButton.styleFrom(
                   padding: EdgeInsets.zero
               ),
-              child: Text('forgot_password'.tr),
+              child: Text('forgot_password'.tr, style: AppStyle.styleForgotPassword,),
 
             ),
           ],

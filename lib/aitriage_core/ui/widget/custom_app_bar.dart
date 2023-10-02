@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../common/app_color.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{

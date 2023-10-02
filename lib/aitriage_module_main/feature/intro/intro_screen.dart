@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
-import 'package:flutter_aitriage/aitriage_module_main/config/main_route.dart';
-import 'package:flutter_aitriage/aitriage_module_main/feature/app/app.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/util/global_function.dart';
 import '../../widget/circle_indicator.dart';
@@ -56,14 +54,6 @@ class _TabletState extends State<_Tablet> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
-      floatingActionButton: GestureDetector(
-        onTap: () => Get.toNamed(MainRoute.main),
-        child: Container(
-          width: 40.r, 
-          height: 40.r,
-          color: Colors.red,
-        ),
-      ),
       body: Column(
         children: [
           SizedBox(
@@ -101,13 +91,16 @@ class _TabletState extends State<_Tablet> {
           CircleIndicator(index: index, length: 4),
           SizedBox(height: 50.h),
           ColorButton(
+              onTap: () => Navigator.of(Get.context!).push(
+                MaterialPageRoute(builder: (context) => const RegisterAccountTypeScreen())
+              ),
               title: 'sign_up_title'.tr, 
               width: 360.w, 
-              shouldEnable: true,
+              shouldEnableBackground: true,
           ),
           SizedBox(height: 34.h),
           GestureDetector(
-            onTap: () => Get.toNamed(AuthRoute.signIn),
+            onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -139,7 +132,7 @@ class _PhoneState extends State<_Phone> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColor.colorAppBackground,
     );
   }

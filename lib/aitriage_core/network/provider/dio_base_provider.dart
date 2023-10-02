@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:flutter_aitriage/aitriage_core/network/logging.dart';
+import 'package:flutter_aitriage/aitriage_core/network/logging/logging.dart';
 import '../../common/app_error.dart';
-import '../base_response.dart';
+import '../common/base_response.dart';
 
 class DioBaseProvider with ShowLog {
   final _dio = Dio();
@@ -32,10 +32,8 @@ class DioBaseProvider with ShowLog {
     final statusCode = response.statusCode ?? 0;
 
     if (statusCode >= 200 && statusCode <= 299) {
-      showResponse(response.data);
-      return mapper.call(response.data)
-        ..statusCode = response.statusCode
-        ..message = response.statusMessage;
+      showResponse(response.realUri.toString(),response.data);
+      return mapper.call(response.data);
     } else {
       throw AppError(
           errorType: AppErrorType.networkError,

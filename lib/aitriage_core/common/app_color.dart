@@ -10,6 +10,7 @@ class AppColor {
         Color.fromRGBO(255, 255, 255, 0.10),
         Color.fromRGBO(255, 255, 255, 0.08)]);
   // Color
+  static const dialogBackground = Color(0xff000000);
   static const colorAppPrimary = Color(0xFF0151FC);
   static const colorButtonBackgroundEnable = Color(0xff2F9DFE);
   static const colorAppBackground = Color(0xffFFFFFF);
@@ -40,4 +41,8 @@ class AppColor {
   static const colorStepItemDone = Color(0xfff4f4f4);
   static const colorSignUpIconWrapperBorder = Color(0xffEAECF0);
   static const colorAsterisk = Color(0xffFF4A4A);
+  static const colorForgotPassword= Color(0xFF027BFE);
+  static const colorSelectedLocationBackground = Color(0xfff9f9f9);
+  static const colorSummaryViewLabel = Color(0xfffafafa);
+  static const colorPatientInformationText = Color(0xff686868);
 }

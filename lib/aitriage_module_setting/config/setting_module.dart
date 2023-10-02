@@ -5,4 +5,8 @@ import 'setting_route.dart';
 class SettingModule extends AppModule {
   @override
   List<GetPage> createRoutes() => SettingRoute.createRoutes();
+
+  @override
+  // TODO: implement apiPrefix
+  String get apiPrefix => throw UnimplementedError();
 }

@@ -34,7 +34,7 @@ class GetStartedMainColumnItem extends StatelessWidget {
             SizedBox(width: 14.w),
             Text(title, style: _titleStyle),
             const Spacer(),
-            ColorButton(title: buttonTitle, width: 120.w, shouldEnable: true)
+            ColorButton(title: buttonTitle, width: 120.w, shouldEnableBackground: true)
           ],
         ),
         if (state == GetStartedItemState.running) Padding(
@@ -47,13 +47,10 @@ class GetStartedMainColumnItem extends StatelessWidget {
   String get _iconName => state == GetStartedItemState.finished ? AppImage.svgCheckEnabled : AppImage.svgCheckDisabled;
 
   TextStyle get _titleStyle {
-    switch (state) {
-      case GetStartedItemState.ready:
-        return AppStyle.styleCheckYourEmailNotification;
-      case GetStartedItemState.running:
-        return AppStyle.styleGettingStartedItemTitle;
-      case GetStartedItemState.finished:
-        return AppStyle.styleCheckYourEmailNotification.copyWith(decoration: TextDecoration.lineThrough);
-    }
+    return switch (state) {
+      GetStartedItemState.ready => AppStyle.styleCheckYourEmailNotification,
+      GetStartedItemState.running => AppStyle.styleGettingStartedItemTitle,
+      GetStartedItemState.finished => AppStyle.styleCheckYourEmailNotification.copyWith(decoration: TextDecoration.lineThrough)
+    };
   }
 }

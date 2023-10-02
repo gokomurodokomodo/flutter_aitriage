@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
@@ -7,8 +8,10 @@ import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_mo
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_module.dart';
 import 'package:get/get.dart';
 import 'aitriage_core/common/app_module.dart';
-import 'aitriage_core/service/localization_service.dart';
 import 'package:get_storage/get_storage.dart';
+import 'aitriage_core/local_storage/database/provider/isar_provider.dart';
+import 'aitriage_core/service/hivi_service/hivi_service.dart';
+import 'aitriage_core/service/localization_service/localization_service.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
 import 'aitriage_module_auth/config/auth_module.dart';
 import 'aitriage_module_main/config/main_module.dart';
@@ -38,7 +41,7 @@ void mainDelegate(AppEnvironmentType appEnvironment) async {
 }
 
 Future<void> _setPreferOrientation() async => DeviceUtil.isTablet
-      ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+      ? SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       : SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
 Future<void> _setImmersiveModeOnTablet() async{
@@ -64,10 +67,16 @@ Future<void> _initLocalStorage() => GetStorage.init();
 
 Future<void> _initLocalization() => LocalizationService.loadLanguage();
 
-Future _initFirebase() async {}
+Future _initFirebase() async => await Firebase.initializeApp();
 
-Future _initService() async {}
+Future _initDataBase() async => await IsarProvider.init();
 
-
-
-
+Future _initService() async {
+  // api service using database
+  // wait until database finish init
+  await _initDataBase();
+  final hiviService = HiviService.instance;
+  // Calling api to get param for app
+  // Must put here to ensure data ready when going screen inside;
+  await hiviService.getAppParam();
+}

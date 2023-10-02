@@ -9,18 +9,18 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
-import '../../config/auth_route.dart';
+import '../../../aitriage_core/util/alert/alert_util.dart';
+import '../../../aitriage_module_main/config/main_module_page_route.dart';
+import '../../config/auth_module_page_route.dart';
+import '../../widget/drop_down_button.dart';
 import '../../widget/remember_me_forgot_password.dart';
-import '../../widget/sign_in_divider.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DeviceDetector(
-        tablet: const _Tablet(),
-        phone: _Phone());
+    return DeviceDetector(tablet: const _Tablet(), phone: _Phone());
   }
 }
 
@@ -29,6 +29,12 @@ class _Tablet extends GetView<SignInController> {
 
   @override
   Widget build(BuildContext context) {
+    // for dev
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    emailController.text = 'huetransky@gmail.com';
+    passwordController.text = 'Hue@12345';
+
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       resizeToAvoidBottomInset: true,
@@ -44,23 +50,28 @@ class _Tablet extends GetView<SignInController> {
                 headerText: 'welcome_back'.tr,
               ),
               SizedBox(height: 14.h),
-                SizedBox(
-                  child: CustomLoginField(
-                    onTextChange: (_) => controller.onTextEmailChange(_),
-                    // isValidated: widget.controller.isValidEmail.value,
-                    label: 'email_label'.tr,
-                    hintText: 'email_hint'.tr,
-                  ),
+              SizedBox(
+                child: CustomLoginField(
+                  controller: emailController,
+                  onTextChange: (_) => controller.onTextEmailChange(_),
+                  // isValidated: widget.controller.isValidEmail.value,
+                  label: 'email_label_sign_in'.tr,
+                  hintText: 'email_hint'.tr,
                 ),
+              ),
               SizedBox(height: 14.h),
-                CustomLoginField(
-                  shouldSecured: true,
-                  onTextChange: (_) =>
-                      controller.onTextPasswordChange(_),
-                  // isValidated: widget.controller.isValidPassword.value,
-                  label: 'password_label'.tr,
-                  hintText: 'password_hint'.tr,
-                ),
+              Obx(() => CustomLoginField(
+                    controller: passwordController,
+                    shouldHaveTrailingIcon: true,
+                    onSwitchPasswordView: () =>
+                        controller.onSwitchPasswordView(),
+                    sercurePassword: controller.isSecured.value,
+                    shouldSecured: controller.isSecured.value,
+                    onTextChange: (_) => controller.onTextPasswordChange(_),
+                    // isValidated: widget.controller.isValidPassword.value,
+                    label: 'password_label'.tr,
+                    hintText: 'password_hint'.tr,
+                  )),
               Obx(() {
                 return SizedBox(
                   width: 360.w,
@@ -69,49 +80,75 @@ class _Tablet extends GetView<SignInController> {
                     onTapCheck: (value) {
                       controller.onCheckBoxTap(value);
                     },
-                    onTapForgotPassword: () => Get.toNamed(AuthRoute.forgotPassword),
+                    onTapForgotPassword: () =>
+                        Get.toNamed(AuthModulePageRoute.forgotPassword),
                   ),
                 );
               }),
-              SizedBox(
+              Obx(() {
+                return SizedBox(
                   width: 360.w,
                   child: ColorButton(
                     title: 'sign_in'.tr,
-                    shouldEnable: controller.isValidated.value,
-                    onTap: () => Get.toNamed(AuthRoute.signInWithCode),
+                    shouldEnableBackground: controller.isValidated.value,
+                    onTap: () async {
+                      onSuccess(value) {
+                        Get.back();
+                        Get.toNamed(MainModulePageRoute.main,
+                            arguments: {'userInfo': value});
+                      }
+
+                      onError(message) {
+                        Get.back();
+                        Get.snackbar('Error', message);
+                      }
+                      AlertUtil.showLoadingIndicator();
+                      controller.onSubmitSignIn(
+                          onSuccess: onSuccess, onError: onError);
+                    },
                     // shouldEnable: widget.controller.isValidated.value,
                   ),
-                ),
-              SizedBox(height: 20.h,),
-              SignInDivider(
-                width: 360.w,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              SizedBox(
-                width: 360.w,
-                child: ColorButton(
-                  title: 'sign_in_with_pin_code'.tr,
-                  textStyle: const TextStyle(color: AppColor.colorRememberMeText),
-                  shouldEnable: true,
-                  colorActive: AppColor.colorAppBackground,
-                  onTap: () => Get.offNamed(AuthRoute.signInWithCode),
-                ),
-              ),
+                );
+              }),
               SizedBox(
                 width: 450.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('dont_have_account'.tr, style: AppStyle.styleRememberMeText,),
+                    Text(
+                      'dont_have_account'.tr,
+                      style: AppStyle.styleRememberMeText,
+                    ),
                     TextButton(
-                        onPressed: () => Get.toNamed(AuthRoute.chooseHospital),
-                        child: const Text('Sign up')),
+                        onPressed: () => Get.toNamed(
+                            AuthModulePageRoute.registerAccountType),
+                        child: Text(
+                          'Sign up',
+                          style: AppStyle.styleForgotPassword,
+                        )),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 80.h,
+              ),
+              Obx(() => DropDownWrapper(
+                    controller: controller.countryController,
+                    onTapChildren: (_) => controller.setIndex(_),
+                    dropDownHeight: 150.h,
+                    height: 44.h,
+                    width: 200.w,
+                    shouldIncludeAsterisk: false,
+                    children: controller.vm.value.countryList
+                        .map((e) => CountryWidget(
+                              isNetworkIcon: true,
+                              leftIconName: e.emoji,
+                              contentText: e.name,
+                              width: 200.w,
+                            ))
+                        .toList(),
+                  )),
             ],
           ),
         ),

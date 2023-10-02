@@ -7,13 +7,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 
 class ListViewPageNavigator extends StatefulWidget {
-  const ListViewPageNavigator({super.key});
+  final int total;
+
+  const ListViewPageNavigator({super.key, required this.total});
 
   @override
   State<ListViewPageNavigator> createState() => _ListViewPageNavigatorState();
 }
 
 class _ListViewPageNavigatorState extends State<ListViewPageNavigator> {
+  var total = 1;
+  var selectedIndex = 0;
+  var listPageWidget = <_PageItemContent>[];
+
+  @override
+  void initState() {
+    super.initState();
+    total = widget.total;
+
+    for(int i = 0; i < total; i++) {
+      listPageWidget.add(
+          _PageItemContent(
+              value: (i + 1).toString(),
+              enable: i == selectedIndex));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -48,6 +67,7 @@ class _ListViewPageNavigatorState extends State<ListViewPageNavigator> {
       ],
     );
   }
+
 }
 
 class _PageItemWrapper extends StatelessWidget {

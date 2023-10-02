@@ -1,7 +1,8 @@
+import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:get/get_connect.dart';
 import '../../common/app_error.dart';
-import '../base_response.dart';
-import '../logging.dart';
+import '../common/base_response.dart';
+import '../logging/logging.dart';
 
 class GetConnectBaseProvider extends GetConnect with ShowLog {
   final String url;
@@ -15,13 +16,19 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
   }) {
     timeout = const Duration(seconds: 15);
     allowAutoSignedCert = true;
-    httpClient.baseUrl = '$url$apiVersion$apiPrefix';
+    httpClient.baseUrl = '$url$apiPrefix$apiVersion';
     httpClient.errorSafety = true;
 
     // thứ tự các callback
     // authenticator -> requestModifier -> responseModifier
 
-    httpClient.addAuthenticator<dynamic>((request) {
+    httpClient.addAuthenticator<dynamic>((request) async {
+      final accessToken = await ActiveUserUtil.accessToken;
+
+      if (accessToken.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
+      }
+
       return request;
     });
 
@@ -29,22 +36,23 @@ class GetConnectBaseProvider extends GetConnect with ShowLog {
       return request;
     });
 
+    // interceptor -> refresh token
     httpClient.addResponseModifier((request, response) {
       return response;
     });
   }
 
   T convertResponse<T extends BaseResponse>(Response response, T Function(dynamic) converter) {
+    showResponse(response.request!.url.toString(), response.body);
+
     if (response.isOk) {
-      showResponse(response.body);
-      return converter.call(response.body)
-        ..statusCode = response.statusCode
-        ..message = response.statusText;
+      return converter.call(response.body);
     } else {
       throw AppError(
         errorType: AppErrorType.networkError,
         statusCode: response.statusCode ?? 0,
-        message: response.statusText ?? 'Empty message',
+        message: response.body?['message'] ?? 'Empty message',
+        statusMessage: response.body?['status'] ?? 'Empty message',
         body: response.body,
       );
     }

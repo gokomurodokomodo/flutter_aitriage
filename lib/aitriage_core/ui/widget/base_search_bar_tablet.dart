@@ -43,17 +43,15 @@ class _SearchState extends State<BaseSearchBarTablet>{
           Expanded(
             child: TextField(
               onChanged: widget.onTextChange,
-              expands: true,
-              maxLines: null,
-              textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                   hintText: widget.hintText,
                   border: InputBorder.none,
                   isDense: true,
                   isCollapsed: true,
                   hintStyle: AppStyle.styleHintTextSearchBar,
+                  contentPadding: EdgeInsets.only(left: 16.w, bottom: 5.h)
               ),
-            ).paddingOnly(left: 16),
+            ),
           ),
           widget.shouldShowSearchIcon ? SvgIconWidget(name: AppImage.svgSearch, size: 16.h,).paddingOnly(right: 16) : const SizedBox(),
         ],

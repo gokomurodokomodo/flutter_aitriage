@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "350310247193",
-    "project_id": "flutter-aitriage",
-    "storage_bucket": "flutter-aitriage.appspot.com"
+    "project_number": "767429013713",
+    "firebase_url": "https://aitriage-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "aitriage-test",
+    "storage_bucket": "aitriage-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:350310247193:android:beabd8c221222b10eb3388",
+        "mobilesdk_app_id": "1:767429013713:android:bdd4f1b4593cd1985a95f0",
         "android_client_info": {
           "package_name": "vn.beedu.flutter_aitriage"
         }
       },
       "oauth_client": [
         {
-          "client_id": "350310247193-4nr72lcvo6hohsucb7tbbnacha5mr24j.apps.googleusercontent.com",
+          "client_id": "767429013713-ahivl63mhhjannhhsjb3nih5atkh51m1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-E2u-pS8vfotHE9vGiQGBl51gtUO3poQ"
+          "current_key": "AIzaSyCOPnNX7E-0iNWh7HAf57Wn6Gxy6A0nwzc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "350310247193-4nr72lcvo6hohsucb7tbbnacha5mr24j.apps.googleusercontent.com",
+              "client_id": "767429013713-ahivl63mhhjannhhsjb3nih5atkh51m1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "767429013713-d7vqn73h9ttijlu26qtki8g64hjej5cb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beedu.aitriage"
+              }
             }
           ]
         }

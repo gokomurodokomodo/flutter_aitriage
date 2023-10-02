@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_color.dart';
 
 class AppStyle {
@@ -33,6 +34,11 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorButtonTextDisable,
   );
+  static final styleTextColorPhonePlaceholder = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorBorderDisable,
+  );
   static final styleTextDialogTitle = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
@@ -64,7 +70,7 @@ class AppStyle {
     color: AppColor.colorDialogTitleText,
   );
   static final styleCustomTextFieldHintText = TextStyle(
-    fontSize: fontSizeSM,
+    fontSize: fontSizeBase,
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextFieldPlaceHolder,
   );
@@ -162,6 +168,11 @@ class AppStyle {
     fontWeight: fontWeightRegular,
     color: AppColor.colorTextCancelAssessment,
   );
+  static final styleErrorText = TextStyle(
+    fontSize: fontSizeXS,
+    fontWeight: fontWeightRegular,
+    color: AppColor.colorTextCancelAssessment,
+  );
   static final styleStepItemProcessing = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeightSemiBold,
@@ -172,14 +183,44 @@ class AppStyle {
     fontWeight: fontWeightSemiBold,
     color: AppColor.colorTextFieldPlaceHolder,
   );
-  static final styleTextDropDownButton = TextStyle(
+  static final styleTextDropDownButton = GoogleFonts.poppins(
     fontSize: fontSizeSM,
-    fontWeight: fontWeight500,
+    fontWeight: fontWeightRegular,
     color: AppColor.colorDialogTitleText,
   );
   static final styleTextPageNavigatorItemEnable = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeight500,
     color: AppColor.colorRailHover,
+  );
+  static final styleTextDialogHeaderTitle = TextStyle(
+    fontSize: fontSizeL,
+    fontWeight: fontWeightSemiBold,
+    color: AppColor.colorDialogTitleText,
+  );
+  static final styleForgotPassword = TextStyle(
+    fontSize: fontSizeSM,
+    fontWeight: fontWeight500,
+    color: AppColor.colorForgotPassword
+  );
+  static final styleTextLocationTitle = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorDialogTitleText,
+  );
+  static final styleTextUserChoice = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorRememberMeText,
+  );
+  static final styleTextPatientInformation = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorPatientInformationText,
+  );
+  static final styleTextPatientInformation2 = TextStyle(
+    fontSize: fontSizeBase,
+    fontWeight: fontWeight500,
+    color: AppColor.colorForgotPassword,
   );
 }

@@ -39,7 +39,7 @@ class AppEventChannel {
     return null;
   }
 
-  //avoid destroy, use only if testing
+  //avoid destroy, use only for testing
   //void destroy() => _streamController.close();
 }
 

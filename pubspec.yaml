@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  get: ^4.6.5
+  # core
+  get: ^4.6.6
   flutter_screenutil: ^5.8.4
   dio: ^5.3.1
   google_fonts: ^5.1.0
@@ -25,17 +26,43 @@ dependencies:
   syncfusion_flutter_charts: ^22.2.8
   sprintf: ^7.0.0
   pin_code_fields: ^8.0.1
-
+  device_info_plus: ^9.0.3
+  package_info_plus: ^4.1.0
+  encrypt: ^5.0.1
+  pointycastle: ^3.7.3
+  cached_network_image: ^3.2.3
+  url_launcher: ^6.1.14
+  open_mail_app: ^0.4.5
+  connectivity_plus: ^4.0.2
+  webview_flutter: ^4.2.4
+  hive: ^2.2.3
+  path_provider: ^2.1.1
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  firebase_core: ^2.15.1
+  firebase_database: any
+  firebase_auth: any
+  http: ^1.1.0
+  retry: ^3.1.2
+  rxdart: ^0.27.7
+  intl: ^0.18.1
+  number_paginator: ^0.3.2
+  image_picker: ^1.0.4
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
+  hive_generator: ^1.1.2
+  build_runner: ^2.4.6
+  isar_generator: ^3.1.0+1
+  test: ^1.24.1
 
 flutter:
   uses-material-design: true
   assets:
     - lib/aitriage_core/asset/language/
     - lib/aitriage_core/asset/image/
+    - lib/aitriage_core/asset/key/
 
 

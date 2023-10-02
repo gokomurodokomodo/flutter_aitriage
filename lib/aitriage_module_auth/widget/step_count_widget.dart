@@ -73,28 +73,23 @@ class _StepItem extends StatelessWidget {
   }
 
   Decoration? get _decoration {
-    switch (status) {
-      case _StepItemStatus.pending:
-        return const BoxDecoration(
+    return switch (status) {
+      _StepItemStatus.pending => const BoxDecoration(
           shape: BoxShape.circle,
           color: AppColor.colorStepItemDone,
-        );
-      default:
-        return const BoxDecoration(
+        ),
+      _ => const BoxDecoration(
           shape: BoxShape.circle,
           color: AppColor.colorTextPinCode,
-        );
-    }
+        )
+    };
   }
 
   TextStyle? get _textStyle {
-    switch (status) {
-      case _StepItemStatus.pending:
-        return AppStyle.styleStepItemPending;
-      case _StepItemStatus.processing:
-        return AppStyle.styleStepItemProcessing;
-      case _StepItemStatus.done:
-        return null;
-    }
+    return switch (status) {
+      _StepItemStatus.pending => AppStyle.styleStepItemPending,
+      _StepItemStatus.processing => AppStyle.styleStepItemProcessing,
+      _StepItemStatus.done => null
+    };
   }
 }

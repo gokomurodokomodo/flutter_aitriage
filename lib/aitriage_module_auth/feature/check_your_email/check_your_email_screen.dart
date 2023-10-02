@@ -3,7 +3,6 @@ import 'package:flutter_aitriage/aitriage_core/ui/widget/authentication_header.d
 import 'package:flutter_aitriage/aitriage_core/ui/widget/back_to_login_text_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
-import 'package:flutter_aitriage/aitriage_module_auth/config/auth_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
@@ -33,22 +32,21 @@ class _Tablet extends GetView<CheckYourEmailController> {
         child: Column(
           children: [
             SizedBox(height: 160.h),
-            AuthenticationHeader(
+            Obx(() => AuthenticationHeader(
               svgIconNameWithBorder: AppImage.svgEmail,
               headerText: 'check_your_email'.tr,
               contentText: 'we_sent_password'.tr,
               styleContentText: AppStyle.styleCheckYourEmailNotification,
-              thirdText: controller.userEmail,
+              thirdText: controller.userEmail.value,
               styleThirdText: AppStyle.styleCheckYourEmail,
-            ),
+            )),
             SizedBox(height: 32.h,),
             ColorButton(
-              shouldEnable: true,
+              shouldEnableBackground: true,
               width: 360.w,
               title: 'open_email_app'.tr,
               onTap: (){
                 controller.openEmailApp();
-                Get.toNamed(AuthRoute.setNewPassword);
               },
             ),
             SizedBox(height: 32.h,),
@@ -58,12 +56,18 @@ class _Tablet extends GetView<CheckYourEmailController> {
                 Text('didnt_receive_email'.tr),
                 SizedBox(height: 4.w,),
                 TextButton(
-                    onPressed: () => Get.toNamed(AuthRoute.setNewPassword),
+                    onPressed: () {
+                      onSuccess() => Get.snackbar('Success', 'resend_email'.tr);
+                      onError(error) => Get.snackbar('Error', error);
+                      controller.resend(onError: onError, onSuccess: onSuccess);
+                    },
                     child: Text('click_to_resend'.tr))
               ],
             ),
             SizedBox(height: 32.h,),
-            const BackToLoginTextButton(),
+            BackToLoginTextButton(
+              onBackButtonPressed: () => Get.until((route) => Get.currentRoute.contains('login')),
+            ),
           ],
         ),
       ),
@@ -76,5 +80,4 @@ class _Phone extends StatelessWidget{
   Widget build(BuildContext context) {
     return const Placeholder();
   }
-
 }
