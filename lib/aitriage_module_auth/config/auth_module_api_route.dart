@@ -7,4 +7,5 @@ class AuthModuleApiRoute {
   static const verifyEmail = '/twoFa/EMAIL/verify-code';
   static const forgetPassword = '/auth/forget-pass/request';
   static const signIn = '/auth/login';
+  static const logOut = '/user/%s/logout';
 }

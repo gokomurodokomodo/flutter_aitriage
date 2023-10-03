@@ -5,11 +5,13 @@ import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service
 import 'package:flutter_aitriage/aitriage_core/ui/widget/keep_alive_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_navigator.dart';
+import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_out_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_location_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_navigator.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/table_sync_date.dart';
+import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../domain/entity/location.dart';
 
 final modules = <Widget>[
@@ -19,10 +21,11 @@ final modules = <Widget>[
 
 class HomeMainController extends GetxController {
   final GetListLocationUseCase _getListLocationUC;
+  final SignOutUseCase _signOutUC;
   final vm = HomeMainVM().obs;
   StreamSubscription<TableSyncDate>? stream;
 
-  HomeMainController(this._getListLocationUC);
+  HomeMainController(this._getListLocationUC, this._signOutUC);
 
   @override                                   
   void onInit() async {
@@ -70,7 +73,11 @@ class HomeMainController extends GetxController {
   Future<void> onTapUserButton(int index) async {
     switch (index) {
       case 3:
-        await ActiveUserUtil.userLogOut();
+        try {
+          await _signOutUC.execute();
+        } catch (e) {
+          HandleNetworkError.handleNetworkError(e, (message, _, __) {});
+        }
       default:
     }
   }
