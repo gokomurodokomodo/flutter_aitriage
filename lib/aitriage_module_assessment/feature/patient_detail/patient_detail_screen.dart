@@ -50,7 +50,7 @@ class _Tablet extends GetView<PatientDetailController> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     GestureDetector(
-                        onTap: () => Get.back(id: AssessmentModulePageRoute.nestedId),
+                        onTap: () => Get.back(id: AssessmentModulePageRoute.nestedId, result: controller.vm.value.shouldReloadData),
                         child: Row(
                           children: [
                             SvgIconWidget(name: AppImage.svgArrowLeft),
@@ -73,7 +73,10 @@ class _Tablet extends GetView<PatientDetailController> {
                               arguments: controller.vm.value.patientEntity
                           );
 
-                          if (result == true) controller.getUserDetailInfo();
+                          if (result == true) {
+                            controller.vm.value.update(shouldReloadData: true);
+                            controller.getUserDetailInfo();
+                          }
                         }),
                   ])),
           Expanded(
