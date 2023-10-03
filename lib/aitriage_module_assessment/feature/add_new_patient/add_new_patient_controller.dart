@@ -86,7 +86,16 @@ class AddNewPatientController extends GetxController {
 
     // Edit patient will have argument
     if (argument is Patient) {
-      vm.value.update(patientScreenType: PatientScreenType.edit, patient: argument);
+      final locationId = argument.locationId;
+      final countryId = argument.countryId;
+      final phoneCode = argument.phoneCode;
+      vm.value.update(
+          patientScreenType: PatientScreenType.edit, 
+          patient: argument,  
+          locationId: locationId,
+          countryId: countryId,
+          phoneCode: phoneCode
+      );
       vm.refresh();
       // Set value for text field
       // final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';

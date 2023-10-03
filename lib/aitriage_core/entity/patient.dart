@@ -22,6 +22,7 @@ class Patient {
   final String? cityName;
   final String? nationalityName;
   final String? stateName;
+  final int? countryId;
 
   Patient({
       this.id,
@@ -47,6 +48,7 @@ class Patient {
       this.cityName,
       this.nationalityName,
       this.stateName,
+      this.countryId
   });
 
   Patient.fromJson(dynamic json)
@@ -72,7 +74,8 @@ class Patient {
         lastActivityDate = json?['lastActivityDate'],
         cityName = json?['cityName'],
         nationalityName = json?['nationalityName'],
-        stateName = json?['stateName'];
+        stateName = json?['stateName'],
+        countryId = json?['countryId'];
 
   Patient copyWith({
     int? id,
@@ -98,6 +101,7 @@ class Patient {
     String? cityName,
     String? nationalityName,
     String? stateName,
+    int? countryId
   }) =>
       Patient(
         id: id ?? this.id,
@@ -122,6 +126,7 @@ class Patient {
         lastActivityDate: lastActivityDate ?? this.lastActivityDate,
         cityName: cityName ?? this.cityName,
         nationalityName: nationalityName ?? this.nationalityName,
-        stateName: stateName ?? this.stateName);
+        stateName: stateName ?? this.stateName,
+          countryId: countryId ?? this.countryId);
 }
 
