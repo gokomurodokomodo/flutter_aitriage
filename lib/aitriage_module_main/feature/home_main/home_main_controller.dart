@@ -49,8 +49,7 @@ class HomeMainController extends GetxController {
 
   void _getListLocation() async {
     try {
-      final user = await ActiveUserUtil.userInfo;
-      final resp = await _getListLocationUC.execute(user.id.toString());
+      final resp = await _getListLocationUC.execute();
       vm.value.update(
           locations: resp.data,
           locationIndex: 0

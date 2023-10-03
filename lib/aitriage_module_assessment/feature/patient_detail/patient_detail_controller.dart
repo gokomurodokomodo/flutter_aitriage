@@ -7,8 +7,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/util/active_user/active_user.dart';
-import '../../domain/use_case/get_gender_type_param_uc.dart';
+import '../../../aitriage_core/util/active_user/active_user.dart'import '../../domain/use_case/get_gender_type_param_uc.dart';
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
@@ -37,8 +36,7 @@ class PatientDetailController extends GetxController {
     try {
       final patientId = _argument['patientId'];
       final genderParamTypes = _getGenderParamTypeUC.execute();
-      final userInfo = await ActiveUserUtil.userInfo;
-      final resp = await _getPatientDetailUC.execute(userInfo.accountId.toString(), patientId.toString());
+      final resp = await _getPatientDetailUC.execute(patientId.toString());
       vm.value.update(patient: resp.data, genderParamType: genderParamTypes);
       vm.refresh();
     } catch (_) {}
@@ -50,10 +48,9 @@ class PatientDetailController extends GetxController {
   }) async {
     try {
       final resp = await HiviService.instance.uploadImageUC.execute();
-      final userInfo = await ActiveUserUtil.userInfo;
       final updatedPatientInfo = vm.value.patientEntity.copyWith(avatar: resp.data);
       final request = UpdatePatientRequest(updatedPatientInfo);
-      final resp1 = await _updatePatientUC.execute(request, userInfo.accountId.toString());
+      final resp1 = await _updatePatientUC.execute(request);
       vm.value.update(patient: resp1.data, shouldReloadData: true);
       vm.refresh();
       onSuccess?.call();
@@ -67,9 +64,8 @@ class PatientDetailController extends GetxController {
     Function(String)? onError
   }) async {
     try {
-      final userInfo = await ActiveUserUtil.userInfo;
       final patientId = _argument['patientId'];
-      await _deletePatientUC.execute(userInfo.accountId.toString(), patientId.toString());
+      await _deletePatientUC.execute(patientId.toString());
       vm.value.update(shouldReloadData: true);
       onSuccess?.call();
     } catch (error) {

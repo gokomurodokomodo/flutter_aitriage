@@ -10,7 +10,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.da
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
-import '../../../aitriage_core/util/active_user/active_user.dart';
 import '../../../aitriage_core/util/date_time_parse_util.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 import '../../domain/use_case/get_race_uc.dart';
@@ -175,8 +174,7 @@ class AddNewPatientController extends GetxController {
     if (type == PatientScreenType.add) {
       try {
         final request = vm.value.getAddPatientRequest;
-        final user = await ActiveUserUtil.userInfo;
-        await _addPatientUC.execute(request, user.accountId.toString());
+        await _addPatientUC.execute(request);
         onSuccess?.call();
       } catch (e) {
         HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
@@ -184,8 +182,7 @@ class AddNewPatientController extends GetxController {
     } else {
       try {
         final patient = vm.value.getEditPatient;
-        final user = await ActiveUserUtil.userInfo;
-        await _updatePatientUC.execute(patient, user.accountId.toString());
+        await _updatePatientUC.execute(patient);
         onSuccess?.call();
       } catch (e) {
         HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
