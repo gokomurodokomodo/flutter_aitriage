@@ -129,9 +129,13 @@ class _Tablet extends GetView<PatientDetailController> {
                       children: [
                         Obx(() => PatientDetailInformation(vm: controller.vm.value)),
                           PatientDetailAssessment(list: [
+                            // fake data
                             for (int i = 0; i < 20; i++) AssessmentVM()
                           ]),
-                          const PatientDetailNote()
+                        PatientDetailNote(list: [
+                          // fake data
+                          for (int i = 0; i < 20; i++) NoteVM()
+                        ])
                       ],
                     ),
                   ),

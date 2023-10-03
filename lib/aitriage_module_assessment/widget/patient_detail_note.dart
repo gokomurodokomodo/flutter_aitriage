@@ -1,10 +1,204 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:number_paginator/number_paginator.dart';
 
-class PatientDetailNote extends StatelessWidget {
-  const PatientDetailNote({super.key});
+import '../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_image.dart';
+import '../../aitriage_core/common/app_style.dart';
+import '../../aitriage_core/ui/widget/line_separated.dart';
+import '../../aitriage_core/ui/widget/svg_icon_widget.dart';
+
+const _orderColumnRatio = 2;
+final _orderBlankWidth = 20.w;
+const _noteColumnRatio = 20;
+final _noteBlankWidth = 80.w;
+const _creatorColumnRatio = 10;
+const _dateTimeColumnRatio = 10;
+final _blankWidth = 48.w;
+
+class PatientDetailNote extends StatefulWidget {
+  final List<NoteVM> list;
+  final Function(int)? onTapPatient;
+
+  const PatientDetailNote({super.key, required this.list, this.onTapPatient});
+
+  @override
+  State<PatientDetailNote> createState() => _PatientDetailNoteState();
+}
+
+class _PatientDetailNoteState extends State<PatientDetailNote> {
+  final scrollController = ScrollController();
+
+  @override
+  void didUpdateWidget(covariant oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (scrollController.hasClients) scrollController.jumpTo(0);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Text('Note');
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text('Note', style: AppStyle.styleTextDialogTitle),
+              const Spacer(),
+            ],
+          ),
+          SizedBox(height: 20.h),
+          const _Label(),
+          SizedBox(height: 16.h),
+          Expanded(
+              child: widget.list.isNotEmpty
+                  ? ListView.separated(
+                  itemBuilder: (BuildContext context, int index) =>
+                      GestureDetector(
+                          onTap: () => widget.onTapPatient?.call(0),
+                          behavior: HitTestBehavior.translucent,
+                          child: _NoteSummaryView(vm: widget.list[index])),
+                  separatorBuilder: (BuildContext context, int index) =>
+                  const LineSeparated(),
+                  itemCount: widget.list.length,
+                  controller: scrollController)
+                  : Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(AppImage.icListViewNoData),
+                      SizedBox(height: 8.h),
+                      Text('No data',
+                          style: AppStyle.styleTextAllPatientCategory)
+                    ],
+                  ))),
+          LineSeparated(margin: 16.h),
+          Row(
+            children: [
+              Text(
+                'Show 1 - 10/40',
+                style: AppStyle.styleRememberMeText,
+              ),
+              const Spacer(),
+              Align(
+                alignment: Alignment.topRight,
+                child: SizedBox(
+                  height: 50.w,
+                  ///Tính chiều rộng động. 20 là tổng padding giữa 2 dấu mũi tên.
+                  ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
+                  ///nên set cứng height là 50.w để lấy khoảng cách.
+                  ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
+                  width: (50 * 5).toDouble().w + 20.w + 100.w,
+                  child: StatefulBuilder(
+                    builder: (_, setState) {
+                      return NumberPaginator(
+                        numberPages: 5,
+                        onPageChange: (value) {},
+                        config: NumberPaginatorUIConfig(
+                            contentPadding:
+                            const EdgeInsets.all(0),
+                            buttonShape:
+                            RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.circular(
+                                  8.r),
+                            )),
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
+}
+
+class _Label extends StatelessWidget {
+  const _Label();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColor.colorSummaryViewLabel,
+      height: 44.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+              flex: _orderColumnRatio,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text('#', style: AppStyle.styleTextAllPatientCategory))),
+          SizedBox(width: _orderBlankWidth),
+          Expanded(
+              flex: _noteColumnRatio,
+              child:
+              Text('NOTE', style: AppStyle.styleTextAllPatientCategory)),
+          SizedBox(width: _noteBlankWidth),
+          Expanded(
+              flex: _creatorColumnRatio,
+              child:
+              Text('CREATOR', style: AppStyle.styleTextAllPatientCategory)),
+          Expanded(
+              flex: _dateTimeColumnRatio,
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text('DATETIME', style: AppStyle.styleTextAllPatientCategory))),
+          SizedBox(width: _blankWidth)
+        ],
+      ),
+    );
+  }
+}
+
+class _NoteSummaryView extends StatelessWidget {
+  final NoteVM vm;
+
+  const _NoteSummaryView({super.key, required this.vm});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+            flex: _orderColumnRatio,
+            child: Align(
+                alignment: Alignment.center,
+                child: Text(vm._id, style: AppStyle.stylePatientItemLabel))),
+        SizedBox(width: _orderBlankWidth),
+        Expanded(
+            flex: _noteColumnRatio,
+            child: Text(vm._note, style: AppStyle.stylePatientItemLabel, maxLines: 1, overflow: TextOverflow.ellipsis)),
+        SizedBox(width: _noteBlankWidth),
+        Expanded(
+            flex: _creatorColumnRatio,
+            child: Text(vm._creator, style: AppStyle.stylePatientItemLabel)),
+        Expanded(
+            flex: _dateTimeColumnRatio,
+            child: Align(
+                alignment: Alignment.topRight,
+                child: Text(vm._dateTime, style: AppStyle.stylePatientItemLabel))),
+        SizedBox(
+          width: _blankWidth,
+          child: Center(
+              child: SvgIconWidget(name: AppImage.svgArrowRight, size: 20.h)),
+        )
+      ],
+    );
+  }
+}
+
+
+class NoteVM {
+  final String _id = '1';
+  final String _note = 'Lorem Ipsum is simply dummy text of the printing and typesett industry. '
+      'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, '
+      'when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries';
+  final String _creator = 'Alber Flores';
+  final String _dateTime = '17:06';
 }
