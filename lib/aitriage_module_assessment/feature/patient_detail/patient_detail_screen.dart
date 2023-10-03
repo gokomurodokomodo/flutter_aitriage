@@ -128,8 +128,10 @@ class _Tablet extends GetView<PatientDetailController> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         Obx(() => PatientDetailInformation(vm: controller.vm.value)),
-                        const PatientDetailAssessment(),
-                        const PatientDetailNote()
+                          PatientDetailAssessment(list: [
+                            for (int i = 0; i < 20; i++) AssessmentVM()
+                          ]),
+                          const PatientDetailNote()
                       ],
                     ),
                   ),

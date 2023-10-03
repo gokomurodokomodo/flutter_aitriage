@@ -7,13 +7,15 @@ class CustomTrailingWidget extends StatelessWidget {
   final double? width;
   final double? height;
   final Widget? child;
+  final double? borderRadiusValue;
 
   const CustomTrailingWidget({
     super.key,
     this.backgroundColor,
     this.width,
     this.height,
-    required this.child
+    required this.child,
+    this.borderRadiusValue
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomTrailingWidget extends StatelessWidget {
         decoration: BoxDecoration(
             color: backgroundColor ?? AppColor.colorBackgroundSearch,
             border: Border.all(color: backgroundColor ?? AppColor.colorBackgroundSearch),
-            borderRadius: BorderRadius.circular(12.r)
+            borderRadius: BorderRadius.circular(borderRadiusValue ?? 12.r)
         ),
         child: Center(child: child));
   }

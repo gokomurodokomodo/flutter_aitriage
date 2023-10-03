@@ -208,7 +208,6 @@ class HiviService extends GetxService {
 
   Future<void> _saveDb() async {
     // save sync time
-    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final firstTimeSync = _localSyncDate == null;
 
     if (firstTimeSync || _shouldUpdateCountries) {
@@ -224,31 +223,26 @@ class HiviService extends GetxService {
     }
 
     if (firstTimeSync || _shouldUpdateStates) {
-      log('state change');
       await deleteCollectionUC.execute<State>();
       await saveCollectionUC.execute<State>(list: _states);
     }
 
     if (firstTimeSync || _shouldUpdateRaces) {
-      log('race change');
       await deleteCollectionUC.execute<Race>();
       await saveCollectionUC.execute<Race>(list: _races);
     }
 
     if (firstTimeSync || _shouldUpdateParamType) {
-      log('param type change');
       await deleteCollectionUC.execute<ParamType>();
       await saveCollectionUC.execute<ParamType>(list: _paramTypes);
     }
 
     if (firstTimeSync || _shouldUpdateSystemParam) {
-      log('system param change');
       await deleteCollectionUC.execute<SystemParam>();
       await saveCollectionUC.execute<SystemParam>(object: _systemParam);
     }
 
     if (firstTimeSync || _shouldUpdateRoles) {
-      log('roles change');
       await deleteCollectionUC.execute<Role>();
       await saveCollectionUC.execute<Role>(list: _roles);
     }

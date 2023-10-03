@@ -10,12 +10,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../aitriage_module_assessment/widget/gender_with_symbol.dart';
 import 'line_separated.dart';
 
-const _orderRatio = 1;
-const _patientRatio = 10;
-const _genderRatio = 5;
-const _raceRatio = 10;
-const _ageRatio = 2;
-const _lastAssessmentRatio = 10;
+const _orderColumnRatio = 1;
+const _patientColumnRatio = 10;
+const _genderColumnRatio = 5;
+const _raceColumnRatio = 10;
+const _ageColumnRatio = 2;
+const _lastAssessmentColumnRatio = 10;
 final _blankWidth = 48.w;
 
 class PatientSummaryListView extends StatefulWidget {
@@ -50,8 +50,7 @@ class _PatientSummaryListViewState extends State<PatientSummaryListView> {
                 ? ListView.separated(
                     itemBuilder: (BuildContext context, int index) =>
                         GestureDetector(
-                            onTap: () => widget.onTapPatient
-                                ?.call(widget.list[index].patientId),
+                            onTap: () => widget.onTapPatient?.call(widget.list[index].patientId),
                             behavior: HitTestBehavior.translucent,
                             child: _PatientSummaryItem(vm: widget.list[index])),
                     separatorBuilder: (BuildContext context, int index) =>
@@ -85,28 +84,28 @@ class _Label extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-              flex: _orderRatio,
+              flex: _orderColumnRatio,
               child: Text('#', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
-              flex: _patientRatio,
+              flex: _patientColumnRatio,
               child:
                   Text('PATIENT', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
-              flex: _genderRatio,
+              flex: _genderColumnRatio,
               child:
                   Text('GENDER', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
-              flex: _raceRatio,
+              flex: _raceColumnRatio,
               child: Text('CITY', style: AppStyle.styleTextAllPatientCategory)),
           Expanded(
-              flex: _ageRatio,
+              flex: _ageColumnRatio,
               child: Text(
                 'AGE',
                 style: AppStyle.styleTextAllPatientCategory,
                 textAlign: TextAlign.right,
               )),
           Expanded(
-              flex: _lastAssessmentRatio,
+              flex: _lastAssessmentColumnRatio,
               child: Text(
                 'LAST ASSESSMENT DATE',
                 style: AppStyle.styleTextAllPatientCategory,
@@ -130,20 +129,20 @@ class _PatientSummaryItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-            flex: _orderRatio,
+            flex: _orderColumnRatio,
             child: Text(vm.id, style: AppStyle.stylePatientItemLabel)),
-        Expanded(flex: _patientRatio, child: _PatientCell(vm: vm)),
-        Expanded(flex: _genderRatio, child: _GenderCell(vm: vm)),
+        Expanded(flex: _patientColumnRatio, child: _PatientCell(vm: vm)),
+        Expanded(flex: _genderColumnRatio, child: _GenderCell(vm: vm)),
         Expanded(
-            flex: _raceRatio,
+            flex: _raceColumnRatio,
             child: Text(vm.city, style: AppStyle.stylePatientItemLabel)),
         Expanded(
-            flex: _ageRatio,
+            flex: _ageColumnRatio,
             child: Align(
                 alignment: Alignment.topRight,
                 child: Text(vm.age, style: AppStyle.stylePatientItemLabel))),
         Expanded(
-            flex: _lastAssessmentRatio,
+            flex: _lastAssessmentColumnRatio,
             child: Align(
                 alignment: Alignment.topRight,
                 child: Text(vm.lastAssessmentDate,
