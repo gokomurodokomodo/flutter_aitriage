@@ -8,6 +8,7 @@ import '../../../aitriage_core/common/app_env.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../../aitriage_core/network/provider/get_base_provider.dart';
 import '../../domain/repository/patient_repository.dart';
+import '../api/query/list_patient_note_query.dart';
 import '../api/query/patient_detail_query.dart';
 import '../api/response/patient_detail_response.dart';
 import '../api/response/patient_response.dart';
@@ -50,6 +51,13 @@ class PatientRepositoryImpl extends PatientRepository {
   @override
   Future<BaseResponse> deletePatient(String accountId, String patientId) async {
     final resp = await _provider.delete(AssessmentModuleApiRoute.deletePatient.replaceAll('%s', accountId), query: {'customerId' : patientId});
+    return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
+  }
+
+  @override
+  Future<BaseResponse> getListPatientNote(String customerId, int page, int limit) async {
+    final query = ListPatientNoteQuery(page, limit, customerId: customerId);
+    final resp = await _provider.get(AssessmentModuleApiRoute.getListPatientNote, query: query.toQuery);
     return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
   }
 }

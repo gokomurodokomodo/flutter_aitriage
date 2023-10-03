@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_patient_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_patient_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_patient_detail_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
@@ -11,6 +12,7 @@ import '../../domain/use_case/get_gender_type_param_uc.dart';
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
+  final GetListPatientNoteUseCase _getListPatientNoteUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
   final UpdatePatientUseCase _updatePatientUC;
   final DeletePatientUseCase _deletePatientUC;
@@ -23,7 +25,8 @@ class PatientDetailController extends GetxController {
       this._getPatientDetailUC, 
       this._getGenderParamTypeUC, 
       this._updatePatientUC,
-      this._deletePatientUC
+      this._deletePatientUC,
+      this._getListPatientNoteUC
   );
 
   @override
