@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_city_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_nationality_uc.dart';
@@ -18,7 +19,7 @@ import '../../domain/use_case/get_race_uc.dart';
 class AddNewPatientController extends GetxController {
   final GetGenderParamTypeUseCase _genderParamTypeUC;
   final GetRaceUseCase _getRaceUC;
-  final GetNationalityUseCase _getNationalityUC;
+  // final GetNationalityUseCase _getNationalityUC;
   final GetCityUseCase _getCityUC;
   final GetStateUseCase _getStateUC;
   final AddPatientUseCase _addPatientUC;
@@ -42,7 +43,6 @@ class AddNewPatientController extends GetxController {
   AddNewPatientController(
       this._genderParamTypeUC,
       this._getRaceUC,
-      this._getNationalityUC,
       this._getCityUC,
       this._getStateUC,
       this._addPatientUC,
@@ -65,7 +65,7 @@ class AddNewPatientController extends GetxController {
     final phoneCode = location?.countryCode;
     final genders = _genderParamTypeUC.execute();
     final races = _getRaceUC.execute();
-    final nationalities = await _getNationalityUC.execute();
+    final nationalities = HiviService.instance.countries;
     final cities = _getCityUC.execute(locationId.toString());
     final states = _getStateUC.execute(locationId.toString());
     vm.value.update(

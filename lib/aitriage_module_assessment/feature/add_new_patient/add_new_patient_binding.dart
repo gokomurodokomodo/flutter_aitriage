@@ -19,11 +19,9 @@ class AddNewPatientBinding extends Bindings {
     Get.lazyPut(() => PatientRepositoryImpl());
     Get.lazyPut(() => AddPatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => UpdatePatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
-    Get.lazyPut(() => GetNationalityUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => AddNewPatientController(
         Get.find<GetGenderParamUseCaseImpl>(),
         Get.find<GetRaceUseCaseImpl>(),
-        Get.find<GetNationalityUseCaseImpl>(),
         Get.find<GetCityUseCaseImpl>(),
         Get.find<GetStateUseCaseImpl>(),
         Get.find<AddPatientUseCaseImpl>(),
