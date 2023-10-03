@@ -7,7 +7,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
 import 'package:get/get.dart';
-import '../../../aitriage_core/util/active_user/active_user.dart'import '../../domain/use_case/get_gender_type_param_uc.dart';
+import '../../domain/use_case/get_gender_type_param_uc.dart';
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
