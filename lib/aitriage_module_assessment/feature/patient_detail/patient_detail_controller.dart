@@ -8,12 +8,14 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_vm.dart';
 import 'package:get/get.dart';
+import '../../domain/use_case/add_patient_note_uc.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
   final GetListPatientNoteUseCase _getListPatientNoteUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
+  final AddPatientNoteUseCase _addPatientNoteUC;
   final UpdatePatientUseCase _updatePatientUC;
   final DeletePatientUseCase _deletePatientUC;
   // Nested navigation doesn't support dynamic argument, need to get argument from onGenerateRoute
@@ -26,7 +28,8 @@ class PatientDetailController extends GetxController {
       this._getGenderParamTypeUC, 
       this._updatePatientUC,
       this._deletePatientUC,
-      this._getListPatientNoteUC
+      this._getListPatientNoteUC,
+      this._addPatientNoteUC
   );
 
   @override
