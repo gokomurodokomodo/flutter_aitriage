@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_core/util/global_function.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> with SubscriptionCollector {
   var finishInit = false;
+  var initialRoute = MainModulePageRoute.intro;
 
   @override
   void initState(){
@@ -48,46 +50,57 @@ class _AppState extends State<App> with SubscriptionCollector {
   void notifyFinishInit() async {
     // Close appEventChannel
     disposeAllStreamInCollector();
-    // Preload image asset
-    await preloadImage();
-    // Future.delayed to avoid calling setState in build phase
-    // Do not remove
-    await Future.delayed(Duration.zero);
+
+    if (await shouldLaunchIntroScreen) {
+      // Preload image asset
+      await preloadImage();
+      // Future.delayed to avoid calling setState in build phase
+      // Do not remove
+      await Future.delayed(Duration.zero);
+
+    } else {
+      initialRoute = MainModulePageRoute.main;
+    }
+
     setState(() => finishInit = true);
   }
   
   Future preloadImage() async {
-    if (shouldLaunchIntroScreen) {
-      switch (DeviceUtil.isTablet) {
-        case true:
-          cachedImage.add(Image.asset(AppImage.bgTabletBackgroundSplashScreen));
+    switch (DeviceUtil.isTablet) {
+      case true:
+        cachedImage.add(Image.asset(AppImage.bgTabletBackgroundSplashScreen));
 
-          for (int i = 1; i <= 4; i++) {
-            cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_${i}_tablet.png', fit: BoxFit.fitWidth));
-          }
+        for (int i = 1; i <= 4; i++) {
+          cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_${i}_tablet.png', fit: BoxFit.fitWidth));
+        }
 
-          break;
-        case false:
-          cachedImage.add(Image.asset(AppImage.bgSplashScreen));
+        break;
+      case false:
+        cachedImage.add(Image.asset(AppImage.bgSplashScreen));
 
-          for (int i = 1; i <= 4; i++) {
-            cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_$i.png', fit: BoxFit.fitWidth));
-          }
+        for (int i = 1; i <= 4; i++) {
+          cachedImage.add(Image.asset('./lib/aitriage_core/asset/image/bg_intro_$i.png', fit: BoxFit.fitWidth));
+        }
 
-          break;
-      }
+        break;
+    }
 
-      for (var item in cachedImage) {
-        await precacheImage(item.image, context);
-      }
+    for (var item in cachedImage) {
+      await precacheImage(item.image, context);
     }
   }
 
-  bool get shouldLaunchIntroScreen => true;
+  Future<bool> get shouldLaunchIntroScreen async {
+    try {
+      final accessToken = await ActiveUserUtil.accessToken;
 
-  String get initialRoute => shouldLaunchIntroScreen
-      ? MainModulePageRoute.intro
-      : MainModulePageRoute.main;
+      if (accessToken.isEmpty) return true;
+    } catch (e) {
+      return true;
+    }
+
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
