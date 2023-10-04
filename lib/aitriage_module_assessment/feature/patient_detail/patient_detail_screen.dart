@@ -68,9 +68,9 @@ class _Tablet extends GetView<PatientDetailController> {
                     onTap: () {
                       Get.dialog(
                           AddNoteDialog(
-                            title: 'NOTE',
+                            title: 'ADD NOTE',
                             primaryButtonTitle: 'Save',
-                            secondaryButtonTile: 'Delete',
+                            secondaryButtonTile: 'Cancel',
                             onTapSecondaryButton: () => Get.back(),
                             onTapPrimaryButton: (text) {
                               onSuccess() {
@@ -168,6 +168,36 @@ class _Tablet extends GetView<PatientDetailController> {
                               totalPage: controller.vm.value.totalPage,
                               pageCountString: controller.vm.value.pageCountString,
                               onPageChanged: (index) => controller.getListNote(index),
+                              onTapNote: (noteId, description) {
+                                Get.dialog(
+                                    AddNoteDialog(
+                                      title: 'NOTE',
+                                      primaryButtonTitle: 'Save',
+                                      secondaryButtonTile: 'Delete',
+                                      initText: description,
+                                      onTapSecondaryButton: () {
+                                        onSuccess() {
+                                          Get.back();
+                                          controller.reloadListNote();
+                                        }
+                                        onError(String message) {
+                                          Get.snackbar('Error', message);
+                                        }
+                                        controller.onTapDeleteNote(noteId, onSuccess: onSuccess, onError: onError);
+                                      },
+                                      onTapPrimaryButton: (text) {
+                                        onSuccess() {
+                                          Get.back();
+                                          controller.reloadListNote();
+                                        }
+                                        onError(String message) {
+                                          Get.snackbar('Error', message);
+                                        }
+                                        controller.onTapEditNote(noteId, text, onSuccess: onSuccess, onError: onError);
+                                      },
+                                    )
+                                );
+                              },
                           ))
                         ],
                       ),

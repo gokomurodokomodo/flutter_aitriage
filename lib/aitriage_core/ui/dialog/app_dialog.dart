@@ -66,6 +66,7 @@ class AppDialog extends StatelessWidget {
                                   child: ColorButton(
                                       height: 48.h,
                                       title: secondaryButtonTitle!,
+                                      shouldTapAbleWhenDisable: true,
                                       onTap: () =>
                                           secondaryButtonCallback?.call()),
                                 )

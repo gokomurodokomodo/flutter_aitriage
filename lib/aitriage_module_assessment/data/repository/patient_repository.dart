@@ -1,6 +1,7 @@
 import 'package:flutter_aitriage/aitriage_core/network/common/base_request.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/response/get_list_country_language_response.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_api_route.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/data/api/query/delete_note_query.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/query/list_patient_query.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/add_patient_note_request.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
@@ -10,6 +11,7 @@ import '../../../aitriage_core/network/provider/get_base_provider.dart';
 import '../../domain/repository/patient_repository.dart';
 import '../api/query/list_patient_note_query.dart';
 import '../api/query/patient_detail_query.dart';
+import '../api/request/edit_note_request.dart';
 import '../api/response/get_list_note_response.dart';
 import '../api/response/patient_detail_response.dart';
 import '../api/response/patient_response.dart';
@@ -64,8 +66,22 @@ class PatientRepositoryImpl extends PatientRepository {
 
   @override
   Future<BaseResponse> addNewPatientNote(String customerId, String description) async {
-    final query = AddPatientNoteRequest(customerId, description);
-    final resp = await _provider.post(AssessmentModuleApiRoute.addPatientNote, query.toRequest());
+    final request = AddPatientNoteRequest(customerId, description);
+    final resp = await _provider.post(AssessmentModuleApiRoute.addPatientNote, request.toRequest());
+    return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
+  }
+
+  @override
+  Future<BaseResponse> deleteNote(String noteId) async {
+    final query = DeleteNoteQuery(noteId);
+    final resp = await _provider.delete(AssessmentModuleApiRoute.deleteNote, query: query.toQuery);
+    return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
+  }
+
+  @override
+  Future<BaseResponse> editNote(String noteId, String description) async {
+    final request = EditNoteRequest(noteId, description);
+    final resp = await _provider.put(AssessmentModuleApiRoute.editNote, request.toRequest());
     return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
   }
 }

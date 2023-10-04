@@ -126,7 +126,7 @@ class PatientDetailVM {
   List<NoteVM> get listNoteVM {
     return _listNote.map((e) {
       final id = (_currentPage) * _pageLimit + _listNote.indexOf(e) + 1;
-      return NoteVM(id.toString(), e.description ?? '', e.logFullName ?? '', e.createdAt ?? '');
+      return NoteVM(id.toString(), e.description ?? '', e.logFullName ?? '', e.createdAt ?? '', e.id.toString());
     }).toList();
   }
 

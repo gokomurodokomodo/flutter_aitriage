@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/update_patient_request.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_patient_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/edit_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_patient_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_patient_detail_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
@@ -20,6 +22,8 @@ class PatientDetailController extends GetxController {
   final AddPatientNoteUseCase _addPatientNoteUC;
   final UpdatePatientUseCase _updatePatientUC;
   final DeletePatientUseCase _deletePatientUC;
+  final EditNoteUseCase _editNoteUC;
+  final DeleteNoteUseCase _deleteNoteUC;
   // Nested navigation doesn't support dynamic argument, need to get argument from onGenerateRoute
   final dynamic _argument;
   final vm = PatientDetailVM().obs;
@@ -31,7 +35,9 @@ class PatientDetailController extends GetxController {
       this._updatePatientUC,
       this._deletePatientUC,
       this._getListPatientNoteUC,
-      this._addPatientNoteUC
+      this._addPatientNoteUC,
+      this._editNoteUC,
+      this._deleteNoteUC
   );
 
   @override
@@ -115,8 +121,42 @@ class PatientDetailController extends GetxController {
           pageLimit: _pageLimit
       );
       vm.refresh();
-    } catch (e) {
-
+    } catch (error) {
+      log(error.toString());
     }
+  }
+
+  void onTapEditNote(
+      String noteId,
+      String description, {
+        Function? onSuccess,
+        Function(String)? onError
+    }) async {
+    try {
+      await _editNoteUC.execute(noteId, description);
+      onSuccess?.call();
+    } catch (error) {
+      log(error.toString());
+      HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
+    }
+  }
+
+  void onTapDeleteNote(
+      String noteId, {
+        Function? onSuccess,
+        Function(String)? onError
+  }) async {
+    try {
+      await _deleteNoteUC.execute(noteId);
+      onSuccess?.call();
+    } catch (error) {
+      log(error.toString());
+      HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
+    }
+  }
+
+  void reloadListNote() {
+    final currentPage = vm.value.currentPage;
+    getListNote(currentPage);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_aitriage/aitriage_module_assessment/data/repository/patient_repository.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_note_uc.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_note_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/edit_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_gender_type_param_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_patient_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
@@ -23,6 +24,8 @@ class PatientDetailBinding extends Bindings {
     Get.lazyPut(() => DeletePatientUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => GetListPatientNoteUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => AddPatientNoteUseCaseImpl(Get.find<PatientRepositoryImpl>()));
+    Get.lazyPut(() => EditNoteUseCaseImpl(Get.find<PatientRepositoryImpl>()));
+    Get.lazyPut(() => DeleteNoteUseCaseImpl(Get.find<PatientRepositoryImpl>()));
     Get.lazyPut(() => PatientDetailController(
         argument,
         Get.find<GetPatientDetailUseCaseImpl>(),
@@ -31,6 +34,8 @@ class PatientDetailBinding extends Bindings {
         Get.find<DeletePatientUseCaseImpl>(),
         Get.find<GetListPatientNoteUseCaseImpl>(),
         Get.find<AddPatientNoteUseCaseImpl>(),
+        Get.find<EditNoteUseCaseImpl>(),
+        Get.find<DeleteNoteUseCaseImpl>()
     ));
   }
 }

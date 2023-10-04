@@ -19,13 +19,14 @@ class PatientDetailNote extends StatefulWidget {
   final String pageCountString;
   final int totalPage;
   final List<NoteVM> list;
-  final Function(int)? onTapPatient;
+  // id, note
+  final Function(String, String)? onTapNote;
   final Function(int)? onPageChanged;
 
   const PatientDetailNote({
     super.key,
     required this.list,
-    this.onTapPatient,
+    this.onTapNote,
     required this.pageCountString,
     required this.totalPage,
     this.onPageChanged
@@ -65,7 +66,11 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
                   ? ListView.separated(
                   itemBuilder: (BuildContext context, int index) =>
                       GestureDetector(
-                          onTap: () => widget.onTapPatient?.call(0),
+                          onTap: () {
+                            final id = widget.list[index].realId;
+                            final note = widget.list[index].note;
+                            widget.onTapNote?.call(id, note);
+                          },
                           behavior: HitTestBehavior.translucent,
                           child: _NoteSummaryView(vm: widget.list[index])),
                   separatorBuilder: (BuildContext context, int index) =>
@@ -169,7 +174,7 @@ class _Label extends StatelessWidget {
 class _NoteSummaryView extends StatelessWidget {
   final NoteVM vm;
 
-  const _NoteSummaryView({super.key, required this.vm});
+  const _NoteSummaryView({required this.vm});
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +215,7 @@ class NoteVM {
   final String note;
   final String creator;
   final String dateTime;
+  final String realId;
 
-  NoteVM(this.id, this.note, this.creator, this.dateTime);
+  NoteVM(this.id, this.note, this.creator, this.dateTime, this.realId);
 }
