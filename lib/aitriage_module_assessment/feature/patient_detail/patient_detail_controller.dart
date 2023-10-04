@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import '../../domain/use_case/add_patient_note_uc.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 
+const _pageLimit = 20;
+
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
   final GetListPatientNoteUseCase _getListPatientNoteUC;
@@ -92,6 +94,29 @@ class PatientDetailController extends GetxController {
     } catch (error) {
       log(error.toString());
       HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
+    }
+  }
+
+  void handleOnTapPatientDetailWidget(int index) {
+    if (index == 2) {
+      getListNote(0);
+    }
+  }
+
+  void getListNote(int page) async {
+    try {
+      final patientId = _argument['patientId'];
+      final resp = await _getListPatientNoteUC.execute(patientId.toString(), page + 1, _pageLimit);
+      vm.value.update(
+          listNote: resp.data,
+          totalPage: resp.totalPage,
+          totalItem: resp.totalItem,
+          currentPage: page,
+          pageLimit: _pageLimit
+      );
+      vm.refresh();
+    } catch (e) {
+
     }
   }
 }

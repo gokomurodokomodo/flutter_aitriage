@@ -10,6 +10,7 @@ import '../../../aitriage_core/network/provider/get_base_provider.dart';
 import '../../domain/repository/patient_repository.dart';
 import '../api/query/list_patient_note_query.dart';
 import '../api/query/patient_detail_query.dart';
+import '../api/response/get_list_note_response.dart';
 import '../api/response/patient_detail_response.dart';
 import '../api/response/patient_response.dart';
 
@@ -55,10 +56,10 @@ class PatientRepositoryImpl extends PatientRepository {
   }
 
   @override
-  Future<BaseResponse> getListPatientNote(String customerId, int page, int limit) async {
+  Future<GetListNoteResponse> getListPatientNote(String customerId, int page, int limit) async {
     final query = ListPatientNoteQuery(page, limit, customerId: customerId);
     final resp = await _provider.get(AssessmentModuleApiRoute.getListPatientNote, query: query.toQuery);
-    return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
+    return _provider.convertResponse(resp, (json) => GetListNoteResponse.fromJson(json));
   }
 
   @override

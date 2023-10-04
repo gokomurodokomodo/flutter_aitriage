@@ -70,4 +70,15 @@ class HomeAssessmentVM {
   String? get searchParam => _searchParam;
 
   int get currentPage => _currentPage;
+
+  String get pageCountString => 'Show ${(currentPage) * _pageLimit + 1} - ${_getCurrentPatientInPage(currentPage + 1)}/$totalPatient';
+
+  int _getCurrentPatientInPage(int page) {
+    if (totalPatient - _pageLimit * page >= 0) {
+      return 20 * page;
+    } else {
+      final result = totalPatient;
+      return result;
+    }
+  }
 }

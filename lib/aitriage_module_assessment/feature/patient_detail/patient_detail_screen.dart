@@ -114,16 +114,17 @@ class _Tablet extends GetView<PatientDetailController> {
                   SizedBox(width: 24.w),
                   Obx(() => PatientDetailWidget(
                       vm: controller.vm.value,
-                      onTap: (index) => pageViewController.jumpToPage(index),
+                      onTap: (index) {
+                        controller.handleOnTapPatientDetailWidget(index);
+                        pageViewController.jumpToPage(index);
+                      },
                       onTapAvatar: () {
                         onSuccess() {
                           Get.snackbar('Message', 'Avatar upload success');
                         }
-
                         onError(message) {
                           Get.snackbar('Error', message);
                         }
-
                         Get.snackbar('Message', 'Avatar is uploading');
                         controller.onTapAvatar(
                             onSuccess: onSuccess, onError: onError);
@@ -137,12 +138,10 @@ class _Tablet extends GetView<PatientDetailController> {
                           Get.snackbar(
                               'Success', 'Successfully deleted patient');
                         }
-
                         onError(message) {
                           Get.back();
                           Get.snackbar('Error', message);
                         }
-
                         AlertUtil.showLoadingIndicator();
                         controller.onTapDeleteButton(
                             onSuccess: onSuccess, onError: onError);
@@ -159,16 +158,17 @@ class _Tablet extends GetView<PatientDetailController> {
                         controller: pageViewController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          Obx(() => PatientDetailInformation(
-                              vm: controller.vm.value)),
+                          Obx(() => PatientDetailInformation(vm: controller.vm.value)),
                           PatientDetailAssessment(list: [
                             // fake data
                             for (int i = 0; i < 20; i++) AssessmentVM()
                           ]),
-                          PatientDetailNote(list: [
-                            // fake data
-                            for (int i = 0; i < 20; i++) NoteVM()
-                          ])
+                          Obx(() => PatientDetailNote(
+                              list: controller.vm.value.listNoteVM,
+                              totalPage: controller.vm.value.totalPage,
+                              pageCountString: controller.vm.value.pageCountString,
+                              onPageChanged: (index) => controller.getListNote(index),
+                          ))
                         ],
                       ),
                     ),

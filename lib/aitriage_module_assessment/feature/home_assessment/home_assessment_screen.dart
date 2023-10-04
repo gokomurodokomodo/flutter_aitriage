@@ -154,7 +154,8 @@ class _TabletState extends State<_Tablet> {
                         Row(
                           children: [
                             Obx(() => Text(
-                              controller.showCountPatient.value,
+                              // controller.showCountPatient.value,
+                              controller.vm.value.pageCountString,
                               style: AppStyle.styleRememberMeText,
                             )),
                             const Spacer(),
@@ -167,21 +168,16 @@ class _TabletState extends State<_Tablet> {
                                     ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                                     ///nên set cứng height là 50.w để lấy khoảng cách.
                                     ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
-                                    width: (50 * controller.vm.value.totalPage)
-                                            .toDouble()
-                                            .w +
-                                        20.w +
-                                        100.w,
+                                    width: (50 * controller.vm.value.totalPage).toDouble().w
+                                        + 20.w + 100.w,
                                     child: StatefulBuilder(
                                       builder: (_, setState) {
                                         return Obx(() {
-                                          if (controller.vm.value.totalPage <
-                                              1) {
+                                          if (controller.vm.value.totalPage < 1) {
                                             return const CircularProgressIndicator();
                                           } else {
                                             return NumberPaginator(
-                                              numberPages:
-                                                  controller.vm.value.totalPage,
+                                              numberPages: controller.vm.value.totalPage,
                                               onPageChange: (value) {
                                                 setState(() {});
                                                 AlertUtil

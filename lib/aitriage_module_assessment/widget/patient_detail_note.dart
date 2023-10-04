@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:number_paginator/number_paginator.dart';
-
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 import '../../aitriage_core/common/app_style.dart';
@@ -17,10 +16,20 @@ const _dateTimeColumnRatio = 10;
 final _blankWidth = 48.w;
 
 class PatientDetailNote extends StatefulWidget {
+  final String pageCountString;
+  final int totalPage;
   final List<NoteVM> list;
   final Function(int)? onTapPatient;
+  final Function(int)? onPageChanged;
 
-  const PatientDetailNote({super.key, required this.list, this.onTapPatient});
+  const PatientDetailNote({
+    super.key,
+    required this.list,
+    this.onTapPatient,
+    required this.pageCountString,
+    required this.totalPage,
+    this.onPageChanged
+  });
 
   @override
   State<PatientDetailNote> createState() => _PatientDetailNoteState();
@@ -77,7 +86,7 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
           Row(
             children: [
               Text(
-                'Show 1 - 10/40',
+                widget.pageCountString,
                 style: AppStyle.styleRememberMeText,
               ),
               const Spacer(),
@@ -89,12 +98,14 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
                   ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                   ///nên set cứng height là 50.w để lấy khoảng cách.
                   ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
-                  width: (50 * 5).toDouble().w + 20.w + 100.w,
+                  width: (50 * widget.totalPage).toDouble().w + 20.w + 100.w,
                   child: StatefulBuilder(
                     builder: (_, setState) {
                       return NumberPaginator(
-                        numberPages: 5,
-                        onPageChange: (value) {},
+                        numberPages: widget.totalPage,
+                        onPageChange: (value) {
+                          widget.onPageChanged?.call(value);
+                        },
                         config: NumberPaginatorUIConfig(
                             contentPadding:
                             const EdgeInsets.all(0),
@@ -169,20 +180,20 @@ class _NoteSummaryView extends StatelessWidget {
             flex: _orderColumnRatio,
             child: Align(
                 alignment: Alignment.center,
-                child: Text(vm._id, style: AppStyle.stylePatientItemLabel))),
+                child: Text(vm.id, style: AppStyle.stylePatientItemLabel))),
         SizedBox(width: _orderBlankWidth),
         Expanded(
             flex: _noteColumnRatio,
-            child: Text(vm._note, style: AppStyle.stylePatientItemLabel, maxLines: 1, overflow: TextOverflow.ellipsis)),
+            child: Text(vm.note, style: AppStyle.stylePatientItemLabel, maxLines: 1, overflow: TextOverflow.ellipsis)),
         SizedBox(width: _noteBlankWidth),
         Expanded(
             flex: _creatorColumnRatio,
-            child: Text(vm._creator, style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.creator, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _dateTimeColumnRatio,
             child: Align(
                 alignment: Alignment.topRight,
-                child: Text(vm._dateTime, style: AppStyle.stylePatientItemLabel))),
+                child: Text(vm.dateTime, style: AppStyle.stylePatientItemLabel))),
         SizedBox(
           width: _blankWidth,
           child: Center(
@@ -195,10 +206,10 @@ class _NoteSummaryView extends StatelessWidget {
 
 
 class NoteVM {
-  final String _id = '1';
-  final String _note = 'Lorem Ipsum is simply dummy text of the printing and typesett industry. '
-      'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, '
-      'when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries';
-  final String _creator = 'Alber Flores';
-  final String _dateTime = '17:06';
+  final String id;
+  final String note;
+  final String creator;
+  final String dateTime;
+
+  NoteVM(this.id, this.note, this.creator, this.dateTime);
 }
