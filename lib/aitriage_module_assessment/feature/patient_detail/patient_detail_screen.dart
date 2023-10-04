@@ -27,7 +27,7 @@ class PatientDetailScreen extends StatelessWidget {
 }
 
 class _Tablet extends GetView<PatientDetailController> {
-  const _Tablet({super.key});
+  const _Tablet();
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +46,9 @@ class _Tablet extends GetView<PatientDetailController> {
                 ),
                 child: Row(mainAxisSize: MainAxisSize.max, children: [
                   GestureDetector(
-                      onTap: () =>
-                          Get.back(id: AssessmentModulePageRoute.nestedId),
+                      onTap: () => Get.back(
+                          id: AssessmentModulePageRoute.nestedId,
+                          result: controller.vm.value.shouldReloadData),
                       child: Row(
                         children: [
                           SvgIconWidget(name: AppImage.svgArrowLeft),
@@ -55,7 +56,7 @@ class _Tablet extends GetView<PatientDetailController> {
                           Text('Back', style: AppStyle.styleTextUserChoice),
                         ],
                       )),
-                  Spacer(),
+                  const Spacer(),
                   ColorButton(
                       title: 'Add assessment',
                       width: 150.w,
@@ -118,7 +119,10 @@ class _Tablet extends GetView<PatientDetailController> {
                             AssessmentModulePageRoute.addNewPatients,
                             arguments: controller.vm.value.patientEntity);
 
-                        if (result == true) controller.getUserDetailInfo();
+                        if (result == true) {
+                          controller.vm.value.update(shouldReloadData: true);
+                          controller.getUserDetailInfo();
+                        }
                       }),
                 ])),
             Expanded(
@@ -148,6 +152,8 @@ class _Tablet extends GetView<PatientDetailController> {
                           Get.back(
                               id: AssessmentModulePageRoute.nestedId,
                               result: controller.vm.value.shouldReloadData);
+                          Get.snackbar(
+                              'Success', 'Successfully deleted patient');
                         }
 
                         onError(message) {
@@ -173,8 +179,14 @@ class _Tablet extends GetView<PatientDetailController> {
                         children: [
                           Obx(() => PatientDetailInformation(
                               vm: controller.vm.value)),
-                          PatientDetailAssessment(),
-                          PatientDetailNote()
+                          PatientDetailAssessment(list: [
+                            // fake data
+                            for (int i = 0; i < 20; i++) AssessmentVM()
+                          ]),
+                          PatientDetailNote(list: [
+                            // fake data
+                            for (int i = 0; i < 20; i++) NoteVM()
+                          ])
                         ],
                       ),
                     ),

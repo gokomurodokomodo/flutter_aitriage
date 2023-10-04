@@ -52,7 +52,8 @@ class HomeAssessmentController extends GetxController {
       final user = await ActiveUserUtil.userInfo;
       final searchParam = vm.value.searchParam;
       final resp = await _getListPatientUC.execute(
-          user.id.toString(), page + 1, _pageLimit,
+          page + 1,
+          _pageLimit,
           searchParam: searchParam);
       final listPatient = resp.patient;
       vm.value.update(

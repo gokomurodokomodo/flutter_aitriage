@@ -44,12 +44,12 @@ private_lane :build do |options|
                   merge_commit_filtering: "exclude_merges",
                   quiet: true)
 
-# Slack url: https://hooks.slack.com/services/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
+# Slack url: https://hooks.slack.com/services/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
 
     slack(message: "[*Android AITriage #{options[:type]}]* Build started..."\
                    "\n\n*Changelogs*: \n#{CHANGELOG}",
           default_payloads: [],
-               	          slack_url: "https://hooks.slack.com/services/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",
+               	          slack_url: "https://hooks.slack.com/services/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",
          fail_on_error: false)
 
     build_duration = 0
@@ -119,7 +119,7 @@ private_lane :build do |options|
                    "<!channel> New build successfully uploaded to #{DESTINATION}!"\
                    "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
                    "\n\n*Changelogs*: \n#{CHANGELOG}",
-             	   slack_url: "https://hooks.slack.com/services/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",
+             	   slack_url: "https://hooks.slack.com/services/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",
                    fail_on_error: false)
 
     error do
@@ -150,7 +150,7 @@ private_lane :build do |options|
 	    slack(message: "<!channel> Android AITriage Build FAILED! \n\n"\
 	                   "*Changelogs*: \n #{CHANGELOG}",
 	          success: false,
-	          slack_url: "https://hooks.slack.com/services/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",
+	          slack_url: "https://hooks.slack.com/services/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",
               fail_on_error: false)
   	end
   end

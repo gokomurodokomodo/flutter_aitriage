@@ -96,7 +96,7 @@ platform :ios do
     slack(message: "[*iOS AITriage #{options[:type]}]* Build started..."\
                    "\n\n*Changelogs*: \n#{CHANGELOG}",
           default_payloads: [],
-          slack_url: "https://hooks.slack.com/services/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",
+          slack_url: "https://hooks.slack.com/services/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",
           fail_on_error: false)
 
     scheme = options[:scheme]
@@ -210,7 +210,7 @@ xnR1xEiA",
                    "<!channel> New build successfully uploaded to #{DESTINATION}!"\
                    "\n\n*Build duration:* #{build_duration_minutes}m#{build_duration_seconds}s"\
                    "\n\n*Changelogs*: \n#{CHANGELOG}",
-      	          slack_url: "https://hooks.slack.com/services/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",
+      	          slack_url: "https://hooks.slack.com/services/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",
         fail_on_error: false)
 
   end
@@ -243,7 +243,7 @@ xnR1xEiA",
 	    slack(message: "<!channel> iOS AITriage FAILED! \n\n"\
 	                   "*Changelogs*: \n #{CHANGELOG}",
 	          success: false,
-	          slack_url: "https://hooks.slack.com/services/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",
+	          slack_url: "https://hooks.slack.com/services/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",
 	          fail_on_error: false)
   	end
   end

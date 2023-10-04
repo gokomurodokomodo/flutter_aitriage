@@ -4,8 +4,6 @@ import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/dialog/app_dialog.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/base_search_bar_tablet.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_app_bar.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_expansion_tile_phone.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/line_separated.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/patient_summary_listview.dart';
@@ -145,6 +143,7 @@ class _TabletState extends State<_Tablet> {
                                       AssessmentModulePageRoute.patientDetail,
                                       id: AssessmentModulePageRoute.nestedId,
                                       arguments: {'patientId': patientId});
+
                                   if (result == true) {
                                     controller.reloadCurrentPage();
                                   }
@@ -154,12 +153,10 @@ class _TabletState extends State<_Tablet> {
                         LineSeparated(margin: 16.h),
                         Row(
                           children: [
-                            Obx(() => Container(
-                                  child: Text(
-                                    controller.showCountPatient.value,
-                                    style: AppStyle.styleRememberMeText,
-                                  ),
-                                )),
+                            Obx(() => Text(
+                              controller.showCountPatient.value,
+                              style: AppStyle.styleRememberMeText,
+                            )),
                             const Spacer(),
                             Obx(() => Align(
                                   alignment: Alignment.topRight,
@@ -201,7 +198,7 @@ class _TabletState extends State<_Tablet> {
                                               controller: _pageController,
                                               config: NumberPaginatorUIConfig(
                                                   contentPadding:
-                                                      EdgeInsets.all(0),
+                                                      const EdgeInsets.all(0),
                                                   buttonShape:
                                                       RoundedRectangleBorder(
                                                     borderRadius:
@@ -233,79 +230,79 @@ class _Phone extends GetView<HomeAssessmentController> {
   Widget build(BuildContext context) {
     return const VitalSignChart(title: 'Test chart');
 
-    return Scaffold(
-        appBar: AppBar(
-          title: const Row(
-            children: [
-              Text('Dashboard'),
-              Spacer(),
-              Icon(Icons.search),
-              Icon(Icons.notification_important)
-            ],
-          ),
-        ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 128.w,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  for (int i = 0; i < 10; i++)
-                    Container(
-                      width: 280.w,
-                      color: Colors.cyanAccent,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            children: [
-                              Text('Patients'),
-                              Spacer(),
-                              Icon(Icons.people)
-                            ],
-                          ),
-                          const Text('10,000'),
-                          Container(
-                            width: 71.w,
-                            height: 24.w,
-                            child: const Row(
-                              children: [
-                                Text('+0.05'),
-                                Icon(Icons.arrow_upward_sharp)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ).paddingOnly(right: 16.w)
-                ],
-              ),
-            ),
-            SizedBox(height: 10.w),
-            Row(
-              children: [
-                const Text('All Patients'),
-                const Spacer(),
-                GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AssessmentModulePageRoute.allPatients,
-                        id: AssessmentModulePageRoute.nestedId),
-                    child: const Text('See all'))
-              ],
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  for (int i = 0; i < 10; i++)
-                    const CustomExpansionTilePhone().marginOnly(bottom: 10.w)
-                ],
-              ),
-            )
-          ],
-        ));
+    // return Scaffold(
+    //     appBar: AppBar(
+    //       title: const Row(
+    //         children: [
+    //           Text('Dashboard'),
+    //           Spacer(),
+    //           Icon(Icons.search),
+    //           Icon(Icons.notification_important)
+    //         ],
+    //       ),
+    //     ),
+    //     body: Column(
+    //       children: [
+    //         SizedBox(
+    //           height: 128.w,
+    //           child: ListView(
+    //             scrollDirection: Axis.horizontal,
+    //             children: [
+    //               for (int i = 0; i < 10; i++)
+    //                 Container(
+    //                   width: 280.w,
+    //                   color: Colors.cyanAccent,
+    //                   child: Column(
+    //                     mainAxisSize: MainAxisSize.min,
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     crossAxisAlignment: CrossAxisAlignment.start,
+    //                     children: [
+    //                       const Row(
+    //                         children: [
+    //                           Text('Patients'),
+    //                           Spacer(),
+    //                           Icon(Icons.people)
+    //                         ],
+    //                       ),
+    //                       const Text('10,000'),
+    //                       Container(
+    //                         width: 71.w,
+    //                         height: 24.w,
+    //                         child: const Row(
+    //                           children: [
+    //                             Text('+0.05'),
+    //                             Icon(Icons.arrow_upward_sharp)
+    //                           ],
+    //                         ),
+    //                       )
+    //                     ],
+    //                   ),
+    //                 ).paddingOnly(right: 16.w)
+    //             ],
+    //           ),
+    //         ),
+    //         SizedBox(height: 10.w),
+    //         Row(
+    //           children: [
+    //             const Text('All Patients'),
+    //             const Spacer(),
+    //             GestureDetector(
+    //                 onTap: () => Get.toNamed(
+    //                     AssessmentModulePageRoute.allPatients,
+    //                     id: AssessmentModulePageRoute.nestedId),
+    //                 child: const Text('See all'))
+    //           ],
+    //         ),
+    //         Expanded(
+    //           child: ListView(
+    //             children: [
+    //               for (int i = 0; i < 10; i++)
+    //                 const CustomExpansionTilePhone().marginOnly(bottom: 10.w)
+    //             ],
+    //           ),
+    //         )
+    //       ],
+    //     ));
   }
 }
 

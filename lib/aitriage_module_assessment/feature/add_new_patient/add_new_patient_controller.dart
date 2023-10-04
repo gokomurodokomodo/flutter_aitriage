@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
+import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/add_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_city_uc.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_nationality_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_state_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_vm.dart';
@@ -10,7 +10,6 @@ import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.da
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
-import '../../../aitriage_core/util/active_user/active_user.dart';
 import '../../../aitriage_core/util/date_time_parse_util.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 import '../../domain/use_case/get_race_uc.dart';
@@ -18,7 +17,7 @@ import '../../domain/use_case/get_race_uc.dart';
 class AddNewPatientController extends GetxController {
   final GetGenderParamTypeUseCase _genderParamTypeUC;
   final GetRaceUseCase _getRaceUC;
-  final GetNationalityUseCase _getNationalityUC;
+  // final GetNationalityUseCase _getNationalityUC;
   final GetCityUseCase _getCityUC;
   final GetStateUseCase _getStateUC;
   final AddPatientUseCase _addPatientUC;
@@ -42,7 +41,6 @@ class AddNewPatientController extends GetxController {
   AddNewPatientController(
       this._genderParamTypeUC,
       this._getRaceUC,
-      this._getNationalityUC,
       this._getCityUC,
       this._getStateUC,
       this._addPatientUC,
@@ -52,42 +50,55 @@ class AddNewPatientController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await _initParam();
-    _initPatient();
+    _initParam();
+    _initPatientInfo();
   }
 
-  Future _initParam() async {
-    final location = Get.isRegistered<HomeMainController>()
-        ? Get.find<HomeMainController>().currentLocation
-        : null;
-    final locationId = location?.id;
-    final countryId = location?.countryId;
-    final phoneCode = location?.countryCode;
+  void _initParam() {
+    final argument = Get.arguments;
+    final isEditScreen = argument is Patient;
     final genders = _genderParamTypeUC.execute();
     final races = _getRaceUC.execute();
-    final nationalities = await _getNationalityUC.execute();
+    final nationalities = HiviService.instance.countries;
+    final patientLocationId = argument?.locationId;
+    // Selected location at home screen
+    final selectedLocation = Get.isRegistered<HomeMainController>()
+        ? Get.find<HomeMainController>().currentLocation
+        : null;
+    final locationId = isEditScreen
+        ? patientLocationId
+        : selectedLocation?.id;
+    final patientScreenType = isEditScreen
+        ? PatientScreenType.edit
+        : PatientScreenType.add;
+    final countryId = isEditScreen
+        ? argument.countryId
+        : selectedLocation?.countryId;
+    final phoneCode = isEditScreen
+        ? argument.phoneCode
+        : selectedLocation?.countryCode;
     final cities = _getCityUC.execute(locationId.toString());
     final states = _getStateUC.execute(locationId.toString());
     vm.value.update(
-        genders: genders,
-        races: races,
-        nationalities: nationalities,
-        cities: cities,
-        states: states,
-        locationId: locationId,
-        countryId: countryId,
-        phoneCode: phoneCode
+      patientScreenType: patientScreenType,
+      patient: argument,
+      genders: genders,
+      races: races,
+      nationalities: nationalities,
+      cities: cities,
+      states: states,
+      locationId: locationId,
+      countryId: countryId,
+      phoneCode: phoneCode,
     );
     vm.refresh();
   }
 
-  void _initPatient() {
+  // only if edit screen
+  void _initPatientInfo() {
     final argument = Get.arguments;
-
     // Edit patient will have argument
     if (argument is Patient) {
-      vm.value.update(patientScreenType: PatientScreenType.edit, patient: argument);
-      vm.refresh();
       // Set value for text field
       // final dob = argument.birthday ?? argument.yearOfBirth?.toString() ?? '';
       final dob = DateTimeParserUtil().backendFormatToAppFormat(
@@ -151,9 +162,6 @@ class AddNewPatientController extends GetxController {
         onTapRace(raceIndex);
         raceController.value = raceIndex;
       }
-    } else {
-      vm.value.update(patientScreenType: PatientScreenType.add);
-      vm.refresh();
     }
   }
 
@@ -166,8 +174,7 @@ class AddNewPatientController extends GetxController {
     if (type == PatientScreenType.add) {
       try {
         final request = vm.value.getAddPatientRequest;
-        final user = await ActiveUserUtil.userInfo;
-        await _addPatientUC.execute(request, user.accountId.toString());
+        await _addPatientUC.execute(request);
         onSuccess?.call();
       } catch (e) {
         HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));
@@ -175,8 +182,7 @@ class AddNewPatientController extends GetxController {
     } else {
       try {
         final patient = vm.value.getEditPatient;
-        final user = await ActiveUserUtil.userInfo;
-        await _updatePatientUC.execute(patient, user.accountId.toString());
+        await _updatePatientUC.execute(patient);
         onSuccess?.call();
       } catch (e) {
         HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));

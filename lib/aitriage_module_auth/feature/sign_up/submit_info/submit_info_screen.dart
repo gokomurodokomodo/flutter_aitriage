@@ -75,6 +75,7 @@ class _Tablet extends StatelessWidget {
                     controller: controller.countryController,
                     title: 'country'.tr,
                     shouldIncludeAsterisk: true,
+                    dropDownHeight: 200,
                     dropDownWidth: 360.w,
                     onTapChildren: (index) =>
                         controller.onCountryChanged(index),

@@ -75,7 +75,6 @@ class SignInController extends GetxController{
     } else {
       isValidEmail.value = _validateEmail(email);
     }
-    print('here i am ${isValidEmail.value}');
     if(isValidEmail.value) vm.value.updateVM(username: email);
     _validate();
   }

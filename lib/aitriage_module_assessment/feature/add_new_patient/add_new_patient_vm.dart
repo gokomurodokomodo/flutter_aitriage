@@ -134,14 +134,11 @@ class AddNewPatientVM {
         _yearOfBirth = int.parse(date);
       } else {
         final isValidDate = DateTimeCheckerUtil().checkDate(date);
-        print(isValidDate);
         if(isValidDate){
           _dob = DateTimeParserUtil().appFormatToBackendFormat(date);
         } else {
         }
       }
-      print(_dob);
-      print(_yearOfBirth);
     }
   }
 

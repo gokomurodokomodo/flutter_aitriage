@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+
 part 'app_event.dart';
 
 class AppEventChannel {
@@ -19,24 +21,12 @@ class AppEventChannel {
   ///Fire a custom event that implements IEvent
   void addEvent<T extends IAppEvent>(T event) {
     _streamController.add(event);
-
-    for (var item in _lastEvent) {
-      if (item is T) {
-        _lastEvent.remove(item);
-      }
-    }
-
+    _lastEvent.removeWhere((element) => element is T);
     _lastEvent.add(event);
   }
 
   T? getLastEvent<T extends IAppEvent>() {
-    for (var item in _lastEvent) {
-      if (item is T) {
-        return item;
-      }
-    }
-
-    return null;
+    return _lastEvent.firstWhereOrNull((element) => element is T) as T?;
   }
 
   //avoid destroy, use only for testing
