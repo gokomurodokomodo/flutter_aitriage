@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/dialog/app_dialog.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_login_field.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/add_note_dialog.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_assessment.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_information.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_note.dart';
@@ -68,44 +67,21 @@ class _Tablet extends GetView<PatientDetailController> {
                     shouldTapAbleWhenDisable: true,
                     onTap: () {
                       Get.dialog(
-                        AppDialog(
-                            dialogWidth: 480.w,
-                            dialogHeight: 430.h,
+                          AddNoteDialog(
+                            title: 'NOTE',
                             primaryButtonTitle: 'Save',
-                            secondaryButtonTitle: 'Cancel',
-                            secondaryButtonCallback: () => Get.back(),
-                            content: Column(
-                              children: [
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                const Divider(
-                                  color: AppColor.colorInactiveFillColor,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                CustomLoginField(
-                                  multiLineContentPadding:
-                                      EdgeInsets.only(top: 10.h),
-                                  hintText: 'Note',
-                                  maxLines: 10,
-                                  textFieldWidth: 432.w,
-                                  textFieldHeight: 180.h,
-                                  type: TextInputType.multiline,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                const Divider(
-                                  color: AppColor.colorInactiveFillColor,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                              ],
-                            ),
-                            title: 'ADD NOTE'),
+                            secondaryButtonTile: 'Delete',
+                            onTapSecondaryButton: () => Get.back(),
+                            onTapPrimaryButton: (text) {
+                              onSuccess() {
+                                Get.back();
+                              }
+                              onError(String message) {
+                                Get.snackbar('Error', message);
+                              }
+                              controller.onTapCreateNote(text, onSuccess: onSuccess, onError: onError);
+                            },
+                        )
                       );
                     },
                   ),

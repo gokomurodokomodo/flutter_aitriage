@@ -4,7 +4,6 @@ import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/upda
 import 'package:get/get.dart';
 import '../../data/repository/patient_repository.dart';
 import '../../domain/use_case/get_city_uc.dart';
-import '../../domain/use_case/get_nationality_uc.dart';
 import '../../domain/use_case/get_race_uc.dart';
 import '../../domain/use_case/get_state_uc.dart';
 import 'add_new_patient_controller.dart';

@@ -8,4 +8,5 @@ class AssessmentModuleApiRoute {
   static const updatePatient = '/main/v1/customer/account/%s/update';
   static const deletePatient = '/main/v1/customer/account/%s/delete';
   static const getListPatientNote = '/main/v1/note/list';
+  static const addPatientNote = '/main/v1/note/create';
 }

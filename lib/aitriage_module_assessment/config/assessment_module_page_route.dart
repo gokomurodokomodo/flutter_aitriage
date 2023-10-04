@@ -3,6 +3,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_deta
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/patient_detail/patient_detail_screen.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/work_flow/workflow_screen.dart';
 import 'package:get/get.dart';
+import '../feature/add_new_note/add_new_note_binding.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
 import '../feature/add_new_patient/add_new_patient_binding.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
@@ -79,6 +80,16 @@ class AssessmentModulePageRoute {
         transition: Transition.fadeIn,
         fullscreenDialog: true,
         binding: AddNewPatientBinding()
+    ),
+    GetPage(
+        name: addNewNote,
+        page: () => const AddNewNoteScreen(),
+        // opaque = false and change screen background color to transparent
+        // to make screen look like a dialog - for tablet dialog
+        opaque: false,
+        transition: Transition.fadeIn,
+        fullscreenDialog: true,
+        binding: AddNewNoteBinding()
     )
   ];
 }

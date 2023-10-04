@@ -64,7 +64,7 @@ class PatientRepositoryImpl extends PatientRepository {
   @override
   Future<BaseResponse> addNewPatientNote(String customerId, String description) async {
     final query = AddPatientNoteRequest(customerId, description);
-    final resp = await _provider.post(AssessmentModuleApiRoute.getListPatientNote, query.toRequest());
+    final resp = await _provider.post(AssessmentModuleApiRoute.addPatientNote, query.toRequest());
     return _provider.convertResponse(resp, (json) => BaseResponse.fromJson(json));
   }
 }

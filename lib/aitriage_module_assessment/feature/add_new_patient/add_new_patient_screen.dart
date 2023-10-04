@@ -12,7 +12,6 @@ import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_pati
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/add_new_patient/add_new_patient_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/base_dialog_scaffold_tablet.dart';
 import '../../../aitriage_core/ui/widget/line_separated.dart';

@@ -13,5 +13,4 @@ class AddPatientNoteUseCaseImpl extends AddPatientNoteUseCase {
   Future execute(String customerId, String description) {
     return _repository.addNewPatientNote(customerId, description);
   }
-
 }

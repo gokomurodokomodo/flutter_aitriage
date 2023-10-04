@@ -79,4 +79,19 @@ class PatientDetailController extends GetxController {
       HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
     }
   }
+
+  void onTapCreateNote(
+    String text, {
+    Function? onSuccess,
+    Function(String)? onError
+  }) async {
+    try {
+      final patientId = _argument['patientId'];
+      await _addPatientNoteUC.execute(patientId.toString(), text);
+      onSuccess?.call();
+    } catch (error) {
+      log(error.toString());
+      HandleNetworkError.handleNetworkError(error, (message, _, __) => onError?.call(message));
+    }
+  }
 }
