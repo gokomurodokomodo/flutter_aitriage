@@ -28,7 +28,7 @@ class HomeAssessmentController extends GetxController {
 
   void countPatient(int page) {
     showCountPatient.value =
-        'Showing ${(page - 1) * _pageLimit + 1} - ${_getCurrentPatientInPage(page)}/${vm.value.totalPatient}';
+        'Show ${(page - 1) * _pageLimit + 1} - ${_getCurrentPatientInPage(page)}/${vm.value.totalPatient}';
   }
 
   int _getCurrentPatientInPage(int page) {

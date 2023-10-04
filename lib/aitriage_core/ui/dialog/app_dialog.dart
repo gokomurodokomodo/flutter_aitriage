@@ -55,18 +55,37 @@ class AppDialog extends StatelessWidget {
                 ],
               ),
               content,
-              shouldShowPrimaryButton
-                  ? ColorButton(
-                          title: primaryButtonTitle!,
-                          shouldEnableBackground: true,
-                          onTap: () => primaryButtonCallback?.call())
-                      .paddingSymmetric(horizontal: 16.w)
-                  : const SizedBox(),
-              shouldShowSecondaryButton
-                  ? ColorButton(
-                          title: secondaryButtonTitle!,
-                          onTap: () => secondaryButtonCallback?.call())
-                      .paddingOnly(top: 8.h, left: 16.w, right: 16.w)
+              shouldShowPrimaryButton && shouldShowSecondaryButton
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: SizedBox(
+                        height: 48.h,
+                        child: Row(children: [
+                          shouldShowSecondaryButton
+                              ? Expanded(
+                                  child: ColorButton(
+                                      height: 48.h,
+                                      title: secondaryButtonTitle!,
+                                      onTap: () =>
+                                          secondaryButtonCallback?.call()),
+                                )
+                              : const SizedBox(),
+                          (shouldShowPrimaryButton && shouldShowSecondaryButton)
+                              ? SizedBox(width: 20.w)
+                              : const SizedBox(),
+                          shouldShowPrimaryButton
+                              ? Expanded(
+                                  child: ColorButton(
+                                      height: 48.h,
+                                      title: primaryButtonTitle!,
+                                      shouldEnableBackground: true,
+                                      onTap: () =>
+                                          primaryButtonCallback?.call()),
+                                )
+                              : const SizedBox(),
+                        ]),
+                      ),
+                    )
                   : const SizedBox(),
               SizedBox(height: 24.h)
             ],
