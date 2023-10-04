@@ -79,6 +79,12 @@ class _Tablet extends GetView<PatientDetailController> {
                               onError(String message) {
                                 Get.snackbar('Error', message);
                               }
+
+                              if (text.isEmpty) {
+                                Get.snackbar('Alert', 'Note empty');
+                                return;
+                              }
+
                               controller.onTapCreateNote(text, onSuccess: onSuccess, onError: onError);
                             },
                         )
