@@ -15,6 +15,7 @@ stages:          # List of stages for jobs, and their order of executionn
 aitriage:android:develop:
   stage: aitriage_upload_ios_android_develop
   before_script:
+    - flutter pub get
     - cd android
     - bundle install
 
