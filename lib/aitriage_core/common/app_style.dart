@@ -223,4 +223,14 @@ class AppStyle {
     fontWeight: fontWeight500,
     color: AppColor.colorForgotPassword,
   );
+  static final styleTextMediumRisk = TextStyle(
+      fontSize: fontSizeSM,
+      fontWeight: fontWeight500,
+      color: AppColor.colorMediumRiskText
+  );
+  static final styleTextHighRisk = TextStyle(
+      fontSize: fontSizeSM,
+      fontWeight: fontWeight500,
+      color: AppColor.colorAsterisk
+  );
 }

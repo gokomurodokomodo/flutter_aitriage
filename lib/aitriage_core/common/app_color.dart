@@ -45,4 +45,6 @@ class AppColor {
   static const colorSelectedLocationBackground = Color(0xfff9f9f9);
   static const colorSummaryViewLabel = Color(0xfffafafa);
   static const colorPatientInformationText = Color(0xff686868);
+  static const colorMediumRiskText = Color(0xffFF9E0C);
+  static const colorHighRiskBackground = Color.fromRGBO(255, 74, 74, 0.10);
 }

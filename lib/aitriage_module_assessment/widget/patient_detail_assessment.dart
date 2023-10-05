@@ -52,7 +52,7 @@ class _PatientDetailAssessmentState extends State<PatientDetailAssessment> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Column(
         children: [
           Row(
@@ -219,11 +219,11 @@ class _AssessmentSummaryView extends StatelessWidget {
             child: Align(
                 alignment: Alignment.topRight,
                 child: CustomTrailingWidget(
-                    backgroundColor: AppColor.colorRailHover,
-                    width: 70.w,
+                    backgroundColor: vm.resultBackgroundColor,
+                    width: 100.w,
                     height: 30.h,
                     borderRadiusValue: 8.r,
-                    child: Text(vm.result, style: AppStyle.styleAssessmentSummaryText, textAlign: TextAlign.center)))),
+                    child: Text(vm.result, style: vm.resultTextStyle, textAlign: TextAlign.center)))),
         SizedBox(
           width: _blankWidth,
           child: Center(
@@ -254,10 +254,28 @@ class AssessmentVM {
 
   String get result {
     return switch (_assessment.riskScoreCategory) {
-      'HIGH' => 'High risk',
       'LOW' => 'Low risk',
       'MEDIUM' => 'Medium risk',
+      'HIGH' => 'High risk',
       _ => ''
+    };
+  }
+
+  TextStyle get resultTextStyle {
+    return switch (_assessment.riskScoreCategory) {
+      'LOW' => AppStyle.styleAssessmentSummaryText,
+      'MEDIUM' => AppStyle.styleTextMediumRisk,
+      'HIGH' => AppStyle.styleTextHighRisk,
+      _ => AppStyle.styleAssessmentSummaryText
+    };
+  }
+
+  Color get resultBackgroundColor {
+    return switch (_assessment.riskScoreCategory) {
+      'LOW' => AppColor.colorRailHover,
+      'MEDIUM' => AppColor.colorUserProfileBackground,
+      'HIGH' => AppColor.colorHighRiskBackground,
+      _ => AppColor.colorRailHover
     };
   }
 

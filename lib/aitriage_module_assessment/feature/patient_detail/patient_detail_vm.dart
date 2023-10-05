@@ -162,7 +162,7 @@ class PatientDetailVM {
 
   int get noteCurrentPage => _noteCurrentPage;
 
-  String get notePageCountString => 'Show ${(noteCurrentPage) * _notePageLimit + 1} - ${_getCurrentNoteInPage(noteCurrentPage + 1)}/$_noteTotalItem';
+  String get notePageCountString => 'Show ${(listNoteVM.isEmpty ? 0 : (noteCurrentPage * _notePageLimit + 1))} - ${_getCurrentNoteInPage(noteCurrentPage + 1)}/$_noteTotalItem';
 
   int _getCurrentNoteInPage(int page) {
     if (_noteTotalItem - _notePageLimit * page >= 0) {
@@ -185,7 +185,10 @@ class PatientDetailVM {
 
   int get assessmentCurrentPage => _assessmentCurrentPage;
 
-  String get assessmentPageCountString => 'Show ${(assessmentCurrentPage) * _assessmentPageLimit + 1} - ${_getCurrentAssessmentInPage(assessmentCurrentPage + 1)}/$_assessmentTotalItem';
+  String get assessmentPageCountString => 'Show ${(listAssessmentVM.isEmpty ? 0 : (assessmentCurrentPage * _assessmentPageLimit + 1))
+      } -'
+      ' ${_getCurrentAssessmentInPage(assessmentCurrentPage + 1)}'
+      '/$_assessmentTotalItem';
 
   int _getCurrentAssessmentInPage(int page) {
     if (_assessmentTotalItem - _assessmentPageLimit * page >= 0) {

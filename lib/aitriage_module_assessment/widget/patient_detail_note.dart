@@ -49,7 +49,7 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Column(
         children: [
           Row(

@@ -167,7 +167,7 @@ class PatientDetailController extends GetxController {
 
   void getListAssessment(int page) async {
     final patientId = _argument['patientId'];
-    final resp = await _getListAssessmentByPatientUC.execute(1, _pageLimit, patientId: patientId.toString());
+    final resp = await _getListAssessmentByPatientUC.execute(page + 1, _pageLimit, patientId: patientId.toString());
     vm.value.update(
         listAssessment: resp.data,
         assessmentTotalPage: resp.totalPage,
