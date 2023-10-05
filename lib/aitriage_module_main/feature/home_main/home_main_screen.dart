@@ -86,18 +86,18 @@ class _TabletState extends State<_Tablet> {
                     inactiveIcon: AppImage.svgAssessmentInactive,
                     activeIcon: AppImage.svgAssessmentActive,
                   ),
-                  CustomNavigationRailItem(
-                    inactiveIcon: AppImage.svgHelpInactive,
-                    activeIcon: AppImage.svgHelpActive,
-                  ),
-                  CustomNavigationRailItem(
-                    inactiveIcon: AppImage.svgInfoInactive,
-                    activeIcon: AppImage.svgInfoActive,
-                  ),
-                  CustomNavigationRailItem(
-                    inactiveIcon: AppImage.svgSettingInactive,
-                    activeIcon: AppImage.svgSettingActive,
-                  ),
+                  // CustomNavigationRailItem(
+                  //   inactiveIcon: AppImage.svgHelpInactive,
+                  //   activeIcon: AppImage.svgHelpActive,
+                  // ),
+                  // CustomNavigationRailItem(
+                  //   inactiveIcon: AppImage.svgInfoInactive,
+                  //   activeIcon: AppImage.svgInfoActive,
+                  // ),
+                  // CustomNavigationRailItem(
+                  //   inactiveIcon: AppImage.svgSettingInactive,
+                  //   activeIcon: AppImage.svgSettingActive,
+                  // ),
                 ],
                 onNavigationItemClick: (index) =>
                     pageController.jumpToPage(index),

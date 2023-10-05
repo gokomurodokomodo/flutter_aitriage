@@ -75,6 +75,9 @@ class _Tablet extends GetView<PatientDetailController> {
                             onTapPrimaryButton: (text) {
                               onSuccess() {
                                 Get.back();
+                                Get.snackbar('Alert', 'Successfully added note');
+
+                                if (pageViewController.page == 2) controller.reloadListNote();
                               }
                               onError(String message) {
                                 Get.snackbar('Error', message);
