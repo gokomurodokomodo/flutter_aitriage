@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_core/util/bluetooth_util/example/example_permission_screen/example_controller.dart';
+import 'package:flutter_aitriage/aitriage_core/util/bluetooth_util/example/example_permission_screen/example_view.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/feature/sign_up/register_account_type/register_account_type_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,7 +102,11 @@ class _TabletState extends State<_Tablet> {
           ),
           SizedBox(height: 34.h),
           GestureDetector(
-            onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
+            // onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
+            onTap: () => Get.to(
+                () => BluetoothExampleView(),
+                binding: BindingsBuilder(() {
+                  Get.put(BluetoothExampleController());})),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
