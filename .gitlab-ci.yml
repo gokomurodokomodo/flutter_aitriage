@@ -7,7 +7,7 @@ variables:
   LANG: "en_US.UTF-8"
   GIT_STRATEGY: clone
   GIT_DEPTH: 10
-  GIT_CLONE_PATH: aitriage
+  GIT_CLONE_PATH: /Users/mac/builds/aitriage
 
 stages:          # List of stages for jobs, and their order of executionn
   - aitriage_upload_ios_android_develop
@@ -15,7 +15,8 @@ stages:          # List of stages for jobs, and their order of executionn
 aitriage:android:develop:
   stage: aitriage_upload_ios_android_develop
   before_script:
-    - cd /android
+    - flutter pub get
+    - cd android
     - bundle install
 
   script:
@@ -29,7 +30,7 @@ muratiai:ios:develop:
   stage: aitriage_upload_ios_android_develop
   before_script:
     - flutter pub get
-    - cd /ios
+    - cd ios
     - bundle install
   script:
     - fastlane develop
