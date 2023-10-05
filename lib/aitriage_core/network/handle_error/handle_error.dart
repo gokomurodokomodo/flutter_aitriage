@@ -28,6 +28,8 @@ class HandleNetworkError {
   static const blankPatientGender = 'BLANK_PATIENT_GENDER';
   static const patientHasAssessment = 'PATIENT_HAS_ASSESSMENT';
   static const patientNotExists = 'PATIENT_NOT_EXISTS';
+  static const invalidNoteId = 'INVALID_NOTE_ID';
+  static const noteNotExists = 'NOTE_NOT_EXISTS';
 
   HandleNetworkError._();
 
@@ -66,6 +68,8 @@ class HandleNetworkError {
         blankPatientGender => 'Gender is required',
         patientHasAssessment => 'Can\'t delete patient with assessment history',
         patientNotExists => 'Patient does not exist, please try again later',
+        invalidNoteId => 'Note does not exist, please try again later',
+        noteNotExists => 'Note does not exist, please try again later',
         _ => error.message
       };
 

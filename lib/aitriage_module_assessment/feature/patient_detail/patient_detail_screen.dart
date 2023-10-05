@@ -75,7 +75,7 @@ class _Tablet extends GetView<PatientDetailController> {
                             onTapPrimaryButton: (text) {
                               onSuccess() {
                                 Get.back();
-                                Get.snackbar('Alert', 'Successfully added note');
+                                Get.snackbar('Success', 'Successfully added note');
 
                                 if (pageViewController.page == 2) controller.reloadListNote();
                               }
@@ -182,6 +182,7 @@ class _Tablet extends GetView<PatientDetailController> {
                                         onSuccess() {
                                           Get.back();
                                           controller.reloadListNote();
+                                          Get.snackbar('Success', 'Successfully deleted note');
                                         }
                                         onError(String message) {
                                           Get.snackbar('Error', message);
@@ -192,6 +193,7 @@ class _Tablet extends GetView<PatientDetailController> {
                                         onSuccess() {
                                           Get.back();
                                           controller.reloadListNote();
+                                          Get.snackbar('Success', 'Successfully edited note');
                                         }
                                         onError(String message) {
                                           Get.snackbar('Error', message);
