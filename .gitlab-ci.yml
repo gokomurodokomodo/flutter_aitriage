@@ -7,7 +7,7 @@ variables:
   LANG: "en_US.UTF-8"
   GIT_STRATEGY: clone
   GIT_DEPTH: 10
-  GIT_CLONE_PATH: aitriage
+  GIT_CLONE_PATH: /aitriage
 
 stages:          # List of stages for jobs, and their order of executionn
   - aitriage_upload_ios_android_develop
