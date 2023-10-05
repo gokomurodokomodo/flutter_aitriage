@@ -5,6 +5,7 @@ import 'package:flutter_aitriage/aitriage_module_assessment/data/api/request/upd
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/delete_patient_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/edit_note_uc.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_assessment_by_patient.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_list_patient_note_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/get_patient_detail_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/domain/use_case/update_patient_uc.dart';
@@ -24,6 +25,7 @@ class PatientDetailController extends GetxController {
   final DeletePatientUseCase _deletePatientUC;
   final EditNoteUseCase _editNoteUC;
   final DeleteNoteUseCase _deleteNoteUC;
+  final GetListAssessmentByPatientUseCase _getListAssessmentByPatientUC;
   // Nested navigation doesn't support dynamic argument, need to get argument from onGenerateRoute
   final dynamic _argument;
   final vm = PatientDetailVM().obs;
@@ -37,7 +39,8 @@ class PatientDetailController extends GetxController {
       this._getListPatientNoteUC,
       this._addPatientNoteUC,
       this._editNoteUC,
-      this._deleteNoteUC
+      this._deleteNoteUC,
+      this._getListAssessmentByPatientUC
   );
 
   @override
@@ -106,6 +109,8 @@ class PatientDetailController extends GetxController {
   void handleOnTapPatientDetailWidget(int index) {
     if (index == 2) {
       getListNote(0);
+    } else if (index == 1) {
+      getListAssessment(0);
     }
   }
 
@@ -158,5 +163,10 @@ class PatientDetailController extends GetxController {
   void reloadListNote() {
     final currentPage = vm.value.currentPage;
     getListNote(currentPage);
+  }
+
+  void getListAssessment(int page) async {
+    final patientId = _argument['patientId'];
+    await _getListAssessmentByPatientUC.execute(1, 20, patientId: patientId.toString());
   }
 }
