@@ -1,4 +1,4 @@
-import 'package:flutter_aitriage/aitriage_module_assessment/domain/repository/patient_repository.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/domain/repository/note_repository.dart';
 import '../../data/api/response/get_list_note_response.dart';
 
 abstract class GetListPatientNoteUseCase {
@@ -6,7 +6,7 @@ abstract class GetListPatientNoteUseCase {
 }
 
 class GetListPatientNoteUseCaseImpl extends GetListPatientNoteUseCase {
-  final PatientRepository _repository;
+  final NoteRepository _repository;
 
   GetListPatientNoteUseCaseImpl(this._repository);
 

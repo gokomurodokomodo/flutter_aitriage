@@ -4,7 +4,6 @@ import 'package:flutter_aitriage/aitriage_module_assessment/data/api/response/pa
 import '../../../aitriage_core/network/common/base_request.dart';
 import '../../../aitriage_core/network/common/base_response.dart';
 import '../../data/api/request/update_patient_request.dart';
-import '../../data/api/response/get_list_note_response.dart';
 
 abstract class PatientRepository {
   Future<GetListCountryLanguageResponse> getNationality();
@@ -13,8 +12,4 @@ abstract class PatientRepository {
   Future<PatientDetailResponse> getPatientDetail(String accountId, String customerId);
   Future<PatientDetailResponse> updatePatient(UpdatePatientRequest request, String accountId);
   Future<BaseResponse> deletePatient(String accountId, String patientId);
-  Future<GetListNoteResponse> getListPatientNote(String customerId, int page, int limit);
-  Future<BaseResponse> addNewPatientNote(String customerId, String description);
-  Future<BaseResponse> deleteNote(String noteId);
-  Future<BaseResponse> editNote(String noteId, String description);
 }
