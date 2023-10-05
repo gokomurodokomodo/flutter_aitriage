@@ -1,16 +1,5 @@
-# flutter_aitriage
+### Flutter AITRIAGE.
+---
+#### This project depend on our bluetooth plugin, so before running please clone this [plugin](https://gitlab.beedu.io/vinhlq/bluetooth_plugin.git) and place it in the equivalent directory of this project.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
