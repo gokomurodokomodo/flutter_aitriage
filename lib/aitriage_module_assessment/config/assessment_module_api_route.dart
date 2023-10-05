@@ -11,4 +11,5 @@ class AssessmentModuleApiRoute {
   static const addPatientNote = '/main/v1/note/create';
   static const deleteNote = '/main/v1/note/delete';
   static const editNote = '/main/v1/note/edit';
+  static const getListAssessment = '/main/v1/assessment/list';
 }
