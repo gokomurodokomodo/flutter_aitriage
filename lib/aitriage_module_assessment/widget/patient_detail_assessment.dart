@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
+import 'package:flutter_aitriage/aitriage_core/entity/assessment.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_trailing_widget.dart';
+import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:number_paginator/number_paginator.dart';
 import '../../aitriage_core/common/app_color.dart';
@@ -19,9 +21,19 @@ final _blankWidth = 48.w;
 
 class PatientDetailAssessment extends StatefulWidget {
   final List<AssessmentVM> list;
-  final Function(int)? onTapPatient;
+  final Function(int)? onTapAssessment;
+  final String pageCountString;
+  final int totalPage;
+  final Function(int)? onPageChanged;
 
-  const PatientDetailAssessment({super.key, required this.list, this.onTapPatient});
+  const PatientDetailAssessment({
+    super.key,
+    required this.list,
+    this.onTapAssessment,
+    required this.pageCountString,
+    required this.totalPage,
+    this.onPageChanged
+  });
 
   @override
   State<PatientDetailAssessment> createState() => _PatientDetailAssessmentState();
@@ -65,7 +77,10 @@ class _PatientDetailAssessmentState extends State<PatientDetailAssessment> {
                   ? ListView.separated(
                       itemBuilder: (BuildContext context, int index) =>
                           GestureDetector(
-                              onTap: () => widget.onTapPatient?.call(0),
+                              onTap: () {
+                                final realId = widget.list[index]._assessment.id;
+                                widget.onTapAssessment?.call(realId ?? 0);
+                              },
                               behavior: HitTestBehavior.translucent,
                               child: _AssessmentSummaryView(vm: widget.list[index])),
                       separatorBuilder: (BuildContext context, int index) =>
@@ -86,7 +101,7 @@ class _PatientDetailAssessmentState extends State<PatientDetailAssessment> {
           Row(
             children: [
               Text(
-                'Show 1 - 10/40',
+                widget.pageCountString,
                 style: AppStyle.styleRememberMeText,
               ),
               const Spacer(),
@@ -98,12 +113,14 @@ class _PatientDetailAssessmentState extends State<PatientDetailAssessment> {
                   ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                   ///nên set cứng height là 50.w để lấy khoảng cách.
                   ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
-                  width: (50 * 5).toDouble().w + 20.w + 100.w,
+                  width: (50 * widget.totalPage).toDouble().w + 20.w + 100.w,
                   child: StatefulBuilder(
                     builder: (_, setState) {
                       return NumberPaginator(
-                        numberPages: 5,
-                        onPageChange: (value) {},
+                        numberPages: widget.totalPage,
+                        onPageChange: (value) {
+                          widget.onPageChanged?.call(value);
+                        },
                         config: NumberPaginatorUIConfig(
                             contentPadding:
                             const EdgeInsets.all(0),
@@ -184,19 +201,19 @@ class _AssessmentSummaryView extends StatelessWidget {
             flex: _orderColumnRatio,
             child: Align(
                 alignment: Alignment.center,
-                child: Text(vm._id, style: AppStyle.stylePatientItemLabel))),
+                child: Text(vm.id, style: AppStyle.stylePatientItemLabel))),
         SizedBox(width: _orderBlankWidth),
         Expanded(
             flex: _dateTimeColumnRatio,
-            child: Text(vm._dateTime, style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.dateTime, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _doctorColumnRatio,
-            child: Text(vm._doctor, style: AppStyle.stylePatientItemLabel)),
+            child: Text(vm.doctor, style: AppStyle.stylePatientItemLabel)),
         Expanded(
             flex: _recordingTimeColumnRatio,
             child: Align(
                 alignment: Alignment.topRight,
-                child: Text(vm._recordingTime, style: AppStyle.stylePatientItemLabel))),
+                child: Text(vm.recordingTime, style: AppStyle.stylePatientItemLabel))),
         Expanded(
             flex: _resultColumnRatio,
             child: Align(
@@ -206,7 +223,7 @@ class _AssessmentSummaryView extends StatelessWidget {
                     width: 70.w,
                     height: 30.h,
                     borderRadiusValue: 8.r,
-                    child: Text(vm._result, style: AppStyle.styleAssessmentSummaryText)))),
+                    child: Text(vm.result, style: AppStyle.styleAssessmentSummaryText, textAlign: TextAlign.center)))),
         SizedBox(
           width: _blankWidth,
           child: Center(
@@ -219,9 +236,30 @@ class _AssessmentSummaryView extends StatelessWidget {
 
 
 class AssessmentVM {
-  final String _id = '0';
-  final String _dateTime = '05 Oct 2021, 11:39 AM';
-  final String _doctor = 'Alber Flores';
-  final String _recordingTime = '17:06';
-  final String _result = 'Low risk';
+  final Assessment _assessment;
+  final String id;
+
+  String get dateTime {
+    return DateTimeParserUtil().parseDateWithHour(_assessment.assessmentDate ?? '');
+  }
+
+  String get doctor => _assessment.doctorName ?? '';
+
+  String get recordingTime {
+    final seconds = _assessment.assessmentDuration ?? 0;
+    final minutes = seconds ~/ 60;
+    final secondsRemaining = seconds % 60;
+    return '$minutes:${ (secondsRemaining < 10) ? '0' : ''}$secondsRemaining';
+  }
+
+  String get result {
+    return switch (_assessment.riskScoreCategory) {
+      'HIGH' => 'High risk',
+      'LOW' => 'Low risk',
+      'MEDIUM' => 'Medium risk',
+      _ => ''
+    };
+  }
+
+  AssessmentVM(this._assessment, this.id);
 }

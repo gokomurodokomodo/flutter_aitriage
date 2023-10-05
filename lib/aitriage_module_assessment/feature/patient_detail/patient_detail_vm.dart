@@ -1,5 +1,7 @@
+import 'package:flutter_aitriage/aitriage_core/entity/assessment.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/note.dart';
 import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/patient_detail_assessment.dart';
 import 'package:intl/intl.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/entity/param_type.dart';
@@ -12,29 +14,47 @@ class PatientDetailVM {
   var _patient = Patient();
   final _genderParamType = <ParamType>[];
   final _listNote = <Note>[];
+  final _listAssessment = <Assessment>[];
   var _shouldReloadData = false;
   // Note view variable
-  var _totalPage = 1;
-  var _currentPage = 0;
-  var _pageLimit = 0;
-  var _totalItem = 0;
+  var _noteTotalPage = 1;
+  var _noteCurrentPage = 0;
+  var _notePageLimit = 0;
+  var _noteTotalItem = 0;
+  // Assessment view variable
+  var _assessmentTotalPage = 1;
+  var _assessmentCurrentPage = 0;
+  var _assessmentPageLimit = 0;
+  var _assessmentTotalItem = 0;
 
   void update({
     Patient? patient,
     List<ParamType>? genderParamType,
-    List<Note>? listNote,
     bool? shouldReloadData,
-    int? totalPage,
-    int? currentPage,
-    int? pageLimit,
-    int? totalItem
+    // Note
+    List<Note>? listNote,
+    int? noteTotalPage,
+    int? noteCurrentPage,
+    int? notePageLimit,
+    int? noteTotalItem,
+    // Assessment
+    List<Assessment>? listAssessment,
+    int? assessmentTotalPage,
+    int? assessmentCurrentPage,
+    int? assessmentPageLimit,
+    int? assessmentTotalItem,
   }) {
     _patient = patient ?? _patient;
     _shouldReloadData = shouldReloadData ?? _shouldReloadData;
-    _totalPage = totalPage ?? _totalPage;
-    _currentPage = currentPage ?? _currentPage;
-    _pageLimit = pageLimit ?? _pageLimit;
-    _totalItem = totalItem ?? _totalItem;
+    _noteTotalPage = noteTotalPage ?? _noteTotalPage;
+    _noteCurrentPage = noteCurrentPage ?? _noteCurrentPage;
+    _notePageLimit = notePageLimit ?? _notePageLimit;
+    _noteTotalItem = noteTotalItem ?? _noteTotalItem;
+
+    _assessmentTotalPage = assessmentTotalPage ?? _assessmentTotalPage;
+    _assessmentCurrentPage = assessmentCurrentPage ?? _assessmentCurrentPage;
+    _assessmentPageLimit = assessmentPageLimit ?? _assessmentPageLimit;
+    _assessmentTotalItem = assessmentTotalItem ?? _assessmentTotalItem;
 
     if (genderParamType != null) {
       _genderParamType.clear();
@@ -44,6 +64,11 @@ class PatientDetailVM {
     if (listNote != null) {
       _listNote.clear();
       _listNote.addAll(listNote);
+    }
+
+    if (listAssessment != null) {
+      _listAssessment.clear();
+      _listAssessment.addAll(listAssessment);
     }
   }
 
@@ -124,25 +149,49 @@ class PatientDetailVM {
 
   bool get shouldReloadData => _shouldReloadData;
 
+  // Note
   List<NoteVM> get listNoteVM {
     return _listNote.map((e) {
-      final id = (_currentPage) * _pageLimit + _listNote.indexOf(e) + 1;
+      final id = (_noteCurrentPage) * _notePageLimit + _listNote.indexOf(e) + 1;
       final createdAt = DateTimeParserUtil().parseDateWithHour(e.createdAt ?? '');
       return NoteVM(id.toString(), e.description ?? '', e.logFullName ?? '', createdAt, e.id.toString());
     }).toList();
   }
 
-  int get totalPage => _totalPage == 0 ? 1 : _totalPage;
+  int get noteTotalPage => _noteTotalPage == 0 ? 1 : _noteTotalPage;
 
-  int get currentPage => _currentPage;
+  int get noteCurrentPage => _noteCurrentPage;
 
-  String get pageCountString => 'Show ${(currentPage) * _pageLimit + 1} - ${_getCurrentPatientInPage(currentPage + 1)}/$_totalItem';
+  String get notePageCountString => 'Show ${(noteCurrentPage) * _notePageLimit + 1} - ${_getCurrentNoteInPage(noteCurrentPage + 1)}/$_noteTotalItem';
 
-  int _getCurrentPatientInPage(int page) {
-    if (_totalItem - _pageLimit * page >= 0) {
+  int _getCurrentNoteInPage(int page) {
+    if (_noteTotalItem - _notePageLimit * page >= 0) {
       return 20 * page;
     } else {
-      final result = _totalItem;
+      final result = _noteTotalItem;
+      return result;
+    }
+  }
+
+  // Assessment
+  List<AssessmentVM> get listAssessmentVM {
+    return _listAssessment.map((e) {
+      final id = (_assessmentCurrentPage) * _assessmentPageLimit + _listAssessment.indexOf(e) + 1;
+      return AssessmentVM(e, id.toString());
+    }).toList();
+  }
+
+  int get assessmentTotalPage => _assessmentTotalPage == 0 ? 1 : _assessmentTotalPage;
+
+  int get assessmentCurrentPage => _assessmentCurrentPage;
+
+  String get assessmentPageCountString => 'Show ${(assessmentCurrentPage) * _assessmentPageLimit + 1} - ${_getCurrentAssessmentInPage(assessmentCurrentPage + 1)}/$_assessmentTotalItem';
+
+  int _getCurrentAssessmentInPage(int page) {
+    if (_assessmentTotalItem - _assessmentPageLimit * page >= 0) {
+      return 20 * page;
+    } else {
+      final result = _assessmentTotalItem;
       return result;
     }
   }

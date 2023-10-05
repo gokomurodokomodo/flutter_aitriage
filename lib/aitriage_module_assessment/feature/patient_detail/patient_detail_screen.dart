@@ -162,14 +162,16 @@ class _Tablet extends GetView<PatientDetailController> {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           Obx(() => PatientDetailInformation(vm: controller.vm.value)),
-                          PatientDetailAssessment(list: [
-                            // fake data
-                            for (int i = 0; i < 20; i++) AssessmentVM()
-                          ]),
+                          Obx(() => PatientDetailAssessment(
+                              list: controller.vm.value.listAssessmentVM,
+                              totalPage: controller.vm.value.assessmentTotalPage,
+                              pageCountString: controller.vm.value.assessmentPageCountString,
+                            onPageChanged: (index) => controller.getListAssessment(index),
+                          )),
                           Obx(() => PatientDetailNote(
                               list: controller.vm.value.listNoteVM,
-                              totalPage: controller.vm.value.totalPage,
-                              pageCountString: controller.vm.value.pageCountString,
+                              totalPage: controller.vm.value.noteTotalPage,
+                              pageCountString: controller.vm.value.notePageCountString,
                               onPageChanged: (index) => controller.getListNote(index),
                               onTapNote: (noteId, description) {
                                 Get.dialog(

@@ -120,10 +120,10 @@ class PatientDetailController extends GetxController {
       final resp = await _getListPatientNoteUC.execute(patientId.toString(), page + 1, _pageLimit);
       vm.value.update(
           listNote: resp.data,
-          totalPage: resp.totalPage,
-          totalItem: resp.totalItem,
-          currentPage: page,
-          pageLimit: _pageLimit
+          noteTotalPage: resp.totalPage,
+          noteTotalItem: resp.totalItem,
+          noteCurrentPage: page,
+          notePageLimit: _pageLimit
       );
       vm.refresh();
     } catch (error) {
@@ -161,12 +161,20 @@ class PatientDetailController extends GetxController {
   }
 
   void reloadListNote() {
-    final currentPage = vm.value.currentPage;
+    final currentPage = vm.value.noteCurrentPage;
     getListNote(currentPage);
   }
 
   void getListAssessment(int page) async {
     final patientId = _argument['patientId'];
-    await _getListAssessmentByPatientUC.execute(1, 20, patientId: patientId.toString());
+    final resp = await _getListAssessmentByPatientUC.execute(1, _pageLimit, patientId: patientId.toString());
+    vm.value.update(
+        listAssessment: resp.data,
+        assessmentTotalPage: resp.totalPage,
+        assessmentTotalItem: resp.totalItem,
+        assessmentCurrentPage: page,
+        assessmentPageLimit: _pageLimit
+    );
+    vm.refresh();
   }
 }
