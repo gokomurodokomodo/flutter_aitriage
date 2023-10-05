@@ -1,4 +1,5 @@
 import 'package:flutter_aitriage/aitriage_core/entity/note.dart';
+import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:intl/intl.dart';
 import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/entity/param_type.dart';
@@ -126,7 +127,8 @@ class PatientDetailVM {
   List<NoteVM> get listNoteVM {
     return _listNote.map((e) {
       final id = (_currentPage) * _pageLimit + _listNote.indexOf(e) + 1;
-      return NoteVM(id.toString(), e.description ?? '', e.logFullName ?? '', e.createdAt ?? '', e.id.toString());
+      final createdAt = DateTimeParserUtil().parseDateWithHour(e.createdAt ?? '');
+      return NoteVM(id.toString(), e.description ?? '', e.logFullName ?? '', createdAt, e.id.toString());
     }).toList();
   }
 
