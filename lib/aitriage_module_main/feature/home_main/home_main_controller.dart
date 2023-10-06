@@ -72,4 +72,9 @@ class HomeMainController extends GetxController {
       default:
     }
   }
+
+  void onTapNavigation(int index) {
+    vm.value.update(currentModuleIndex: index);
+    vm.refresh();
+  }
 }

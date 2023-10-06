@@ -71,8 +71,7 @@ class _TabletState extends State<_Tablet> {
                       height: 60.r,
                       dropDownWidth: 400.w,
                       dropDownHeight: 450.h,
-                      onTapChildren: (index) =>
-                          controller.changeLocation(index),
+                      onTapChildren: (index) => controller.changeLocation(index),
                       children: controller.locations
                           .map((e) => Container(
                                 padding: EdgeInsets.only(
@@ -109,8 +108,10 @@ class _TabletState extends State<_Tablet> {
                   //   activeIcon: AppImage.svgSettingActive,
                   // ),
                 ],
-                onNavigationItemClick: (index) =>
-                    pageController.jumpToPage(index),
+                onNavigationItemClick: (index) {
+                  pageController.jumpToPage(index);
+                  controller.onTapNavigation(index);
+                }
               ),
             ),
             Column(children: [
@@ -121,7 +122,7 @@ class _TabletState extends State<_Tablet> {
                       EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
                   child: Row(
                     children: [
-                      Text('PATIENT', style: AppStyle.styleTextDashboardTitle),
+                      Obx(() => Text(controller.vm.value.currentModuleTitle, style: AppStyle.styleTextDashboardTitle)),
                       const Spacer(),
                       CustomTrailingWidget(
                           child: SvgIconWidget(

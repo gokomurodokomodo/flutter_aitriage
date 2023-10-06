@@ -5,14 +5,17 @@ class HomeMainVM {
   var _userInfo = UserInfo();
   final _locations = <Location>[];
   var _locationIndex = 0;
+  var _currentModuleIndex = 0;
 
   update({
     UserInfo? userInfo,
     List<Location>? locations,
-    int? locationIndex
+    int? locationIndex,
+    int? currentModuleIndex
   }) {
     _userInfo = userInfo ?? _userInfo;
     _locationIndex = locationIndex ?? _locationIndex;
+    _currentModuleIndex = currentModuleIndex ?? _currentModuleIndex;
 
     if (locations != null) {
       _locations.clear();
@@ -35,4 +38,10 @@ class HomeMainVM {
   }
 
   String get currentLocationAvatar => currentLocation.avatar ?? '';
+
+  String get currentModuleTitle => switch (_currentModuleIndex) {
+        0 => 'ASSESSMENT',
+        1 => 'PATIENT',
+        _ => ''
+      };
 }
