@@ -1,0 +1,4 @@
+class AssessmentModuleApiRoute {
+  AssessmentModuleApiRoute._();
+
+}

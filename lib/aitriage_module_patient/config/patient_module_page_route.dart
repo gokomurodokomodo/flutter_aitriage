@@ -17,7 +17,7 @@ import '../feature/work_flow/workflow_screen.dart';
 class PatientModulePageRoute {
   PatientModulePageRoute._();
   // Key for nestedNavigation
-  static const nestedId = 1000;
+  static const nestedId = 2000;
   static final nestedKey = Get.nestedKey(nestedId);
   // Route name
   static const _root = '/assessment';

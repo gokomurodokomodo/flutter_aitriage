@@ -12,6 +12,7 @@ import 'aitriage_core/local_storage/database/provider/isar_provider.dart';
 import 'aitriage_core/service/hivi_service/hivi_service.dart';
 import 'aitriage_core/service/localization_service/localization_service.dart';
 import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart';
+import 'aitriage_module_assessment/config/assessment_module.dart';
 import 'aitriage_module_auth/config/auth_module.dart';
 import 'aitriage_module_main/config/main_module.dart';
 import 'aitriage_module_main/feature/app/app.dart';
@@ -52,6 +53,7 @@ List<GetPage> _initAppModule() {
   final pages = <GetPage<dynamic>>[];
   final module = <AppModule>[];
   module.add(MainModule());
+  module.add(AssessmentModule());
   module.add(PatientModule());
   module.add(SettingModule());
   module.add(AuthModule());

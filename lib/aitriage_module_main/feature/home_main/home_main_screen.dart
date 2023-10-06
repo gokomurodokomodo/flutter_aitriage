@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_navigation_rail.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/device_detector.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_navigator.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/config/auth_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/widget/drop_down_button.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_controller.dart';
@@ -17,7 +18,7 @@ import '../../../aitriage_module_patient/config/patient_module_navigator.dart';
 import '../../../aitriage_module_setting/config/setting_navigator.dart';
 
 final modules = <Widget>[
-  const KeepAliveWrapper(child: SettingNavigator()),
+  const KeepAliveWrapper(child: AssessmentModuleNavigator()),
   const KeepAliveWrapper(child: PatientModuleNavigator()),
 ];
 
