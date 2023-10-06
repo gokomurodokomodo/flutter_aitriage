@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../aitriage_core/common/app_color.dart';
-import '../../aitriage_core/common/app_style.dart';
+import '../../common/app_color.dart';
+import '../../common/app_style.dart';
 import 'gender_with_symbol.dart';
 
-class DashboardPatientViewer extends StatelessWidget {
+class DashboardItemView extends StatelessWidget {
   final String? label;
   final String amount;
   final String percent;
@@ -13,7 +13,7 @@ class DashboardPatientViewer extends StatelessWidget {
   final double? height;
   final Gender gender;
 
-  const DashboardPatientViewer(
+  const DashboardItemView(
       {super.key,
       this.label,
       required this.amount,
@@ -47,26 +47,6 @@ class DashboardPatientViewer extends StatelessWidget {
                     label ?? '',
                     style: AppStyle.styleDashboardPatientViewer,
                   ),
-                  // Expanded(
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Expanded(child: Text(amount, style: AppStyle.styleTextDashboardTitle)),
-                  //         const Spacer(),
-                  //         Container(
-                  //           padding: EdgeInsets.all(4.h),
-                  //           decoration: BoxDecoration(
-                  //             color: AppColor.colorUserProfileBackground,
-                  //             borderRadius: BorderRadius.circular(8.r),
-                  //           ),
-                  //           child: Text(
-                  //               '${isGrowing ? '+' : '-'}$percent${isGrowing ? '⬈' : '⬊'}',
-                  //               style: AppStyle.styleTextTextRaisedPercent
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     )
-                  // ),
                 ],
               ),
               const Spacer(),

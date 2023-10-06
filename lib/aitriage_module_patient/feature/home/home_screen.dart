@@ -14,15 +14,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
+import '../../../aitriage_core/ui/widget/gender_with_symbol.dart';
 import '../../config/patient_module_page_route.dart';
-import '../../widget/dashboard_patient_viewer.dart';
-import '../../widget/gender_with_symbol.dart';
+import '../../../aitriage_core/ui/widget/dashboard_item_view.dart';
 import 'package:number_paginator/number_paginator.dart';
+import 'home_controller.dart';
 
-import 'home_assessment_controller.dart';
-
-class HomeAssessmentScreen extends StatelessWidget {
-  const HomeAssessmentScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class _Tablet extends StatefulWidget {
 
 class _TabletState extends State<_Tablet> {
   final _pageController = NumberPaginatorController();
-  final controller = Get.find<HomeAssessmentController>();
+  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class _TabletState extends State<_Tablet> {
                           final itemWidth = (constraints.maxWidth - 48.w) / 3;
                           return Row(
                             children: [
-                              Obx(() => DashboardPatientViewer(
+                              Obx(() => DashboardItemView(
                                     gender: Gender.patients,
                                     width: itemWidth,
                                     label: 'Patients',
@@ -69,7 +68,7 @@ class _TabletState extends State<_Tablet> {
                                     isGrowing: true,
                                   )),
                               SizedBox(width: 24.w),
-                              Obx(() => DashboardPatientViewer(
+                              Obx(() => DashboardItemView(
                                     gender: Gender.male,
                                     width: itemWidth,
                                     label: 'Male',
@@ -79,7 +78,7 @@ class _TabletState extends State<_Tablet> {
                                     isGrowing: true,
                                   )),
                               SizedBox(width: 24.w),
-                              Obx(() => DashboardPatientViewer(
+                              Obx(() => DashboardItemView(
                                     gender: Gender.female,
                                     width: itemWidth,
                                     label: 'Female',
@@ -220,7 +219,7 @@ class _TabletState extends State<_Tablet> {
   }
 }
 
-class _Phone extends GetView<HomeAssessmentController> {
+class _Phone extends GetView<HomeController> {
   const _Phone();
 
   @override

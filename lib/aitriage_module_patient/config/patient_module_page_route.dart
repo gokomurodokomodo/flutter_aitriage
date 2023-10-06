@@ -6,8 +6,8 @@ import '../feature/add_new_patient/add_new_patient_binding.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
 import '../feature/all_patients/all_patients_screen.dart';
 import '../feature/assessment_result/assessment_result_screen.dart';
-import '../feature/home_assessment/home_assessment_binding.dart';
-import '../feature/home_assessment/home_assessment_screen.dart';
+import '../feature/home/home_binding.dart';
+import '../feature/home/home_screen.dart';
 import '../feature/note/note_screen.dart';
 import '../feature/patient_detail/patient_detail_binding.dart';
 import '../feature/patient_detail/patient_detail_screen.dart';
@@ -36,8 +36,8 @@ class PatientModulePageRoute {
     return switch (settings.name) {
       initialRoute => GetPageRoute(
           settings: settings,
-          page: () => const HomeAssessmentScreen(),
-          binding: HomeAssessmentBinding()),
+          page: () => const HomeScreen(),
+          binding: HomeBinding()),
       allPatients => GetPageRoute(
           settings: settings,
           page: () => const AllPatientsScreen()),

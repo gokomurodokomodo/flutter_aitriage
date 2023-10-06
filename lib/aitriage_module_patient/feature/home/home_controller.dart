@@ -5,16 +5,16 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../domain/use_case/get_gender_type_param_uc.dart';
 import '../../domain/use_case/get_list_patient_uc.dart';
-import 'home_assessment_vm.dart';
+import 'home_vm.dart';
 
-class HomeAssessmentController extends GetxController {
+class HomeController extends GetxController {
   final GetListPatientUseCase _getListPatientUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
-  final vm = HomeAssessmentVM().obs;
+  final vm = HomeVM().obs;
   static const _pageLimit = 20;
   final _debounce = DebounceUtil();
 
-  HomeAssessmentController(this._getListPatientUC, this._getGenderParamTypeUC);
+  HomeController(this._getListPatientUC, this._getGenderParamTypeUC);
 
   @override
   void onInit() async {

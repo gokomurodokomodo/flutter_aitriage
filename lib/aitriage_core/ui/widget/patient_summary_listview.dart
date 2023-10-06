@@ -7,7 +7,7 @@ import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../aitriage_module_patient/widget/gender_with_symbol.dart';
+import 'gender_with_symbol.dart';
 import 'line_separated.dart';
 
 const _orderColumnRatio = 1;
