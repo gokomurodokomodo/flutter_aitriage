@@ -11,7 +11,16 @@ import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
+import '../../../aitriage_core/ui/widget/keep_alive_wrapper.dart';
 import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
+import '../../../aitriage_module_patient/config/patient_module_navigator.dart';
+import '../../../aitriage_module_setting/config/setting_navigator.dart';
+
+final modules = <Widget>[
+  const KeepAliveWrapper(child: SettingNavigator()),
+  const KeepAliveWrapper(child: PatientModuleNavigator()),
+];
+
 
 class HomeMainScreen extends StatelessWidget {
   const HomeMainScreen({super.key});
@@ -79,12 +88,12 @@ class _TabletState extends State<_Tablet> {
                     )),
                 itemList: [
                   CustomNavigationRailItem(
-                    inactiveIcon: AppImage.svgOverviewInactive,
-                    activeIcon: AppImage.svgOverviewActive,
+                    inactiveIcon: AppImage.svgAssessmentModuleInactive,
+                    activeIcon: AppImage.svgAssessmentModuleActive,
                   ),
                   CustomNavigationRailItem(
-                    inactiveIcon: AppImage.svgAssessmentInactive,
-                    activeIcon: AppImage.svgAssessmentActive,
+                    inactiveIcon: AppImage.svgPatientModuleInactive,
+                    activeIcon: AppImage.svgPatientModuleActive,
                   ),
                   // CustomNavigationRailItem(
                   //   inactiveIcon: AppImage.svgHelpInactive,

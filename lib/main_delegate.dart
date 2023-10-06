@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_env.dart';
 import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import 'package:flutter_aitriage/aitriage_core/util/device_util.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module.dart';
 import 'package:flutter_aitriage/aitriage_module_setting/config/setting_module.dart';
 import 'package:get/get.dart';
 import 'aitriage_core/common/app_module.dart';
@@ -16,6 +15,7 @@ import 'aitriage_core/util/app_event_channel/custom_event/finish_init_event.dart
 import 'aitriage_module_auth/config/auth_module.dart';
 import 'aitriage_module_main/config/main_module.dart';
 import 'aitriage_module_main/feature/app/app.dart';
+import 'aitriage_module_patient/config/patient_module.dart';
 
 // All logic init
 void mainDelegate(AppEnvironmentType appEnvironment) async {
@@ -52,7 +52,7 @@ List<GetPage> _initAppModule() {
   final pages = <GetPage<dynamic>>[];
   final module = <AppModule>[];
   module.add(MainModule());
-  module.add(AssessmentModule());
+  module.add(PatientModule());
   module.add(SettingModule());
   module.add(AuthModule());
 

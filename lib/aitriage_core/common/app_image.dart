@@ -134,4 +134,12 @@ class AppImage {
       './lib/aitriage_core/asset/image/svg_patient_detail_assessment.svg';
   static const svgIconSuccessDialog =
       './lib/aitriage_core/asset/image/svg_icon_success_dialog.svg';
+  static const svgPatientModuleActive =
+      './lib/aitriage_core/asset/image/svg_patient_module_active.svg';
+  static const svgPatientModuleInactive =
+      './lib/aitriage_core/asset/image/svg_patient_module_inactive.svg';
+  static const svgAssessmentModuleActive =
+      './lib/aitriage_core/asset/image/svg_assessment_module_active.svg';
+  static const svgAssessmentModuleInactive =
+      './lib/aitriage_core/asset/image/svg_assessment_module_inactive.svg';
 }

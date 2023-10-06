@@ -7,7 +7,7 @@ import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../aitriage_module_assessment/widget/gender_with_symbol.dart';
+import '../../../aitriage_module_patient/widget/gender_with_symbol.dart';
 import 'line_separated.dart';
 
 const _orderColumnRatio = 1;
@@ -121,7 +121,7 @@ class _Label extends StatelessWidget {
 class _PatientSummaryItem extends StatelessWidget {
   final PatientSummaryVM vm;
 
-  const _PatientSummaryItem({super.key, required this.vm});
+  const _PatientSummaryItem({required this.vm});
 
   @override
   Widget build(BuildContext context) {
@@ -160,14 +160,14 @@ class _PatientSummaryItem extends StatelessWidget {
 class _PatientCell extends StatelessWidget {
   final PatientSummaryVM vm;
 
-  const _PatientCell({super.key, required this.vm});
+  const _PatientCell({required this.vm});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 40.r,
           width: 40.r,
           // decoration: const BoxDecoration(
@@ -200,7 +200,7 @@ class _PatientCell extends StatelessWidget {
 class _GenderCell extends StatelessWidget {
   final PatientSummaryVM vm;
 
-  const _GenderCell({super.key, required this.vm});
+  const _GenderCell({required this.vm});
 
   @override
   Widget build(BuildContext context) {
