@@ -14,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/common/app_color.dart';
 import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
-import '../../../aitriage_core/ui/widget/gender_with_symbol.dart';
+import '../../widget/gender_with_symbol.dart';
 import '../../config/patient_module_page_route.dart';
 import '../../../aitriage_core/ui/widget/dashboard_item_view.dart';
 import 'package:number_paginator/number_paginator.dart';
@@ -59,34 +59,22 @@ class _TabletState extends State<_Tablet> {
                           return Row(
                             children: [
                               Obx(() => DashboardItemView(
-                                    gender: Gender.patients,
+                                    icon: const GenderWithSymbol(gender: Gender.patients),
                                     width: itemWidth,
                                     label: 'Patients',
-                                    amount: controller.vm.value.totalPatient
-                                        .toString(),
-                                    percent: '0.05',
-                                    isGrowing: true,
-                                  )),
+                                    amount: controller.vm.value.totalPatient.toString())),
                               SizedBox(width: 24.w),
                               Obx(() => DashboardItemView(
-                                    gender: Gender.male,
+                                    icon: const GenderWithSymbol(gender: Gender.male),
                                     width: itemWidth,
                                     label: 'Male',
-                                    amount: controller.vm.value.totalMale
-                                        .toString(),
-                                    percent: '0.05',
-                                    isGrowing: true,
-                                  )),
+                                    amount: controller.vm.value.totalMale.toString())),
                               SizedBox(width: 24.w),
                               Obx(() => DashboardItemView(
-                                    gender: Gender.female,
+                                    icon: const GenderWithSymbol(gender: Gender.female),
                                     width: itemWidth,
                                     label: 'Female',
-                                    amount: controller.vm.value.totalFemale
-                                        .toString(),
-                                    percent: '0.05',
-                                    isGrowing: false,
-                                  )),
+                                    amount: controller.vm.value.totalFemale.toString())),
                             ],
                           );
                         },

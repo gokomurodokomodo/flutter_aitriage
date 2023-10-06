@@ -201,7 +201,7 @@ class AppStyle {
   static final styleForgotPassword = TextStyle(
     fontSize: fontSizeSM,
     fontWeight: fontWeight500,
-    color: AppColor.colorForgotPassword
+    color: AppColor.colorTextPinCode
   );
   static final styleTextLocationTitle = TextStyle(
     fontSize: fontSizeBase,
@@ -221,7 +221,7 @@ class AppStyle {
   static final styleTextPatientInformation2 = TextStyle(
     fontSize: fontSizeBase,
     fontWeight: fontWeight500,
-    color: AppColor.colorForgotPassword,
+    color: AppColor.colorTextPinCode,
   );
   static final styleTextMediumRisk = TextStyle(
       fontSize: fontSizeSM,

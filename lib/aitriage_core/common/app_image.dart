@@ -142,4 +142,12 @@ class AppImage {
       './lib/aitriage_core/asset/image/svg_assessment_module_active.svg';
   static const svgAssessmentModuleInactive =
       './lib/aitriage_core/asset/image/svg_assessment_module_inactive.svg';
+  static const svgTotalAssessment =
+      './lib/aitriage_core/asset/image/svg_total_assessment.svg';
+  static const svgLowRisk =
+      './lib/aitriage_core/asset/image/svg_low_risk.svg';
+  static const svgMediumRisk =
+      './lib/aitriage_core/asset/image/svg_medium_risk.svg';
+  static const svgHighRisk =
+      './lib/aitriage_core/asset/image/svg_high_risk.svg';
 }

@@ -2,26 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../common/app_color.dart';
 import '../../common/app_style.dart';
-import 'gender_with_symbol.dart';
+import '../../../aitriage_module_patient/widget/gender_with_symbol.dart';
 
 class DashboardItemView extends StatelessWidget {
   final String? label;
   final String amount;
-  final String percent;
-  final bool isGrowing;
   final double? width;
   final double? height;
-  final Gender gender;
+  final Widget icon;
 
-  const DashboardItemView(
-      {super.key,
+  const DashboardItemView({
+      super.key,
       this.label,
       required this.amount,
-      required this.percent,
-      this.isGrowing = true,
       this.width,
       this.height,
-      required this.gender});
+      required this.icon
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +37,9 @@ class DashboardItemView extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GenderWithSymbol(gender: gender),
+                  icon,
                   SizedBox(height: 8.h),
                   Text(
                     label ?? '',

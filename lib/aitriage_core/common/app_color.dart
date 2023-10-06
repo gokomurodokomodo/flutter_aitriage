@@ -41,10 +41,10 @@ class AppColor {
   static const colorStepItemDone = Color(0xfff4f4f4);
   static const colorSignUpIconWrapperBorder = Color(0xffEAECF0);
   static const colorAsterisk = Color(0xffFF4A4A);
-  static const colorForgotPassword= Color(0xFF027BFE);
   static const colorSelectedLocationBackground = Color(0xfff9f9f9);
   static const colorSummaryViewLabel = Color(0xfffafafa);
   static const colorPatientInformationText = Color(0xff686868);
+  static const colorLowRiskBackground = Color(0xffE5F2FF);
   static const colorMediumRiskText = Color(0xffFF9E0C);
   static const colorHighRiskBackground = Color.fromRGBO(255, 74, 74, 0.10);
 }

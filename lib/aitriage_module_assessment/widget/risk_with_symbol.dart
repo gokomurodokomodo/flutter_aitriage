@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../common/app_color.dart';
-import '../../common/app_image.dart';
+import '../../aitriage_core/common/app_color.dart';
+import '../../aitriage_core/common/app_image.dart';
 
-enum Gender { patients, male, female }
+enum Risk { total, low, medium, high }
 
-class GenderWithSymbol extends StatelessWidget {
-  final Gender gender;
+class RiskWithSymbol extends StatelessWidget {
+  final Risk risk;
   final double? backgroundSize;
   final double? iconSize;
 
-  const GenderWithSymbol({
+  const RiskWithSymbol({
     super.key,
-    required this.gender,
+    required this.risk,
     this.backgroundSize,
     this.iconSize
   });
@@ -32,18 +32,20 @@ class GenderWithSymbol extends StatelessWidget {
   }
 
   String get _svgIconName {
-    return switch (gender) {
-      Gender.patients => AppImage.svgProfileUser,
-      Gender.male => AppImage.svgProfileMale,
-      Gender.female => AppImage.svgProfileFemale
+    return switch (risk) {
+      Risk.total => AppImage.svgTotalAssessment,
+      Risk.low => AppImage.svgLowRisk,
+      Risk.medium => AppImage.svgMediumRisk,
+      Risk.high => AppImage.svgHighRisk
     };
   }
 
   Color get _backgroundColor {
-    return switch (gender) {
-      Gender.patients => AppColor.colorUserProfileBackground,
-      Gender.male => AppColor.colorRailHover,
-      Gender.female => AppColor.colorFemaleProfileBackground
+    return switch (risk) {
+      Risk.total => AppColor.colorVitalSignNibpBg,
+      Risk.low => AppColor.colorLowRiskBackground,
+      Risk.medium => AppColor.colorUserProfileBackground,
+      Risk.high => AppColor.colorHighRiskBackground,
     };
   }
 }
