@@ -79,9 +79,7 @@ class _TabletState extends State<_Tablet> {
                           );
                         },
                       )),
-                  SizedBox(
-                    height: 24.h,
-                  ),
+                  SizedBox(height: 24.h),
                   Expanded(
                       child: Container(
                     padding: EdgeInsets.all(20.h),
@@ -97,15 +95,13 @@ class _TabletState extends State<_Tablet> {
                               width: 320.w,
                               hintText: 'Search...',
                               onTextChange: (text) {
-                                controller.onSearchTextFieldChanged(text,
-                                    onSuccess: () =>
-                                        _pageController.currentPage = 0);
+                                controller.onSearchTextFieldChanged(
+                                    text,
+                                    onSuccess: () => _pageController.currentPage = 0);
                               },
                             ),
                             SizedBox(width: 16.w),
-                            CustomTrailingWidget(
-                                child: SvgIconWidget(
-                                    name: AppImage.svgFilter, size: 24.r)),
+                            CustomTrailingWidget(child: SvgIconWidget(name: AppImage.svgFilter, size: 24.r)),
                             const Spacer(),
                             ColorButton(
                               title: 'Add new',
@@ -151,7 +147,6 @@ class _TabletState extends State<_Tablet> {
                                   alignment: Alignment.topRight,
                                   child: SizedBox(
                                     height: 50.w,
-
                                     ///Tính chiều rộng động. 20 là tổng padding giữa 2 dấu mũi tên.
                                     ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                                     ///nên set cứng height là 50.w để lấy khoảng cách.
@@ -160,38 +155,36 @@ class _TabletState extends State<_Tablet> {
                                         + 20.w + 100.w,
                                     child: StatefulBuilder(
                                       builder: (_, setState) {
-                                        return Obx(() {
-                                          if (controller.vm.value.totalPage < 1) {
-                                            return const CircularProgressIndicator();
-                                          } else {
-                                            return NumberPaginator(
-                                              numberPages: controller.vm.value.totalPage,
-                                              onPageChange: (value) {
-                                                setState(() {});
-                                                AlertUtil
-                                                    .showLoadingIndicator();
-                                                controller.onTapNumberPaginator(
-                                                    value,
-                                                    onSuccess: () => Get.back(),
-                                                    onError: (message) {
-                                                      Get.back();
-                                                      Get.snackbar(
-                                                          'Error', message);
-                                                    });
-                                              },
-                                              controller: _pageController,
-                                              config: NumberPaginatorUIConfig(
-                                                  contentPadding:
-                                                      const EdgeInsets.all(0),
-                                                  buttonShape:
-                                                      RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.r),
-                                                  )),
-                                            );
-                                          }
-                                        });
+                                        if (controller.vm.value.totalPage < 1) {
+                                          return const CircularProgressIndicator();
+                                        } else {
+                                          return NumberPaginator(
+                                            numberPages: controller.vm.value.totalPage,
+                                            onPageChange: (value) {
+                                              setState(() {});
+                                              AlertUtil
+                                                  .showLoadingIndicator();
+                                              controller.onTapNumberPaginator(
+                                                  value,
+                                                  onSuccess: () => Get.back(),
+                                                  onError: (message) {
+                                                    Get.back();
+                                                    Get.snackbar(
+                                                        'Error', message);
+                                                  });
+                                            },
+                                            controller: _pageController,
+                                            config: NumberPaginatorUIConfig(
+                                                contentPadding:
+                                                const EdgeInsets.all(0),
+                                                buttonShape:
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      8.r),
+                                                )),
+                                          );
+                                        }
                                       },
                                     ),
                                   ),
