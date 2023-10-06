@@ -132,8 +132,7 @@ class _TabletState extends State<_Tablet> {
                                     controller.reloadCurrentPage();
                                   }
                                 },
-                                list:
-                                    controller.vm.value.listPatientSummaryVM))),
+                                list: controller.vm.value.listPatientSummaryVM))),
                         LineSeparated(margin: 16.h),
                         Row(
                           children: [

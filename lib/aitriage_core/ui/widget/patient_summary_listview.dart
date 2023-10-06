@@ -4,6 +4,7 @@ import 'package:flutter_aitriage/aitriage_core/common/app_color.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_image.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/patient.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_list_view.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/svg_icon_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,26 +19,15 @@ const _ageColumnRatio = 2;
 const _lastAssessmentColumnRatio = 10;
 final _blankWidth = 48.w;
 
-class PatientSummaryListView extends StatefulWidget {
+class PatientSummaryListView extends StatelessWidget {
   final List<PatientSummaryVM> list;
   final Function(int)? onTapPatient;
 
-  const PatientSummaryListView(
-      {super.key, required this.list, this.onTapPatient});
-
-  @override
-  State<PatientSummaryListView> createState() => _PatientSummaryListViewState();
-}
-
-class _PatientSummaryListViewState extends State<PatientSummaryListView> {
-  final scrollController = ScrollController();
-
-  @override
-  void didUpdateWidget(covariant oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (scrollController.hasClients) scrollController.jumpTo(0);
-  }
+  const PatientSummaryListView({
+    super.key,
+    required this.list,
+    this.onTapPatient
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,27 +36,10 @@ class _PatientSummaryListViewState extends State<PatientSummaryListView> {
         const _Label(),
         LineSeparated(margin: 8.h),
         Expanded(
-            child: widget.list.isNotEmpty
-                ? ListView.separated(
-                    itemBuilder: (BuildContext context, int index) =>
-                        GestureDetector(
-                            onTap: () => widget.onTapPatient?.call(widget.list[index].patientId),
-                            behavior: HitTestBehavior.translucent,
-                            child: _PatientSummaryItem(vm: widget.list[index])),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const LineSeparated(),
-                    itemCount: widget.list.length,
-                    controller: scrollController)
-                : Center(
-                    child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(AppImage.icListViewNoData),
-                      SizedBox(height: 8.h),
-                      Text('No data',
-                          style: AppStyle.styleTextAllPatientCategory)
-                    ],
-                  )))
+            child: BaseListView(
+              onTapItem: (index) => onTapPatient?.call(list[index].patientId),
+              children: list.map((vm) => _PatientSummaryItem(vm: vm)).toList()
+            ))
       ],
     );
   }

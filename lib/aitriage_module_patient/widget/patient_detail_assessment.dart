@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/common/app_style.dart';
 import 'package:flutter_aitriage/aitriage_core/entity/assessment.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_list_view.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/color_button.dart';
 import 'package:flutter_aitriage/aitriage_core/ui/widget/custom_trailing_widget.dart';
 import 'package:flutter_aitriage/aitriage_core/util/date_time_parse_util.dart';
@@ -73,30 +74,12 @@ class _PatientDetailAssessmentState extends State<PatientDetailAssessment> {
           const _Label(),
           SizedBox(height: 16.h),
           Expanded(
-              child: widget.list.isNotEmpty
-                  ? ListView.separated(
-                      itemBuilder: (BuildContext context, int index) =>
-                          GestureDetector(
-                              onTap: () {
-                                final realId = widget.list[index]._assessment.id;
-                                widget.onTapAssessment?.call(realId ?? 0);
-                              },
-                              behavior: HitTestBehavior.translucent,
-                              child: _AssessmentSummaryView(vm: widget.list[index])),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const LineSeparated(),
-                      itemCount: widget.list.length,
-                      controller: scrollController)
-                  : Center(
-                      child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(AppImage.icListViewNoData),
-                        SizedBox(height: 8.h),
-                        Text('No data',
-                            style: AppStyle.styleTextAllPatientCategory)
-                      ],
-                    ))),
+              child: BaseListView(
+                onTapItem: (index) {
+                  final realId = widget.list[index]._assessment.id;
+                  widget.onTapAssessment?.call(realId ?? 0);
+                },
+                children: widget.list.map((vm) => _AssessmentSummaryView(vm: vm)).toList())),
           LineSeparated(margin: 16.h),
           Row(
             children: [

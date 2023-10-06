@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/ui/widget/base_list_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:number_paginator/number_paginator.dart';
 import '../../aitriage_core/common/app_color.dart';
@@ -15,7 +16,7 @@ const _creatorColumnRatio = 10;
 const _dateTimeColumnRatio = 10;
 final _blankWidth = 48.w;
 
-class PatientDetailNote extends StatefulWidget {
+class PatientDetailNote extends StatelessWidget {
   final String pageCountString;
   final int totalPage;
   final List<NoteVM> list;
@@ -33,20 +34,6 @@ class PatientDetailNote extends StatefulWidget {
   });
 
   @override
-  State<PatientDetailNote> createState() => _PatientDetailNoteState();
-}
-
-class _PatientDetailNoteState extends State<PatientDetailNote> {
-  final scrollController = ScrollController();
-
-  @override
-  void didUpdateWidget(covariant oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (scrollController.hasClients) scrollController.jumpTo(0);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.h),
@@ -62,36 +49,20 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
           const _Label(),
           SizedBox(height: 16.h),
           Expanded(
-              child: widget.list.isNotEmpty
-                  ? ListView.separated(
-                  itemBuilder: (BuildContext context, int index) =>
-                      GestureDetector(
-                          onTap: () {
-                            final id = widget.list[index].realId;
-                            final note = widget.list[index].note;
-                            widget.onTapNote?.call(id, note);
-                          },
-                          behavior: HitTestBehavior.translucent,
-                          child: _NoteSummaryView(vm: widget.list[index])),
-                  separatorBuilder: (BuildContext context, int index) =>
-                  const LineSeparated(),
-                  itemCount: widget.list.length,
-                  controller: scrollController)
-                  : Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(AppImage.icListViewNoData),
-                      SizedBox(height: 8.h),
-                      Text('No data',
-                          style: AppStyle.styleTextAllPatientCategory)
-                    ],
-                  ))),
+              child: BaseListView(
+                onTapItem: (index) {
+                  final id = list[index].realId;
+                  final note = list[index].note;
+                  onTapNote?.call(id, note);
+                },
+                children: list.map((vm) => _NoteSummaryView(vm: vm)).toList(),
+              )
+          ),
           LineSeparated(margin: 16.h),
           Row(
             children: [
               Text(
-                widget.pageCountString,
+                pageCountString,
                 style: AppStyle.styleRememberMeText,
               ),
               const Spacer(),
@@ -103,13 +74,13 @@ class _PatientDetailNoteState extends State<PatientDetailNote> {
                   ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                   ///nên set cứng height là 50.w để lấy khoảng cách.
                   ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
-                  width: (50 * widget.totalPage).toDouble().w + 20.w + 100.w,
+                  width: (50 * totalPage).toDouble().w + 20.w + 100.w,
                   child: StatefulBuilder(
                     builder: (_, setState) {
                       return NumberPaginator(
-                        numberPages: widget.totalPage,
+                        numberPages: totalPage,
                         onPageChange: (value) {
-                          widget.onPageChanged?.call(value);
+                          onPageChanged?.call(value);
                         },
                         config: NumberPaginatorUIConfig(
                             contentPadding:
