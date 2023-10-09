@@ -102,11 +102,11 @@ class _TabletState extends State<_Tablet> {
           ),
           SizedBox(height: 34.h),
           GestureDetector(
-            // onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
-            onTap: () => Get.to(
-                () => BluetoothExampleView(),
-                binding: BindingsBuilder(() {
-                  Get.put(BluetoothExampleController());})),
+            onTap: () => Get.offNamed(AuthModulePageRoute.signIn),
+            // onTap: () => Get.to(
+            //     () => BluetoothExampleView(),
+            //     binding: BindingsBuilder(() {
+            //       Get.put(BluetoothExampleController());})),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -143,5 +143,3 @@ class _PhoneState extends State<_Phone> {
     );
   }
 }
-
-
