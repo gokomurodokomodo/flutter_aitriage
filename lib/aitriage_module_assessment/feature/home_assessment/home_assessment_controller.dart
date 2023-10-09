@@ -1,19 +1,19 @@
 import 'dart:developer';
 import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_vm.dart';
 import 'package:flutter_aitriage/aitriage_module_patient/domain/use_case/get_list_assessment_by_location_uc.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
 import '../../../aitriage_core/util/debounce/debounce_util.dart';
 import '../../../aitriage_module_patient/domain/use_case/get_gender_type_param_uc.dart';
+import 'home_assessment_vm.dart';
 
-class HomeController extends GetxController {
+class HomeAssessmentController extends GetxController {
   final GetListAssessmentByLocationUseCase _getListAssessmentByLocationUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
-  final vm = HomeVM().obs;
+  final vm = HomeAssessmentVM().obs;
   final _debounce = DebounceUtil();
 
-  HomeController(this._getListAssessmentByLocationUC, this._getGenderParamTypeUC);
+  HomeAssessmentController(this._getListAssessmentByLocationUC, this._getGenderParamTypeUC);
 
   @override
   void onInit() {

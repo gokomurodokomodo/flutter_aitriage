@@ -4,7 +4,7 @@ import '../../../aitriage_core/service/localization_service/localization_service
 import '../../../aitriage_core/ui/widget/patient_summary_listview.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 
-class HomeVM {
+class HomePatientVM {
   final _listPatient = <Patient>[];
   final _genderParamType = <ParamType>[];
   var _totalMale = 0;

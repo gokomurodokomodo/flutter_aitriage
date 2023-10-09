@@ -335,7 +335,7 @@ class LocationWidget extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 32.r,
-          foregroundImage: NetworkImage(avatar ?? ''),
+          foregroundImage: (avatar != null && avatar != '') ? NetworkImage(avatar ?? '') : null,
         ),
         SizedBox(width: 8.w),
         Column(

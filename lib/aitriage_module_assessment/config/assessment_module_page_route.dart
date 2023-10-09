@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_screen.dart';
 import 'package:get/get.dart';
-
-import '../feature/home/home_binding.dart';
+import '../feature/home_assessment/home_assessment_binding.dart';
+import '../feature/home_assessment/home_assessment_screen.dart';
 
 class AssessmentModulePageRoute {
   AssessmentModulePageRoute._();
@@ -18,8 +17,8 @@ class AssessmentModulePageRoute {
     return switch (settings.name) {
       initialRoute => GetPageRoute(
           settings: settings,
-          page: () => const HomeScreen(),
-          binding: HomeBinding()
+          page: () => const HomeAssessmentScreen(),
+          binding: HomeAssessmentBinding()
       ),
       _ => null
     };

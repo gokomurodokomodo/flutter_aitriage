@@ -18,10 +18,11 @@ import '../../widget/gender_with_symbol.dart';
 import '../../config/patient_module_page_route.dart';
 import '../../../aitriage_core/ui/widget/dashboard_item_view.dart';
 import 'package:number_paginator/number_paginator.dart';
-import 'home_controller.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import 'home_patient_controller.dart';
+
+class HomePatientScreen extends StatelessWidget {
+  const HomePatientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class _Tablet extends StatefulWidget {
 
 class _TabletState extends State<_Tablet> {
   final _pageController = NumberPaginatorController();
-  final controller = Get.find<HomeController>();
+  final controller = Get.find<HomePatientController>();
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +200,7 @@ class _TabletState extends State<_Tablet> {
   }
 }
 
-class _Phone extends GetView<HomeController> {
+class _Phone extends GetView<HomePatientController> {
   const _Phone();
 
   @override

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_patient/feature/home_patient/home_patient_binding.dart';
+import 'package:flutter_aitriage/aitriage_module_patient/feature/home_patient/home_patient_screen.dart';
 import 'package:get/get.dart';
 import '../feature/add_new_note/add_new_note_binding.dart';
 import '../feature/add_new_note/add_new_note_screen.dart';
@@ -6,8 +8,6 @@ import '../feature/add_new_patient/add_new_patient_binding.dart';
 import '../feature/add_new_patient/add_new_patient_screen.dart';
 import '../feature/all_patients/all_patients_screen.dart';
 import '../feature/assessment_result/assessment_result_screen.dart';
-import '../feature/home/home_binding.dart';
-import '../feature/home/home_screen.dart';
 import '../feature/note/note_screen.dart';
 import '../feature/patient_detail/patient_detail_binding.dart';
 import '../feature/patient_detail/patient_detail_screen.dart';
@@ -36,8 +36,8 @@ class PatientModulePageRoute {
     return switch (settings.name) {
       initialRoute => GetPageRoute(
           settings: settings,
-          page: () => const HomeScreen(),
-          binding: HomeBinding()),
+          page: () => const HomePatientScreen(),
+          binding: HomePatientBinding()),
       allPatients => GetPageRoute(
           settings: settings,
           page: () => const AllPatientsScreen()),

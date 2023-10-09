@@ -1,11 +1,10 @@
 import 'package:flutter_aitriage/aitriage_core/entity/assessment.dart';
-
 import '../../../aitriage_core/entity/param_type.dart';
 import '../../../aitriage_core/service/localization_service/localization_service.dart';
 import '../../../aitriage_core/util/language_string_from_json/language_string_from_json.dart';
 import '../../widget/assessment_summary_list_view.dart';
 
-class HomeVM {
+class HomeAssessmentVM {
   final _listAssessment = <Assessment>[];
   final _genderParamType = <ParamType>[];
   var _totalLowRisk = 0;

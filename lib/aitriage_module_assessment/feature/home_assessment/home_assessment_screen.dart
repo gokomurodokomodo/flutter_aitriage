@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_summary_list_view.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/risk_with_symbol.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,11 +13,11 @@ import '../../../aitriage_core/ui/widget/custom_trailing_widget.dart';
 import '../../../aitriage_core/ui/widget/dashboard_item_view.dart';
 import '../../../aitriage_core/ui/widget/device_detector.dart';
 import '../../../aitriage_core/ui/widget/line_separated.dart';
-import '../../../aitriage_core/ui/widget/patient_summary_listview.dart';
 import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
+import 'home_assessment_controller.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeAssessmentScreen extends StatelessWidget {
+  const HomeAssessmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _Tablet extends StatefulWidget {
 
 class _TabletState extends State<_Tablet> {
   final _pageController = NumberPaginatorController();
-  final controller = Get.find<HomeController>();
+  final controller = Get.find<HomeAssessmentController>();
 
   @override
   Widget build(BuildContext context) {
