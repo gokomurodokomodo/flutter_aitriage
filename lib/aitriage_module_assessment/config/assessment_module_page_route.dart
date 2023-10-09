@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_screen.dart';
 import 'package:get/get.dart';
 
+import '../feature/home/home_binding.dart';
+
 class AssessmentModulePageRoute {
   AssessmentModulePageRoute._();
   // Key for nestedNavigation
@@ -17,7 +19,7 @@ class AssessmentModulePageRoute {
       initialRoute => GetPageRoute(
           settings: settings,
           page: () => const HomeScreen(),
-          // binding: HomeAssessmentBinding()
+          binding: HomeBinding()
       ),
       _ => null
     };

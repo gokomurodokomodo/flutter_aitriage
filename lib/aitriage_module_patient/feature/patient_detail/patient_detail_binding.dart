@@ -1,6 +1,6 @@
 import 'package:flutter_aitriage/aitriage_module_patient/feature/patient_detail/patient_detail_controller.dart';
 import 'package:get/get.dart';
-import '../../data/repository/assessment_repository.dart';
+import '../../../aitriage_module_assessment/data/repository/assessment_repository.dart';
 import '../../data/repository/note_repository.dart';
 import '../../data/repository/patient_repository.dart';
 import '../../domain/use_case/add_patient_note_uc.dart';

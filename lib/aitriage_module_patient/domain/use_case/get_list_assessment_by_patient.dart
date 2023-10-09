@@ -1,6 +1,6 @@
 import '../../data/api/query/list_assessment_by_patient_query.dart';
-import '../../data/api/response/get_list_assessment_response.dart';
-import '../repository/assessment_repository.dart';
+import '../../../aitriage_module_assessment/data/api/response/get_list_assessment_response.dart';
+import '../../../aitriage_module_assessment/domain/repository/assessment_repository.dart';
 
 abstract class GetListAssessmentByPatientUseCase {
   Future<GetListAssessmentResponse> execute(int page, int limit, {String? patientId});
