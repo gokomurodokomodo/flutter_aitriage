@@ -1,5 +1,6 @@
 import 'package:flutter_aitriage/aitriage_module_assessment/data/repository/assessment_repository.dart';
 import 'package:get/get.dart';
+import '../../../aitriage_module_patient/domain/use_case/get_gender_type_param_uc.dart';
 import '../../../aitriage_module_patient/domain/use_case/get_list_assessment_by_location_uc.dart';
 import 'home_controller.dart';
 
@@ -8,6 +9,10 @@ class HomeBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => AssessmentRepositoryImpl());
     Get.lazyPut(() => GetListAssessmentByLocationUseCaseImpl(Get.find<AssessmentRepositoryImpl>()));
-    Get.lazyPut(() => HomeController(Get.find<GetListAssessmentByLocationUseCaseImpl>()));
+    Get.lazyPut(() => GetGenderParamUseCaseImpl());
+    Get.lazyPut(() => HomeController(
+        Get.find<GetListAssessmentByLocationUseCaseImpl>(),
+        Get.find<GetGenderParamUseCaseImpl>()
+    ));
   }
 }

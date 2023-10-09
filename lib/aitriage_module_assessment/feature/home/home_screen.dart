@@ -25,12 +25,20 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<HomeController> {
+class _Tablet extends StatefulWidget {
   const _Tablet();
 
   @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  final _pageController = NumberPaginatorController();
+  final controller = Get.find<HomeController>();
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
+    controller.onTapNumberPaginator(0);
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       body: Container(
