@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
 import 'package:flutter_aitriage/aitriage_core/util/debounce/debounce_util.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,6 @@ class HomeController extends GetxController {
   final GetListPatientUseCase _getListPatientUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
   final vm = HomeVM().obs;
-  static const _pageLimit = 20;
   final _debounce = DebounceUtil();
 
   HomeController(this._getListPatientUC, this._getGenderParamTypeUC);
@@ -34,7 +34,7 @@ class HomeController extends GetxController {
       final searchParam = vm.value.searchParam;
       final resp = await _getListPatientUC.execute(
           page + 1,
-          _pageLimit,
+          AppConstant.debounceTimer,
           searchParam: searchParam);
       final listPatient = resp.patient;
       vm.value.update(
@@ -43,7 +43,7 @@ class HomeController extends GetxController {
           totalMale: resp.totalMale,
           totalFemale: resp.totalFemale,
           totalPage: resp.totalPage,
-          pageLimit: _pageLimit,
+          pageLimit: AppConstant.pageLimit,
           currentPage: page);
       vm.refresh();
       onSuccess?.call();

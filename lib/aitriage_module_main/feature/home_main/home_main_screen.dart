@@ -61,9 +61,9 @@ class _TabletState extends State<_Tablet> {
                           height: 60.r,
                           child: CircleAvatar(
                               radius: 25,
-                              foregroundImage: NetworkImage(
+                              foregroundImage: (controller.vm.value.currentLocationAvatar.isNotEmpty) ? NetworkImage(
                                 controller.vm.value.currentLocationAvatar,
-                              ))),
+                              ) : null)),
                       dropDownAlign: DropDownAlign.topRightToRight,
                       shouldReplacePlaceHolder: false,
                       shouldShowBorderPlaceHolder: false,
@@ -148,11 +148,11 @@ class _TabletState extends State<_Tablet> {
                         placeHolder: SizedBox(
                           height: 40.r,
                           width: 40.r,
-                          child: Obx(() => CachedNetworkImage(
-                                imageUrl: controller.vm.value.userAvatar,
-                                errorWidget: (_, __, ___) =>
-                                    Image.asset(AppImage.icDefaultUserAvatar),
-                              )),
+                          child: Obx(() => (controller.vm.value.userAvatar.isNotEmpty)
+                              ? CachedNetworkImage(
+                                  imageUrl: controller.vm.value.userAvatar,
+                                  errorWidget: (_, __, ___) => Image.asset(AppImage.icDefaultUserAvatar))
+                              : const SizedBox()),
                         ),
                         onTapChildren: (index) async {
                           await controller.onTapUserButton(index);

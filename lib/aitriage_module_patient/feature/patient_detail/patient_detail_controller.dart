@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_core/network/handle_error/handle_error.dart';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_module_patient/feature/patient_detail/patient_detail_vm.dart';
@@ -13,8 +14,6 @@ import '../../domain/use_case/get_list_assessment_by_patient.dart';
 import '../../domain/use_case/get_list_patient_note_uc.dart';
 import '../../domain/use_case/get_patient_detail_uc.dart';
 import '../../domain/use_case/update_patient_uc.dart';
-
-const _pageLimit = 20;
 
 class PatientDetailController extends GetxController {
   final GetPatientDetailUseCase _getPatientDetailUC;
@@ -117,13 +116,13 @@ class PatientDetailController extends GetxController {
   void getListNote(int page) async {
     try {
       final patientId = _argument['patientId'];
-      final resp = await _getListPatientNoteUC.execute(patientId.toString(), page + 1, _pageLimit);
+      final resp = await _getListPatientNoteUC.execute(patientId.toString(), page + 1, AppConstant.pageLimit);
       vm.value.update(
           listNote: resp.data,
           noteTotalPage: resp.totalPage,
           noteTotalItem: resp.totalItem,
           noteCurrentPage: page,
-          notePageLimit: _pageLimit
+          notePageLimit: AppConstant.pageLimit
       );
       vm.refresh();
     } catch (error) {
@@ -167,13 +166,13 @@ class PatientDetailController extends GetxController {
 
   void getListAssessment(int page) async {
     final patientId = _argument['patientId'];
-    final resp = await _getListAssessmentByPatientUC.execute(page + 1, _pageLimit, patientId: patientId.toString());
+    final resp = await _getListAssessmentByPatientUC.execute(page + 1, AppConstant.pageLimit, patientId: patientId.toString());
     vm.value.update(
         listAssessment: resp.data,
         assessmentTotalPage: resp.totalPage,
         assessmentTotalItem: resp.totalItem,
         assessmentCurrentPage: page,
-        assessmentPageLimit: _pageLimit
+        assessmentPageLimit: AppConstant.pageLimit
     );
     vm.refresh();
   }

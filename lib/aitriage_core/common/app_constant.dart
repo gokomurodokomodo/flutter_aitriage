@@ -8,4 +8,5 @@ class AppConstant {
   static const preCharSaveUserData = '_user';
   static const currentUserName = 'CURRENT_USER_NAME';
   static const currentUserPassword = 'CURRENT_USER_PASSWORD';
+  static const pageLimit = 20;
 }

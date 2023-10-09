@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_controller.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/risk_with_symbol.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends StatelessWidget {
+class _Tablet extends GetView<HomeController> {
   const _Tablet();
 
   @override
