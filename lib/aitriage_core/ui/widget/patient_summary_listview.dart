@@ -143,10 +143,6 @@ class _PatientCell extends StatelessWidget {
         SizedBox(
           height: 40.r,
           width: 40.r,
-          // decoration: const BoxDecoration(
-          //   shape: BoxShape.circle,
-          //   color: Colors.blue,
-          // ),
           child: CircleAvatar(
             child: vm.avatar.isNotEmpty
                 ? CachedNetworkImage(

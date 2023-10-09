@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/feature/home/home_controller.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_summary_list_view.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/risk_with_symbol.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,6 @@ class _TabletState extends State<_Tablet> {
 
   @override
   Widget build(BuildContext context) {
-    controller.onTapNumberPaginator(0);
     return Scaffold(
       backgroundColor: AppColor.colorAppBackground,
       body: Container(
@@ -55,29 +55,29 @@ class _TabletState extends State<_Tablet> {
                     final itemWidth = (constraints.maxWidth - 72.w) / 4;
                     return Row(
                       children: [
-                        DashboardItemView(
+                        Obx(() => DashboardItemView(
                             icon: const RiskWithSymbol(risk: Risk.total),
                             width: itemWidth,
                             label: 'Total Assessment',
-                            amount: '100,000'),
+                            amount: controller.vm.value.totalAssessment)),
                         SizedBox(width: 24.w),
-                        DashboardItemView(
+                        Obx(() => DashboardItemView(
                             icon: const RiskWithSymbol(risk: Risk.low),
                             width: itemWidth,
                             label: 'Low risk',
-                            amount: '80,000'),
+                            amount: controller.vm.value.totalLowRisk)),
                         SizedBox(width: 24.w),
-                        DashboardItemView(
+                        Obx(() => DashboardItemView(
                             icon: const RiskWithSymbol(risk: Risk.medium),
                             width: itemWidth,
                             label: 'Medium risk',
-                            amount: '5,000'),
+                            amount: controller.vm.value.totalMediumRisk)),
                         SizedBox(width: 24.w),
-                        DashboardItemView(
+                        Obx(() => DashboardItemView(
                             icon: const RiskWithSymbol(risk: Risk.high),
                             width: itemWidth,
                             label: 'High risk',
-                            amount: '15,000')
+                            amount: controller.vm.value.totalHighRisk))
                       ],
                     );
                   },
@@ -99,9 +99,9 @@ class _TabletState extends State<_Tablet> {
                               width: 320.w,
                               hintText: 'Search...',
                               onTextChange: (text) {
-                                // controller.onSearchTextFieldChanged(text,
-                                //     onSuccess: () =>
-                                //     _pageController.currentPage = 0);
+                                controller.onSearchTextFieldChanged(
+                                    text,
+                                    onSuccess: () => _pageController.currentPage = 0);
                               },
                             ),
                             SizedBox(width: 16.w),
@@ -125,36 +125,44 @@ class _TabletState extends State<_Tablet> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Expanded(child: PatientSummaryListView(onTapPatient: (patientId) async {},list: [])),
+                        Expanded(
+                            child: Obx(() => AssessmentSummaryListView(
+                                list: controller.vm.value.listAssessmentVM))),
                         LineSeparated(margin: 16.h),
                         Row(
                           children: [
-                            Text(
-                              // controller.showCountPatient.value,
-                              'controller.vm.value.pageCountString',
+                            Obx(() => Text(
+                              controller.vm.value.pageCountString,
                               style: AppStyle.styleRememberMeText,
-                            ),
+                            )),
                             const Spacer(),
-                            Align(
+                            Obx(() => Align(
                               alignment: Alignment.topRight,
                               child: SizedBox(
                                 height: 50.w,
-
                                 ///Tính chiều rộng động. 20 là tổng padding giữa 2 dấu mũi tên.
                                 ///100 là tổng khoảng cách của 2 ô mũi tên, do trong thư viện set height = width
                                 ///nên set cứng height là 50.w để lấy khoảng cách.
                                 ///50 * totalPage để tính độ rộng cần thiết cho content ở giữa.
-                                width: (50 * 5).toDouble().w
+                                width: (50 * controller.vm.value.totalPage).toDouble().w
                                     + 20.w + 100.w,
                                 child: StatefulBuilder(
                                   builder: (_, setState) {
-                                    if (5 < 1) {
+                                    if (controller.vm.value.totalPage < 1) {
                                       return const CircularProgressIndicator();
                                     } else {
                                       return NumberPaginator(
-                                        numberPages: 5,
+                                        numberPages: controller.vm.value.totalPage,
                                         onPageChange: (value) {
                                           setState(() {});
+                                          controller.onTapNumberPaginator(
+                                              value,
+                                              onSuccess: () => Get.back(),
+                                              onError: (message) {
+                                                Get.back();
+                                                Get.snackbar(
+                                                    'Error', message);
+                                              });
                                         },
                                         // controller: _pageController,
                                         config: NumberPaginatorUIConfig(
@@ -171,7 +179,7 @@ class _TabletState extends State<_Tablet> {
                                   },
                                 ),
                               ),
-                            )
+                            ))
                           ],
                         )
                       ],
