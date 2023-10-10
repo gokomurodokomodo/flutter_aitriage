@@ -3,11 +3,14 @@ import 'package:flutter_aitriage/aitriage_core/common/app_constant.dart';
 import 'package:flutter_aitriage/aitriage_module_patient/domain/use_case/get_list_assessment_by_location_uc.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
+import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
+import '../../../aitriage_core/util/app_event_channel/custom_event/finish_getting_list_location.dart';
 import '../../../aitriage_core/util/debounce/debounce_util.dart';
+import '../../../aitriage_core/util/subscription_collector/subscription_collector.dart';
 import '../../../aitriage_module_patient/domain/use_case/get_gender_type_param_uc.dart';
 import 'home_assessment_vm.dart';
 
-class HomeAssessmentController extends GetxController {
+class HomeAssessmentController extends GetxController with SubscriptionCollector {
   final GetListAssessmentByLocationUseCase _getListAssessmentByLocationUC;
   final GetGenderParamTypeUseCase _getGenderParamTypeUC;
   final vm = HomeAssessmentVM().obs;
@@ -18,7 +21,24 @@ class HomeAssessmentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    onTapNumberPaginator(0);
+    // wait until get location in home main controller done before calling next api
+    final appEventChannel = AppEventChannel();
+    final lastEvent = appEventChannel.getLastEvent<FinishGettingListLocation>();
+
+    if (lastEvent == null) {
+      final subscription = appEventChannel
+          .on<FinishGettingListLocation>()
+          .listen((event) => onTapNumberPaginator(0));
+      addToCollector(subscription);
+    } else {
+      onTapNumberPaginator(0);
+    }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    disposeAllStreamInCollector();
   }
 
   void onTapNumberPaginator(

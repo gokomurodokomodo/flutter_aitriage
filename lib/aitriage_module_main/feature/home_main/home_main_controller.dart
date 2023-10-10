@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
-import 'package:flutter_aitriage/aitriage_core/ui/widget/keep_alive_wrapper.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
+import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/finish_getting_list_location.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_out_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_location_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_vm.dart';
 import 'package:get/get.dart';
 import '../../../aitriage_core/entity/table_sync_date.dart';
 import '../../../aitriage_core/network/handle_error/handle_error.dart';
+import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
 import '../../domain/entity/location.dart';
 
 class HomeMainController extends GetxController {
@@ -22,7 +23,6 @@ class HomeMainController extends GetxController {
   @override                                   
   void onInit() async {
     super.onInit();
-    _getListLocation();
     final userInfo = await ActiveUserUtil.userInfo;
     vm.value.update(userInfo: userInfo);
     vm.refresh();
@@ -31,6 +31,11 @@ class HomeMainController extends GetxController {
       log('FIREBASE SYNC START');
       HiviService.instance.syncData(firebaseSyncDate: event);
     });
+
+    // notify listeners
+    await _getListLocation();
+    final appEventChannel = AppEventChannel();
+    appEventChannel.addEvent(FinishGettingListLocation(true));
   }
 
   @override
@@ -39,7 +44,7 @@ class HomeMainController extends GetxController {
     stream?.cancel();
   }
 
-  void _getListLocation() async {
+  Future _getListLocation() async {
     try {
       final resp = await _getListLocationUC.execute();
       vm.value.update(
