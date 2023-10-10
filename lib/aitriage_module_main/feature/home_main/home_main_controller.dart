@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_aitriage/aitriage_core/service/hivi_service/hivi_service.dart';
 import 'package:flutter_aitriage/aitriage_core/util/active_user/active_user.dart';
-import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/finish_getting_list_location.dart';
+import 'package:flutter_aitriage/aitriage_core/util/app_event_channel/custom_event/current_location_changed_event.dart';
 import 'package:flutter_aitriage/aitriage_module_auth/domain/use_case/sign_out_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/domain/use_case/get_list_location_uc.dart';
 import 'package:flutter_aitriage/aitriage_module_main/feature/home_main/home_main_vm.dart';
@@ -17,6 +17,7 @@ class HomeMainController extends GetxController {
   final SignOutUseCase _signOutUC;
   final vm = HomeMainVM().obs;
   StreamSubscription<TableSyncDate>? stream;
+  final appEventChannel = AppEventChannel();
 
   HomeMainController(this._getListLocationUC, this._signOutUC);
 
@@ -34,14 +35,14 @@ class HomeMainController extends GetxController {
 
     // notify listeners
     await _getListLocation();
-    final appEventChannel = AppEventChannel();
-    appEventChannel.addEvent(FinishGettingListLocation(true));
+    appEventChannel.addEvent(CurrentLocationChangedEvent(true));
   }
 
   @override
   void onClose() {
     super.onClose();
     stream?.cancel();
+    appEventChannel.clearLastEvent<CurrentLocationChangedEvent>();
   }
 
   Future _getListLocation() async {
@@ -60,6 +61,7 @@ class HomeMainController extends GetxController {
   void changeLocation(int index) {
     vm.value.update(locationIndex: index);
     vm.refresh();
+    appEventChannel.addEvent(CurrentLocationChangedEvent(true));
   }
 
   List<Location> get locations => vm.value.locations;

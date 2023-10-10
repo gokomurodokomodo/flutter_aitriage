@@ -164,7 +164,7 @@ class _TabletState extends State<_Tablet> {
                                                 Get.snackbar('Error', message);
                                               });
                                         },
-                                        // controller: _pageController,
+                                        controller: _pageController,
                                         config: NumberPaginatorUIConfig(
                                             contentPadding:
                                             const EdgeInsets.all(0),

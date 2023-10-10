@@ -29,6 +29,8 @@ class AppEventChannel {
     return _lastEvent.firstWhereOrNull((element) => element is T) as T?;
   }
 
+  void clearLastEvent<T extends IAppEvent>() => _lastEvent.removeWhere((element) => element is T);
+
   //avoid destroy, use only for testing
   //void destroy() => _streamController.close();
 }
