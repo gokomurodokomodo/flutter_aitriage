@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_summary_list_view.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/risk_with_symbol.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,11 +155,12 @@ class _TabletState extends State<_Tablet> {
                                         numberPages: controller.vm.value.totalPage,
                                         onPageChange: (value) {
                                           setState(() {});
+                                          // AlertUtil.showLoadingIndicator();
                                           controller.onTapNumberPaginator(
                                               value,
-                                              onSuccess: () => Get.back(),
+                                              // onSuccess: () => Get.back(),
                                               onError: (message) {
-                                                Get.back();
+                                                // Get.back();
                                                 Get.snackbar(
                                                     'Error', message);
                                               });
