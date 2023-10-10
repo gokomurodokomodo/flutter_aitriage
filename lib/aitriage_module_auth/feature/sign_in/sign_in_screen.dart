@@ -92,19 +92,18 @@ class _Tablet extends GetView<SignInController> {
                     title: 'sign_in'.tr,
                     shouldEnableBackground: controller.isValidated.value,
                     onTap: () async {
+                      final alert = AlertUtil.showLoadingIndicator();
                       onSuccess(value) {
-                        Get.back();
+                        AlertUtil.hideLoadingIndicator(alert);
                         Get.toNamed(MainModulePageRoute.main,
                             arguments: {'userInfo': value});
+                        // Future.delayed(Duration(seconds: 5), () => );
                       }
-
                       onError(message) {
-                        Get.back();
+                        AlertUtil.hideLoadingIndicator(alert);
                         Get.snackbar('Error', message);
                       }
-                      AlertUtil.showLoadingIndicator();
-                      controller.onSubmitSignIn(
-                          onSuccess: onSuccess, onError: onError);
+                      controller.onSubmitSignIn(onSuccess: onSuccess, onError: onError);
                     },
                     // shouldEnable: widget.controller.isValidated.value,
                   ),

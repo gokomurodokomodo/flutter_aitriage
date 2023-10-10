@@ -155,14 +155,13 @@ class _TabletState extends State<_Tablet> {
                                         numberPages: controller.vm.value.totalPage,
                                         onPageChange: (value) {
                                           setState(() {});
-                                          // AlertUtil.showLoadingIndicator();
+                                          final alert = AlertUtil.showLoadingIndicator();
                                           controller.onTapNumberPaginator(
                                               value,
-                                              // onSuccess: () => Get.back(),
+                                              onSuccess: () => AlertUtil.hideLoadingIndicator(alert),
                                               onError: (message) {
-                                                // Get.back();
-                                                Get.snackbar(
-                                                    'Error', message);
+                                                AlertUtil.hideLoadingIndicator(alert);
+                                                Get.snackbar('Error', message);
                                               });
                                         },
                                         // controller: _pageController,

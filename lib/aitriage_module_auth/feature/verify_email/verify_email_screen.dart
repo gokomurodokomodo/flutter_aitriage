@@ -8,6 +8,7 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/common/app_style.dart';
 import '../../../aitriage_core/ui/widget/authentication_header.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
+import '../../../aitriage_core/util/alert/alert_util.dart';
 import '../../../aitriage_module_main/config/main_module_page_route.dart';
 import '../../widget/input_pin_code.dart';
 
@@ -64,16 +65,18 @@ class _Tablet extends GetView<VerifyEmailController> {
                 width: 360.w,
                 title: 'verify_email_title'.tr,
                 onTap: () {
-                  onLoginSuccess() {
-                    Get.back();
+                  final alert = AlertUtil.showLoadingIndicator();
+                  onLoginSuccess(message) {
+                    AlertUtil.hideLoadingIndicator(alert);
+                    Get.snackbar('Success', message);
                     Get.offNamed(MainModulePageRoute.main);
                   }
                   onRegisterSuccess(message) async {
-                    Get.back();
+                    AlertUtil.hideLoadingIndicator(alert);
                     await Get.offNamed(MainModulePageRoute.gettingStartedMain);
                   }
                   onError(message) {
-                    Get.back();
+                    AlertUtil.hideLoadingIndicator(alert);
                     Get.snackbar('Error', message);
                   }
                   controller.onSubmit(
@@ -91,12 +94,13 @@ class _Tablet extends GetView<VerifyEmailController> {
                   SizedBox(height: 4.w,),
                   TextButton(
                       onPressed: () {
+                        final alert = AlertUtil.showLoadingIndicator();
                         onSuccess(message) {
-                          Get.back();
+                          AlertUtil.hideLoadingIndicator(alert);
                           Get.snackbar('Success', message);
                         }
                         onError(message) {
-                          Get.back();
+                          AlertUtil.hideLoadingIndicator(alert);
                           Get.snackbar('Error', message);
                         }
                         controller.resendCode(

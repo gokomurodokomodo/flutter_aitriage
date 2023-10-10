@@ -17,7 +17,7 @@ class VerifyEmailController extends GetxController {
 
   void onSubmit({
     Function(String)? onRegisterSuccess,
-    Function? onLoginSuccess,
+    Function(String)? onLoginSuccess,
     Function(dynamic)? onError
   }) async {
     if(Get.arguments['userName'] == null){
@@ -42,8 +42,7 @@ class VerifyEmailController extends GetxController {
     final email = getEmail();
 
     try{
-      AlertUtil.showLoadingIndicator();
-      final response = await _uc.resendSignUpVerificationCode(email);
+      await _uc.resendSignUpVerificationCode(email);
       onSuccess?.call('resend_email'.tr);
     } catch (e){
       HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(e));
@@ -62,7 +61,6 @@ class VerifyEmailController extends GetxController {
     );
 
     try {
-      AlertUtil.showLoadingIndicator();
       final resp = await _uc.execute(request);
       onSuccess?.call(resp.message.toString());
     } catch (e) {
@@ -71,7 +69,7 @@ class VerifyEmailController extends GetxController {
   }
 
   void _onLoginSubmit({
-    Function? onSuccess,
+    Function(String)? onSuccess,
     Function(dynamic)? onError
   }) async {
     final argument = Get.arguments;
@@ -81,12 +79,10 @@ class VerifyEmailController extends GetxController {
         verificationCode: _verifyCode);
 
     try {
-      AlertUtil.showLoadingIndicator();
       final result = await _uc.loginWithVerificationCode(request);
-      Get.snackbar('Success', result.message.toString());
       // final key = '${AppConstant.preCharSaveUserData}$userName}';
       await ActiveUserUtil.setAccessToken(result.data.accessToken ?? '');
-      onSuccess?.call();
+      onSuccess?.call(result.message.toString());
     } catch (e) {
       HandleNetworkError.handleNetworkError(
           e, (message, _, __) => onError?.call(message));

@@ -21,9 +21,7 @@ class ForgetPasswordController extends GetxController{
     final query = ForgetPasswordQuery(_email);
 
     try {
-      AlertUtil.showLoadingIndicator();
       await _uc.execute(query);
-
       onSuccess?.call(_email);
     } catch (e) {
       HandleNetworkError.handleNetworkError(e, (message, _, __) => onError?.call(message));

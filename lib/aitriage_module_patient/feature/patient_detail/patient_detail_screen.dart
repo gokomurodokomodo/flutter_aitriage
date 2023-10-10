@@ -133,8 +133,9 @@ class _Tablet extends GetView<PatientDetailController> {
                             onSuccess: onSuccess, onError: onError);
                       },
                       onTapPrimaryButton: () {
+                        final alert = AlertUtil.showLoadingIndicator();
                         onSuccess() {
-                          Get.back();
+                          AlertUtil.hideLoadingIndicator(alert);
                           Get.back(
                               id: PatientModulePageRoute.nestedId,
                               result: controller.vm.value.shouldReloadData);
@@ -142,10 +143,9 @@ class _Tablet extends GetView<PatientDetailController> {
                               'Success', 'Successfully deleted patient');
                         }
                         onError(message) {
-                          Get.back();
+                          AlertUtil.hideLoadingIndicator(alert);
                           Get.snackbar('Error', message);
                         }
-                        AlertUtil.showLoadingIndicator();
                         controller.onTapDeleteButton(
                             onSuccess: onSuccess, onError: onError);
                       })),

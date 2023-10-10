@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class AlertUtil {
   AlertUtil._();
 
-  static void showLoadingIndicator({
+  static GlobalKey showLoadingIndicator({
     Duration timeout = const Duration(seconds: 5)
   }) {
     final key = GlobalKey();
@@ -19,18 +19,19 @@ class AlertUtil {
       ),
     );
     Get.dialog(loadingIndicator, barrierDismissible: true, arguments: key);
+
     Future.delayed(timeout, () {
       if (key.currentContext?.mounted == true && Get.isDialogOpen == true) {
         Get.back();
-      };
+      }
     });
+    return key;
   }
-  //
-  // static void showLoadingIndicatorWithText() {
-  //   // hideLoading();
-  // }
-  //
-  // static void showCustomDialog() {
-  //   // hideLoading();
-  // }
+
+  // Using key to close dialog
+  static void hideLoadingIndicator(GlobalKey key) {
+    if (key.currentContext?.mounted == true && Get.isDialogOpen == true) {
+      Get.back();
+    }
+  }
 }

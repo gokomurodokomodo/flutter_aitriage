@@ -8,6 +8,7 @@ import '../../../aitriage_core/common/app_image.dart';
 import '../../../aitriage_core/ui/widget/back_to_login_text_button.dart';
 import '../../../aitriage_core/ui/widget/color_button.dart';
 import '../../../aitriage_core/ui/widget/custom_login_field.dart';
+import '../../../aitriage_core/util/alert/alert_util.dart';
 import '../../config/auth_module_page_route.dart';
 import 'forget_password_controller.dart';
 
@@ -52,14 +53,15 @@ class _Tablet extends GetView<ForgetPasswordController> {
                 SizedBox(height: 24.h,),
                 ColorButton(
                   onTap: () {
+                    final alert = AlertUtil.showLoadingIndicator();
                     onSuccess(email) {
-                      Get.back();
+                      AlertUtil.hideLoadingIndicator(alert);
                       Get.toNamed(
                           AuthModulePageRoute.checkYourEmail,
                           arguments: {'email': email});
                     }
                     onError(message) {
-                      Get.back();
+                      AlertUtil.hideLoadingIndicator(alert);
                       Get.snackbar('Error', message);
                     }
                     controller.sendCode(onSuccess: onSuccess, onError: onError);
