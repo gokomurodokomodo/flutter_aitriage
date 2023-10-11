@@ -33,4 +33,12 @@ class ExampleDeviceController extends GetxController{
   Future<void> stopScanDevice() async{
     BluetoothRepository().stopScanDevices();
   }
+
+  Future<bool> connectDevice(String deviceMACAddress) async{
+    if (deviceMACAddress == '') {
+      return false;
+    } else {
+      return await BluetoothRepository().connectDevice(deviceMACAddress);
+    }
+  }
 }

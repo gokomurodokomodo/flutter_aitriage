@@ -53,7 +53,18 @@ dependencies:
   flutter_blue_plus: ^1.16.2
   plugin_bluetooth_android:
     path: ../bluetooth_plugin
+  flutter_launcher_icons: ^0.13.1
 
+flutter_launcher_icons:
+  image_path_android: "lib/aitriage_core/asset/image/ic_app_logo.png"
+  image_path_ios: "lib/aitriage_core/asset/image/ic_app_logo.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "lib/aitriage_core/asset/image/ic_app_logo.png"
+  adaptive_icon_foreground: "lib/aitriage_core/asset/image/ic_app_logo.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
+  background_color_ios: "#ffffff"
 
 
 dev_dependencies:
