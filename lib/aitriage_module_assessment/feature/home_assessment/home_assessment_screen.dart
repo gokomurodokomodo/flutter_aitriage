@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aitriage/aitriage_core/util/alert/alert_util.dart';
+import 'package:flutter_aitriage/aitriage_module_assessment/config/assessment_module_page_route.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/assessment_summary_list_view.dart';
 import 'package:flutter_aitriage/aitriage_module_assessment/widget/risk_with_symbol.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -145,21 +146,17 @@ class _TabletState extends State<_Tablet> with SubscriptionCollector {
                               title: 'Add new',
                               shouldEnableBackground: true,
                               onTap: () async {
-                                // bool isAddSuccess = false;
-                                // isAddSuccess = await Get.toNamed(
-                                //     PatientModulePageRoute.addNewPatients);
-                                // if (isAddSuccess) {
-                                //   _showDialog();
-                                //   controller.reloadCurrentPage();
-                                //}
                               },
                               width: 102.w,
-                            ) // SizedBox(width: 16.w)
+                            )
                           ],
                         ),
                         SizedBox(height: 20.h),
                         Expanded(
                             child: Obx(() => AssessmentSummaryListView(
+                                onTapAssessment: (_) => Get.toNamed(
+                                    AssessmentModulePageRoute.assessmentDetail,
+                                    id: AssessmentModulePageRoute.nestedId),
                                 list: controller.vm.value.listAssessmentVM))),
                         LineSeparated(margin: 16.h),
                         Row(

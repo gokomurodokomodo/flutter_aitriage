@@ -25,12 +25,19 @@ class PatientDetailScreen extends StatelessWidget {
   }
 }
 
-class _Tablet extends GetView<PatientDetailController> {
+class _Tablet extends StatefulWidget {
   const _Tablet();
 
   @override
+  State<_Tablet> createState() => _TabletState();
+}
+
+class _TabletState extends State<_Tablet> {
+  final controller = Get.find<PatientDetailController>();
+  final pageViewController = PageController();
+
+  @override
   Widget build(BuildContext context) {
-    final pageViewController = PageController();
     return Scaffold(
         backgroundColor: AppColor.colorBackgroundSearch,
         body: Column(
