@@ -15,6 +15,9 @@ import '../../../aitriage_core/ui/widget/dashboard_item_view.dart';
 import '../../../aitriage_core/ui/widget/device_detector.dart';
 import '../../../aitriage_core/ui/widget/line_separated.dart';
 import '../../../aitriage_core/ui/widget/svg_icon_widget.dart';
+import '../../../aitriage_core/util/app_event_channel/core/app_event_channel.dart';
+import '../../../aitriage_core/util/app_event_channel/custom_event/current_location_changed_event.dart';
+import '../../../aitriage_core/util/subscription_collector/subscription_collector.dart';
 import 'home_assessment_controller.dart';
 
 class HomeAssessmentScreen extends StatelessWidget {
@@ -33,9 +36,39 @@ class _Tablet extends StatefulWidget {
   State<_Tablet> createState() => _TabletState();
 }
 
-class _TabletState extends State<_Tablet> {
+class _TabletState extends State<_Tablet> with SubscriptionCollector {
   final _pageController = NumberPaginatorController();
   final controller = Get.find<HomeAssessmentController>();
+
+  @override
+  void initState() {
+    super.initState();
+    final appEventChannel = AppEventChannel();
+    final lastEvent = appEventChannel.getLastEvent<CurrentLocationChangedEvent>();
+    final subscription = appEventChannel
+        .on<CurrentLocationChangedEvent>()
+        .listen((event) => onTapNumberPaginator(0));
+    addToCollector(subscription);
+
+    if (lastEvent != null) onTapNumberPaginator(0);
+  }
+
+  @override
+  void dispose() {
+    disposeAllStreamInCollector();
+    super.dispose();
+  }
+
+  void onTapNumberPaginator(int page) {
+    final alert = AlertUtil.showLoadingIndicator();
+    controller.onTapNumberPaginator(
+        page,
+        onSuccess: () => AlertUtil.hideLoadingIndicator(alert),
+        onError: (message) {
+          AlertUtil.hideLoadingIndicator(alert);
+          Get.snackbar('Error', message);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,14 +188,7 @@ class _TabletState extends State<_Tablet> {
                                         numberPages: controller.vm.value.totalPage,
                                         onPageChange: (value) {
                                           setState(() {});
-                                          final alert = AlertUtil.showLoadingIndicator();
-                                          controller.onTapNumberPaginator(
-                                              value,
-                                              onSuccess: () => AlertUtil.hideLoadingIndicator(alert),
-                                              onError: (message) {
-                                                AlertUtil.hideLoadingIndicator(alert);
-                                                Get.snackbar('Error', message);
-                                              });
+                                          onTapNumberPaginator(value);
                                         },
                                         controller: _pageController,
                                         config: NumberPaginatorUIConfig(
