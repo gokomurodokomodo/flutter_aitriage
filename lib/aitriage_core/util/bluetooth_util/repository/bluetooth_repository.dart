@@ -54,7 +54,7 @@ class BluetoothRepository{
   }
 
   /*DATA PARSER AND TRANSFER*/
-  ///*For data core please use enum [AppEventChannel] in core/plugin_bluetooth_event_channel.dart,
+  ///*For data core please use enum [AppEventChannel] in plugin_bluetooth_event_channel.dart,
   ///this will provide all the stream of data you'll need.
   ///this section provide function to scan, connect, disconnect
 
