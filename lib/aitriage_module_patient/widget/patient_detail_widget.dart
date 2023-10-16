@@ -3,10 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../aitriage_core/common/app_color.dart';
 import '../../aitriage_core/common/app_image.dart';
 import '../../aitriage_core/common/app_style.dart';
-import '../../aitriage_core/ui/widget/color_button.dart';
 import '../../aitriage_core/ui/widget/custom_trailing_widget.dart';
+import '../../aitriage_core/ui/widget/group_button.dart';
 import '../../aitriage_core/ui/widget/svg_icon_widget.dart';
 import '../feature/patient_detail/patient_detail_vm.dart';
+
+final _groupButtonVM = <GroupButtonVM>[
+  GroupButtonVM(title: 'Information', image: AppImage.svgPatientDetailInformation),
+  GroupButtonVM(title: 'Assessment', image: AppImage.svgPatientDetailAssessment),
+  GroupButtonVM(title: 'Note', image: AppImage.svgPatientDetailNote),
+];
 
 class PatientDetailWidget extends StatelessWidget {
   final Function(int)? onTap;
@@ -25,7 +31,7 @@ class PatientDetailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700.h,
+      height: 720.h,
       width: 325.w,
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
@@ -89,98 +95,20 @@ class PatientDetailWidget extends StatelessWidget {
             height: 1.h,
             color: AppColor.colorInactiveFillColor,
           ),
-          Expanded(child: _GroupButton(onTap: onTap, onTapPrimaryButton: onTapPrimaryButton))
+          Expanded(
+              child: GroupButton(children: _groupButtonVM, onTap: onTap)),
+          const Spacer(),
+          GestureDetector(
+            onTap: () => onTapPrimaryButton,
+            child: CustomTrailingWidget(
+                height: 48.h,
+                width: double.infinity,
+                backgroundColor: AppColor.colorBackgroundSearch,
+                child: Center(child: Text('Delete', style: AppStyle.styleCancelAssessment))
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
-class _GroupButton extends StatefulWidget {
-  final Function(int)? onTap;
-  final Function? onTapPrimaryButton;
-
-  const _GroupButton({super.key, this.onTap, this.onTapPrimaryButton});
-
-  @override
-  State<_GroupButton> createState() => _GroupButtonState();
-}
-
-class _GroupButtonState extends State<_GroupButton> {
-  var selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GestureDetector(
-          onTap: () => onTap(0),
-          child: CustomTrailingWidget(
-              height: 48.h,
-              width: double.infinity,
-              backgroundColor: selectedIndex == 0 ? AppColor.colorRailHover : AppColor.colorAppBackground,
-              child: Row(
-                  children: [
-                    SizedBox(width: 12.w),
-                    SvgIconWidget(name: AppImage.svgPatientDetailInformation),
-                    SizedBox(width: 20.w),
-                    Text('Information', style: selectedIndex == 0 ? AppStyle.styleRecordVitalSignsActive : AppStyle.styleRecordVitalSignsInactive)
-                  ]
-              )
-          ),
-        ),
-        SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () => onTap(1),
-          child: CustomTrailingWidget(
-              height: 48.h,
-              width: double.infinity,
-              backgroundColor: selectedIndex == 1 ? AppColor.colorRailHover : AppColor.colorAppBackground,
-              child: Row(
-                  children: [
-                    SizedBox(width: 12.w),
-                    SvgIconWidget(name: AppImage.svgPatientDetailAssessment),
-                    SizedBox(width: 20.w),
-                    Text('Assessment', style: selectedIndex == 1 ? AppStyle.styleRecordVitalSignsActive : AppStyle.styleRecordVitalSignsInactive)
-                  ]
-              )
-          ),
-        ),
-        SizedBox(height: 16.h),
-        GestureDetector(
-          onTap: () => onTap(2),
-          child: CustomTrailingWidget(
-              height: 48.h,
-              width: double.infinity,
-              backgroundColor: selectedIndex == 2 ? AppColor.colorRailHover : AppColor.colorAppBackground,
-              child: Row(
-                  children: [
-                    SizedBox(width: 12.w),
-                    SvgIconWidget(name: AppImage.svgPatientDetailNote),
-                    SizedBox(width: 20.w),
-                    Text('Note', style: selectedIndex == 2 ? AppStyle.styleRecordVitalSignsActive : AppStyle.styleRecordVitalSignsInactive)
-                  ]
-              )
-          ),
-        ),
-        const Spacer(),
-        GestureDetector(
-          onTap: () => widget.onTapPrimaryButton?.call(),
-          child: CustomTrailingWidget(
-              height: 48.h,
-              width: double.infinity,
-              backgroundColor: AppColor.colorBackgroundSearch,
-              child: Center(child: Text('Delete', style: AppStyle.styleCancelAssessment))
-          ),
-        ),
-      ],
-    );
-  }
-
-  void onTap(int index) {
-    widget.onTap?.call(index);
-    setState(() => selectedIndex = index);
-  }
-}
-
