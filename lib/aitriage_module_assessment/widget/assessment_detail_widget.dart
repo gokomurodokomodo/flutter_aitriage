@@ -31,7 +31,7 @@ class _AssessmentDetailWidgetState extends State<AssessmentDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700.h,
+      height: 720.h,
       width: 325.w,
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
@@ -40,6 +40,7 @@ class _AssessmentDetailWidgetState extends State<AssessmentDetailWidget> {
       ),
       child: Column(
         children: [
+          SizedBox(height: 20.h),
           SizedBox(
             width: 136.r,
             height: 136.r,
@@ -66,15 +67,11 @@ class _AssessmentDetailWidgetState extends State<AssessmentDetailWidget> {
               Text('vm.patientAge', style: AppStyle.styleTextButtonBackToLogin)
             ],
           ),
-          SizedBox(height: 8.h),
+          SizedBox(height: 20.h),
           ColorButton(
               title: 'Add note',
               shouldEnableBackground: true,
-              width: 130.w,
-              leftIcon: SvgIconWidget(
-                  name: AppImage.svgPlus,
-                  size: 20.r,
-                  color: AppColor.colorAppBackground).marginOnly(right: 10.w)),
+              width: 130.w),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20.h),
             width: double.infinity,
